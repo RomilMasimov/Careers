@@ -1,0 +1,71 @@
+using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
+using Careers.EF;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
+namespace Careers
+{
+    
+    public class Startup
+    {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
+
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
+        {
+            var cities = new Dictionary<string, string>();
+            cities.Add("1", "Baku");
+            cities.Add("2", "Quba");
+            cities.Add("3", "Ganca");
+            var json = JsonSerializer.Serialize(cities);
+            File.WriteAllText("cities.json", json);
+
+
+
+            services.AddDbContext<CareersDbContext>(options =>
+                {
+                    options.UseSqlServer(Configuration.GetConnectionString("Default"));
+                });
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+        }
+
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+
+            app.UseRouting();
+
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
+        }
+    }
+}

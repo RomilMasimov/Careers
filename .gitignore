@@ -3,3 +3,6 @@
 ################################################################################
 
 /.vs/Careers
+/Careers/obj
+Careers/.vscode/launch.json
+Careers/.vscode/tasks.json
