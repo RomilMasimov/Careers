@@ -1,21 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Careers.Models
 {
     public class Specialist
     {
-        public string Speciality { get; set; }
-        public IEnumerable<MeetingPoint> WhereAccept { get; set; }
-        public IEnumerable<MeetingPoint> WhereCanGo { get; set; }
+        public int Id { get; set; }
+
+        //public string Speciality { get; set; }
+        
         public string About { get; set; }
-        public IEnumerable<Education> Educations { get; set; }
-        public IEnumerable<Experience> Experiences { get; set; }
         public string AdditionalInfo { get; set; }
-        public IEnumerable<string> DocsCertificates { get; set; }
-        public IEnumerable<ServicePrice> ServicesPrices { get; set; }
-        public IEnumerable<string> MyWorkImages { get; set; }
-        public IEnumerable<Review> Reviews { get; set; }
+        //public IEnumerable<string> DocsCertificates { get; set; }
+        //public IEnumerable<ServicePrice> ServicesPrices { get; set; }
+        //public IEnumerable<string> MyWorkImagesUrl { get; set; }
+       
+        public int PersonId { get; set; }
+        public Person Person { get; set; }
+        public IEnumerable<WhereCanMeetSpecialist> WhereCanMeetList { get; set; }
+        public IEnumerable<WhereCanGoSpecialist> WhereCanGoList { get; set; }
+        public IEnumerable<Order> Orders { get; set; }
+
+
     }
 
    
