@@ -1,4 +1,6 @@
-﻿namespace Careers.Models
+﻿using System.Collections.Generic;
+
+namespace Careers.Models
 {
     public class City
     {
@@ -7,5 +9,6 @@
 
         public int CountryId { get; set; }
         public Country Country { get; set; }
+        public IEnumerable<Specialist> Specialists { get; set; }
     }
 }

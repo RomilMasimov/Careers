@@ -24,19 +24,12 @@ namespace Careers
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var cities = new Dictionary<string, string>();
-            cities.Add("1", "Baku");
-            cities.Add("2", "Quba");
-            cities.Add("3", "Ganca");
-            var json = JsonSerializer.Serialize(cities);
-            File.WriteAllText("cities.json", json);
-
-
 
             services.AddDbContext<CareersDbContext>(options =>
                 {
                     options.UseSqlServer(Configuration.GetConnectionString("Default"));
                 });
+
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
         }
 
