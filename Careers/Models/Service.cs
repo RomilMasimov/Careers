@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿    using System.Collections.Generic;
 
 namespace Careers.Models
 {
@@ -7,9 +7,12 @@ namespace Careers.Models
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public int CategoryId { get; set; }
-        public Category Category { get; set; }
+        public int SubCategoryId { get; set; }
+        public SubCategory SubCategory { get; set; }
         public IEnumerable<ServicePrice> ServicePrices { get; set; }
         public IEnumerable<Review> Reviews { get; set; }
+        public IEnumerable<SpecialistService> SpecialistServices { get; set; }
+
+
     }
 }

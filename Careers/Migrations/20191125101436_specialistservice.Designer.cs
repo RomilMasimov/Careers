@@ -4,14 +4,16 @@ using Careers.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Careers.Migrations
 {
     [DbContext(typeof(CareersDbContext))]
-    partial class CareersDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191125101436_specialistservice")]
+    partial class specialistservice
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

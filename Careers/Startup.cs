@@ -1,7 +1,8 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 using Careers.EF;
+using Careers.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +12,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace Careers
 {
-    
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -26,11 +27,14 @@ namespace Careers
         {
 
             services.AddDbContext<CareersDbContext>(options =>
-                {
-                    options.UseSqlServer(Configuration.GetConnectionString("Default"));
-                });
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("Default"));
+            });
+
+            services.AddScoped<CareersDbService>();
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

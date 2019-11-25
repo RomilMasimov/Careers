@@ -4,14 +4,16 @@ using Careers.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Careers.Migrations
 {
     [DbContext(typeof(CareersDbContext))]
-    partial class CareersDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191125085551_structureofservice")]
+    partial class structureofservice
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -393,28 +395,6 @@ namespace Careers.Migrations
                     b.ToTable("Specialists");
                 });
 
-            modelBuilder.Entity("Careers.Models.SpecialistService", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ServiceId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SpecialistId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ServiceId");
-
-                    b.HasIndex("SpecialistId");
-
-                    b.ToTable("SpecialistServices");
-                });
-
             modelBuilder.Entity("Careers.Models.SubCategory", b =>
                 {
                     b.Property<int>("Id")
@@ -620,21 +600,6 @@ namespace Careers.Migrations
                     b.HasOne("Careers.Models.Person", "Person")
                         .WithMany()
                         .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Careers.Models.SpecialistService", b =>
-                {
-                    b.HasOne("Careers.Models.Service", "Service")
-                        .WithMany("SpecialistServices")
-                        .HasForeignKey("ServiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Careers.Models.Specialist", "Specialist")
-                        .WithMany("SpecialistServices")
-                        .HasForeignKey("SpecialistId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

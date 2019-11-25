@@ -10,16 +10,21 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Careers.Models;
+using Careers.Services;
 
 namespace Careers.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly CareersDbService _service;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(CareersDbService service)
         {
-            _logger = logger;
+            _service = service;
+            var excel = new ExcelService();
+            var res = excel.GetSubCategories();
+            if(res!=null)
+            _service.addCategories(res);
         }
 
         public IActionResult Index()

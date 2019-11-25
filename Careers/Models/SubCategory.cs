@@ -1,4 +1,6 @@
-﻿namespace Careers.Models
+﻿using System.Collections.Generic;
+
+namespace Careers.Models
 {
     public class SubCategory
     {
@@ -7,5 +9,7 @@
 
         public int CategoryId { get; set; }
         public Category Category { get; set; }
+        public IEnumerable<Service> Services { get; set; }
+
     }
 }
