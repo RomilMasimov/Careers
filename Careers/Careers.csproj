@@ -20,4 +20,13 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="Services\LocationsService\" />
+    <Folder Include="Services\MeetingPointsService\" />
+    <Folder Include="Services\ServicesService\" />
+    <Folder Include="Services\OrdersSerivce\" />
+    <Folder Include="Services\QuestionsService\" />
+  </ItemGroup>
+
 </Project>
