@@ -8,6 +8,5 @@ namespace Careers.Models
         public string Description { get; set; }
 
         public IEnumerable<SubCategory> SubCategories { get; set; }
-        public IEnumerable<Question> Questions { get; set; }
     }
 }

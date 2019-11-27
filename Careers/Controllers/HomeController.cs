@@ -12,10 +12,10 @@ namespace Careers.Controllers
         public HomeController(CareersDbService service)
         {
             _service = service;
-            var excel = new ExcelService();
-            var res = excel.GetSubCategories();
-            if(res!=null)
-            _service.addCategories(res);
+            //var excel = new ExcelService();
+            //var res = excel.GetSubCategories();
+            //if(res!=null)
+            //_service.addCategories(res);
         }
 
         public IActionResult Index()
