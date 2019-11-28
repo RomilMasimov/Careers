@@ -5,6 +5,17 @@
     <Platforms>AnyCPU;x86;x64</Platforms>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Services\LocationsService\**" />
+    <Compile Remove="Services\ServicesService\**" />
+    <Content Remove="Services\LocationsService\**" />
+    <Content Remove="Services\ServicesService\**" />
+    <EmbeddedResource Remove="Services\LocationsService\**" />
+    <EmbeddedResource Remove="Services\ServicesService\**" />
+    <None Remove="Services\LocationsService\**" />
+    <None Remove="Services\ServicesService\**" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="IronXL.Excel" Version="2019.5.2" />
@@ -22,9 +33,7 @@
 
 
   <ItemGroup>
-    <Folder Include="Services\LocationsService\" />
     <Folder Include="Services\MeetingPointsService\" />
-    <Folder Include="Services\ServicesService\" />
     <Folder Include="Services\OrdersSerivce\" />
     <Folder Include="Services\QuestionsService\" />
   </ItemGroup>

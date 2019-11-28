@@ -1,10 +1,8 @@
-﻿using Careers.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Careers.Models;
 
-namespace Careers.Services.SpecialistsService
+namespace Careers.Services.Interfaces
 {
     public interface ISpecialistsService
     {

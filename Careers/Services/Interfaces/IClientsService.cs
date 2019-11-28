@@ -1,10 +1,7 @@
-﻿using Careers.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Careers.Models;
 
-namespace Careers.Services.ClientsService
+namespace Careers.Services.Interfaces
 {
     public interface IClientsService
     {
