@@ -8,7 +8,7 @@ namespace Careers.Services.Interfaces
     {
         //meeting point type
         Task<MeetingPointType> InsertMeetingPointTypeAsync(string name);
-        Task<MeetingPointType> EditMeetingPointTypeAsync(MeetingPointType meetingPointType);
+        Task<MeetingPointType> UpdateMeetingPointTypeAsync(MeetingPointType meetingPointType);
         Task<bool> DeleteMeetingPointTypeAsync(MeetingPointType meetingPointType);
         Task<IEnumerable<MeetingPointType>> FindAllMeetingPointTypesAsync();
 

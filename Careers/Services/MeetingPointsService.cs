@@ -2,61 +2,83 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Careers.EF;
 using Careers.Models;
 using Careers.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Careers.Services
 {
-    public class MeetingPointsService:IMeetingPointsService
+    public class MeetingPointsService : IMeetingPointsService
     {
-        public Task<MeetingPointType> InsertMeetingPointTypeAsync(string name)
+        private readonly CareersDbContext context;
+
+        public MeetingPointsService(CareersDbContext context)
         {
-            throw new NotImplementedException();
+            this.context = context;
+        }
+        public async Task<MeetingPointType> InsertMeetingPointTypeAsync(string name)
+        {
+            var type = await context.MeetingPointTypes.AddAsync(new MeetingPointType { Name = name.ToLower() });
+            await context.SaveChangesAsync();
+            return type.Entity;
         }
 
-        public Task<MeetingPointType> EditMeetingPointTypeAsync(MeetingPointType meetingPointType)
+        public async Task<MeetingPointType> UpdateMeetingPointTypeAsync(MeetingPointType meetingPointType)
         {
-            throw new NotImplementedException();
+            context.MeetingPointTypes.Update(meetingPointType);
+            await context.SaveChangesAsync();
+            return meetingPointType;
         }
 
-        public Task<bool> DeleteMeetingPointTypeAsync(MeetingPointType meetingPointType)
+        public async Task<bool> DeleteMeetingPointTypeAsync(MeetingPointType meetingPointType)
         {
-            throw new NotImplementedException();
+            context.MeetingPointTypes.Remove(meetingPointType);
+            await context.SaveChangesAsync();
+            return true;
         }
 
-        public Task<IEnumerable<MeetingPointType>> FindAllMeetingPointTypesAsync()
+
+        public async Task<IEnumerable<MeetingPointType>> FindAllMeetingPointTypesAsync()
         {
-            throw new NotImplementedException();
+            return await context.MeetingPointTypes.ToListAsync();
         }
 
-        public Task<MeetingPoint> InsertMeetingPointAsync(MeetingPoint meetingPoint)
+        public async Task<MeetingPoint> InsertMeetingPointAsync(MeetingPoint meetingPoint)
         {
-            throw new NotImplementedException();
+            meetingPoint.Id = 0;
+            var result = await context.MeetingPoints.AddAsync(meetingPoint);
+            await context.SaveChangesAsync();
+            return result.Entity;
         }
 
-        public Task<MeetingPoint> UpdateMeetingPointAsync(MeetingPoint meetingPoint)
+        public async Task<MeetingPoint> UpdateMeetingPointAsync(MeetingPoint meetingPoint)
         {
-            throw new NotImplementedException();
+            context.MeetingPoints.Update(meetingPoint);
+            await context.SaveChangesAsync();
+            return meetingPoint;
         }
 
-        public Task<bool> DeleteMeetingPointAsync(MeetingPoint meetingPoint)
+        public async Task<bool> DeleteMeetingPointAsync(MeetingPoint meetingPoint)
         {
-            throw new NotImplementedException();
+            context.MeetingPoints.Remove(meetingPoint);
+            await context.SaveChangesAsync();
+            return true;
         }
 
-        public Task<MeetingPoint> FindAsync(int id)
+        public async Task<MeetingPoint> FindAsync(int id)
         {
-            throw new NotImplementedException();
+            return await context.MeetingPoints.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public Task<MeetingPoint> FindAsync(string description)
+        public async Task<MeetingPoint> FindAsync(string description)
         {
-            throw new NotImplementedException();
+            return await context.MeetingPoints.FirstOrDefaultAsync(x => x.Description == description);
         }
 
-        public Task<IEnumerable<MeetingPoint>> FindAllAsync()
+        public async Task<IEnumerable<MeetingPoint>> FindAllAsync()
         {
-            throw new NotImplementedException();
+            return await context.MeetingPoints.ToListAsync();
         }
     }
 }

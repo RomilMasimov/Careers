@@ -17,6 +17,8 @@ namespace Careers.Services
 
         public async Task<Client> InsertAsync(Client client)
         {
+            client.Person.Id = 0;
+            client.Id = 0;
             var person = await context.Persons.AddAsync(client.Person);
             client.Person = person.Entity;
             var result = await context.Clients.AddAsync(client);
