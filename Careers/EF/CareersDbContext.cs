@@ -104,6 +104,19 @@ namespace Careers.EF
                 .WithMany(cml => cml.QuestionAnswers)
                 .HasForeignKey(si => si.QuestionId);
 
+            modelBuilder.Entity<SpecialistAnswer>()
+              .HasOne(pt => pt.Answer)
+              .WithMany(b => b.SpecialistAnswers)
+              .HasForeignKey(pt => pt.AnswerId);
+
+            modelBuilder.Entity<SpecialistAnswer>()
+                .HasOne(pt => pt.Specialist)
+                .WithMany(b => b.SpecialistAnswers)
+                .HasForeignKey(pt => pt.SpecialistId);
+
+            modelBuilder.Entity<Measure>()
+                .Property(b => b.Name)
+                .IsRequired();
         }
 
         public DbSet<AnswerOrder> AnswerOrders { get; set; }
@@ -131,6 +144,8 @@ namespace Careers.EF
         public DbSet<OrderSpecialist> OrderSpecialists { get; set; }
         public DbSet<DefaultQuestion> DefaultQuestions { get; set; }
         public DbSet<OrderSchedule> OrderSchedules { get; set; }
+        public DbSet<SpecialistAnswer> SpecialistAnswers { get; set; }
+      
 
 
     }
