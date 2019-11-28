@@ -12,7 +12,7 @@ namespace Careers.Models
         public Specialist Specialist { get; set; }
         public int? SpecialistId { get; set; }
         public IEnumerable<OrderMeetingPoint> OrderMeetingPoints { get; set; }
-        public IEnumerable<Review> Reviews { get; set; }
+        public IEnumerable<OrderReview> OrderReviews { get; set; }
         private IEnumerable<Answer> Details { get; set; }
 
     }

@@ -7,7 +7,7 @@ namespace Careers.Services.Interfaces
     {
         Task<Client> AddAsync(Client client);
         Task<Client> UpdateAsync(Client client);
-        Task<Client> DeleteAsync(Client client);
+        Task<bool> DeleteAsync(Client client);
         Task<Client> FindAsync(int id,bool withOrders=false);
 
     }

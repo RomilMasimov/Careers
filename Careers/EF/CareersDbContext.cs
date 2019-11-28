@@ -61,6 +61,15 @@ namespace Careers.EF
                 .WithMany(cml => cml.SpecialistServices)
                 .HasForeignKey(si => si.ServiceId);
 
+            modelBuilder.Entity<OrderReview>()
+                .HasOne(pt => pt.Order)
+                .WithMany(p => p.OrderReviews)
+                .HasForeignKey(pt => pt.OrderId);
+
+            modelBuilder.Entity<OrderReview>()
+                .HasOne(s => s.Review)
+                .WithMany(cml => cml.OrderReviews)
+                .HasForeignKey(si => si.ReviewId);
 
         }
 
@@ -84,6 +93,7 @@ namespace Careers.EF
         public DbSet<WhereCanGoSpecialist> WhereCanGoSpecialists { get; set; }
         public DbSet<WhereCanMeetSpecialist> WhereCanMeetSpecialists { get; set; }
         public DbSet<SpecialistService> SpecialistServices { get; set; }
+        public DbSet<OrderReview> OrderReviews { get; set; }
 
     }
 }

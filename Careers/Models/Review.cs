@@ -12,12 +12,11 @@ namespace Careers.Models
         public int LikeCount { get; set; }
         public int DisLikeCount { get; set; }
 
-        public int OrderId { get; set; }
-        public Order Order { get; set; }
         public int ClientId { get; set; }
         public Client Client { get; set; }
         public int ServiceId { get; set; }
         public Service Service { get; set; }
+        public IEnumerable<OrderReview> OrderReviews { get; set; }
         public IEnumerable<ReviewMedia> ImagePathes { get; set; }
     }
 }

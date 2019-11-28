@@ -1,41 +1,52 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Careers.EF;
 using Careers.Models;
 using Careers.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Careers.Services
 {
     public class ClientsService : IClientsService
     {
-        private readonly CareersDbContext _context;
+        private readonly CareersDbContext context;
 
         public ClientsService(CareersDbContext context)
         {
-            _context = context;
+            this.context = context;
         }
 
         public async Task<Client> AddAsync(Client client)
         {
-            var person = await _context.Persons.AddAsync(client.Person);
+            var person = await context.Persons.AddAsync(client.Person);
             client.Person = person.Entity;
-            var result = await _context.Clients.AddAsync(client);
+            var result = await context.Clients.AddAsync(client);
+            await context.SaveChangesAsync();
             return result.Entity;
         }
 
         public async Task<Client> UpdateAsync(Client client)
         {
-            throw new NotImplementedException();
+            context.Clients.Update(client);
+            await context.SaveChangesAsync();
+            return client;
         }
 
-        public async Task<Client> DeleteAsync(Client client)
+        public async Task<bool> DeleteAsync(Client client)
         {
-            throw new NotImplementedException();
+            context.Clients.Remove(client);
+            await context.SaveChangesAsync();
+            return true;
         }
 
         public async Task<Client> FindAsync(int id, bool withOrders = false)
         {
-            throw new NotImplementedException();
+            if (!withOrders) return await context.Clients
+                .Include(x => x.Person)
+                .FirstOrDefaultAsync(x => x.Id == id);
+            return await context.Clients
+                .Include(x => x.Person)
+                .Include(x => x.Orders)
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
     }
 }
