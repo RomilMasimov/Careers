@@ -9,7 +9,6 @@ namespace Careers.Models
 
         public int SubCategoryId { get; set; }
         public SubCategory SubCategory { get; set; }
-        public IEnumerable<ServicePrice> ServicePrices { get; set; }
         public IEnumerable<Review> Reviews { get; set; }
         public IEnumerable<SpecialistService> SpecialistServices { get; set; }
 

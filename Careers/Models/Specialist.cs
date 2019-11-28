@@ -7,7 +7,7 @@ namespace Careers.Models
         public int Id { get; set; }
 
         //public string Speciality { get; set; }
-        
+
         public string About { get; set; }
         public string AdditionalInfo { get; set; }
         //public IEnumerable<string> DocsCertificates { get; set; }
@@ -20,10 +20,10 @@ namespace Careers.Models
         public Person Person { get; set; }
         public IEnumerable<WhereCanMeetSpecialist> WhereCanMeetList { get; set; }
         public IEnumerable<WhereCanGoSpecialist> WhereCanGoList { get; set; }
-        public IEnumerable<Order> Orders { get; set; }
+        public IEnumerable<OrderSpecialist> OrderSpecialists { get; set; }
         public IEnumerable<SpecialistService> SpecialistServices { get; set; }
 
     }
 
-   
+
 }

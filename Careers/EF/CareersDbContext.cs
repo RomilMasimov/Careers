@@ -41,10 +41,10 @@ namespace Careers.EF
                 .WithMany(b => b.FromAnswers)
                 .HasForeignKey(p => p.NextQuestionId);
 
-             modelBuilder.Entity<OrderMeetingPoint>()
-                .HasOne(pt => pt.MeetingPoint)
-                .WithMany(p => p.OrderMeetingPoints)
-                .HasForeignKey(pt => pt.MeetingPointId);
+            modelBuilder.Entity<OrderMeetingPoint>()
+               .HasOne(pt => pt.MeetingPoint)
+               .WithMany(p => p.OrderMeetingPoints)
+               .HasForeignKey(pt => pt.MeetingPointId);
 
             modelBuilder.Entity<OrderMeetingPoint>()
                 .HasOne(s => s.Order)
@@ -71,8 +71,43 @@ namespace Careers.EF
                 .WithMany(cml => cml.OrderReviews)
                 .HasForeignKey(si => si.ReviewId);
 
+
+
+
+            modelBuilder.Entity<AnswerOrder>()
+                .HasOne(pt => pt.Answer)
+                .WithMany(p => p.AnswerOrders)
+                .HasForeignKey(pt => pt.AnswerId);
+
+            modelBuilder.Entity<AnswerOrder>()
+                .HasOne(s => s.Order)
+                .WithMany(cml => cml.AnswerOrders)
+                .HasForeignKey(si => si.OrderId);
+
+            modelBuilder.Entity<OrderSpecialist>()
+                .HasOne(pt => pt.Order)
+                .WithMany(p => p.OrderSpecialists)
+                .HasForeignKey(pt => pt.OrderId);
+
+            modelBuilder.Entity<OrderSpecialist>()
+                .HasOne(s => s.Order)
+                .WithMany(cml => cml.OrderSpecialists)
+                .HasForeignKey(si => si.SpecialistId);
+
+            modelBuilder.Entity<QuestionAnswer>()
+                .HasOne(pt => pt.Question)
+                .WithMany(p => p.QuestionAnswers)
+                .HasForeignKey(pt => pt.QuestionId);
+
+            modelBuilder.Entity<QuestionAnswer>()
+                .HasOne(s => s.Question)
+                .WithMany(cml => cml.QuestionAnswers)
+                .HasForeignKey(si => si.QuestionId);
+
         }
 
+        public DbSet<AnswerOrder> AnswerOrders { get; set; }
+        public DbSet<QuestionAnswer> QuestionAnswers { get; set; }
         public DbSet<Person> Persons { get; set; }
         public DbSet<Specialist> Specialists { get; set; }
         public DbSet<Client> Clients { get; set; }
@@ -84,7 +119,6 @@ namespace Careers.EF
         public DbSet<Category> Categories { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<Service> Services { get; set; }
-        public DbSet<ServicePrice> ServicePrices { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Question> Questions { get; set; }
@@ -94,6 +128,10 @@ namespace Careers.EF
         public DbSet<WhereCanMeetSpecialist> WhereCanMeetSpecialists { get; set; }
         public DbSet<SpecialistService> SpecialistServices { get; set; }
         public DbSet<OrderReview> OrderReviews { get; set; }
+        public DbSet<OrderSpecialist> OrderSpecialists { get; set; }
+        public DbSet<DefaultQuestion> DefaultQuestions { get; set; }
+        public DbSet<OrderSchedule> OrderSchedules { get; set; }
+
 
     }
 }
