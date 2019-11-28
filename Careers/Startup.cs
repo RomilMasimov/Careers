@@ -1,5 +1,6 @@
 ﻿using Careers.EF;
 using Careers.Services;
+using Careers.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -22,11 +23,13 @@ namespace Careers
         public void ConfigureServices(IServiceCollection services)
         {
 
+
             services.AddDbContext<CareersDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("Default"));
             });
-
+            services.AddTransient<LocationsService>();
+            services.AddTransient<IClientsService, ClientsService>();
             services.AddScoped<CareersDbService>();
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();

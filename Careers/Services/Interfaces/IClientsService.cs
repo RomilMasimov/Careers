@@ -5,10 +5,10 @@ namespace Careers.Services.Interfaces
 {
     public interface IClientsService
     {
-        Task InsertAsync(Client client);
-        Task UpdateAsync(Client client);
-        Task DeleteAsync(Client client);
+        Task<Client> AddAsync(Client client);
+        Task<Client> UpdateAsync(Client client);
+        Task<Client> DeleteAsync(Client client);
+        Task<Client> FindAsync(int id,bool withOrders=false);
 
-        Task<Client> FindAsync(int id);
     }
 }
