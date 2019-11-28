@@ -15,7 +15,7 @@ namespace Careers.Services
             this.context = context;
         }
 
-        public async Task<Client> AddAsync(Client client)
+        public async Task<Client> InsertAsync(Client client)
         {
             var person = await context.Persons.AddAsync(client.Person);
             client.Person = person.Entity;

@@ -44,7 +44,7 @@ namespace Careers.Controllers
                 Person = person
             };
 
-            await _clientsService.AddAsync(client);
+            await _clientsService.InsertAsync(client);
             return View();
         }
 

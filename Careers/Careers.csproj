@@ -7,12 +7,16 @@
 
   <ItemGroup>
     <Compile Remove="Services\LocationsService\**" />
+    <Compile Remove="Services\MeetingPointsService\**" />
     <Compile Remove="Services\ServicesService\**" />
     <Content Remove="Services\LocationsService\**" />
+    <Content Remove="Services\MeetingPointsService\**" />
     <Content Remove="Services\ServicesService\**" />
     <EmbeddedResource Remove="Services\LocationsService\**" />
+    <EmbeddedResource Remove="Services\MeetingPointsService\**" />
     <EmbeddedResource Remove="Services\ServicesService\**" />
     <None Remove="Services\LocationsService\**" />
+    <None Remove="Services\MeetingPointsService\**" />
     <None Remove="Services\ServicesService\**" />
   </ItemGroup>
 
@@ -33,7 +37,6 @@
 
 
   <ItemGroup>
-    <Folder Include="Services\MeetingPointsService\" />
     <Folder Include="Services\OrdersSerivce\" />
     <Folder Include="Services\QuestionsService\" />
   </ItemGroup>
