@@ -30,7 +30,6 @@ namespace Careers
             });
             services.AddTransient<LocationsService>();
             services.AddTransient<IClientsService, ClientsService>();
-            services.AddScoped<CareersDbService>();
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
