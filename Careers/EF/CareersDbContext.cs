@@ -70,10 +70,7 @@ namespace Careers.EF
                 .HasOne(s => s.Review)
                 .WithMany(cml => cml.OrderReviews)
                 .HasForeignKey(si => si.ReviewId);
-
-
-
-
+            
             modelBuilder.Entity<AnswerOrder>()
                 .HasOne(pt => pt.Answer)
                 .WithMany(p => p.AnswerOrders)
@@ -118,15 +115,7 @@ namespace Careers.EF
                 .Property(b => b.Name)
                 .IsRequired();
 
-            modelBuilder.Entity<MessageMediaPath>()
-            .HasOne(pt => pt.Message)
-            .WithMany(p => p.MessageMediaPaths)
-            .HasForeignKey(pt => pt.MessageId);
-
-            modelBuilder.Entity<MessageMediaPath>()
-                .HasOne(pt => pt.MediaPath)
-                .WithMany(t => t.MessageMediaPaths)
-                .HasForeignKey(pt => pt.MediaPathId);
+           
         }
 
         public DbSet<AnswerOrder> AnswerOrders { get; set; }
