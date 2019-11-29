@@ -117,6 +117,16 @@ namespace Careers.EF
             modelBuilder.Entity<Measure>()
                 .Property(b => b.Name)
                 .IsRequired();
+
+            modelBuilder.Entity<MessageMediaPath>()
+            .HasOne(pt => pt.Message)
+            .WithMany(p => p.MessageMediaPaths)
+            .HasForeignKey(pt => pt.MessageId);
+
+            modelBuilder.Entity<MessageMediaPath>()
+                .HasOne(pt => pt.MediaPath)
+                .WithMany(t => t.MessageMediaPaths)
+                .HasForeignKey(pt => pt.MediaPathId);
         }
 
         public DbSet<AnswerOrder> AnswerOrders { get; set; }
