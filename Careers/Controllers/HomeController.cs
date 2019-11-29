@@ -24,27 +24,8 @@ namespace Careers.Controllers
             //_service.addCategories(res);
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var person = new Person
-            {
-                Name = "imran",
-                Surname = "veliyev",
-                Fathername = "vahid",
-                Gender = true,
-                DateOfBirth = new DateTime(1997, 6, 12),
-                Login = "imran",
-                Password = "imran",
-                Email = "sayrus719@gmail.com",
-                Mobile = "+994507190012",
-
-            };
-            var client = new Client
-            {
-                Person = person
-            };
-
-            await _clientsService.InsertAsync(client);
             return View();
         }
 

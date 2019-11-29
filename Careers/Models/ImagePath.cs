@@ -2,11 +2,9 @@
 
 namespace Careers.Models
 {
-    public class MediaPath
+    public class ImagePath
     {
         public int Id { get; set; }
         public string Path { get; set; }
-        public IEnumerable<MessageMediaPath> MessageMediaPaths { get; set; }
-
     }
 }

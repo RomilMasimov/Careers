@@ -111,16 +111,17 @@ namespace Careers.EF
                 .WithMany(b => b.SpecialistAnswers)
                 .HasForeignKey(pt => pt.SpecialistId);
 
-            modelBuilder.Entity<Measure>()
-                .Property(b => b.Name)
+            modelBuilder.Entity<Measurement>()
+                .Property(b => b.TextAZ)
                 .IsRequired();
-
-           
+            
+            modelBuilder.Entity<Measurement>()
+                .Property(b => b.TextRU)
+                .IsRequired();
         }
 
         public DbSet<AnswerOrder> AnswerOrders { get; set; }
         public DbSet<QuestionAnswer> QuestionAnswers { get; set; }
-        public DbSet<Person> Persons { get; set; }
         public DbSet<Specialist> Specialists { get; set; }
         public DbSet<Client> Clients { get; set; }
         public DbSet<Country> Countries { get; set; }
