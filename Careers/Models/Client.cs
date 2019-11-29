@@ -9,5 +9,7 @@ namespace Careers.Models
         public int PersonId { get; set; }
         public Person Person { get; set; }
         public IEnumerable<Order> Orders { get; set; }
+        public IEnumerable<UserSpecialistMessages> UserSpecialistMessageses { get; set; }
+
     }
 }

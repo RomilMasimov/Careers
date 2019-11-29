@@ -23,6 +23,7 @@ namespace Careers.Models
         public IEnumerable<OrderSpecialist> OrderSpecialists { get; set; }
         public IEnumerable<SpecialistService> SpecialistServices { get; set; }
         public IEnumerable<SpecialistAnswer> SpecialistAnswers { get; set; }
+        public IEnumerable<UserSpecialistMessages> UserSpecialistMessageses { get; set; }
 
     }
 }

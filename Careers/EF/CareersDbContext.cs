@@ -145,6 +145,7 @@ namespace Careers.EF
         public DbSet<DefaultQuestion> DefaultQuestions { get; set; }
         public DbSet<OrderSchedule> OrderSchedules { get; set; }
         public DbSet<SpecialistAnswer> SpecialistAnswers { get; set; }
+        public DbSet<UserSpecialistMessages> UserSpecialistMessages { get; set; }      
       
 
 
