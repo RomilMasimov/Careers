@@ -17,16 +17,19 @@ namespace Careers.Services
         {
             this.context = context;
         }
-        public Task DeleteCategoryAsync(Category category)
+        public async Task<bool> DeleteCategoryAsync(Category category)
         {
             context.Categories.Remove(category);
-            return context.SaveChangesAsync();
+            await context.SaveChangesAsync();
+            return true;
         }
 
-        public Task DeleteSubCategoryAsync(SubCategory subCategory)
+        public async Task<bool> DeleteSubCategoryAsync(SubCategory subCategory)
         {
             context.SubCategories.Remove(subCategory);
-            return context.SaveChangesAsync();
+            await context.SaveChangesAsync();
+            return true;
+
         }
 
         public async Task<IEnumerable<SubCategory>> FindAllSubCategories(int categoryId)
@@ -50,30 +53,34 @@ namespace Careers.Services
                 .ToListAsync();
         }
 
-        public async Task InsertCategoryAsync(Category category)
+        public async Task<Category> InsertCategoryAsync(Category category)
         {
             category.Id = 0;
-            await context.Categories.AddAsync(category);
+            var res = await context.Categories.AddAsync(category);
             await context.SaveChangesAsync();
+            return res.Entity;
         }
 
-        public async Task InsertSubCategoryAsync(SubCategory subCategory)
+        public async Task<SubCategory> InsertSubCategoryAsync(SubCategory subCategory)
         {
             subCategory.Id = 0;
-            await context.SubCategories.AddAsync(subCategory);
+            var res = await context.SubCategories.AddAsync(subCategory);
             await context.SaveChangesAsync();
+            return res.Entity;
         }
 
-        public async Task UpdateCategoryAsync(Category category)
+        public async Task<Category> UpdateCategoryAsync(Category category)
         {
-            context.Categories.Update(category);
+            var res = context.Categories.Update(category);
             await context.SaveChangesAsync();
+            return res.Entity;
         }
 
-        public async Task UpdateSubCategoryAsync(SubCategory subCategory)
+        public async Task<SubCategory> UpdateSubCategoryAsync(SubCategory subCategory)
         {
-            await context.SubCategories.Update(subCategory);
+            var res = context.SubCategories.Update(subCategory);
             await context.SaveChangesAsync();
+            return res.Entity;
         }
     }
 }
