@@ -61,15 +61,7 @@ namespace Careers.EF
                 .WithMany(cml => cml.SpecialistServices)
                 .HasForeignKey(si => si.ServiceId);
 
-            modelBuilder.Entity<OrderReview>()
-                .HasOne(pt => pt.Order)
-                .WithMany(p => p.OrderReviews)
-                .HasForeignKey(pt => pt.OrderId);
-
-            modelBuilder.Entity<OrderReview>()
-                .HasOne(s => s.Review)
-                .WithMany(cml => cml.OrderReviews)
-                .HasForeignKey(si => si.ReviewId);
+           
             
             modelBuilder.Entity<AnswerOrder>()
                 .HasOne(pt => pt.Answer)
@@ -81,24 +73,15 @@ namespace Careers.EF
                 .WithMany(cml => cml.AnswerOrders)
                 .HasForeignKey(si => si.OrderId);
 
-            modelBuilder.Entity<OrderSpecialist>()
-                .HasOne(pt => pt.Order)
-                .WithMany(p => p.OrderSpecialists)
-                .HasForeignKey(pt => pt.OrderId);
-
-            modelBuilder.Entity<OrderSpecialist>()
-                .HasOne(s => s.Order)
-                .WithMany(cml => cml.OrderSpecialists)
-                .HasForeignKey(si => si.SpecialistId);
-
+          
             modelBuilder.Entity<QuestionAnswer>()
                 .HasOne(pt => pt.Question)
-                .WithMany(p => p.QuestionAnswers)
+                .WithMany(p => p.QuestionAnswers).OnDelete(DeleteBehavior.NoAction)
                 .HasForeignKey(pt => pt.QuestionId);
 
             modelBuilder.Entity<QuestionAnswer>()
                 .HasOne(s => s.Question)
-                .WithMany(cml => cml.QuestionAnswers)
+                .WithMany(cml => cml.QuestionAnswers).OnDelete(DeleteBehavior.NoAction)
                 .HasForeignKey(si => si.QuestionId);
 
             modelBuilder.Entity<SpecialistAnswer>()
@@ -118,6 +101,7 @@ namespace Careers.EF
             modelBuilder.Entity<Measurement>()
                 .Property(b => b.TextRU)
                 .IsRequired();
+
         }
 
         public DbSet<AnswerOrder> AnswerOrders { get; set; }
@@ -140,13 +124,17 @@ namespace Careers.EF
         public DbSet<WhereCanGoSpecialist> WhereCanGoSpecialists { get; set; }
         public DbSet<WhereCanMeetSpecialist> WhereCanMeetSpecialists { get; set; }
         public DbSet<SpecialistService> SpecialistServices { get; set; }
-        public DbSet<OrderReview> OrderReviews { get; set; }
         public DbSet<OrderSpecialist> OrderSpecialists { get; set; }
         public DbSet<DefaultQuestion> DefaultQuestions { get; set; }
         public DbSet<OrderSchedule> OrderSchedules { get; set; }
         public DbSet<SpecialistAnswer> SpecialistAnswers { get; set; }
-        public DbSet<UserSpecialistMessages> UserSpecialistMessages { get; set; }      
-      
+        public DbSet<UserSpecialistMessage> UserSpecialistMessages { get; set; }
+        public DbSet<LanguageSpecialist> LanguageSpecialists { get; set; }
+        public DbSet<MyLanguage> Languages { get; set; }
+        public DbSet<SpecialistWork> SpecialistWorks { get; set; }
+        public DbSet<OrderStateType> OrderStateTypes { get; set; }
+        public DbSet<ReviewComment> ReviewComments { get; set; }
+        public DbSet<ServiceReview> ServiceReviews { get; set; }
 
 
     }

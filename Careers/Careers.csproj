@@ -37,6 +37,8 @@
 
 
   <ItemGroup>
+    <Folder Include="CommentsLog\" />
+    <Folder Include="MessagesLog\" />
     <Folder Include="Services\OrdersSerivce\" />
     <Folder Include="Services\QuestionsService\" />
   </ItemGroup>

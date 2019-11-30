@@ -1,10 +1,11 @@
 ﻿namespace Careers.Models
 {
-    public class OrderReview
+    public class ReviewComment
     {
         public int Id { get; set; }
-        public Order Order { get; set; }
-        public int OrderId { get; set; }
+        //path to json file
+        public string LogFilePath { get; set; }
+
         public Review Review { get; set; }
         public int ReviewId { get; set; }
     }

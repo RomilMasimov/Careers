@@ -29,10 +29,8 @@ namespace Careers
                 options.UseSqlServer(Configuration.GetConnectionString("Default"));
             });
             services.AddTransient<LocationsService>();
-            services.AddTransient<IClientsService, ClientsService>();
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
-
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

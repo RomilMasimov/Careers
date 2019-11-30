@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Careers.Models;
@@ -10,14 +11,13 @@ namespace Careers.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly CareersDbService _service;
-        private readonly IClientsService _clientsService;
 
-        public HomeController(CareersDbService service, IClientsService clientsService)
+
+        public HomeController()
         {
-            _service = service;
-            _clientsService = clientsService;
+           
 
+        
             //var excel = new ExcelService();
             //var res = excel.GetSubCategories();
             //if(res!=null)
