@@ -1,0 +1,1 @@
+﻿namespace Careers { public class SharedResource { } }

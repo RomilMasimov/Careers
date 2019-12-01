@@ -5,9 +5,7 @@ namespace Careers.EF
 {
     public class CareersDbContext : DbContext
     {
-        public CareersDbContext(DbContextOptions options) : base(options)
-        {
-        }
+        public CareersDbContext(DbContextOptions options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -64,7 +62,7 @@ namespace Careers.EF
             modelBuilder.Entity<Question>()
                 .Property(x => x.Type)
                 .HasDefaultValue(QuestionTypeEnum.Single);
-            
+
             modelBuilder.Entity<AnswerOrder>()
                 .HasOne(pt => pt.Answer)
                 .WithMany(p => p.AnswerOrders)
@@ -75,7 +73,7 @@ namespace Careers.EF
                 .WithMany(cml => cml.AnswerOrders)
                 .HasForeignKey(si => si.OrderId);
 
-          
+
             modelBuilder.Entity<QuestionAnswer>()
                 .HasOne(pt => pt.Question)
                 .WithMany(p => p.QuestionAnswers).OnDelete(DeleteBehavior.NoAction)
@@ -111,7 +109,7 @@ namespace Careers.EF
             modelBuilder.Entity<Measurement>()
                 .Property(b => b.TextAZ)
                 .IsRequired();
-            
+
             modelBuilder.Entity<Measurement>()
                 .Property(b => b.TextRU)
                 .IsRequired();
