@@ -8,7 +8,6 @@ namespace Careers.Services.Interfaces
         Task<Client> InsertAsync(Client client);
         Task<Client> UpdateAsync(Client client);
         Task<bool> DeleteAsync(Client client);
-        Task<Client> FindAsync(int id,bool withOrders=false);
-
+        Task<Client> FindAsync(int id, bool withOrders=false);
     }
 }
