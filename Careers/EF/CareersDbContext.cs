@@ -104,6 +104,10 @@ namespace Careers.EF
                 .Property(x => x.ReceiveNotifications)
                 .HasDefaultValue(true);
 
+            modelBuilder.Entity<Specialist>()
+                .Property(x => x.TakeOrders)
+                .HasDefaultValue(true);
+
             modelBuilder.Entity<Measurement>()
                 .Property(b => b.TextAZ)
                 .IsRequired();

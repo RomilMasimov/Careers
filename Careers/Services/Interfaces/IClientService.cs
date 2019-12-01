@@ -3,7 +3,7 @@ using Careers.Models;
 
 namespace Careers.Services.Interfaces
 {
-    public interface IClientsService
+    public interface IClientService
     {
         Task<Client> InsertAsync(Client client);
         Task<Client> UpdateAsync(Client client);

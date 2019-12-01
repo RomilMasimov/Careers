@@ -15,9 +15,8 @@ namespace Careers.Controllers
 
         public HomeController()
         {
-           
+            
 
-        
             //var excel = new ExcelService();
             //var res = excel.GetSubCategories();
             //if(res!=null)

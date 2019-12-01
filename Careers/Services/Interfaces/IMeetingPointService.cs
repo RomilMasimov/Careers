@@ -4,7 +4,7 @@ using Careers.Models;
 
 namespace Careers.Services.Interfaces
 {
-    interface IMeetingPointsService
+    interface IMeetingPointService
     {
         //meeting point type
         Task<MeetingPointType> InsertMeetingPointTypeAsync(string name);

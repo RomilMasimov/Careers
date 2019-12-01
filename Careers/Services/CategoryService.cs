@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Careers.Services
 {
-    public class CategoriesService : ICategoriesService
+    public class CategoryService : ICategoryService
     {
         private readonly CareersDbContext context;
 
-        public CategoriesService(CareersDbContext context)
+        public CategoryService(CareersDbContext context)
         {
             this.context = context;
         }

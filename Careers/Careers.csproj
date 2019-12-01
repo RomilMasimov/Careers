@@ -8,15 +8,23 @@
   <ItemGroup>
     <Compile Remove="Services\LocationsService\**" />
     <Compile Remove="Services\MeetingPointsService\**" />
+    <Compile Remove="Services\OrdersSerivce\**" />
+    <Compile Remove="Services\QuestionsService\**" />
     <Compile Remove="Services\ServicesService\**" />
     <Content Remove="Services\LocationsService\**" />
     <Content Remove="Services\MeetingPointsService\**" />
+    <Content Remove="Services\OrdersSerivce\**" />
+    <Content Remove="Services\QuestionsService\**" />
     <Content Remove="Services\ServicesService\**" />
     <EmbeddedResource Remove="Services\LocationsService\**" />
     <EmbeddedResource Remove="Services\MeetingPointsService\**" />
+    <EmbeddedResource Remove="Services\OrdersSerivce\**" />
+    <EmbeddedResource Remove="Services\QuestionsService\**" />
     <EmbeddedResource Remove="Services\ServicesService\**" />
     <None Remove="Services\LocationsService\**" />
     <None Remove="Services\MeetingPointsService\**" />
+    <None Remove="Services\OrdersSerivce\**" />
+    <None Remove="Services\QuestionsService\**" />
     <None Remove="Services\ServicesService\**" />
   </ItemGroup>
 
@@ -39,8 +47,6 @@
   <ItemGroup>
     <Folder Include="CommentsLog\" />
     <Folder Include="MessagesLog\" />
-    <Folder Include="Services\OrdersSerivce\" />
-    <Folder Include="Services\QuestionsService\" />
   </ItemGroup>
 
 </Project>

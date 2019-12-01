@@ -4,13 +4,17 @@ using Careers.Models;
 
 namespace Careers.Services.Interfaces
 {
-    public interface ISpecialistsService
+    public interface ISpecialistService
     {
-        Task InsertAsync(Specialist specialist);
-        Task UpdateAsync(Specialist specialist);
-        Task DeleteAsync(Specialist specialist);
+        Task<Specialist> InsertAsync(Specialist specialist);
+        Task<Specialist> UpdateAsync(Specialist specialist);
+        Task<bool> DeleteAsync(Specialist specialist);
 
         Task<Specialist> FindAsync(int id);
         Task<IEnumerable<Specialist>> FindAllAsync(Order order);
+        
+
+       
     }
+
 }

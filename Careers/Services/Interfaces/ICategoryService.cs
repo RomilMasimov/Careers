@@ -4,7 +4,7 @@ using Careers.Models;
 
 namespace Careers.Services.Interfaces
 {
-    public interface ICategoriesService
+    public interface ICategoryService
     {
         Task<Category> InsertCategoryAsync(Category category);
         Task<SubCategory> InsertSubCategoryAsync(SubCategory subCategory);

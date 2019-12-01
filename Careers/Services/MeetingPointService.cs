@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Careers.Services
 {
-    public class MeetingPointsService : IMeetingPointsService
+    public class MeetingPointService : IMeetingPointService
     {
         private readonly CareersDbContext context;
 
-        public MeetingPointsService(CareersDbContext context)
+        public MeetingPointService(CareersDbContext context)
         {
             this.context = context;
         }

@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Careers.Services
 {
-    public class ClientsService : IClientsService
+    public class ClientService : IClientService
     {
         private readonly CareersDbContext context;
 
-        public ClientsService(CareersDbContext context)
+        public ClientService(CareersDbContext context)
         {
             this.context = context;
         }

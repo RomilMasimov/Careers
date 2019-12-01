@@ -4,11 +4,11 @@ using Careers.Models;
 
 namespace Careers.Services.Interfaces
 {
-    interface IReviewsService
+    interface IReviewService
     {
-        Task InsertAsync(Review review);
-        Task UpdateAsync(Review review);
-        Task DeleteAsync(Review review);
+        Task<Review> InsertAsync(Review review);
+        Task<Review> UpdateAsync(Review review);
+        Task<bool> DeleteAsync(Review review);
 
         Task<IEnumerable<Review>> FindAllAsync(int orderId);
     }
