@@ -61,7 +61,9 @@ namespace Careers.EF
                 .WithMany(cml => cml.SpecialistServices)
                 .HasForeignKey(si => si.ServiceId);
 
-           
+            modelBuilder.Entity<Question>()
+                .Property(x => x.Type)
+                .HasDefaultValue(QuestionTypeEnum.Single);
             
             modelBuilder.Entity<AnswerOrder>()
                 .HasOne(pt => pt.Answer)
@@ -94,6 +96,14 @@ namespace Careers.EF
                 .WithMany(b => b.SpecialistAnswers)
                 .HasForeignKey(pt => pt.SpecialistId);
 
+            modelBuilder.Entity<Specialist>()
+                .Property(x => x.ReceiveMessages)
+                .HasDefaultValue(true);
+
+            modelBuilder.Entity<Specialist>()
+                .Property(x => x.ReceiveNotifications)
+                .HasDefaultValue(true);
+
             modelBuilder.Entity<Measurement>()
                 .Property(b => b.TextAZ)
                 .IsRequired();
@@ -101,6 +111,10 @@ namespace Careers.EF
             modelBuilder.Entity<Measurement>()
                 .Property(b => b.TextRU)
                 .IsRequired();
+
+            modelBuilder.Entity<Order>()
+                .Property(o => o.State)
+                .HasConversion<string>();
 
         }
 
@@ -132,7 +146,6 @@ namespace Careers.EF
         public DbSet<LanguageSpecialist> LanguageSpecialists { get; set; }
         public DbSet<MyLanguage> Languages { get; set; }
         public DbSet<SpecialistWork> SpecialistWorks { get; set; }
-        public DbSet<OrderStateType> OrderStateTypes { get; set; }
         public DbSet<ReviewComment> ReviewComments { get; set; }
         public DbSet<ServiceReview> ServiceReviews { get; set; }
 

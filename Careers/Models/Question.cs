@@ -7,6 +7,7 @@ namespace Careers.Models
         public int Id { get; set; }
         public string TextAZ { get; set; }
         public string TextRU { get; set; }
+        public QuestionTypeEnum Type { get; set; }
 
         public SubCategory SubCategory { get; set; }
         public int? SubCategoryId { get; set; }
