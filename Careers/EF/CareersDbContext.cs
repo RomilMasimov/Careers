@@ -118,6 +118,15 @@ namespace Careers.EF
                 .Property(o => o.State)
                 .HasConversion<string>();
 
+            modelBuilder.Entity<OrderResponce>()
+                .HasOne(pt => pt.Order)
+                .WithMany(b => b.OrderResponces)
+                .HasForeignKey(pt => pt.OrderId);
+
+            modelBuilder.Entity<OrderResponce>()
+                .HasOne(pt => pt.Specialis)
+                .WithMany(b => b.OrderResponces)
+                .HasForeignKey(pt => pt.SpecialisId);
         }
 
         public DbSet<AnswerOrder> AnswerOrders { get; set; }
@@ -150,7 +159,7 @@ namespace Careers.EF
         public DbSet<SpecialistWork> SpecialistWorks { get; set; }
         public DbSet<ReviewComment> ReviewComments { get; set; }
         public DbSet<ServiceReview> ServiceReviews { get; set; }
-
+        public DbSet<OrderResponce> OrderResponces { get; set; }
 
     }
 }

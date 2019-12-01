@@ -16,7 +16,8 @@ namespace Careers.Models
         public IEnumerable<Review> Reviews { get; set; }
         public IEnumerable<AnswerOrder> AnswerOrders { get; set; }
         public IEnumerable<OrderSchedule> OrderSchedules { get; set; }
-       // public IEnumerable<OrderSpecialist> OrderSpecialists { get; set; }
+        public IEnumerable<OrderResponce> OrderResponces { get; set; }
+        // public IEnumerable<OrderSpecialist> OrderSpecialists { get; set; }
 
 
     }
