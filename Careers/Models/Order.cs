@@ -6,6 +6,7 @@ namespace Careers.Models
     {
         public int Id { get; set; }
         public OrderStateTypeEnum State { get; set; }
+        public int Price { get; set; }
 
         public Client Client { get; set; }
         public int ClientId { get; set; }
