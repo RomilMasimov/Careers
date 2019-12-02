@@ -9,7 +9,7 @@
 
         public Order Order { get; set; }
         public int OrderId { get; set; }
-        public Specialist Specialis { get; set; }
+        public Specialist Specialist { get; set; }
         public int SpecialisId { get; set; }
     }
 }

@@ -125,9 +125,14 @@ namespace Careers.EF
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<OrderResponce>()
-                .HasOne(pt => pt.Specialis)
+                .HasOne(pt => pt.Specialist)
                 .WithMany(b => b.OrderResponces)
                 .HasForeignKey(pt => pt.SpecialisId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<UserSpecialistMessage>()
+                .HasOne(x => x.Order)
+                .WithMany(b => b.UserSpecialistMessages)
                 .OnDelete(DeleteBehavior.NoAction);
 
         }
