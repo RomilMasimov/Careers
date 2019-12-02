@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Careers.Models
+﻿namespace Careers.Models
 {
     public class ImagePath
     {

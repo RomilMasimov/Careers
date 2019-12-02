@@ -30,11 +30,7 @@ namespace Careers.Services
             }
             else
             {
-                string fileName = dialog.UserSpecialistMessage.OrderId.ToString() +
-                                  dialog.UserSpecialistMessage.ClientId.ToString() +
-                                  dialog.UserSpecialistMessage.SpecialistId.ToString()+".json";
-
-                string path = Environment.CurrentDirectory + @"\MessagesLog\" +fileName;
+                var path = Environment.CurrentDirectory + @"\MessagesLog\" + $"{new Guid()}.json";
 
                 dialog.UserSpecialistMessage.Id = 0;
                 dialog.UserSpecialistMessage.LogFilePath = path;

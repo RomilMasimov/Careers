@@ -1,5 +1,3 @@
-using System;
-
 namespace Careers.Models
 {
     public class ErrorViewModel

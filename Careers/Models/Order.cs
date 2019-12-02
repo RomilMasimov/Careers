@@ -19,7 +19,5 @@ namespace Careers.Models
         public IEnumerable<OrderResponce> OrderResponces { get; set; }
         public IEnumerable<UserSpecialistMessage> UserSpecialistMessages { get; set; }
         // public IEnumerable<OrderSpecialist> OrderSpecialists { get; set; }
-
-
     }
 }
