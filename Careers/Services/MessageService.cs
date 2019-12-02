@@ -43,6 +43,18 @@ namespace Careers.Services
                 await context.SaveChangesAsync();
             }
 
+            //second variant
+
+            //dialog.UserSpecialistMessage.Id = 0;
+            //await context.UserSpecialistMessages.AddAsync(dialog.UserSpecialistMessage);
+            //await context.SaveChangesAsync();
+            //var fileName = dialog.UserSpecialistMessage.Id + ".json";
+            //var path = Environment.CurrentDirectory + @"\MessagesLog\" + fileName;
+            //var userSpeChat = await context.UserSpecialistMessages.FirstOrDefaultAsync(x => x.Id == dialog.UserSpecialistMessage.Id);
+            //userSpeChat.LogFilePath = path;
+            //context.UserSpecialistMessages.Update(userSpeChat);
+            //await context.SaveChangesAsync();
+
         }
 
         private async Task<Dialog> dialogBodyAsync(UserSpecialistMessage result)
