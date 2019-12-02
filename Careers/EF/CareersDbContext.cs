@@ -121,12 +121,15 @@ namespace Careers.EF
             modelBuilder.Entity<OrderResponce>()
                 .HasOne(pt => pt.Order)
                 .WithMany(b => b.OrderResponces)
-                .HasForeignKey(pt => pt.OrderId);
+                .HasForeignKey(pt => pt.OrderId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<OrderResponce>()
                 .HasOne(pt => pt.Specialis)
                 .WithMany(b => b.OrderResponces)
-                .HasForeignKey(pt => pt.SpecialisId);
+                .HasForeignKey(pt => pt.SpecialisId)
+                .OnDelete(DeleteBehavior.NoAction);
+
         }
 
         public DbSet<AnswerOrder> AnswerOrders { get; set; }
