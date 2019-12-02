@@ -23,9 +23,25 @@ namespace Careers.Services
         public async Task WriteDialogAsync(Dialog dialog)
         {
             var result = await context.UserSpecialistMessages.FirstOrDefaultAsync(x => x.Id == dialog.UserSpecialistMessage.Id);
+            if (result != null)
+            {
+                await using Stream fs = File.OpenWrite(result.LogFilePath);
+                await JsonSerializer.SerializeAsync(fs, dialog);
+            }
+            else
+            {
+                string fileName = dialog.UserSpecialistMessage.OrderId.ToString() +
+                                  dialog.UserSpecialistMessage.ClientId.ToString() +
+                                  dialog.UserSpecialistMessage.Specialist.ToString();
+                string path = Environment.CurrentDirectory + @"\MessagesLog\" + $"{fileName}.json";
 
-            await using Stream fs = File.OpenWrite(result.LogFilePath);
-            await JsonSerializer.SerializeAsync(fs, dialog);
+                dialog.UserSpecialistMessage.Id = 0;
+                dialog.UserSpecialistMessage.LogFilePath = path;
+
+                await context.UserSpecialistMessages.AddAsync(dialog.UserSpecialistMessage);
+                await context.SaveChangesAsync();
+            }
+
         }
 
         private async Task<Dialog> dialogBodyAsync(UserSpecialistMessage result)
