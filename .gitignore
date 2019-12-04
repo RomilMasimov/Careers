@@ -4,8 +4,6 @@
 
 /.vs/Careers
 /Careers/obj
-Careers/.vscode/launch.json
-Careers/.vscode/tasks.json
-/Careers/bin/Debug/netcoreapp3.0
-/Careers/bin/x86/Debug/netcoreapp3.0
+Careers/.vscode
+/Careers/bin
 /Careers/Migrations

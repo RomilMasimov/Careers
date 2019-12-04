@@ -2,7 +2,6 @@
 using Careers.EF;
 using Careers.Models.Identity;
 using Careers.Services;
-using Careers.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
