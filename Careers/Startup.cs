@@ -1,9 +1,11 @@
 ﻿using System.Globalization;
 using Careers.EF;
+using Careers.Models.Identity;
 using Careers.Services;
 using Careers.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -23,9 +25,14 @@ namespace Careers
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddIdentity<User,IdentityRole>()
+                .AddEntityFrameworkStores<CareersDbContext>()
+                .AddDefaultTokenProviders();
+
+
             services.AddLocalization(options => options.ResourcesPath = "Resources");
 
-            services.AddDbContext<CareersDbContext>(options =>
+            services.AddDbContextPool<CareersDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("Default"));
             });
@@ -56,7 +63,6 @@ namespace Careers
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRequestLocalization(options => {
                 options.SupportedCultures = cultures;
                 options.SupportedUICultures = cultures;
@@ -65,13 +71,14 @@ namespace Careers
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Users}/{action=Index}/{id?}");
             });
         }
     }

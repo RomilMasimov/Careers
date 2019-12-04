@@ -13,94 +13,91 @@ namespace Careers.Services
 {
     public class MessageService : IMessageService
     {
-        private readonly CareersDbContext context;
+        private readonly CareersDbContext _context;
 
         public MessageService(CareersDbContext context)
         {
-            this.context = context;
+            _context = context;
         }
 
-        public async Task WriteDialogAsync(Dialog dialog)
+        public async Task WriteDialogAsync(UserSpecialistMessage uSMessage, Message message)
         {
-            var result = await context.UserSpecialistMessages.FirstOrDefaultAsync(x => x.Id == dialog.UserSpecialistMessage.Id);
-            if (result != null)
+            if (uSMessage.Id != 0)
             {
-                await using Stream fs = File.OpenWrite(result.LogFilePath);
-                await JsonSerializer.SerializeAsync(fs, dialog);
-            }
-            else
-            {
-                var path = Environment.CurrentDirectory + @"\MessagesLog\" + $"{new Guid()}.json";
-
-                dialog.UserSpecialistMessage.Id = 0;
-                dialog.UserSpecialistMessage.LogFilePath = path;
-
-                await context.UserSpecialistMessages.AddAsync(dialog.UserSpecialistMessage);
-                await context.SaveChangesAsync();
+                if (uSMessage.LogFilePath != null)
+                {
+                    await using FileStream fs = new FileStream(uSMessage.LogFilePath, FileMode.Append, FileAccess.Write);
+                    await using StreamWriter sw = new StreamWriter(fs);
+                    await sw.WriteLineAsync(JsonSerializer.Serialize(message));
+                    return;
+                }
             }
 
-            //second variant
+            {
+                var path = Environment.CurrentDirectory + @"\MessagesLog\" + $"{new Guid()}.txt";
+                uSMessage.LogFilePath = path;
+                await _context.UserSpecialistMessages.AddAsync(uSMessage);
+                await _context.SaveChangesAsync();
 
-            //dialog.UserSpecialistMessage.Id = 0;
-            //await context.UserSpecialistMessages.AddAsync(dialog.UserSpecialistMessage);
-            //await context.SaveChangesAsync();
-            //var fileName = dialog.UserSpecialistMessage.Id + ".json";
-            //var path = Environment.CurrentDirectory + @"\MessagesLog\" + fileName;
-            //var userSpeChat = await context.UserSpecialistMessages.FirstOrDefaultAsync(x => x.Id == dialog.UserSpecialistMessage.Id);
-            //userSpeChat.LogFilePath = path;
-            //context.UserSpecialistMessages.Update(userSpeChat);
-            //await context.SaveChangesAsync();
-
+                await using FileStream fs = new FileStream(path, FileMode.Append, FileAccess.Write);
+                await using StreamWriter sw = new StreamWriter(fs);
+                await sw.WriteLineAsync(JsonSerializer.Serialize(message));
+            }
         }
 
-        private async Task<Dialog> dialogBodyAsync(UserSpecialistMessage result)
+        private async Task<IEnumerable<Message>> messageBodyAsync(UserSpecialistMessage result)
         {
             if (result == null) return null;
 
-            Dialog dialog;
-            await using (Stream fs = File.OpenRead(result.LogFilePath))
+            string jsonStrings;
+            await using (FileStream fs = new FileStream(result.LogFilePath, FileMode.Open, FileAccess.Read))
             {
-                dialog = await JsonSerializer.DeserializeAsync<Dialog>(fs);
+                using var sw = new StreamReader(fs);
+                jsonStrings = await sw.ReadToEndAsync();
             }
 
-            if (!dialog.Messages.Any()) return null;
-            return dialog;
+            var splitedJsonStrings = jsonStrings.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+            var messages = splitedJsonStrings.Select(item => JsonSerializer.Deserialize<Message>(item)).ToList();
+
+            if (!messages.Any()) return null;
+            return messages;
         }
 
-        public async Task<Dialog> GetDialogAsync(int messageLogId)
+        public async Task<IEnumerable<Message>> GetMessagesAsync(int messageLogId)
         {
-            var result = await context.UserSpecialistMessages
+            var result = await _context.UserSpecialistMessages
                     .FirstOrDefaultAsync(x => x.Id == messageLogId);
 
-            return await dialogBodyAsync(result);
+            return await messageBodyAsync(result);
         }
 
-        public async Task<Dialog> GetDialogAsync(int clientId, int specialistId, int orderId)
+        public async Task<IEnumerable<Message>> GetMessagesAsync(int clientId, int specialistId, int orderId)
         {
-            var result = await context.UserSpecialistMessages
+            var result = await _context.UserSpecialistMessages
                 .FirstOrDefaultAsync(x => x.OrderId == orderId
                                           && x.ClientId == clientId
                                           && x.SpecialistId == specialistId);
 
-            return await dialogBodyAsync(result);
+            return await messageBodyAsync(result);
         }
 
         public async Task<IEnumerable<Dialog>> GetDialogListAsync(int clientId, int specialistId)
         {
-            var result = await context.UserSpecialistMessages
-                .FirstOrDefaultAsync(x => x.ClientId == clientId
-                                          && x.SpecialistId == specialistId);
+            var result = await _context.UserSpecialistMessages.Where(x => x.ClientId == clientId && x.SpecialistId == specialistId).ToListAsync();
 
             if (result == null) return null;
 
-            IEnumerable<Dialog> dialogs;
-            await using (Stream fs = File.OpenRead(result.LogFilePath))
+            var dialogs = new List<Dialog>();
+            foreach (var item in result)
             {
-                dialogs = await JsonSerializer.DeserializeAsync<IEnumerable<Dialog>>(fs);
+                dialogs.Add(new Dialog
+                {
+                    UserSpecialistMessage = item,
+                    Messages = await GetMessagesAsync(item.Id)
+                });
             }
-
-            if (!dialogs.Any()) return null;
-            return dialogs;
+          
+            return !dialogs.Any() ? null : dialogs;
         }
     }
 }

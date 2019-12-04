@@ -3,11 +3,16 @@
 }
 
 
-<div id="head" class="container-fluid">
-    <h1>Careers</h1>
-    
-    <div class="right-side">
-        <h2 class="order-count">5 484 561</h2>
-        <p class="order-text">orders <br/> were made on Careers.ru</p>
-    </div>
-</div>
+@if (User.Identity.IsAuthenticated)
+{
+    <p>@User.Identity.Name</p>
+
+    <form method="post" asp-controller="Account" asp-action="LogOff">
+        <input type="submit" value="Выход" />
+    </form>
+}
+else
+{
+    <a asp-controller="Account" asp-action="Login">Вход</a>
+    <a asp-controller="Account" asp-action="Register">Регистрация</a>
+}

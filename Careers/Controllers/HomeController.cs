@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using Careers.Models;
 using Careers.Services;
 using Careers.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Careers.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class HomeController : Controller
     {
-
-
         public HomeController()
         {
             //var excel = new ExcelService();
@@ -23,6 +23,7 @@ namespace Careers.Controllers
 
         public IActionResult Index()
         {
+            var r = User.Identity.IsAuthenticated;
             return View();
         }
 

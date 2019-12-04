@@ -6,9 +6,9 @@ namespace Careers.Services.Interfaces
 {
     interface IMessageService
     {
-        Task WriteDialogAsync(Dialog dialog);
-        Task<Dialog> GetDialogAsync(int messageLogId);
-        Task<Dialog> GetDialogAsync(int clientId, int specialistId, int orderId);
+        Task WriteDialogAsync(UserSpecialistMessage uSMessage, Message message);
+        Task<IEnumerable<Message>> GetMessagesAsync(int messageLogId);
+        Task<IEnumerable<Message>> GetMessagesAsync(int clientId, int specialistId, int orderId);
         Task<IEnumerable<Dialog>> GetDialogListAsync(int clientId, int specialistId);
         
     }

@@ -1,9 +1,11 @@
 ﻿using Careers.Models;
+using Careers.Models.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Careers.EF
 {
-    public class CareersDbContext : DbContext
+    public class CareersDbContext : IdentityDbContext<User>
     {
         public CareersDbContext(DbContextOptions options) : base(options) { }
 
@@ -135,8 +137,10 @@ namespace Careers.EF
                 .WithMany(b => b.UserSpecialistMessages)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            base.OnModelCreating(modelBuilder);
         }
 
+        //public DbSet<OrderSpecialist> OrderSpecialists { get; set; }
         public DbSet<AnswerOrder> AnswerOrders { get; set; }
         public DbSet<QuestionAnswer> QuestionAnswers { get; set; }
         public DbSet<Specialist> Specialists { get; set; }
@@ -157,7 +161,6 @@ namespace Careers.EF
         public DbSet<WhereCanGoSpecialist> WhereCanGoSpecialists { get; set; }
         public DbSet<WhereCanMeetSpecialist> WhereCanMeetSpecialists { get; set; }
         public DbSet<SpecialistService> SpecialistServices { get; set; }
-        public DbSet<OrderSpecialist> OrderSpecialists { get; set; }
         public DbSet<DefaultQuestion> DefaultQuestions { get; set; }
         public DbSet<OrderSchedule> OrderSchedules { get; set; }
         public DbSet<SpecialistAnswer> SpecialistAnswers { get; set; }
