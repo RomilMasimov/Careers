@@ -67,30 +67,64 @@ namespace Careers.Services
         public async Task<IEnumerable<Message>> GetCommentsAsync(int reviewOrCommentReviewId)
         {
             var result = await _context.ReviewComments
-                    .FirstOrDefaultAsync(x => x.Id == reviewOrCommentReviewId || x.ReviewId== reviewOrCommentReviewId);
+                    .FirstOrDefaultAsync(x => x.Id == reviewOrCommentReviewId || x.ReviewId == reviewOrCommentReviewId);
 
             return await commentBodyAsync(result);
         }
 
 
-        public Task<Review> InsertAsync(Review review)
+        public async Task<Review> InsertAsync(Review review)
         {
-            throw new NotImplementedException();
+            review.Id = 0;
+            var res = await _context.Reviews.AddAsync(review);
+            await _context.SaveChangesAsync();
+            return res.Entity;
         }
 
-        public Task<Review> UpdateAsync(Review review)
+        public async Task<Review> UpdateAsync(Review review)
         {
-            throw new NotImplementedException();
+            var currentMediaPathes = _context.ReviewMedias.Where(m => m.ReviewId == review.Id);
+            var newMediaPathes = review.ImagePathes?.Except(currentMediaPathes);
+            var deletedMediaPathes = currentMediaPathes.Except(review.ImagePathes);
+            if (deletedMediaPathes.Count() > 0)
+                _context.RemoveRange(deletedMediaPathes);
+            if (newMediaPathes.Count() > 0)
+                await _context.AddRangeAsync(newMediaPathes);
+
+
+            var res = _context.Reviews.Update(review);
+            await _context.SaveChangesAsync();
+            return res.Entity;
         }
 
-        public Task<bool> DeleteAsync(Review review)
+        public async Task<bool> DeleteAsync(Review review)
         {
-            throw new NotImplementedException();
+            var comments = _context.ReviewComments.Where(m => m.ReviewId == review.Id);
+            _context.ReviewComments.RemoveRange(comments);
+
+            var mediaPathes = _context.ReviewMedias.Where(m => m.ReviewId == review.Id);
+            foreach (var path in mediaPathes)
+                if (File.Exists(path.Path))
+                    File.Delete(path.Path);
+            _context.ReviewMedias.RemoveRange(mediaPathes);
+
+            var commentPathes = _context.ReviewComments.Where(m => m.ReviewId == review.Id);
+            foreach (var path in commentPathes)
+                if (File.Exists(path.LogFilePath))
+                    File.Delete(path.LogFilePath);
+            _context.ReviewComments.RemoveRange(commentPathes);
+            _context.Reviews.Remove(review);
+            await _context.SaveChangesAsync();
+            return true;
         }
 
-        public Task<IEnumerable<Review>> FindAllAsync(int orderId)
+        public async Task<IEnumerable<Review>> FindAllAsync(int orderId)
         {
-            throw new NotImplementedException();
+            return await _context.Reviews.Where(m => m.OrderId == orderId)
+                                 .Include(m => m.ImagePathes)
+                                 .Include(m => m.ReviewComments)
+                                 .Include(m => m.ServiceReviews)
+                                 .ToListAsync();
         }
     }
 }

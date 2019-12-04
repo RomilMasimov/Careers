@@ -9,6 +9,8 @@ namespace Careers.Services.Interfaces
         Task<Review> InsertAsync(Review review);
         Task<Review> UpdateAsync(Review review);
         Task<bool> DeleteAsync(Review review);
+        Task WriteCommentAsync(ReviewComment reviewComment, Message message);
+        Task<IEnumerable<Message>> GetCommentsAsync(int reviewOrCommentReviewId);
 
         Task<IEnumerable<Review>> FindAllAsync(int orderId);
     }
