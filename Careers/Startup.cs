@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.SignalR;
 
 namespace Careers
 {
@@ -28,7 +29,7 @@ namespace Careers
                 .AddEntityFrameworkStores<CareersDbContext>()
                 .AddDefaultTokenProviders();
 
-
+           
             services.AddLocalization(options => options.ResourcesPath = "Resources");
 
             services.AddDbContextPool<CareersDbContext>(options =>
@@ -36,7 +37,7 @@ namespace Careers
                 options.UseSqlServer(Configuration.GetConnectionString("Default"));
             });
             services.AddTransient<LocationsService>();
-
+          
             services.AddMvc()
                 .AddRazorRuntimeCompilation()
                 .AddViewLocalization()
@@ -72,7 +73,7 @@ namespace Careers
 
             app.UseAuthentication();
             app.UseAuthorization();
-
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
