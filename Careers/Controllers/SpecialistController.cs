@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Careers.Controllers
 {
-    public class HomeController : Controller
+    public class SpecialistController : Controller
     {
         public IActionResult Index()
         {

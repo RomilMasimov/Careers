@@ -37,6 +37,7 @@
     <PackageReference Include="IronXL.Excel" Version="2019.5.2" />
     <PackageReference Include="LigerShark.WebOptimizer.Core" Version="3.0.250" />
     <PackageReference Include="LigerShark.WebOptimizer.Sass" Version="3.0.40-beta" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0" />
@@ -52,9 +53,9 @@
   <ItemGroup>
     <Folder Include="Areas\AdminPanel\Data\" />
     <Folder Include="Areas\AdminPanel\Models\" />
-    <Folder Include="Areas\AdminPanel\Views\" />
     <Folder Include="CommentsLog\" />
     <Folder Include="MessagesLog\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
 
 </Project>
