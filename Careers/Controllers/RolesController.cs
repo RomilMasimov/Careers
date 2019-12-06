@@ -78,6 +78,7 @@ namespace Careers.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(string userId, List<string> roles)
         {
+             
             // получаем пользователя
             User user = await _userManager.FindByIdAsync(userId);
             if (user != null)

@@ -33,8 +33,8 @@ namespace Careers.Services
         public async Task<bool> DeleteAsync(Client client)
         {
             context.Clients.Remove(client);
-            await context.SaveChangesAsync();
-            return true;
+
+            return await context.SaveChangesAsync() > 0;
         }
 
         public async Task<Client> FindAsync(int id, bool withOrders = false)

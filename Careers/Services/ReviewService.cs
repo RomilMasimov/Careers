@@ -86,9 +86,9 @@ namespace Careers.Services
             var currentMediaPathes = _context.ReviewMedias.Where(m => m.ReviewId == review.Id);
             var newMediaPathes = review.ImagePathes?.Except(currentMediaPathes);
             var deletedMediaPathes = currentMediaPathes.Except(review.ImagePathes);
-            if (deletedMediaPathes.Count() > 0)
+            if (deletedMediaPathes.Any())
                 _context.RemoveRange(deletedMediaPathes);
-            if (newMediaPathes.Count() > 0)
+            if (newMediaPathes.Any())
                 await _context.AddRangeAsync(newMediaPathes);
 
 
@@ -114,8 +114,7 @@ namespace Careers.Services
                     File.Delete(path.LogFilePath);
             _context.ReviewComments.RemoveRange(commentPathes);
             _context.Reviews.Remove(review);
-            await _context.SaveChangesAsync();
-            return true;
+            return await _context.SaveChangesAsync()>0;
         }
 
         public async Task<IEnumerable<Review>> FindAllAsync(int orderId)

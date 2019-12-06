@@ -34,8 +34,8 @@ namespace Careers.Services
         public async Task<bool> DeleteMeetingPointTypeAsync(MeetingPointType meetingPointType)
         {
             context.MeetingPointTypes.Remove(meetingPointType);
-            await context.SaveChangesAsync();
-            return true;
+            
+            return await context.SaveChangesAsync() > 0;
         }
 
 
@@ -62,8 +62,8 @@ namespace Careers.Services
         public async Task<bool> DeleteMeetingPointAsync(MeetingPoint meetingPoint)
         {
             context.MeetingPoints.Remove(meetingPoint);
-            await context.SaveChangesAsync();
-            return true;
+            
+            return await context.SaveChangesAsync() > 0;
         }
 
         public async Task<MeetingPoint> FindAsync(int id)

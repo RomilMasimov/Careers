@@ -21,17 +21,17 @@ namespace Careers.Services
         public async Task<bool> DeleteAsync(Question question)
         {
             context.Questions.Remove(question);
-            await context.SaveChangesAsync();
-            return true;
+        
+            return await context.SaveChangesAsync() > 0;
         }
 
         public async Task<IEnumerable<Question>> FindAllAsync(int subCategoryId)
         {
             return await context.Questions
                 .Where(m => m.SubCategoryId == subCategoryId)
-                .Include(m => m.QuestionAnswers)
+                //.Include(m => m.QuestionAnswers)
                 .Include(m => m.Answers)
-                .Include(m => m.FromAnswers)
+                //.Include(m => m.FromAnswers)
                 .Include(m => m.DefaultQuestions)
                 .ToListAsync();
         }

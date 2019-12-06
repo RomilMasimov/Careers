@@ -11,7 +11,7 @@ namespace Careers.Services.Interfaces
         Task<Order> InsertAsync(Order order);
         Task<Order> UpdateAsync(Order order);
         Task<bool> DeleteAsync(Order order);
-        Task<Order> ChangeOrderStatus(Order order, OrderStateTypeEnum orderState);
+            //Task<Order> ChangeOrderStatus(Order order, OrderStateTypeEnum orderState);
 
         Task<Order> FindAsync(int id);
         Task<IEnumerable<Order>> FindAllByClientAsync(int clientId);

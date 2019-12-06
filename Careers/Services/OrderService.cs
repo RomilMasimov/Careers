@@ -27,8 +27,8 @@ namespace Careers.Services
         public async Task<bool> DeleteAsync(Order order)
         {
             context.Orders.Remove(order);
-            await context.SaveChangesAsync();
-            return true;
+        
+            return await context.SaveChangesAsync() > 0;
         }
 
         public async Task<IEnumerable<Order>> FindAllByClientAsync(int clientId)

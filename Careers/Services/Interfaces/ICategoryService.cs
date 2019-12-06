@@ -6,15 +6,15 @@ namespace Careers.Services.Interfaces
 {
     public interface ICategoryService
     {
-        Task<Category> InsertCategoryAsync(Category category);
-        Task<SubCategory> InsertSubCategoryAsync(SubCategory subCategory);
-        Task<Category> UpdateCategoryAsync(Category category);
-        Task<SubCategory> UpdateSubCategoryAsync(SubCategory subCategory);
-        Task<bool> DeleteCategoryAsync(Category category);
-        Task<bool> DeleteSubCategoryAsync(SubCategory subCategory);
+        Task<Category> InsertAsync(Category category);
+        Task<SubCategory> InsertAsync(SubCategory subCategory);
+        Task<Category> UpdateAsync(Category category);
+        Task<SubCategory> UpdateAsync(SubCategory subCategory);
+        Task<bool> DeleteAsync(Category category);
+        Task<bool> DeleteAsync(SubCategory subCategory);
 
         Task<IEnumerable<Category>> GetAllCategories();
         Task<IEnumerable<Category>> GetPopularCategories();
-        Task<IEnumerable<SubCategory>> FindAllSubCategories(int categoryId);
+        Task<IEnumerable<SubCategory>> GetAllSubCategories(int categoryId);
     }
 }
