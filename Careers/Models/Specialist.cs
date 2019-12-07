@@ -16,7 +16,7 @@ namespace Careers.Models
         public string About { get; set; }
         public string PassportPath { get; set; }
         public int Balance { get; set; }
-
+        public DateTime LastVisit { get; set; }
 
         //settings
         public bool TakeOrders { get; set; }

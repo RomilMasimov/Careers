@@ -12,6 +12,7 @@ namespace Careers.Models
         public string ImageUrl { get; set; }
         public bool? Gender { get; set; }
         public DateTime? DateOfBirth { get; set; }
+        public DateTime LastVisit { get; set; }
 
         public User User { get; set; }
         public string UserId { get; set; }
