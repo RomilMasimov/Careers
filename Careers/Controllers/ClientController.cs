@@ -8,9 +8,20 @@ namespace Careers.Controllers
 {
     public class ClientController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Profile()
         {
             return View();
         }
+
+        public IActionResult Notifications()
+        {
+            return View();
+        }
+
+
+
+
+
+
     }
 }

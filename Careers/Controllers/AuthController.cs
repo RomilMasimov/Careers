@@ -8,9 +8,30 @@ namespace Careers.Controllers
 {
     public class AuthController : Controller
     {
-        public IActionResult Index()
+        public IActionResult SignIn()
         {
             return View();
         }
+
+        public IActionResult SignOut()
+        {
+            return View();
+        }
+
+        public IActionResult SignUp()
+        {
+            return View();
+        }
+
+        public IActionResult ResetPassword()
+        {
+            return View();
+        }
+
+        public IActionResult ConfirmEmail()
+        {
+            return View();
+        }
+
     }
 }

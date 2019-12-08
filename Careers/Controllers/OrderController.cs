@@ -8,7 +8,12 @@ namespace Careers.Controllers
 {
     public class OrderController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Orders()
+        {
+            return View();
+        }
+
+        public IActionResult Order()
         {
             return View();
         }

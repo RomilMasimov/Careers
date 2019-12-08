@@ -8,7 +8,17 @@ namespace Careers.Controllers
 {
     public class SpecialistController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Specialists()
+        {
+            return View();
+        }
+
+        public IActionResult Specialist()
+        {
+            return View();
+        }
+
+        public IActionResult Chat()
         {
             return View();
         }

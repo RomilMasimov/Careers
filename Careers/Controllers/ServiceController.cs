@@ -8,7 +8,12 @@ namespace Careers.Controllers
 {
     public class ServiceController : Controller
     {
-        public IActionResult Index()
+        public IActionResult NewOrder()
+        {
+            return View();
+        }
+
+        public IActionResult Services()
         {
             return View();
         }
