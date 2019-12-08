@@ -6,9 +6,19 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Careers.Areas.Specialist.Controllers
 {
-    public class SpecialistController : Controller
+    public class OrdersController : Controller
     {
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult ByFilters(object filters) // Add a ViewModel
+        {
+            return View();
+        }
+
+        public IActionResult Order(int id)
         {
             return View();
         }
