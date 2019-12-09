@@ -33,8 +33,8 @@ namespace Careers.Controllers
 
         public async Task<IActionResult> Index()
         {
-            HttpContext.Session.SetString("test", "imran");
-            //HttpContext.Session.GetString("test");
+            //HttpContext.Session.SetString("test", "imran");
+
             var categories = await _categoryService.GetAllCategories(true);
             var lastReviews = await _reviewService.GetLastReviewsAsync(4);
             var cities = await _locationService.GetAllCitiesAsync();

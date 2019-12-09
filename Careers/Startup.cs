@@ -31,7 +31,7 @@ namespace Careers
 
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromSeconds(30);
+                options.IdleTimeout = TimeSpan.FromHours(10);
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
