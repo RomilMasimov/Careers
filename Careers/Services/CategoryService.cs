@@ -20,14 +20,14 @@ namespace Careers.Services
         public async Task<bool> DeleteAsync(Category category)
         {
             context.Categories.Remove(category);
-       
+
             return await context.SaveChangesAsync() > 0;
         }
 
         public async Task<bool> DeleteAsync(SubCategory subCategory)
         {
             context.SubCategories.Remove(subCategory);
-           
+
             return await context.SaveChangesAsync() > 0;
 
         }
@@ -37,11 +37,16 @@ namespace Careers.Services
             return await context.SubCategories.Where(m => m.CategoryId == categoryId).ToListAsync();
         }
 
-        public async Task<IEnumerable<Category>> GetAllCategories()
+        public async Task<IEnumerable<Category>> GetAllCategories(bool includeSubcategories = false)
         {
-            return await context.Categories
-                .Include(m => m.SubCategories)
-                .ToListAsync();
+            if (includeSubcategories)
+            {
+                return await context.Categories
+                    .Include(m => m.SubCategories)
+                    .ToListAsync();
+            }
+
+            return await context.Categories.ToListAsync();
         }
 
         public async Task<IEnumerable<Category>> GetPopularCategories()
@@ -81,6 +86,11 @@ namespace Careers.Services
             var res = context.SubCategories.Update(subCategory);
             await context.SaveChangesAsync();
             return res.Entity;
+        }
+
+        public async Task<IEnumerable<Service>> GetServicesAsync(int subCategoryId)
+        {
+            return await context.Services.Where(x => x.SubCategoryId == subCategoryId).ToListAsync();
         }
     }
 }

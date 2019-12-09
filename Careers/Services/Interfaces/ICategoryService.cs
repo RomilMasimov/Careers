@@ -13,8 +13,10 @@ namespace Careers.Services.Interfaces
         Task<bool> DeleteAsync(Category category);
         Task<bool> DeleteAsync(SubCategory subCategory);
 
-        Task<IEnumerable<Category>> GetAllCategories();
+        Task<IEnumerable<Category>> GetAllCategories(bool includeSubcategories = false);
         Task<IEnumerable<Category>> GetPopularCategories();
         Task<IEnumerable<SubCategory>> GetAllSubCategories(int categoryId);
+
+        Task<IEnumerable<Service>> GetServicesAsync(int subCategoryId);
     }
 }

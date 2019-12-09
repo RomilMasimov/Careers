@@ -72,6 +72,11 @@ namespace Careers.Services
             return await commentBodyAsync(result);
         }
 
+        public async Task<IEnumerable<Review>> GetLastReviewsAsync(int count)
+        {
+            return await _context.Reviews.Take(count).OrderByDescending(x => x.DateTime).ToListAsync();
+        }
+
 
         public async Task<Review> InsertAsync(Review review)
         {

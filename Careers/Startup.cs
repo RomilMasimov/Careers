@@ -2,6 +2,7 @@
 using Careers.EF;
 using Careers.Models.Identity;
 using Careers.Services;
+using Careers.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -29,15 +30,26 @@ namespace Careers
                 .AddEntityFrameworkStores<CareersDbContext>()
                 .AddDefaultTokenProviders();
 
-           
             services.AddLocalization(options => options.ResourcesPath = "Resources");
 
             services.AddDbContextPool<CareersDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("Default"));
             });
+            //services
             services.AddTransient<LocationsService>();
+            services.AddTransient<EmailService>();
+            services.AddTransient<SmsService>();
+            services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<IClientService, ClientService>();
+            services.AddTransient<IMeetingPointService, MeetingPointService>();
+            services.AddTransient<IMessageService, MessageService>();
+            services.AddTransient<IOrderService, OrderSercice>();
+            services.AddTransient<IQuestionService, QuestionService>();
+            services.AddTransient<IReviewService, ReviewService>();
+            services.AddTransient<ISpecialistService, SpecialistService>();
           
+
             services.AddMvc()
                 .AddRazorRuntimeCompilation()
                 .AddViewLocalization()
