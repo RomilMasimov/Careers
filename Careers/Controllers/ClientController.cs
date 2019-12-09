@@ -1,6 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using Careers.Models.Identity;
 using Careers.Services.Interfaces;
+using IronXL.Xml.Dml.Chart;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -33,9 +36,10 @@ namespace Careers.Controllers
 
         public async Task<IActionResult> Orders()
         {
-            var user = await _userManager.GetUserAsync(User);
+          // var userid= User.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.NameIdentifier)?.Value;
+           var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             //orders are in client
-            var client = await _clientService.FindAsync(user.Id, true);
+            var client = await _clientService.FindAsync(userId, true);
 
             return View();
         }

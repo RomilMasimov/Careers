@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using System.Threading.Tasks;
 using Careers.Models;
 using Careers.Models.Identity;
 using Careers.Services.Interfaces;
@@ -22,8 +23,8 @@ namespace Careers.Areas.Specialist.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var user =await _userManager.GetUserAsync(User);
-            var specialist = await _specialistService.FindAsync(user.Id);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var specialist = await _specialistService.FindAsync(userId);
 
             return View();
         }
