@@ -19,8 +19,9 @@ namespace Careers.Controllers
         private readonly IStringLocalizer<SharedResource> _sharedLocalizer;
         private readonly IMeetingPointService _meetingPointService;
 
-        public HomeController(ICategoryService categoryService, IReviewService reviewService, 
-            LocationService locationService, IStringLocalizer<SharedResource> sharedLocalizer ,IMeetingPointService meetingPointService)
+        public HomeController(ICategoryService categoryService, IReviewService reviewService,
+            LocationService locationService, IStringLocalizer<SharedResource> sharedLocalizer,
+            IMeetingPointService meetingPointService)
         {
             _categoryService = categoryService;
             _reviewService = reviewService;
