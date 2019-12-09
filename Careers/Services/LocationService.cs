@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Careers.Services
 {
-    public class LocationsService
+    public class LocationService
     {
         private readonly CareersDbContext _context;
 
-        public LocationsService(CareersDbContext context)
+        public LocationService(CareersDbContext context)
         {
             _context = context;
         }

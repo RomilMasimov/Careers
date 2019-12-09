@@ -37,7 +37,7 @@ namespace Careers
                 options.UseSqlServer(Configuration.GetConnectionString("Default"));
             });
             //services
-            services.AddTransient<LocationsService>();
+            services.AddTransient<LocationService>();
             services.AddTransient<EmailService>();
             services.AddTransient<SmsService>();
             services.AddTransient<ICategoryService, CategoryService>();

@@ -76,7 +76,7 @@ namespace Careers.Services
             return await context.MeetingPoints.FirstOrDefaultAsync(x => x.Description == description);
         }
 
-        public async Task<IEnumerable<MeetingPoint>> FindAllAsync()
+        public async Task<IEnumerable<MeetingPoint>> GetAllAsync()
         {
             return await context.MeetingPoints.ToListAsync();
         }

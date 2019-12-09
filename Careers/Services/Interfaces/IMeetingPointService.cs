@@ -4,7 +4,7 @@ using Careers.Models;
 
 namespace Careers.Services.Interfaces
 {
-    interface IMeetingPointService
+   public interface IMeetingPointService
     {
         //meeting point type
         Task<MeetingPointType> InsertMeetingPointTypeAsync(string name);
@@ -18,6 +18,6 @@ namespace Careers.Services.Interfaces
         Task<bool> DeleteMeetingPointAsync(MeetingPoint meetingPoint);
         Task<MeetingPoint> FindAsync(int id);
         Task<MeetingPoint> FindAsync(string description);
-        Task<IEnumerable<MeetingPoint>> FindAllAsync();
+        Task<IEnumerable<MeetingPoint>> GetAllAsync();
     }
 }
