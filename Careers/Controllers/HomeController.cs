@@ -12,9 +12,11 @@ namespace Careers.Controllers
     {
         private readonly ICategoryService _categoryService;
         private readonly IReviewService _reviewService;
+
+        //this will be in a views not in controllers
         private readonly IStringLocalizer<SharedResource> _sharedLocalizer;
 
-        public HomeController(ICategoryService categoryService, IReviewService reviewService,IStringLocalizer<SharedResource> sharedLocalizer)
+        public HomeController(ICategoryService categoryService, IReviewService reviewService, IStringLocalizer<SharedResource> sharedLocalizer)
         {
             _categoryService = categoryService;
             _reviewService = reviewService;
