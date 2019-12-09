@@ -14,10 +14,10 @@ namespace Careers.Controllers
         private readonly ICategoryService _categoryService;
         private readonly IReviewService _reviewService;
         private readonly LocationService _locationService;
+        private readonly IMeetingPointService _meetingPointService;
 
         //this will be in a views not in controllers
         private readonly IStringLocalizer<SharedResource> _sharedLocalizer;
-        private readonly IMeetingPointService _meetingPointService;
 
         public HomeController(ICategoryService categoryService, IReviewService reviewService,
             LocationService locationService, IStringLocalizer<SharedResource> sharedLocalizer,

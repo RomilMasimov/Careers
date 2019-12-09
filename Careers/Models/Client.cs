@@ -11,10 +11,12 @@ namespace Careers.Models
         public string Surname { get; set; }
         public string ImageUrl { get; set; }
         public bool? Gender { get; set; }
+        public bool SmsNotifications { get; set; }
+        public bool EmailNotifications { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public DateTime LastVisit { get; set; }
 
-        public User User { get; set; }
+        public AppUser AppUser { get; set; }
         public string UserId { get; set; }
         public IEnumerable<Order> Orders { get; set; }
         public IEnumerable<UserSpecialistMessage> UserSpecialistMessages { get; set; }

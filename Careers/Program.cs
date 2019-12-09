@@ -22,7 +22,7 @@ namespace Careers
                 var services = scope.ServiceProvider;
                 try
                 {
-                    var userManager = services.GetRequiredService<UserManager<User>>();
+                    var userManager = services.GetRequiredService<UserManager<AppUser>>();
                     var rolesManager = services.GetRequiredService<RoleManager<IdentityRole>>();
                     var configuration = services.GetRequiredService<IConfiguration>();
 

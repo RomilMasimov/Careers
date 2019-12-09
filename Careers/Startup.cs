@@ -26,7 +26,7 @@ namespace Careers
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddIdentity<User,IdentityRole>()
+            services.AddIdentity<AppUser,IdentityRole>()
                 .AddEntityFrameworkStores<CareersDbContext>()
                 .AddDefaultTokenProviders();
 

@@ -11,6 +11,8 @@ namespace Careers.Services.Interfaces
         Task<bool> DeleteAsync(Specialist specialist);
 
         Task<Specialist> FindAsync(int id);
+
+        Task<Specialist> FindAsync(string userId);
         //need to check
         Task<IEnumerable<Specialist>> FindAllAsync(Order order);
         

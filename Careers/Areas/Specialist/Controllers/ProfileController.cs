@@ -1,17 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Careers.Models;
+using Careers.Models.Identity;
+using Careers.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Careers.Areas.Specialist.Controllers
 {
+    [Authorize]
     public class ProfileController : Controller
     {
-        public IActionResult Index()
+        private readonly UserManager<AppUser> _userManager;
+        private readonly ISpecialistService _specialistService;
+
+        public ProfileController(UserManager<AppUser> userManager,ISpecialistService specialistService)
         {
+            _userManager = userManager;
+            _specialistService = specialistService;
+        }
+        public async Task<IActionResult> Index()
+        {
+            var user =await _userManager.GetUserAsync(User);
+            var specialist = await _specialistService.FindAsync(user.Id);
+
             return View();
         }
 

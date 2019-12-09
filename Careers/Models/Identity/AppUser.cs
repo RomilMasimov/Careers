@@ -2,7 +2,7 @@
 
 namespace Careers.Models.Identity
 {
-    public class User : IdentityUser
+    public class AppUser : IdentityUser
     {
        
     }

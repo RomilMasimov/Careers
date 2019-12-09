@@ -20,13 +20,13 @@ namespace Careers.Models
 
         //settings
         public bool TakeOrders { get; set; }
-        public bool ReceiveMessages { get; set; }
-        public bool ReceiveNotifications { get; set; }
+        public bool SmsNotifications { get; set; }
+        public bool EmailNotifications { get; set; }
         //end
 
 
         //relationships
-        public User User { get; set; }
+        public AppUser AppUser { get; set; }
         public string UserId { get; set; }
         public City City { get; set; }
         public int CityId { get; set; }

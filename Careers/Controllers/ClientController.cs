@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Careers.Models.Identity;
 using Careers.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Careers.Controllers
@@ -12,35 +11,38 @@ namespace Careers.Controllers
     public class ClientController : Controller
     {
         private readonly IClientService _clientService;
+        private readonly UserManager<AppUser> _userManager;
 
-        public ClientController(IClientService clientService)
+        public ClientController(IClientService clientService, UserManager<AppUser> userManager)
         {
             _clientService = clientService;
+            _userManager = userManager;
         }
 
-        public async Task<IActionResult> Profile(int clientId)
+        public async Task<IActionResult> Profile()
         {
-            var client = await _clientService.FindAsync(clientId);
+            var user = await _userManager.GetUserAsync(User);
+            var client = await _clientService.FindAsync(user.Id);
 
             return View();
         }
 
-        public IActionResult Orders()
+        public async Task<IActionResult> Orders()
         {
-            //from db? from view? 
-            var orders = 1;
+            var user = await _userManager.GetUserAsync(User);
+            //orders are in client
+            var client = await _clientService.FindAsync(user.Id, true);
 
             return View();
         }
 
-        public IActionResult Notifications()
+        public async Task<IActionResult> Notifications()
         {
+            var user = await _userManager.GetUserAsync(User);
+            var client = await _clientService.FindAsync(user.Id);
+
             return View();
         }
-
-
-
-
 
 
     }

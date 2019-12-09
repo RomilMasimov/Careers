@@ -6,7 +6,7 @@ namespace Careers.Models.RolesInitializer
 {
     public class RoleInitializer
     {
-        public static async Task InitializeAsync(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, string adminEmail, string password,string phone)
+        public static async Task InitializeAsync(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, string adminEmail, string password,string phone)
         {
             if (!await roleManager.RoleExistsAsync("admin"))
             {
@@ -25,7 +25,7 @@ namespace Careers.Models.RolesInitializer
 
             if (await userManager.FindByNameAsync(adminEmail) == null)
             {
-                var admin = new User
+                var admin = new AppUser
                 {
                     Email = adminEmail,
                     PhoneNumber = phone,

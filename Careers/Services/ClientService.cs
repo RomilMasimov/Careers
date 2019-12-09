@@ -45,5 +45,14 @@ namespace Careers.Services
                 .Include(x => x.Orders)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
+
+         public async Task<Client> FindAsync(string userId, bool withOrders = false)
+        {
+            if (!withOrders) return await context.Clients
+                .FirstOrDefaultAsync(x => x.UserId == userId);
+            return await context.Clients
+                .Include(x => x.Orders)
+                .FirstOrDefaultAsync(x => x.UserId == userId);
+        }
     }
 }

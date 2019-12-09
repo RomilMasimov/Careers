@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 using Careers.EF;
 using Careers.Models;
 using Careers.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Careers.Services
 {
-    public class SpecialistService:ISpecialistService
+    public class SpecialistService : ISpecialistService
     {
         private readonly CareersDbContext _context;
 
@@ -32,9 +33,13 @@ namespace Careers.Services
             throw new NotImplementedException();
         }
 
-        public Task<Specialist> FindAsync(int id)
+        public async Task<Specialist> FindAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Specialists.FirstOrDefaultAsync(x => x.Id == id);
+        }
+        public async Task<Specialist> FindAsync(string userId)
+        {
+            return await _context.Specialists.FirstOrDefaultAsync(x => x.UserId == userId);
         }
 
         public Task<IEnumerable<Specialist>> FindAllAsync(Order order)

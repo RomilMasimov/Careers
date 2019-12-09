@@ -5,12 +5,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Careers.EF
 {
-    public class CareersDbContext : IdentityDbContext<User>
+    public class CareersDbContext : IdentityDbContext<AppUser>
     {
         public CareersDbContext(DbContextOptions options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Client>()
+                .HasIndex(x => x.UserId)
+                .IsUnique();
+
+            modelBuilder.Entity<Specialist>()
+                .HasIndex(x => x.UserId)
+                .IsUnique();
+
             modelBuilder.Entity<WhereCanMeetSpecialist>()
                 .HasOne(pt => pt.WhereCanMeet)
                 .WithMany(p => p.WhereCanMeetList)
@@ -96,12 +104,20 @@ namespace Careers.EF
                 .WithMany(b => b.SpecialistAnswers)
                 .HasForeignKey(pt => pt.SpecialistId);
 
-            modelBuilder.Entity<Specialist>()
-                .Property(x => x.ReceiveMessages)
+            modelBuilder.Entity<Client>()
+                .Property(x => x.EmailNotifications)
                 .HasDefaultValue(true);
 
+            modelBuilder.Entity<Client>()
+                .Property(x => x.SmsNotifications)
+                .HasDefaultValue(false);
+
             modelBuilder.Entity<Specialist>()
-                .Property(x => x.ReceiveNotifications)
+                .Property(x => x.SmsNotifications)
+                .HasDefaultValue(false);
+
+            modelBuilder.Entity<Specialist>()
+                .Property(x => x.EmailNotifications)
                 .HasDefaultValue(true);
 
             modelBuilder.Entity<Specialist>()

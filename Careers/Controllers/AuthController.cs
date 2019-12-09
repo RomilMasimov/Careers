@@ -13,12 +13,6 @@ namespace Careers.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult SignIn()
-        {
-            return View();
-        }
-
         public IActionResult SignOut()
         {
             return View();
