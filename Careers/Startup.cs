@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using Careers.EF;
 using Careers.Models.Identity;
 using Careers.Services;
@@ -26,6 +27,15 @@ namespace Careers
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(30);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
             services.AddIdentity<AppUser,IdentityRole>()
                 .AddEntityFrameworkStores<CareersDbContext>()
                 .AddDefaultTokenProviders();
@@ -64,7 +74,7 @@ namespace Careers
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Shared/Error");
                 app.UseHsts();
             }
 
@@ -75,6 +85,7 @@ namespace Careers
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
             app.UseRequestLocalization(options => {
                 options.SupportedCultures = cultures;
                 options.SupportedUICultures = cultures;
@@ -82,10 +93,10 @@ namespace Careers
             });
 
             app.UseRouting();
-
             app.UseAuthentication();
             app.UseAuthorization();
-            
+            app.UseSession();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
