@@ -2,7 +2,6 @@
 using Careers.Models;
 using Careers.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,7 +27,7 @@ namespace Careers.Services
         public async Task<bool> DeleteAsync(Order order)
         {
             context.Orders.Remove(order);
-        
+
             return await context.SaveChangesAsync() > 0;
         }
 
@@ -42,9 +41,12 @@ namespace Careers.Services
             return await context.Orders.Where(m => m.SpecialistId == specialistId).ToListAsync();
         }
 
-        public async Task<Order> FindAsync(int id)
+        public async Task<Order> FindAsync(int id, bool responses = false)
         {
-            return await context.Orders.FindAsync(id);
+            if (!responses) return await context.Orders.FindAsync(id);
+
+            return await context.Orders.Include(x => x.OrderResponses)
+                .ThenInclude(x=>x.Specialist).FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<Order> InsertAsync(Order order)

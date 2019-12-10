@@ -137,16 +137,16 @@ namespace Careers.EF
                 .Property(o => o.State)
                 .HasConversion<string>();
 
-            modelBuilder.Entity<OrderResponce>()
+            modelBuilder.Entity<OrderResponse>()
                 .HasOne(pt => pt.Order)
-                .WithMany(b => b.OrderResponces)
+                .WithMany(b => b.OrderResponses)
                 .HasForeignKey(pt => pt.OrderId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<OrderResponce>()
+            modelBuilder.Entity<OrderResponse>()
                 .HasOne(pt => pt.Specialist)
                 .WithMany(b => b.OrderResponces)
-                .HasForeignKey(pt => pt.SpecialisId)
+                .HasForeignKey(pt => pt.SpecialistId)
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<UserSpecialistMessage>()
@@ -187,7 +187,7 @@ namespace Careers.EF
         public DbSet<SpecialistWork> SpecialistWorks { get; set; }
         public DbSet<ReviewComment> ReviewComments { get; set; }
         public DbSet<ServiceReview> ServiceReviews { get; set; }
-        public DbSet<OrderResponce> OrderResponces { get; set; }
+        public DbSet<OrderResponse> OrderResponces { get; set; }
 
     }
 }

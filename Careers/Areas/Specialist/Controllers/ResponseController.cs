@@ -14,7 +14,7 @@ namespace Careers.Areas.Specialist.Controllers
             return View();
         }
 
-        public IActionResult Respond(OrderResponce responce)
+        public IActionResult Respond(OrderResponse response)
         {
             return View();
         }

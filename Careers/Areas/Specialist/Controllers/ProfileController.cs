@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Careers.Areas.Specialist.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "admin,specialist")]
     public class ProfileController : Controller
     {
         private readonly UserManager<AppUser> _userManager;

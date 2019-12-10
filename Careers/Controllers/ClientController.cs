@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Careers.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "admin,client")]
     public class ClientController : Controller
     {
         private readonly IClientService _clientService;
@@ -23,11 +23,11 @@ namespace Careers.Controllers
             _userManager = userManager;
         }
 
-        public async Task<IActionResult> Profile()
+        
+        public async Task<IActionResult> Index()
         {
-
-            var user = await _userManager.GetUserAsync(User);
-            var client = await _clientService.FindAsync(user.Id);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var client = await _clientService.FindAsync(userId);
 
             return View();
         }
@@ -44,8 +44,8 @@ namespace Careers.Controllers
 
         public async Task<IActionResult> Notifications()
         {
-            var user = await _userManager.GetUserAsync(User);
-            var client = await _clientService.FindAsync(user.Id);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var client = await _clientService.FindAsync(userId);
 
             return View();
         }

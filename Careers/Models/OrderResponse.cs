@@ -1,6 +1,6 @@
 ﻿namespace Careers.Models
 {
-    public class OrderResponce
+    public class OrderResponse
     {
         public int Id { get; set; }
        public int Text { get; set; }
@@ -10,6 +10,6 @@
         public Order Order { get; set; }
         public int OrderId { get; set; }
         public Specialist Specialist { get; set; }
-        public int SpecialisId { get; set; }
+        public int SpecialistId { get; set; }
     }
 }
