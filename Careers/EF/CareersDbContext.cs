@@ -145,7 +145,7 @@ namespace Careers.EF
 
             modelBuilder.Entity<OrderResponse>()
                 .HasOne(pt => pt.Specialist)
-                .WithMany(b => b.OrderResponces)
+                .WithMany(b => b.OrderResponses)
                 .HasForeignKey(pt => pt.SpecialistId)
                 .OnDelete(DeleteBehavior.NoAction);
 
@@ -187,7 +187,7 @@ namespace Careers.EF
         public DbSet<SpecialistWork> SpecialistWorks { get; set; }
         public DbSet<ReviewComment> ReviewComments { get; set; }
         public DbSet<ServiceReview> ServiceReviews { get; set; }
-        public DbSet<OrderResponse> OrderResponces { get; set; }
+        public DbSet<OrderResponse> OrderResponses { get; set; }
 
     }
 }
