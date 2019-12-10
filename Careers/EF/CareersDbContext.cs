@@ -1,4 +1,5 @@
 ﻿using Careers.Models;
+using Careers.Models.Enums;
 using Careers.Models.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;

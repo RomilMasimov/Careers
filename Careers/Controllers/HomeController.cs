@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Careers.Services;
 using Careers.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 
@@ -33,8 +29,6 @@ namespace Careers.Controllers
 
         public async Task<IActionResult> Index()
         {
-            //HttpContext.Session.SetString("test", "imran");
-
             var categories = await _categoryService.GetAllCategories(true);
             var lastReviews = await _reviewService.GetLastReviewsAsync(4);
             var cities = await _locationService.GetAllCitiesAsync();
@@ -46,7 +40,6 @@ namespace Careers.Controllers
 
         public IActionResult Privacy()
         {
-            var d= HttpContext.Session.GetString("test");;
             return View();
         }
 

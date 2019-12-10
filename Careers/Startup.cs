@@ -27,14 +27,14 @@ namespace Careers
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDistributedMemoryCache();
+            //services.AddDistributedMemoryCache();
 
-            services.AddSession(options =>
-            {
-                options.IdleTimeout = TimeSpan.FromHours(10);
-                options.Cookie.HttpOnly = true;
-                options.Cookie.IsEssential = true;
-            });
+            //services.AddSession(options =>
+            //{
+            //    options.IdleTimeout = TimeSpan.FromHours(10);
+            //    options.Cookie.HttpOnly = true;
+            //    options.Cookie.IsEssential = true;
+            //});
 
             services.AddIdentity<AppUser,IdentityRole>()
                 .AddEntityFrameworkStores<CareersDbContext>()
@@ -68,15 +68,18 @@ namespace Careers
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
+            env.EnvironmentName = Environments.Production;
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
             else
             {
-                app.UseExceptionHandler("/Shared/Error");
+                app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+            app.UseStatusCodePagesWithRedirects("/Home/Error");
 
             var cultures = new[] {
                 new CultureInfo ("ru-RU"),
@@ -95,7 +98,7 @@ namespace Careers
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseSession();
+            
 
             app.UseEndpoints(endpoints =>
             {

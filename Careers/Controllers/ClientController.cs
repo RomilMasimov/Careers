@@ -25,8 +25,6 @@ namespace Careers.Controllers
 
         public async Task<IActionResult> Profile()
         {
-            HttpContext.Session.SetString("test","imran");
-            HttpContext.Session.GetString("test");
 
             var user = await _userManager.GetUserAsync(User);
             var client = await _clientService.FindAsync(user.Id);

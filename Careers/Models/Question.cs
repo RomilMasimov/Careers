@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Careers.Models.Enums;
 
 namespace Careers.Models
 {
