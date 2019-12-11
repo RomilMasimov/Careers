@@ -17,7 +17,7 @@ namespace Careers.Controllers
             _signInManager = signInManager;
         }
 
-        public IActionResult SignIn()
+        public IActionResult LogIn()
         {
             return View();
         }

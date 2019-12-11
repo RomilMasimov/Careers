@@ -42,9 +42,8 @@
                     <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 hidden-xs hidden-sm full_width">
                         <div class="gc_header_wrapper">
                             <div class="gc_logo">
-                                <a href="index.html">
-                                    <img src="~/images/header/logo.png" alt="Logo" title="Job Pro"
-                                         class="img-responsive">
+                                <a asp-controller="Home" asp-action="Index">
+                                    <img src="~/images/header/logo.png" alt="Logo" title="Careers" class="img-responsive">
                                 </a>
                             </div>
                         </div>
@@ -213,10 +212,10 @@
                                                             <a href="contact.html">Contact</a>
                                                         </li>
                                                         <li>
-                                                            <a href="register.html">Sign Up</a>
+                                                            <a asp-controller="Auth" asp-action="SignUp">Sign Up</a>
                                                         </li>
                                                         <li>
-                                                            <a href="login.html">Login</a>
+                                                            <a asp-controller="Auth" asp-action="LogIn">Login</a>
                                                         </li>
 
                                                     </ul>
@@ -239,8 +238,8 @@
                     <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 hidden-sm hidden-xs">
                         <div class="jp_navi_right_btn_wrapper">
                             <ul>
-                                <li><a href="register.html"><i class="fa fa-user"></i>&nbsp; SIGN UP</a></li>
-                                <li><a href="login.html"><i class="fa fa-sign-in"></i>&nbsp; LOGIN</a></li>
+                                <li><a asp-controller="Auth" asp-action="SignUp"><i class="fa fa-user"></i>&nbsp; SIGN UP</a></li>
+                                <li><a asp-controller="Auth" asp-action="LogIn"><i class="fa fa-sign-in"></i>&nbsp; LOGIN</a></li>
                             </ul>
                         </div>
                     </div>
