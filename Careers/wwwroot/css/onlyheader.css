@@ -1,0 +1,132 @@
+.jp_top_header_img_wrapper {
+	float: left;
+	width: 100%;
+	height: 100%;
+	position: relative;
+	background-image: url('../images/header/header_img.jpg');
+	background-repeat: repeat-x;
+	background-position: 0 40%, 0 95%, 0 0, 0 100%, 0 0;
+	animation: 80s para infinite linear;
+}
+
+@keyframes para {
+	100% {
+		background-position: -5000px 40%, -800px 95%, 500px 0, 1000px 100%, 400px 0;
+	}
+}
+
+.jp_slide_img_overlay {
+	position: absolute;
+	top: 0%;
+	right: 0%;
+	left: 0%;
+	bottom: 0%;
+	background: #0e1427d4;
+}
+
+.gc_main_menu_wrapper {
+	float: left;
+	width: 100%;
+	padding-top: 15px;
+	border-bottom: 1px solid #ffffff21;
+	position: relative;
+}
+
+.jp_navi_right_btn_wrapper ul {
+	float: right;
+}
+
+.jp_navi_right_btn_wrapper li {
+	float: left;
+	margin-left: 20px;
+}
+
+.jp_navi_right_btn_wrapper li:first-child {
+	margin-left: 0;
+}
+
+.jp_navi_right_btn_wrapper li:first-child a {
+	float: left;
+	width: 130px;
+	height: 50px;
+	line-height: 50px;
+	color: #ffffff;
+	border: 1px solid #ffffff40;
+	text-align: center;
+	background: transparent;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	-webkit-transition: all 0.5s;
+	-o-transition: all 0.5s;
+	-ms-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+	transition: all 0.5s;
+}
+
+.jp_navi_right_btn_wrapper li:first-child a:hover {
+	background: #f36969;
+	border: 1px solid #f36969;
+	-webkit-transition: all 0.5s;
+	-o-transition: all 0.5s;
+	-ms-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+	transition: all 0.5s;
+}
+
+.jp_navi_right_btn_wrapper li:last-child a {
+	float: left;
+	width: 130px;
+	height: 50px;
+	line-height: 50px;
+	color: #ffffff;
+	border: 1px solid #f36969;
+	background: #f36969;
+	text-align: center;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	-webkit-transition: all 0.5s;
+	-o-transition: all 0.5s;
+	-ms-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+	transition: all 0.5s;
+}
+
+.jp_navi_right_btn_wrapper li:last-child a:hover {
+	background: transparent;
+	border: 1px solid #ffffff40;
+	-webkit-transition: all 0.5s;
+	-o-transition: all 0.5s;
+	-ms-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+	transition: all 0.5s;
+}
+
+.gc_main_navigation {
+	color: #ffffff !important;
+}
+
+.hidden-menu-bar .mainmenu {
+	opacity: 1;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	visibility: visible;
+	padding-right: 0;
+	position: relative;
+	z-index: 10;
+	float: right;
+}
+
+.mainmenu:after {
+	content: '';
+	border: 1px solid #ffffff21;
+	width: 1px;
+	height: 95px;
+	position: absolute;
+	top: -44px;
+	right: -16px;
+}
+
+.float_left {
+	float: left;
+}
