@@ -24,7 +24,7 @@ namespace Careers.Areas.Specialist.Controllers
         public async Task<IActionResult> Index()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var specialist = await _specialistService.FindAsync(userId);
+            var specialist = await _specialistService.FindByUserAsync(userId);
 
             return View();
         }
@@ -59,6 +59,12 @@ namespace Careers.Areas.Specialist.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult DeleteWork(int id)
+        {
+            return View();
+        }
+
         [HttpGet]
         public IActionResult UploadPassport()
         {
@@ -89,6 +95,24 @@ namespace Careers.Areas.Specialist.Controllers
         }
 
         [HttpGet]
+        public IActionResult EditEducation(int id)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult EditEducation(Education education)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult DeleteEducation(int id)
+        {
+            return View();
+        }
+
+        [HttpGet]
         public IActionResult EditAbout()
         {
             return View();
@@ -112,7 +136,7 @@ namespace Careers.Areas.Specialist.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddWhereCanGo(MeetingPoint point)
+        public IActionResult AddWhereCanGo(int specialistId, MeetingPoint point)
         {
             return View();
         }

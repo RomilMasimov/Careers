@@ -119,7 +119,7 @@ namespace Careers.Services
                     File.Delete(path.LogFilePath);
             _context.ReviewComments.RemoveRange(commentPathes);
             _context.Reviews.Remove(review);
-            return await _context.SaveChangesAsync()>0;
+            return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<IEnumerable<Review>> FindAllAsync(int orderId)
