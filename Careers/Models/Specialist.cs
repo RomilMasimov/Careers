@@ -27,7 +27,7 @@ namespace Careers.Models
 
         //relationships
         public AppUser AppUser { get; set; }
-        public string UserId { get; set; }
+        public string AppUserId { get; set; }
         public City City { get; set; }
         public int CityId { get; set; }
         public IEnumerable<LanguageSpecialist> LanguageSpecialists { get; set; }

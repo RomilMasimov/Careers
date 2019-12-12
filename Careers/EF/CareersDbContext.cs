@@ -13,11 +13,11 @@ namespace Careers.EF
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Client>()
-                .HasIndex(x => x.UserId)
+                .HasIndex(x => x.AppUserId)
                 .IsUnique();
 
             modelBuilder.Entity<Specialist>()
-                .HasIndex(x => x.UserId)
+                .HasIndex(x => x.AppUserId)
                 .IsUnique();
 
             modelBuilder.Entity<WhereCanMeetSpecialist>()

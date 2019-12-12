@@ -17,7 +17,7 @@ namespace Careers.Models
         public DateTime LastVisit { get; set; }
 
         public AppUser AppUser { get; set; }
-        public string UserId { get; set; }
+        public string AppUserId { get; set; }
         public IEnumerable<Order> Orders { get; set; }
         public IEnumerable<UserSpecialistMessage> UserSpecialistMessages { get; set; }
     }

@@ -18,9 +18,14 @@ namespace Careers.Services
             _context = context;
         }
 
-        public Task<Specialist> InsertAsync(Specialist specialist)
+        public async Task<Specialist> InsertAsync(Specialist specialist)
         {
-            throw new NotImplementedException();
+            specialist.Id = 0;
+            specialist.LastVisit = DateTime.Now;
+
+            var spec = await _context.Specialists.AddAsync(specialist);
+            await _context.SaveChangesAsync();
+            return spec.Entity;
         }
 
         public Task<Specialist> UpdateAsync(Specialist specialist)
@@ -39,7 +44,7 @@ namespace Careers.Services
         }
         public async Task<Specialist> FindAsync(string userId)
         {
-            return await _context.Specialists.FirstOrDefaultAsync(x => x.UserId == userId);
+            return await _context.Specialists.FirstOrDefaultAsync(x => x.AppUserId == userId);
         }
 
         public Task<IEnumerable<Specialist>> FindAllAsync(Order order)

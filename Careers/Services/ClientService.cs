@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Careers.EF;
 using Careers.Models;
 using Careers.Services.Interfaces;
@@ -18,6 +19,7 @@ namespace Careers.Services
         public async Task<Client> InsertAsync(Client client)
         {
             client.Id = 0;
+            client.LastVisit=DateTime.Now;
             var result = await context.Clients.AddAsync(client);
             await context.SaveChangesAsync();
             return result.Entity;
@@ -49,10 +51,10 @@ namespace Careers.Services
          public async Task<Client> FindAsync(string userId, bool withOrders = false)
         {
             if (!withOrders) return await context.Clients
-                .FirstOrDefaultAsync(x => x.UserId == userId);
+                .FirstOrDefaultAsync(x => x.AppUserId == userId);
             return await context.Clients
                 .Include(x => x.Orders)
-                .FirstOrDefaultAsync(x => x.UserId == userId);
+                .FirstOrDefaultAsync(x => x.AppUserId == userId);
         }
     }
 }

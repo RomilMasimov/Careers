@@ -69,7 +69,6 @@ namespace Careers
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
-            env.EnvironmentName = Environments.Production;
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -79,7 +78,7 @@ namespace Careers
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
-            app.UseStatusCodePagesWithRedirects("/Home/Error");
+           // app.UseStatusCodePagesWithRedirects("/Home/Error");
 
             var cultures = new[] {
                 new CultureInfo ("ru-RU"),
