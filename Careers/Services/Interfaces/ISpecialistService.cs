@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using Careers.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace Careers.Services.Interfaces
 {
@@ -8,16 +10,23 @@ namespace Careers.Services.Interfaces
     {
         Task<Specialist> InsertAsync(Specialist specialist);
         Task<Specialist> UpdateAsync(Specialist specialist);
+        Task<Specialist> UpdateAbotAsync(int specialistId, string about);
         Task<bool> DeleteAsync(Specialist specialist);
 
-        Task<Specialist> FindAsync(int id);
+        Task<bool> UpdatePasport(int specialistId, Stream file);
+        Task<bool> UpdateImage(int specialistId, Stream file);
 
-        Task<Specialist> FindAsync(string userId);
+        Task<SpecialistWork> AddWork(int specialistId, Stream file, string description);
+        Task<bool> DeleteWork(int id);
+
+        Task<Education> AddEducation(Education education);
+        Task<Education> UpdateEducation(Education education);
+        Task<bool> DeleteEducation(int id);
+
+        Task<Specialist> FindAsync(int id);
+        Task<Specialist> FindByUserAsync(string userId);
         //need to check
         Task<IEnumerable<Specialist>> FindAllAsync(Order order);
-        
-
-       
     }
 
 }

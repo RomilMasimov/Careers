@@ -174,6 +174,8 @@ namespace Careers.EF
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<Answer> Answers { get; set; }
+        public DbSet<Education> Educations { get; set; }
+        public DbSet<Experience> Experiences { get; set; }
         public DbSet<OrderMeetingPoint> OrderMeetingPoints { get; set; }
         public DbSet<WhereCanGoSpecialist> WhereCanGoSpecialists { get; set; }
         public DbSet<WhereCanMeetSpecialist> WhereCanMeetSpecialists { get; set; }
