@@ -29,12 +29,12 @@ namespace Careers.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var categories = await _categoryService.GetAllCategories(true);
-            var lastReviews = await _reviewService.GetLastReviewsAsync(4);
-            var cities = await _locationService.GetAllCitiesAsync();
+            //var categories = await _categoryService.GetAllCategories(true);
+            //var lastReviews = await _reviewService.GetLastReviewsAsync(4);
+            //var cities = await _locationService.GetAllCitiesAsync();
             var meetingPoints = await _meetingPointService.GetAllAsync();
-            string localization = _sharedLocalizer["Hello"];
-
+            //string localization = _sharedLocalizer["Hello"];
+            var r = User?.Identity?.Name;
             return View();
         }
 

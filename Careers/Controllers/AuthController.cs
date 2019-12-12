@@ -58,9 +58,8 @@ namespace Careers.Controllers
             code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
             var result = await _userManager.ConfirmEmailAsync(user, code);
 
-            string message;
-            message = result.Succeeded ? "Thank you for confirming your email." : "Error confirming your email.";
-            return View(model:message);
+            TempData["Email"] = "Thank you for confirming your email.";
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult SignUp()
@@ -100,6 +99,8 @@ namespace Careers.Controllers
 
                         await _emailService.SendEmail(regViewModel.Client.Email, "Confirm your email",
                             $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                        TempData["Email"] = "Please check your Email on new message";
 
                         await _clientService.InsertAsync(new Client { AppUser = user });
 
@@ -144,8 +145,6 @@ namespace Careers.Controllers
                         ModelState.AddModelError(string.Empty, error.Description);
                     }
                 }
-
-
             }
 
             return View();
@@ -156,7 +155,7 @@ namespace Careers.Controllers
             return View();
         }
 
-      
+
 
     }
 }

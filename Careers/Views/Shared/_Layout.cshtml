@@ -164,12 +164,20 @@
                                                         <li>
                                                             <a href="contact.html">Contact</a>
                                                         </li>
-                                                        <li>
-                                                            <a asp-controller="Auth" asp-action="SignUp">Sign Up</a>
-                                                        </li>
-                                                        <li>
-                                                            <a asp-controller="Auth" asp-action="LogIn">Login</a>
-                                                        </li>
+                                                        @if (User.Identity.IsAuthenticated)
+                                                        {
+                                                            <li>@User.Identity.Name</li>
+                                                        }
+                                                        else
+                                                        {
+                                                            <li>
+                                                                <a asp-controller="Auth" asp-action="SignUp">Sign Up</a>
+                                                            </li>
+                                                            <li>
+                                                                <a asp-controller="Auth" asp-action="LogIn">Login</a>
+                                                            </li>
+                                                        }
+
 
                                                     </ul>
                                                     <!-- .cd-dropdown-content -->
@@ -191,8 +199,21 @@
                     <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 hidden-sm hidden-xs">
                         <div class="jp_navi_right_btn_wrapper">
                             <ul>
-                                <li><a asp-controller="Auth" asp-action="SignUp"><i class="fa fa-user"></i>&nbsp; SIGN UP</a></li>
-                                <li><a asp-controller="Auth" asp-action="LogIn"><i class="fa fa-sign-in"></i>&nbsp; LOGIN</a></li>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <li>@User.Identity.Name</li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        <a asp-controller="Auth" asp-action="SignUp">Sign Up</a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Auth" asp-action="LogIn">Login</a>
+                                    </li>
+                                }
+                                @*<li><a asp-controller="Auth" asp-action="SignUp"><i class="fa fa-user"></i>&nbsp; SIGN UP</a></li>
+        <li><a asp-controller="Auth" asp-action="LogIn"><i class="fa fa-sign-in"></i>&nbsp; LOGIN</a></li>*@
                             </ul>
                         </div>
                     </div>

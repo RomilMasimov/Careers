@@ -37,7 +37,7 @@ namespace Careers
             //    options.Cookie.IsEssential = true;
             //});
 
-            services.AddIdentity<AppUser,IdentityRole>()
+            services.AddIdentity<AppUser, IdentityRole>(options => options.User.RequireUniqueEmail = true)
                 .AddEntityFrameworkStores<CareersDbContext>()
                 .AddDefaultTokenProviders();
 
@@ -61,7 +61,7 @@ namespace Careers
             services.AddTransient<ISpecialistService, SpecialistService>();
 
             services.AddScoped<MediaRepository>();
-          
+
 
             services.AddMvc()
                 .AddRazorRuntimeCompilation()
@@ -81,7 +81,7 @@ namespace Careers
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
-           // app.UseStatusCodePagesWithRedirects("/Home/Error");
+            // app.UseStatusCodePagesWithRedirects("/Home/Error");
 
             var cultures = new[] {
                 new CultureInfo ("ru-RU"),
@@ -91,7 +91,8 @@ namespace Careers
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseRequestLocalization(options => {
+            app.UseRequestLocalization(options =>
+            {
                 options.SupportedCultures = cultures;
                 options.SupportedUICultures = cultures;
                 options.DefaultRequestCulture = new RequestCulture("ru-RU");
@@ -100,7 +101,7 @@ namespace Careers
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-            
+
 
             app.UseEndpoints(endpoints =>
             {
