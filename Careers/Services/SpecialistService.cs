@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using Careers.EF;
 using Careers.Models;
@@ -28,8 +27,8 @@ namespace Careers.Services
             specialist.Id = 0;
             specialist.LastVisit = DateTime.Now;
 
-            var spec = await _context.Specialists.AddAsync(specialist);
-            await _context.SaveChangesAsync();
+            var spec = await context.Specialists.AddAsync(specialist);
+            await context.SaveChangesAsync();
             return spec.Entity;
         }
 
@@ -52,7 +51,7 @@ namespace Careers.Services
         }
         public async Task<Specialist> FindByUserAsync(string userId)
         {
-            return await context.Specialists.FirstOrDefaultAsync(x => x.UserId == userId);
+            return await context.Specialists.FirstOrDefaultAsync(x => x.AppUserId == userId);
         }
 
         public Task<IEnumerable<Specialist>> FindAllAsync(Order order)
