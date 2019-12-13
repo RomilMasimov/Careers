@@ -93,7 +93,6 @@
                                         <div class="check-box text-center">
                                             <input type="checkbox" asp-for="AgreedWithTerms"> &ensp;
                                             <label asp-for="AgreedWithTerms">I agreed to the <a target="_blank" asp-controller="Home" asp-action="Privacy" class="check_box_anchr">Terms and Conditions</a> governing the use of jobportal</label>
-
                                         </div>
                                     </div>
                                 </div>
@@ -107,33 +106,42 @@
                             </form>
 
                             <form method="post" asp-controller="Auth" asp-action="SignUp" class="tab-pane fade register_left_form" id="contentOne-2">
+                                <div asp-validation-summary="All" class="text-danger"></div>
+
                                 <div class="jp_regiter_top_heading">
                                     <p>Fields with * are mandetory </p>
                                 </div>
+
                                 <div class="row clearfix">
                                     <!--Form Group-->
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" name="field-name" value="" placeholder="Username*">
+                                        <label asp-for="Client.UserName"></label>
+                                        <input asp-for="Client.UserName" class="form-control">
+                                        <span asp-validation-for="Client.UserName" class="text-danger"></span>
                                     </div>
                                     <!--Form Group-->
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" name="field-name" value="" placeholder="Email*">
+                                        <label asp-for="Client.Email"></label>
+                                        <input asp-for="Client.Email" class="form-control">
+                                        <span asp-validation-for="Client.Email" class="text-danger"></span>
                                     </div>
                                     <!--Form Group-->
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-
-                                        <input type="password" name="field-name" value="" placeholder="password*">
+                                        <label asp-for="Client.Password"></label>
+                                        <input asp-for="Client.Password" class="form-control">
+                                        <span asp-validation-for="Client.Password" class="text-danger"></span>
                                     </div>
                                     <!--Form Group-->
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-
-                                        <input type="password" name="field-name" value="" placeholder="re-enter password*">
+                                        <label asp-for="Client.ConfirmPassword"></label>
+                                        <input asp-for="Client.ConfirmPassword" class="form-control">
+                                        <span asp-validation-for="Client.ConfirmPassword" class="text-danger"></span>
                                     </div>
-
                                     <!--Form Group-->
                                     <div class="form-group col-md-6 col-sm-6 col-xs-12">
-
-                                        <input type="text" name="field-name" value="" placeholder="phone">
+                                        <label asp-for="Client.PhoneNumber"></label>
+                                        <input asp-for="Client.PhoneNumber" class="form-control">
+                                        <span asp-validation-for="Client.PhoneNumber" class="text-danger"></span>
                                     </div>
 
                                     <!--Form Group-->
@@ -144,10 +152,8 @@
 
                                     <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                         <div class="check-box text-center">
-                                            <input type="checkbox" name="shipping-option" id="account-option_2"> &ensp;
-                                            <label for="account-option_2">I agreed to the <a target="_blank" asp-controller="Home" asp-action="Privacy" class="check_box_anchr">Terms and Conditions</a> governing the use of jobportal</label>
-
-
+                                            <input type="checkbox" asp-for="AgreedWithTerms"> &ensp;
+                                            <label asp-for="AgreedWithTerms">I agreed to the <a target="_blank" asp-controller="Home" asp-action="Privacy" class="check_box_anchr">Terms and Conditions</a> governing the use of jobportal</label>
                                         </div>
                                     </div>
                                 </div>

@@ -20,7 +20,7 @@ namespace Careers.Models.RolesInitializer
 
             if (!await roleManager.RoleExistsAsync("client"))
             {
-                await roleManager.CreateAsync(new IdentityRole("specialist"));
+                await roleManager.CreateAsync(new IdentityRole("client"));
             }
 
             if (await userManager.FindByNameAsync(adminEmail) == null)

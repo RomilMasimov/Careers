@@ -75,79 +75,95 @@ namespace Careers.Controllers
                 ModelState.AddModelError(string.Empty, "Accept terms and conditions");
                 return View();
             }
-            if (ModelState.IsValid)
+
+            if (!ModelState.IsValid)
             {
-                if (regViewModel.Client != null)
-                {
-                    var user = new AppUser
-                    {
-                        UserName = regViewModel.Client.UserName,
-                        Email = regViewModel.Client.Email,
-                        PhoneNumber = regViewModel.Client.PhoneNumber ?? ""
-                    };
-
-                    var result = await _userManager.CreateAsync(user, regViewModel.Client.Password);
-                    if (result.Succeeded)
-                    {
-                        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                        code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                        var callbackUrl = Url.Action(
-                            action: "ConfirmEmail",
-                            controller: "Auth",
-                            values: new { userId = user.Id, code },
-                            protocol: Request.Scheme);
-
-                        await _emailService.SendEmail(regViewModel.Client.Email, "Confirm your email",
-                            $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
-                        TempData["Email"] = "Please check your Email on new message";
-
-                        await _clientService.InsertAsync(new Client { AppUser = user });
-
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return RedirectToAction("Index", "Home");
-                    }
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                    }
-                }
-                else
-                {
-                    var user = new AppUser
-                    {
-                        UserName = regViewModel.Specialist.UserName,
-                        Email = regViewModel.Specialist.Email,
-                        PhoneNumber = regViewModel.Specialist.PhoneNumber ?? ""
-                    };
-
-                    var result = await _userManager.CreateAsync(user, regViewModel.Specialist.Password);
-                    if (result.Succeeded)
-                    {
-                        var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                        code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                        var callbackUrl = Url.Action(
-                            action: "ConfirmEmail",
-                            controller: "Auth",
-                            values: new { userId = user.Id, code },
-                            protocol: Request.Scheme);
-
-                        await _emailService.SendEmail(regViewModel.Specialist.Email, "Confirm your email",
-                            $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
-                        await _specialistService.InsertAsync(new Specialist { AppUser = user });
-
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return RedirectToAction("Index", "Home");
-                    }
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                    }
-                }
+                ModelState.AddModelError(string.Empty, "Model state is invalid");
+                return View();
             }
 
-            return View();
+            if (regViewModel.Specialist != null)
+            {
+                return await specReg(regViewModel.Specialist);
+            }
+
+            return await clientReg(regViewModel.Client);
+        }
+
+        private async Task<IActionResult> clientReg(ClientRegistrationVm clientViewModel)
+        {
+            var user = new AppUser
+            {
+                UserName = clientViewModel.UserName,
+                Email = clientViewModel.Email,
+                PhoneNumber = clientViewModel.PhoneNumber ?? ""
+            };
+
+            var result = await _userManager.CreateAsync(user, clientViewModel.Password);
+            if (result.Succeeded)
+            {
+                var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                var callbackUrl = Url.Action(
+                    action: "ConfirmEmail",
+                    controller: "Auth",
+                    values: new { userId = user.Id, code },
+                    protocol: Request.Scheme);
+
+                await _emailService.SendEmail(clientViewModel.Email, "Confirm your email",
+                    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                await _clientService.InsertAsync(new Client { AppUser = user });
+                await _userManager.AddToRolesAsync(user, new[] { "client" });
+                await _signInManager.SignInAsync(user, isPersistent: false);
+
+                TempData["Email"] = "Please check your Email on new message";
+                return RedirectToAction("Index", "Home");
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+
+            return View("SignUp");
+        }
+
+        private async Task<IActionResult> specReg(SpecialistRegistrationVm specialistViewModel)
+        {
+            var user = new AppUser
+            {
+                UserName = specialistViewModel.UserName,
+                Email = specialistViewModel.Email,
+                PhoneNumber = specialistViewModel.PhoneNumber ?? ""
+            };
+
+            var result = await _userManager.CreateAsync(user, specialistViewModel.Password);
+            if (result.Succeeded)
+            {
+                var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                var callbackUrl = Url.Action(
+                    action: "ConfirmEmail",
+                    controller: "Auth",
+                    values: new { userId = user.Id, code },
+                    protocol: Request.Scheme);
+
+                await _emailService.SendEmail(specialistViewModel.Email, "Confirm your email",
+                    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                await _specialistService.InsertAsync(new Specialist { AppUser = user });
+                await _userManager.AddToRolesAsync(user, new[] { "specialist" });
+                await _signInManager.SignInAsync(user, isPersistent: false);
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+            return View("SignUp");
         }
 
         public IActionResult ResetPassword()
