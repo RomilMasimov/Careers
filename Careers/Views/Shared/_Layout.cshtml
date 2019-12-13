@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="~/css/site.css" />
 
 
+
 </head>
 <body>
     <div id="preloader">
@@ -197,25 +198,56 @@
                     </div>
                     <!-- mobile menu area end -->
                     <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 hidden-sm hidden-xs">
-                        <div class="jp_navi_right_btn_wrapper">
-                            <ul>
-                                @if (User.Identity.IsAuthenticated)
-                                {
-                                    <li>@User.Identity.Name</li>
-                                }
-                                else
-                                {
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div class=" header-area hidden-menu-bar stick">
+                                <div class="mainmenu my-mainmenu">
+                                    <ul>
+                                        <li style="color: aliceblue">Welcome,</li>
+                                        <li class="has-mega gc_main_navigation">
+                                            <a id="profilebutton" class="gc_main_navigation">
+                                                @User.Identity.Name Privet &nbsp;<i class="fa fa-angle-down"></i>
+                                            </a>
+                                            <!-- mega menu start -->
+                                            <ul class="cd-secondary-dropdown is-hidden">
+                                                @if (User.IsInRole("client"))
+                                                {
+                                                    <li class="parent"><a>profile</a></li>
+                                                    <li class="parent"><a>Orders</a></li>
+                                                    <li class="parent"><a>Notifications</a></li>
+                                                }
+                                                else if(User.IsInRole("specialist"))
+                                                {
+                                                    <li class="parent"><a>profile</a></li>
+
+                                                }
+                                                <li class="parent"><a>Sign out</a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <div class="my-image">
+                                                <img src="https://i.ytimg.com/vi/nYNBgif23x8/maxresdefault.jpg" alt="">
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="jp_navi_right_btn_wrapper">
+                                <ul>
+
                                     <li>
                                         <a asp-controller="Auth" asp-action="SignUp"><i class="fa fa-user"></i>&nbsp; SIGN UP</a>
                                     </li>
                                     <li>
                                         <a asp-controller="Auth" asp-action="LogIn"><i class="fa fa-sign-in"></i>&nbsp; LOGIN</a>
                                     </li>
-                                }
-                                @*<li><a asp-controller="Auth" asp-action="SignUp"><i class="fa fa-user"></i>&nbsp; SIGN UP</a></li>
-        <li><a asp-controller="Auth" asp-action="LogIn"><i class="fa fa-sign-in"></i>&nbsp; LOGIN</a></li>*@
-                            </ul>
-                        </div>
+                                </ul>
+
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
@@ -430,8 +462,8 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap-select.min.js"></script>
-<script src="https://kit.fontawesome.com/74b23692b6.js" crossorigin="anonymous"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap-select.min.js"></script>
+    <script src="https://kit.fontawesome.com/74b23692b6.js" crossorigin="anonymous"></script>
     @* from template *@
     <script src="~/js/jquery_min.js"></script>
     <script src="~/js/bootstrap.js"></script>
@@ -446,5 +478,5 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 
-    </body>
+</body>
 </html>
