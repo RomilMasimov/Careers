@@ -137,7 +137,7 @@ namespace Careers.Controllers
                 Email = specialistViewModel.Email,
                 PhoneNumber = specialistViewModel.PhoneNumber ?? ""
             };
-
+            
             var result = await _userManager.CreateAsync(user, specialistViewModel.Password);
             if (result.Succeeded)
             {
@@ -152,7 +152,13 @@ namespace Careers.Controllers
                 await _emailService.SendEmail(specialistViewModel.Email, "Confirm your email",
                     $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                await _specialistService.InsertAsync(new Specialist { AppUser = user });
+                await _specialistService.InsertAsync(new Specialist
+                {
+                    Name = specialistViewModel.Name,
+                    Surname = specialistViewModel.Surname,
+                    AppUser = user
+                });
+
                 await _userManager.AddToRolesAsync(user, new[] { "specialist" });
                 await _signInManager.SignInAsync(user, isPersistent: false);
 
