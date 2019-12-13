@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
@@ -30,9 +32,36 @@ namespace Careers.Controllers
             _clientService = clientService;
         }
 
-        public IActionResult LogIn()
+        [HttpGet]
+        public IActionResult LogIn(string returnUrl = null)
         {
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> LogInAsync(LoginViewModel model, string returnUrl = null)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _signInManager.PasswordSignInAsync(model.Login, model.Password, model.RememberMe, lockoutOnFailure: false);
+                if (result.Succeeded == false)
+                {
+                    var user = await _userManager.FindByEmailAsync(model.Login);
+                    if (user != null)
+                        result = await _signInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, lockoutOnFailure: false);
+                }
+
+                if (result.Succeeded)
+                {
+                    if (returnUrl == null) return RedirectToAction("Index", "Home");
+
+                    var roles = HttpContext.User.FindAll(ClaimTypes.Role);
+                    if (roles.Any(m => m.Value == "specialist")) return RedirectToAction("Index", "Order", new { area = "Specialist" });
+                    return RedirectToAction("Index", "Home");
+                }
+                else ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+            }
+            return View(model);
         }
 
         public async Task<IActionResult> SignOut()
@@ -137,7 +166,7 @@ namespace Careers.Controllers
                 Email = specialistViewModel.Email,
                 PhoneNumber = specialistViewModel.PhoneNumber ?? ""
             };
-            
+
             var result = await _userManager.CreateAsync(user, specialistViewModel.Password);
             if (result.Succeeded)
             {
