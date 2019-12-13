@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.SignalR;
 using Careers.Repositories;
+using Microsoft.AspNetCore.Http;
 
 namespace Careers
 {
@@ -40,6 +41,11 @@ namespace Careers
             services.AddIdentity<AppUser, IdentityRole>(options => options.User.RequireUniqueEmail = true)
                 .AddEntityFrameworkStores<CareersDbContext>()
                 .AddDefaultTokenProviders();
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = new PathString("/Auth/Login");
+            });
 
             services.AddLocalization(options => options.ResourcesPath = "Resources");
 

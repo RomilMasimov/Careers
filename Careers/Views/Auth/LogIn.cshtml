@@ -1,4 +1,4 @@
-﻿
+﻿@model Careers.ViewModels.Auth.LoginViewModel
 @{
     Layout = "_Layout";
 }
@@ -36,43 +36,36 @@
                 <div class="col-md-8 col-md-offset-2">
                     <!-- login_wrapper -->
                     <h1>LOGIN TO YOUR ACCOUNT</h1>
-                    <div class="login_wrapper">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
-                                <a href="#" class="btn btn-primary"> <span>Login with Facebook</span> <i class="fa fa-facebook"></i> </a>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
-                                <a href="#" class="btn btn-primary google-plus"> Login  with Google <i class="fa fa-google-plus"></i> </a>
-                            </div>
-                        </div>
-                        <h2>or</h2>
+                    <form asp-action="LogIn" asp-controller="Auth" method="post" class="login_wrapper">
+                        <div asp-validation-summary="All" class="text-danger"></div>
                         <div class="formsix-pos">
                             <div class="form-group i-email">
-                                <input type="email" class="form-control" required="" id="email2" placeholder="Username*">
+                                <input asp-for="Email" class="form-control" placeholder="Login*">
+                                <span asp-validation-for="Email" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="formsix-e">
                             <div class="form-group i-password">
-                                <input type="password" class="form-control" required="" id="password2" placeholder="Password *">
+                                <input asp-for="Password" class="form-control" placeholder="Password*">
+                                <span asp-validation-for="Password" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="login_remember_box">
                             <label class="control control--checkbox">
-                                Remember me
-                                <input type="checkbox">
-                                <span class="control__indicator"></span>
+                                <input asp-for="RememberMe" type="checkbox" class="form-check-input">
+                                <label asp-for="RememberMe" class="form-check-label"></label>
                             </label>
                             <a href="#" class="forget_password">
                                 Forgot Password
                             </a>
                         </div>
                         <div class="login_btn_wrapper">
-                            <a href="#" class="btn btn-primary login_btn"> Login </a>
+                            <button class="btn btn-primary login_btn"> Login </button>
                         </div>
                         <div class="login_message">
                             <p>Don’t have an account ? <a asp-controller="Auth" asp-action="SignUp"> Register Now </a> </p>
                         </div>
-                    </div>
+                    </form>
                     <p>
                         In case you are using a public/shared computer we recommend that
                         you logout to prevent any un-authorized access to your account
@@ -85,3 +78,7 @@
     <!-- /.login_form_wrapper-->
 </div>
 <!-- jp login wrapper end -->
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Careers.Areas.Specialist.Controllers
 {
+    [Area("Specialist")]
     [Authorize(Roles = "admin,specialist")]
     public class ProfileController : Controller
     {
