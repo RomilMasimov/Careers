@@ -212,9 +212,8 @@
                                             <ul class="cd-secondary-dropdown is-hidden">
                                                 @if (User.IsInRole("client"))
                                                 {
-                                                    <li class="parent"><a>profile</a></li>
-                                                    <li class="parent"><a>Orders</a></li>
-                                                    <li class="parent"><a>Notifications</a></li>
+                                                    <li class="parent"><a asp-controller="Client" asp-action="Index">profile</a></li>
+                                                    <li class="parent"><a asp-controller="Order" asp-action="Index" >Orders</a></li>
                                                 }
                                                 else if(User.IsInRole("specialist"))
                                                 {

@@ -34,6 +34,7 @@ namespace Careers.Controllers
             //var cities = await _locationService.GetAllCitiesAsync();
             var meetingPoints = await _meetingPointService.GetAllAsync();
             //string localization = _sharedLocalizer["Hello"];
+            var b = User.IsInRole("client");
             var r = User?.Identity?.Name;
             return View();
         }

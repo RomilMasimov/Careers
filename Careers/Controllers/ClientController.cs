@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Careers.Models.Identity;
 using Careers.Services.Interfaces;
+using Careers.ViewModels.Client;
 using IronXL.Xml.Dml.Chart;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -29,7 +30,7 @@ namespace Careers.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var client = await _clientService.FindAsync(userId);
 
-            return View();
+            return View(new ClientViewModel{Gender = false});
         }
 
         public async Task<IActionResult> Orders()
@@ -38,14 +39,6 @@ namespace Careers.Controllers
            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             //orders are in client
             var client = await _clientService.FindAsync(userId, true);
-
-            return View();
-        }
-
-        public async Task<IActionResult> Notifications()
-        {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var client = await _clientService.FindAsync(userId);
 
             return View();
         }

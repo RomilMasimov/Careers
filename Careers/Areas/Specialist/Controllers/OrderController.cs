@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Careers.Areas.Specialist.Controllers
 {
+    [Area("Specialist")]
     public class OrderController : Controller
     {
         public IActionResult Index()

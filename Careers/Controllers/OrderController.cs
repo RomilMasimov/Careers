@@ -17,10 +17,10 @@ namespace Careers.Controllers
         {
             _orderService = orderService;
         }
-        public async Task<IActionResult> Index(int id)
+        public async Task<IActionResult> Index()
         {
             //order with responses
-            var order = await _orderService.FindAsync(id,true);
+           // var order = await _orderService.FindAsync(id,true);
             
             return View();
         }

@@ -131,3 +131,13 @@ main {
 #profilebutton {
     font-size: 20px;
 }
+
+.my-notification-radibuttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.my-notification-label {
+    display: flex;
+    align-items: center;
+}
