@@ -16,14 +16,16 @@ namespace Careers.Controllers
 {
     public class AuthController : Controller
     {
+        private readonly LocationService _locationService;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
         private readonly EmailService _emailService;
         private readonly ISpecialistService _specialistService;
         private readonly IClientService _clientService;
 
-        public AuthController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, EmailService emailService, ISpecialistService specialistService, IClientService clientService)
+        public AuthController(LocationService locationService, SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, EmailService emailService, ISpecialistService specialistService, IClientService clientService)
         {
+            _locationService = locationService;
             _signInManager = signInManager;
             _userManager = userManager;
             _emailService = emailService;
@@ -90,9 +92,17 @@ namespace Careers.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public IActionResult SignUp()
+        public async Task<IActionResult> SignUp()
         {
-            return View();
+            var viewModel = new RegistrationViewModel
+            {
+                Specialist = new SpecialistRegistrationVm
+                {
+                    Cities = await _locationService.GetAllCitiesAsync()
+                }
+            };
+
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -182,9 +192,10 @@ namespace Careers.Controllers
 
                 await _specialistService.InsertAsync(new Specialist
                 {
+                    AppUser = user,
                     Name = specialistViewModel.Name,
                     Surname = specialistViewModel.Surname,
-                    AppUser = user
+                    CityId = specialistViewModel.CityId
                 });
 
                 await _userManager.AddToRolesAsync(user, new[] { "specialist" });
