@@ -1,10 +1,12 @@
-﻿namespace Careers.ViewModels.Auth
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Careers.ViewModels.Auth
 {
-    public class ResetPasswordViewModel
+    public class ForgotPasswordViewModel
     {
+        [Required]
+        [EmailAddress]
         public string Email { get; set; }
-        public string Code { get; internal set; }
-        public string Password { get; set; }
-        public string ConfirmPassword { get; set; }
+        public string Code { get; set; }
     }
 }

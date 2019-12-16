@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -207,27 +206,26 @@ namespace Careers.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ForgotPassword(ResetPasswordViewModel Input)
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel Input)
         {
             if (ModelState.IsValid)
             {
+                TempData["Email"] = "Please check your email to reset your password.";
+
                 var user = await _userManager.FindByEmailAsync(Input.Email);
                 if (user == null || !await _userManager.IsEmailConfirmedAsync(user))
                 {
-                    TempData["Email"] = "Please check your email to reset your password.";
                     return RedirectToAction("Index", "Home");
                 }
 
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
                 code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                 var callbackUrl = Url.Action("ResetPassword", "Auth",
-                    values: new { code },
-                    protocol: Request.Scheme);
+                    values: new { code }, protocol: Request.Scheme);
 
                 await _emailService.SendEmail(Input.Email, "Reset Password",
                     $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                TempData["Email"] = "Please check your email to reset your password.";
                 return RedirectToAction("Index", "Home");
             }
 
@@ -240,35 +238,34 @@ namespace Careers.Controllers
             {
                 return BadRequest("A code must be supplied for password reset.");
             }
-            else
+
+            var Input = new ResetPasswordViewModel
             {
-                var Input = new ResetPasswordViewModel
-                {
-                    Code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code))
-                };
-                return View();
-            }
+                Code = code
+            };
+            return View(Input);
         }
 
         [HttpPost]
-        public async Task<IActionResult> ResetPasswordAsync(ResetPasswordViewModel Input)
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel Input)
         {
             if (!ModelState.IsValid)
             {
                 return View();
             }
 
+            TempData["Email"] = "Your password has been reset. Please log in.";
+
             var user = await _userManager.FindByEmailAsync(Input.Email);
             if (user == null)
             {
-                TempData["Email"] = "Your password has been reset. Please log in.";
                 return RedirectToAction("Index", "Home");
             }
+            var code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(Input.Code));
 
-            var result = await _userManager.ResetPasswordAsync(user, Input.Code, Input.Password);
+            var result = await _userManager.ResetPasswordAsync(user, code, Input.Password);
             if (result.Succeeded)
             {
-                TempData["Email"] = "Your password has been reset. Please log in.";
                 return RedirectToAction("Index", "Home");
             }
 
