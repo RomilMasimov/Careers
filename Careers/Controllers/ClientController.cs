@@ -33,7 +33,7 @@ namespace Careers.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var client = await _clientService.FindAsync(userId, true);
-    
+
             return View(new ClientViewModel(client));
         }
 
@@ -41,7 +41,7 @@ namespace Careers.Controllers
         public async Task<IActionResult> Index(ClientViewModel input, IFormFile Image)
         {
             var user = await _userManager.GetUserAsync(User);
-            input.Messages=new List<string>();
+            input.Messages = new List<string>();
             if (input.OldPhoneNumber != input.PhoneNumber)
             {
                 //need work with it...
@@ -55,8 +55,8 @@ namespace Careers.Controllers
                 await _senderService.SendEmail(
                     input.Email, "Confirm your phone",
                     $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-              //  _senderService.SendSms("507190012", "check", code);
-               input.Messages.Add("Confirmation link to change phone sent. Please check your phone.");
+                //  _senderService.SendSms("507190012", "check", code);
+                input.Messages.Add("Confirmation link to change phone sent. Please check your phone.");
             }
 
             if (input.OldEmail != input.Email)
@@ -96,9 +96,9 @@ namespace Careers.Controllers
                 }
             }
 
-            if (Image != null)
+            if (Image != null && !System.IO.File.Exists("wwwroot" + input.ImageUrl))
             {
-                input.ImageUrl = await FileUploadHelper.UploadAsync(Image, "~/media/profileImages");
+                input.ImageUrl = await FileUploadHelper.UploadAsync(Image);
             }
 
             var client = await _clientService.FindAsync(user.Id);
