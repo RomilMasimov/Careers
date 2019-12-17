@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Careers.Areas.Specialist.Controllers
+namespace Careers.Areas.SpecialistArea.Controllers
 {
     public class ForumController : Controller
     {

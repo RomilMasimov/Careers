@@ -15,6 +15,7 @@ namespace Careers.Services.Interfaces
 
         Task<bool> UpdatePasport(int specialistId, Stream file);
         Task<bool> UpdateImage(int specialistId, Stream file);
+        Task<bool> DeleteImage(int specialistId);
 
         Task<SpecialistWork> AddWork(int specialistId, Stream file, string description);
         Task<bool> DeleteWork(int id);

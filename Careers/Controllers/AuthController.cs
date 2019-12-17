@@ -185,7 +185,8 @@ namespace Careers.Controllers
                 {
                     Name = specialistViewModel.Name,
                     Surname = specialistViewModel.Surname,
-                    AppUser = user
+                    AppUser = user,
+                    CityId = 7
                 });
 
                 await _userManager.AddToRolesAsync(user, new[] { "specialist" });

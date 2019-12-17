@@ -1,0 +1,46 @@
+﻿@model string
+@{
+    Layout = "_Layout";
+}
+
+<h2>Photos (clients see them)</h2>
+
+<ul class="nav nav-tabs nav-fill mt-5">
+    <li class="nav-item">
+        <a class="nav-link active" href="#">Your portrait</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Works</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Educations</a>
+    </li>
+</ul>
+<div class="my-2">
+    @if (TempData.ContainsKey("Status"))
+    {
+        <div class="alert alert-info" role="alert">
+            @TempData["Status"]
+        </div>
+    }
+    <form asp-area="Specialist" asp-controller="Profile" asp-action="UploadPortrait" method="post" enctype="multipart/form-data">
+        <div class="input-group">
+
+            <div class="custom-file">
+                <input name="Image" type="file" required class="custom-file-input" id="inputGroupFile" aria-describedby="inputGroupFile">
+                <label class="custom-file-label" for="inputGroupFile">Choose portrait</label>
+            </div>
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit" id="inputGroupFile">Upload</button>
+            </div>
+        </div>
+    </form>
+
+    @if (!string.IsNullOrWhiteSpace(Model))
+    {
+        <img class="img-fluid img-rounded my-2" width="200" height="200" src="~/@Model" />
+        <form asp-area="Specialist" asp-controller="Profile" asp-action="DeletePortrait" method="post" class="mt-1">
+            <button class="btn btn-danger">Delete</button>
+        </form>
+    }
+</div>

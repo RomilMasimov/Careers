@@ -57,7 +57,6 @@
     <Folder Include="Areas\AdminPanel\Models\" />
     <Folder Include="CommentsLog\" />
     <Folder Include="MessagesLog\" />
-    <Folder Include="Media\" />
     <Folder Include="ViewModels\Home\" />
   </ItemGroup>
 

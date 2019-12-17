@@ -10,19 +10,15 @@ namespace Careers.Repositories
     {
         public async Task<string> AddAsync(string root, Stream file)
         {
-            using var fileStream = file as FileStream;
-            if (fileStream == null)
-                return string.Empty;
-
-            var filename = $"{Guid.NewGuid()}{Path.GetExtension(fileStream.Name)}";
+            var filename = $"{Guid.NewGuid()}.png";
             using var fs = new FileStream(@$"{root}/{filename}", FileMode.Create);
-            await fileStream.CopyToAsync(fs);
+            await file.CopyToAsync(fs);
             return filename;
         }
 
         public void Delete(string root, string filename)
         {
-            var path = root + filename;
+            var path = @$"{root}\{filename}";
             if (!File.Exists(path)) return;
             File.Delete(path);
         }

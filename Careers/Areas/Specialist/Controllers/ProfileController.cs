@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.IO;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Careers.Models;
 using Careers.Models.Identity;
@@ -8,7 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Careers.Areas.Specialist.Controllers
+namespace Careers.Areas.SpecialistArea.Controllers
 {
     [Area("Specialist")]
     [Authorize(Roles = "admin,specialist")]
@@ -17,7 +18,7 @@ namespace Careers.Areas.Specialist.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly ISpecialistService _specialistService;
 
-        public ProfileController(UserManager<AppUser> userManager,ISpecialistService specialistService)
+        public ProfileController(UserManager<AppUser> userManager, ISpecialistService specialistService)
         {
             _userManager = userManager;
             _specialistService = specialistService;
@@ -26,20 +27,40 @@ namespace Careers.Areas.Specialist.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var specialist = await _specialistService.FindByUserAsync(userId);
-
-            return View();
+            setImageUrl(specialist);
+            return View(specialist);
         }
 
         [HttpGet]
-        public IActionResult UploadPortrait()
+        public async Task<IActionResult> UploadPortrait()
         {
-            return View();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var specialist = await _specialistService.FindByUserAsync(userId);
+            var path = setImageUrl(specialist);
+            return View(path as object);
         }
         
         [HttpPost]
-        public IActionResult UploadPortrait(IFormFile Image)
+        public async Task<IActionResult> UploadPortrait(IFormFile Image)
         {
-            return View();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var specialist = await _specialistService.FindByUserAsync(userId);
+            var result = await _specialistService.UpdateImage(specialist.Id, Image.OpenReadStream());
+            if (!result) TempData["Status"] = "Portrait did not upload";
+            else TempData["Status"] = "Portrait sent successfully";
+            var path = setImageUrl(specialist);
+            return View(path as object);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeletePortrait()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var specialist = await _specialistService.FindByUserAsync(userId);
+            var result = await _specialistService.DeleteImage(specialist.Id);
+            if (!result) TempData["Status"] = "Portrait did not delete";
+            else TempData["Status"] = "Portrait delete successfully";
+            return View("UploadPortrait");
         }
 
         [HttpGet]
@@ -186,6 +207,15 @@ namespace Careers.Areas.Specialist.Controllers
         public IActionResult Settings()
         {
             return View();
+        }
+
+        private string setImageUrl(Specialist specialist)
+        {
+            string path = string.Empty;
+            if (!string.IsNullOrWhiteSpace(specialist.ImageUrl))
+                path = @$"Media/{specialist.ImageUrl}"; //TODO Сделать по нормально. Забирать путь к папке из сервиса
+            ViewData["ImageUrl"] = path;
+            return path;
         }
     }
 }

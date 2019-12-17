@@ -14,7 +14,7 @@ namespace Careers.Services
     {
         private readonly CareersDbContext context;
         private readonly MediaRepository mediaRepository;
-        private readonly string mediaPath = Environment.CurrentDirectory + @"/Media";
+        private readonly string mediaPath = Environment.CurrentDirectory + @"\Media";
 
         public SpecialistService(CareersDbContext context, MediaRepository mediaRepository)
         {
@@ -136,6 +136,16 @@ namespace Careers.Services
             var result = context.Specialists.Update(specialist);
             await context.SaveChangesAsync();
             return result.Entity;
+        }
+
+        public async Task<bool> DeleteImage(int specialistId)
+        {
+            var specialist = await context.Specialists.FindAsync(specialistId);
+            if (!string.IsNullOrWhiteSpace(specialist.ImageUrl))
+                mediaRepository.Delete(mediaPath, specialist.ImageUrl);
+            specialist.ImageUrl = string.Empty;
+            context.Specialists.Update(specialist);
+            return await context.SaveChangesAsync() > 0;
         }
     }
 }

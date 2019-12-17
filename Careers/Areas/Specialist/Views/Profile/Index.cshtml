@@ -1,15 +1,166 @@
-﻿
+﻿@model Specialist
 @{
     Layout = "_Layout";
 }
 
-<!DOCTYPE html>
+<div class="row">
+    <div class="col-6">
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-</body>
-</html>
+        <!-- Specialist card start -->
+        <div class="row">
+            <a asp-area="Specialist" asp-controller="Profile" asp-action="UploadPortrait" class="col-sm-6 col-md-4">
+                <img src="~/@ViewData["ImageUrl"]" placeholder-src="/images/content/profile_placeholder.png" alt=""
+                     class="img-fluid img-rounded w-100" />
+            </a>
+            <div class="col-sm-6 col-md-8">
+                <h4>@Model.Name @Model.Surname</h4>
+                <p>
+                    Rating 3,8s <a href="#">detail</a>
+                    <br>
+                    Reviews <small class="text-muted">no reviews yet</small>
+                    <br>
+                    <a href="#">Upload passport photo</a>
+                </p>
+            </div>
+        </div>
+        <!-- Specialist card end -->
+    </div>
+
+    <div class="col-12">
+
+        <!-- About myself start -->
+        <div class="list-group my-5">
+            <div href="#" class="list-group-item">
+                <div class="w-100">
+                    <h5 class="mb-1">About myself</h5>
+                    <p>Education and experience, briefly and in detail about yourself</p>
+                </div>
+                <div class="row">
+                    <div class="col-2">
+                        <h6>Education and work experience</h6>
+                    </div>
+                    <div class="col-10">
+                        <p>
+                            <a href="#">Add</a>
+                            <br>
+                            <span class="text-muted">
+                                Tell us about your education, experience and
+                                achievements. Confirm them with documents. This will ensure that
+                                customers are a true specialist.
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div href="#" class="list-group-item">
+                <div class="row">
+                    <div class="col-2">
+                        <h6>About</h6>
+                    </div>
+                    <div class="col-10">
+                        <p>
+                            <a href="#">Add</a>
+                            <br>
+                            <span class="text-muted">
+                                Tell us more about yourself so that customers know
+                                you better. What orders are you interested in? What is the peculiarity
+                                of your approach to work? This information will help the customer make a
+                                choice.
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- About myself end -->
+        <!-- Region and addresses start -->
+        <div class="list-group my-5">
+            <div href="#" class="list-group-item">
+                <div class="w-100">
+                    <h5 class="mb-1">Region and addresses</h5>
+                    <p>Where is it easy for you to work<p>
+                </div>
+                <div class="row">
+                    <div class="col-2">
+                        <h6>Whete can meet</h6>
+                    </div>
+                    <div class="col-10">
+                        <p>
+                            <a href="#">Edit</a>
+                            <br>
+                            bla bla bla
+                            <br>
+                            bla bla bla
+                    </div>
+                </div>
+            </div>
+            <div href="#" class="list-group-item">
+                <div class="row">
+                    <div class="col-2">
+                        <h6>Whete can go</h6>
+                    </div>
+                    <div class="col-10">
+                        <p>
+                            <a href="#">Edit</a>
+                            <br>
+                            bla bla bla
+                            <br>
+                            bla bla bla
+                    </div>
+                </div>
+            </div>
+            <div href="#" class="list-group-item">
+                <div class="row">
+                    <div class="col-2">
+                        <h6>Cities</h6>
+                    </div>
+                    <div class="col-10">
+                        <p>
+                            <a href="#">Edit</a>
+                            <br>
+                            bla bla bla
+                            <br>
+                            bla bla bla
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Region and addresses end -->
+        <!-- Specialties start -->
+        <div class="list-group my-5">
+            <div href="#" class="list-group-item">
+                <div class="row">
+                    <div class="col-2">
+                        <h6>Specialties</h6>
+                    </div>
+                    <div class="col-10">
+                        <p>
+                            <a href="#">Add or remove</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div href="#" class="list-group-item">
+                <div class="row">
+                    <div class="col-2">
+                        <h6>Specialties</h6>
+                    </div>
+                    <div class="col-10">
+                        <a href="#">Add or remove</a>
+                        <br>
+                        <h6>IT-freelancers</h6>
+                        Programmers <a href="#">Services and prices</a>
+                        <br>
+                        <h6>IT-freelancers</h6>
+                        Programmers <a href="#">Services and prices</a>
+                        Programmers <a href="#">Services and prices</a>
+                        Programmers <a href="#">Services and prices</a>
+                        Programmers <a href="#">Services and prices</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Specialties end -->
+
+    </div>
+</div>
