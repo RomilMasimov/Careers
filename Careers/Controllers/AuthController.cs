@@ -19,16 +19,16 @@ namespace Careers.Controllers
         private readonly LocationService _locationService;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
-        private readonly EmailService _emailService;
+        private readonly SenderService _senderService;
         private readonly ISpecialistService _specialistService;
         private readonly IClientService _clientService;
 
-        public AuthController(LocationService locationService, SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, EmailService emailService, ISpecialistService specialistService, IClientService clientService)
+        public AuthController(LocationService locationService, SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, SenderService senderService, ISpecialistService specialistService, IClientService clientService)
         {
             _locationService = locationService;
             _signInManager = signInManager;
             _userManager = userManager;
-            _emailService = emailService;
+            _senderService = senderService;
             _specialistService = specialistService;
             _clientService = clientService;
         }
@@ -148,7 +148,7 @@ namespace Careers.Controllers
                     values: new { userId = user.Id, code },
                     protocol: Request.Scheme);
 
-                await _emailService.SendEmail(clientViewModel.Email, "Confirm your email",
+                await _senderService.SendEmail(clientViewModel.Email, "Confirm your email",
                     $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                 await _clientService.InsertAsync(new Client { AppUser = user });
@@ -187,7 +187,7 @@ namespace Careers.Controllers
                     values: new { userId = user.Id, code },
                     protocol: Request.Scheme);
 
-                await _emailService.SendEmail(specialistViewModel.Email, "Confirm your email",
+                await _senderService.SendEmail(specialistViewModel.Email, "Confirm your email",
                     $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                 await _specialistService.InsertAsync(new Specialist
@@ -234,7 +234,7 @@ namespace Careers.Controllers
                 var callbackUrl = Url.Action("ResetPassword", "Auth",
                     values: new { code }, protocol: Request.Scheme);
 
-                await _emailService.SendEmail(Input.Email, "Reset Password",
+                await _senderService.SendEmail(Input.Email, "Reset Password",
                     $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                 return RedirectToAction("Index", "Home");
@@ -302,7 +302,7 @@ namespace Careers.Controllers
                 return NotFound($"Unable to load user with ID '{userId}'.");
             }
 
-            code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
+            
             var result = await _userManager.ChangeEmailAsync(user, email, code);
             if (!result.Succeeded)
             {
@@ -329,7 +329,6 @@ namespace Careers.Controllers
                 return NotFound($"Unable to load user with ID '{userId}'.");
             }
 
-            code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
             var result = await _userManager.ChangePhoneNumberAsync(user, phoneNumber, code);
             if (!result.Succeeded)
             {

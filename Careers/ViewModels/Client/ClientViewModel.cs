@@ -42,10 +42,15 @@ namespace Careers.ViewModels.Client
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
+        public bool EmailConfirmed { get; set; }
+        public bool PhoneConfirmed { get; set; }
+
         public ClientViewModel() { }
 
         public ClientViewModel(Models.Client client)
         {
+            EmailConfirmed = client.AppUser.EmailConfirmed;
+            PhoneConfirmed = client.AppUser.PhoneNumberConfirmed;
             Messages = new List<string>();
             Name = client.Name;
             Surname = client.Surname;
@@ -67,9 +72,9 @@ namespace Careers.ViewModels.Client
             client.Gender = Gender;
             client.SmsNotifications = SmsNotifications;
             client.EmailNotifications = EmailNotifications;
-            client.AppUser.Email = Email;
+            //client.AppUser.Email = Email;
             //UserName = client.AppUser.UserName=UserName;
-            client.AppUser.PhoneNumber = PhoneNumber;
+            //client.AppUser.PhoneNumber = PhoneNumber;
             return client;
         }
 

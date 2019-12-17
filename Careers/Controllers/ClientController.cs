@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Collections.Generic;
+using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Careers.Helpers;
@@ -18,13 +19,13 @@ namespace Careers.Controllers
     {
         private readonly IClientService _clientService;
         private readonly UserManager<AppUser> _userManager;
-        private readonly EmailService _emailService;
+        private readonly SenderService _senderService;
 
-        public ClientController(IClientService clientService, UserManager<AppUser> userManager, EmailService emailService)
+        public ClientController(IClientService clientService, UserManager<AppUser> userManager, SenderService senderService)
         {
             _clientService = clientService;
             _userManager = userManager;
-            _emailService = emailService;
+            _senderService = senderService;
         }
 
 
@@ -40,20 +41,21 @@ namespace Careers.Controllers
         public async Task<IActionResult> Index(ClientViewModel input, IFormFile Image)
         {
             var user = await _userManager.GetUserAsync(User);
-
+            input.Messages=new List<string>();
             if (input.OldPhoneNumber != input.PhoneNumber)
             {
+                //need work with it...
                 var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, input.PhoneNumber);
 
                 var callbackUrl = Url.Action(
                     "ConfirmPhoneNumberChange", "Auth",
-                    values: new { userId = user.Id, email = input.PhoneNumber, code },
+                    values: new { userId = user.Id, phoneNumber = input.PhoneNumber, code },
                     protocol: Request.Scheme);
 
-                await _emailService.SendEmail(
+                await _senderService.SendEmail(
                     input.Email, "Confirm your phone",
                     $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-              
+              //  _senderService.SendSms("507190012", "check", code);
                input.Messages.Add("Confirmation link to change phone sent. Please check your phone.");
             }
 
@@ -66,7 +68,7 @@ namespace Careers.Controllers
                     values: new { userId = user.Id, email = input.Email, code },
                     protocol: Request.Scheme);
 
-                await _emailService.SendEmail(
+                await _senderService.SendEmail(
                     input.Email, "Confirm your email",
                     $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 

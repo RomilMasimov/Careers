@@ -2,6 +2,7 @@
 
 @{
     Layout = "_Layout";
+    ViewData["Title"] = "Profile";
 }
 
 @foreach (var item in Model.Messages)
@@ -16,7 +17,7 @@
     <div class="row my-2 mt-5">
         <form method="post" asp-controller="Client" asp-action="Index" enctype="multipart/form-data">
             <div class="col-lg-4 order-lg-1 text-center">
-                <img src="@Model.ImageUrl"  class="mx-auto w-75 img-circle d-block" alt="avatar">
+                <img src="@Model.ImageUrl" class="mx-auto w-75 img-circle d-block" alt="avatar">
                 <h6 id="file-name" class="mt-2">Upload a different photo</h6>
                 <label class="custom-file">
                     <input type="file" name="Image" id="Image" class="custom-file-input">
@@ -45,12 +46,22 @@
                     <label class="col-lg-3 col-form-label form-control-label" asp-for="Email"></label>
                     <div class="col-lg-9">
                         <input class="form-control" type="email" asp-for="Email">
+                        <input  type="hidden" asp-for="EmailConfirmed">
+                        @if (!Model.EmailConfirmed)
+                        {
+                            <span class="text-danger">Your email is not confirmed</span>
+                        }
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-lg-3 col-form-label form-control-label" asp-for="PhoneNumber"></label>
                     <div class="col-lg-9">
                         <input class="form-control" type="text" asp-for="PhoneNumber">
+                        <input type="hidden" asp-for="PhoneConfirmed">
+                        @if (!Model.PhoneConfirmed)
+                        {
+                            <span class="text-danger">Your phone number is not confirmed</span>
+                        }
                     </div>
                 </div>
                 <div class="form-group row">

@@ -55,7 +55,7 @@ namespace Careers
             });
             //services
             services.AddTransient<LocationService>();
-            services.AddTransient<EmailService>();
+            services.AddTransient<SenderService>();
             services.AddTransient<SmsService>();
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IClientService, ClientService>();
