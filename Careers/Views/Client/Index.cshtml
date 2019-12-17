@@ -4,105 +4,133 @@
     Layout = "_Layout";
 }
 
+@foreach (var item in Model.Messages)
+{
+    <div class="alert alert-success alert-dismissible my-1 info-message" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        @item
+    </div>
+}
+
 <div class="container">
     <div class="row my-2 mt-5">
-        <div class="col-lg-8 order-lg-2">
-           
-           
-                    <form role="form">
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label" asp-for="Name"></label>
-                            <div class="col-lg-9">
-                                <input class="form-control" type="text" value="Jane">
-                            </div>
+        <form method="post" asp-controller="Client" asp-action="Index" enctype="multipart/form-data">
+            <div class="col-lg-4 order-lg-1 text-center">
+                <img src="@Model.ImageUrl"  class="mx-auto w-75 img-circle d-block" alt="avatar">
+                <h6 id="file-name" class="mt-2">Upload a different photo</h6>
+                <label class="custom-file">
+                    <input type="file" name="Image" id="Image" class="custom-file-input">
+                    <span class="custom-file-control btn btn-primary">Choose file</span>
+                </label>
+            </div>
+
+            <div class="col-lg-8 order-lg-2">
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <input type="hidden" asp-for="OldPhoneNumber" />
+                <input type="hidden" asp-for="OldEmail" />
+                <div class="form-group row">
+                    <label class="col-lg-3 col-form-label form-control-label" asp-for="Name"></label>
+                    <div class="col-lg-9">
+                        <input class="form-control" type="text" asp-for="Name">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-lg-3 col-form-label form-control-label" asp-for="Surname"></label>
+                    <div class="col-lg-9">
+                        <input class="form-control" type="text" asp-for="Surname">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-lg-3 col-form-label form-control-label" asp-for="Email"></label>
+                    <div class="col-lg-9">
+                        <input class="form-control" type="email" asp-for="Email">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-lg-3 col-form-label form-control-label" asp-for="PhoneNumber"></label>
+                    <div class="col-lg-9">
+                        <input class="form-control" type="text" asp-for="PhoneNumber">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-lg-3 col-form-label form-control-label" asp-for="Gender"></label>
+                    <div class="col-lg-9">
+                        <select asp-for="Gender" class="form-control">
+                            <option value="@null">Select...</option>
+                            <option value="@true">Male</option>
+                            <option value="@false">Female</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-lg-3 col-form-label form-control-label my-notification-label">Notifications</label>
+                    <div class="col-lg-9 my-notification-radibuttons">
+                        <div class="login_remember_box">
+                            <label class="control control--checkbox">
+                                <input asp-for="EmailNotifications" type="checkbox" class="form-check-input">
+                                <label asp-for="EmailNotifications" class="form-check-label"></label>
+                            </label>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label" asp-for="Surname"></label>
-                            <div class="col-lg-9">
-                                <input class="form-control" type="text" value="Bishop">
-                            </div>
+                        <div class="login_remember_box">
+                            <label class="control control--checkbox">
+                                <input asp-for="SmsNotifications" type="checkbox" class="form-check-input">
+                                <label asp-for="SmsNotifications" class="form-check-label"></label>
+                            </label>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label" asp-for="AppUser.Email"></label>
-                            <div class="col-lg-9">
-                                <input class="form-control" type="email" value="email@gmail.com">
-                            </div>
+                    </div>
+                </div>
+                @*<div class="form-group row">
+                        <label class="col-lg-3 col-form-label form-control-label" asp-for="UserName"></label>
+                        <div class="col-lg-9">
+                            <input class="form-control" type="text" asp-for="UserName">
                         </div>
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label"></label>
-                            <div class="col-lg-9">
-                                <input class="form-control" type="text" value="">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Website</label>
-                            <div class="col-lg-9">
-                                <input class="form-control" type="url" value="">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label my-notification-label">Notifications</label>
-                            <div class="col-lg-9 my-notification-radibuttons">
-                                <div class="login_remember_box">
-                                    <label class="control control--checkbox">
-                                        <input asp-for="EmailNotifications" type="checkbox" class="form-check-input">
-                                        <label asp-for="EmailNotifications" class="form-check-label"></label>
-                                    </label>
-                                </div>
-                                <div class="login_remember_box">
-                                    <label class="control control--checkbox">
-                                        <input asp-for="SmsNotifications" type="checkbox" class="form-check-input">
-                                        <label asp-for="SmsNotifications" class="form-check-label"></label>
-                                    </label>
-                                </div>
-                            </div>
-                            
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label" asp-for="Gender"></label>
-                            <div class="col-lg-9">
-                                <select asp-for="Gender" class="form-control" >
-                                    <option value="@null">Select...</option>
-                                    <option value="@true">Male</option>
-                                    <option value="@false">Female</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label" asp-for="AppUser.UserName"></label>
-                            <div class="col-lg-9">
-                                <input class="form-control" type="text"asp-for="AppUser.UserName">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label" asp-for="Password"></label>
-                            <div class="col-lg-9">
-                                <input class="form-control" type="password" asp-for="Password" value="P@ssword123">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label" asp-for="ConfirmPassword"></label>
-                            <div class="col-lg-9">
-                                <input class="form-control" type="password" asp-for="ConfirmPassword" value="P@ssword123">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label"></label>
-                            <div class="col-lg-9">
-                                <input type="reset" class="btn btn-secondary" value="Cancel">
-                                <input type="button" class="btn btn-primary" value="Save Changes">
-                            </div>
-                        </div>
-                    </form>
-            
-        </div>
-        <div class="col-lg-4 order-lg-1 text-center">
-            <img src="//placehold.it/150" class="mx-auto img-fluid img-circle d-block" alt="avatar">
-            <h6 class="mt-2">Upload a different photo</h6>
-            <label class="custom-file">
-                <input type="file" id="file" class="custom-file-input">
-                <span class="custom-file-control">Choose file</span>
-            </label>
-        </div>
+                    </div>*@
+                <div class="form-group row">
+                    <label class="col-lg-3 col-form-label form-control-label" asp-for="OldPassword"></label>
+                    <div class="col-lg-9">
+                        <input class="form-control cleaner" type="text" asp-for="OldPassword" type="password" value="P@ssword123">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-lg-3 col-form-label form-control-label" asp-for="Password"></label>
+                    <div class="col-lg-9">
+                        <input class="form-control cleaner" type="password" asp-for="Password" value="P@ssword123">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-lg-3 col-form-label form-control-label" asp-for="ConfirmPassword"></label>
+                    <div class="col-lg-9">
+                        <input class="form-control cleaner" type="password" asp-for="ConfirmPassword" value="P@ssword123">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-lg-3 col-form-label form-control-label"></label>
+                    <div class="col-lg-9">
+                        <input type="reset" class="btn btn-secondary" value="Cancel">
+                        <input type="submit" class="btn btn-primary" value="Save Changes">
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+
+        $("#Image").change(function () {
+            if (this.value.length > 55) {
+                document.getElementById("file-name").innerText = this.value.substr(this.value.length - 54);
+            } else {
+                document.getElementById("file-name").innerText = this.value;
+            }
+        });
+
+        $(".cleaner").focus(function () {
+            this.value = "";
+        });
+    </script>
+}

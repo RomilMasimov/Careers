@@ -42,8 +42,10 @@ namespace Careers.Services
         public async Task<Client> FindAsync(int id, bool withOrders = false)
         {
             if (!withOrders) return await context.Clients
+                .Include(x => x.Orders)
                 .FirstOrDefaultAsync(x => x.Id == id);
             return await context.Clients
+                .Include(x => x.AppUser)
                 .Include(x => x.Orders)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
@@ -51,9 +53,11 @@ namespace Careers.Services
          public async Task<Client> FindAsync(string userId, bool withOrders = false)
         {
             if (!withOrders) return await context.Clients
+                .Include(x => x.AppUser)
                 .FirstOrDefaultAsync(x => x.AppUserId == userId);
             return await context.Clients
                 .Include(x => x.Orders)
+                .Include(x => x.AppUser)
                 .FirstOrDefaultAsync(x => x.AppUserId == userId);
         }
     }

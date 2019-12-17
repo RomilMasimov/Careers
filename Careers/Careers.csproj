@@ -59,6 +59,7 @@
     <Folder Include="MessagesLog\" />
     <Folder Include="Media\" />
     <Folder Include="ViewModels\Home\" />
+    <Folder Include="wwwroot\media\profileImages\" />
   </ItemGroup>
 
 </Project>

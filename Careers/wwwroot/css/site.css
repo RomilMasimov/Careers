@@ -98,7 +98,7 @@ main {
 }
 
 .info-message {
-    position: absolute;
+    /*position: absolute;*/
     z-index: 1;
     width: 100%;
     text-align: center;
@@ -106,7 +106,7 @@ main {
     flex-direction: row-reverse;
     justify-content: space-between;
     align-items: center;
-    font-size: 24px;
+    font-size: 18px;
 }
 
 .my-mainmenu {

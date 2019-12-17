@@ -288,7 +288,58 @@ namespace Careers.Controllers
             return View();
         }
 
+        public async Task<IActionResult> ConfirmEmailChange(string userId, string email, string code)
+        {
+            string message = "";
+            if (userId == null || email == null || code == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{userId}'.");
+            }
 
+            code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
+            var result = await _userManager.ChangeEmailAsync(user, email, code);
+            if (!result.Succeeded)
+            {
+                message = "Error changing email.";
+                return View(model: message);
+            }
+
+            await _signInManager.RefreshSignInAsync(user);
+            message = "Thank you for confirming your email change.";
+            return View(model: message);
+        }
+
+        public async Task<IActionResult> ConfirmPhoneNumberChange(string userId, string phoneNumber, string code)
+        {
+            string message = "";
+            if (userId == null || phoneNumber == null || code == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{userId}'.");
+            }
+
+            code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
+            var result = await _userManager.ChangePhoneNumberAsync(user, phoneNumber, code);
+            if (!result.Succeeded)
+            {
+                message = "Error changing phone.";
+                return View(model: message);
+            }
+
+            await _signInManager.RefreshSignInAsync(user);
+            message = "Thank you for confirming your phone change.";
+            return View(model: message);
+        }
     }
 }
