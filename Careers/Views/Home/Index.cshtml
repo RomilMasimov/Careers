@@ -30,33 +30,13 @@
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="jp_header_form_wrapper">
-                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
                             <input type="text" placeholder="Keyword e.g. (Job Title, Description, Tags)">
                         </div>
-                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                            <div class="jp_form_location_wrapper">
-                                <i class="fa fa-dot-circle-o first_icon"></i>
-                                <select>
-                                    <option>Select Location</option>
-                                    <option>Select Location</option>
-                                    <option>Select Location</option>
-                                    <option>Select Location</option>
-                                    <option>Select Location</option>
-                                </select><i class="fa fa-angle-down second_icon"></i>
-                            </div>
+                        <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                            <input type="text" placeholder="Locations">
                         </div>
-                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                            <div class="jp_form_exper_wrapper">
-                                <i class="fa fa-dot-circle-o first_icon"></i>
-                                <select>
-                                    <option>Experience</option>
-                                    <option>Experience</option>
-                                    <option>Experience</option>
-                                    <option>Experience</option>
-                                    <option>Experience</option>
-                                </select><i class="fa fa-angle-down second_icon"></i>
-                            </div>
-                        </div>
+
                         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
                             <div class="jp_form_btn_wrapper">
                                 <ul>
@@ -192,10 +172,10 @@
     <div class="jp_regis_left_side_box_wrapper">
         <div class="jp_regis_left_side_box">
             <img src="images/content/regis_icon.png" alt="icon" />
-            <h4>I’m an EMPLOYER</h4>
+            <h4>I’m an employee</h4>
             <p>Signed in companies are able to post new<br> job offers, searching for candidate...</p>
             <ul>
-                <li><a href="#"><i class="fa fa-plus-circle"></i> &nbsp;REGISTER AS COMPANY</a></li>
+                <li><a asp-controller="Auth" asp-action="SignUp"><i class="fa fa-plus-circle"></i> &nbsp;REGISTER AS EMPLOYEE</a></li>
             </ul>
         </div>
     </div>
@@ -203,10 +183,10 @@
         <div class="jp_regis_right_img_overlay"></div>
         <div class="jp_regis_right_side_box">
             <img src="images/content/regis_icon2.png" alt="icon" />
-            <h4>I’m an candidate</h4>
+            <h4>I’m client</h4>
             <p>Signed in companies are able to post new<br> job offers, searching for candidate...</p>
             <ul>
-                <li><a href="#"><i class="fa fa-plus-circle"></i> &nbsp;REGISTER AS COMPANY</a></li>
+                <li><a asp-controller="Auth" asp-action="SignUp"><i class="fa fa-plus-circle"></i> &nbsp;REGISTER AS CLIENT</a></li>
             </ul>
         </div>
         <div class="jp_regis_center_tag_wrapper">
@@ -216,87 +196,7 @@
 
 </div>
 <!-- jp ragister Wrapper End -->
-<!-- jp best deal Wrapper Start -->
-<div class="jp_best_deal_main_wrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="jp_best_deal_heading_wrapper">
-                    <div class="jp_best_deal_heading">
-                        <h4>Offering the best Deals</h4>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="jp_best_deal_main_cont_wrapper">
-                    <div class="jp_best_deal_icon_sec">
-                        <i class="flaticon-magnifying-glass"></i>
-                    </div>
-                    <div class="jp_best_deal_cont_sec">
-                        <h4><a href="#">Search a Jobs</a></h4>
-                        <p>Proin gravida nibh Aenean sollicitudin...</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="jp_best_deal_main_cont_wrapper">
-                    <div class="jp_best_deal_icon_sec">
-                        <i class="flaticon-users"></i>
-                    </div>
-                    <div class="jp_best_deal_cont_sec">
-                        <h4><a href="#">Apply a Job</a></h4>
-                        <p>Proin gravida nibh Aenean sollicitudin...</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="jp_best_deal_main_cont_wrapper jp_best_deal_main_cont_wrapper2">
-                    <div class="jp_best_deal_icon_sec">
-                        <i class="flaticon-shield"></i>
-                    </div>
-                    <div class="jp_best_deal_cont_sec">
-                        <h4><a href="#">Job Security</a></h4>
-                        <p>Proin gravida nibh Aenean sollicitudin...</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="jp_best_deal_main_cont_wrapper jp_best_deal_main_cont_wrapper2">
-                    <div class="jp_best_deal_icon_sec">
-                        <i class="flaticon-notification"></i>
-                    </div>
-                    <div class="jp_best_deal_cont_sec">
-                        <h4><a href="#">Job Notifications</a></h4>
-                        <p>Proin gravida nibh Aenean sollicitudin...</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="jp_best_deal_main_cont_wrapper jp_best_deal_main_cont_wrapper2">
-                    <div class="jp_best_deal_icon_sec">
-                        <i class="flaticon-wallet"></i>
-                    </div>
-                    <div class="jp_best_deal_cont_sec">
-                        <h4><a href="#">Essay Pay Money</a></h4>
-                        <p>Proin gravida nibh Aenean sollicitudin...</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                <div class="jp_best_deal_main_cont_wrapper jp_best_deal_main_cont_wrapper2">
-                    <div class="jp_best_deal_icon_sec">
-                        <i class="flaticon-people"></i>
-                    </div>
-                    <div class="jp_best_deal_cont_sec">
-                        <h4><a href="#">Happy Support</a></h4>
-                        <p>Proin gravida nibh Aenean sollicitudin...</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- jp best deal Wrapper End -->
+
 <!-- jp counter Wrapper Start -->
 <div class="jp_counter_main_wrapper">
     <div class="gc_counter_cont_wrapper">
@@ -563,9 +463,3 @@
 
 
 
-@*@section Scripts
-    {
-        <script>
-            $('#modal-window').modal('show');
-        </script>
-    }*@

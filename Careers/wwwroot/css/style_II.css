@@ -1166,8 +1166,8 @@ ul{
 	width:100%;
 	text-align:center;
 	background:#f9f9f9;
-	padding-top:100px;
-	padding-bottom:100px;
+	padding-top:60px;
+	padding-bottom:60px;
 }
 .jp_popu_cate_heading_wrapper{
 	display:inline-block;
@@ -2452,6 +2452,7 @@ ul{
 	float:left;
 	width:100%;
 	text-align:center;
+    padding-top: 60px;
 }
 .gc_counter_cont_wrapper{
 	float:left;
