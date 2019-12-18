@@ -17,7 +17,7 @@
     <div class="row my-2 mt-5">
         <form method="post" asp-controller="Client" asp-action="Index" enctype="multipart/form-data">
             <div class="col-lg-4 order-lg-1 text-center">
-                <img src="@Model.ImageUrl" class="mx-auto w-75 img-circle d-block" alt="avatar">
+                <img src="@Model.ImageUrl" error-src="" class="mx-auto w-75 img-circle d-block" id="test" alt="avatar">
                 <h6 id="file-name" class="mt-2">Upload a different photo</h6>
                 <label class="custom-file">
                     <input type="file" name="Image" id="Image" class="custom-file-input">
@@ -145,3 +145,4 @@
         });
     </script>
 }
+

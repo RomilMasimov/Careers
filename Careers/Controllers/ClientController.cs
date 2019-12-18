@@ -3,7 +3,7 @@ using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Careers.Helpers;
-using Careers.Models;
+using Careers.Models.Enums;
 using Careers.Models.Identity;
 using Careers.Services;
 using Careers.Services.Interfaces;

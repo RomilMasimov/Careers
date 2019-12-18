@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using Careers.Models;
+using Careers.Models.Enums;
 
 namespace Careers.Helpers
 {

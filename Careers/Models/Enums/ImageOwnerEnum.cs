@@ -1,4 +1,4 @@
-﻿namespace Careers.Models
+﻿namespace Careers.Models.Enums
 {
     public enum ImageOwnerEnum
     {

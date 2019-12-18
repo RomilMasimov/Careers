@@ -15,10 +15,19 @@ namespace Careers.EF
             modelBuilder.Entity<Client>()
                 .HasIndex(x => x.AppUserId)
                 .IsUnique();
+           
+            modelBuilder.Entity<Client>()
+                .Property(x => x.ImageUrl)
+                .HasDefaultValue("");
+
 
             modelBuilder.Entity<Specialist>()
                 .HasIndex(x => x.AppUserId)
                 .IsUnique();
+
+            modelBuilder.Entity<Specialist>()
+                .Property(x => x.ImageUrl)
+                .HasDefaultValue("");
 
             modelBuilder.Entity<WhereCanMeetSpecialist>()
                 .HasOne(pt => pt.WhereCanMeet)
