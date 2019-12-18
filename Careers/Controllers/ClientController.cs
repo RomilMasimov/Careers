@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Careers.Helpers;
+using Careers.Models;
 using Careers.Models.Identity;
 using Careers.Services;
 using Careers.Services.Interfaces;
@@ -40,11 +41,12 @@ namespace Careers.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(ClientViewModel input, IFormFile Image)
         {
+            //need work with it...
             var user = await _userManager.GetUserAsync(User);
             input.Messages = new List<string>();
             if (input.OldPhoneNumber != input.PhoneNumber)
             {
-                //need work with it...
+                
                 var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, input.PhoneNumber);
 
                 var callbackUrl = Url.Action(
@@ -53,12 +55,13 @@ namespace Careers.Controllers
                     protocol: Request.Scheme);
 
                 await _senderService.SendEmail(
-                    input.Email, "Confirm your phone",
+                    input.OldEmail, "Confirm your phone",
                     $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
                 //  _senderService.SendSms("507190012", "check", code);
                 input.Messages.Add("Confirmation link to change phone sent. Please check your phone.");
             }
 
+            //finished
             if (input.OldEmail != input.Email)
             {
                 var code = await _userManager.GenerateChangeEmailTokenAsync(user, input.Email);
@@ -69,12 +72,13 @@ namespace Careers.Controllers
                     protocol: Request.Scheme);
 
                 await _senderService.SendEmail(
-                    input.Email, "Confirm your email",
+                    input.OldEmail, "Confirm your email",
                     $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                 input.Messages.Add("Confirmation link to change email sent. Please check your email.");
             }
 
+            //finished
             if (input.Password != "P@ssword123" && input.OldPassword != "P@ssword123")
             {
                 if (!ModelState.IsValid)
@@ -96,9 +100,10 @@ namespace Careers.Controllers
                 }
             }
 
+            //finished
             if (Image != null && !System.IO.File.Exists("wwwroot" + input.ImageUrl))
             {
-                input.ImageUrl = await FileUploadHelper.UploadAsync(Image);
+                input.ImageUrl = await FileUploadHelper.UploadAsync(Image, ImageOwnerEnum.Client);
             }
 
             var client = await _clientService.FindAsync(user.Id);
@@ -108,16 +113,6 @@ namespace Careers.Controllers
             return View(input);
         }
 
-
-        public async Task<IActionResult> Orders()
-        {
-            // var userid= User.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.NameIdentifier)?.Value;
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            //orders are in client
-            var client = await _clientService.FindAsync(userId, true);
-
-            return View();
-        }
 
 
     }

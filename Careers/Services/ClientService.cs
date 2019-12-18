@@ -47,6 +47,7 @@ namespace Careers.Services
             return await context.Clients
                 .Include(x => x.AppUser)
                 .Include(x => x.Orders)
+                .ThenInclude(x=>x.Specialist)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
@@ -56,8 +57,9 @@ namespace Careers.Services
                 .Include(x => x.AppUser)
                 .FirstOrDefaultAsync(x => x.AppUserId == userId);
             return await context.Clients
-                .Include(x => x.Orders)
                 .Include(x => x.AppUser)
+                .Include(x => x.Orders)
+                .ThenInclude(x => x.Specialist)
                 .FirstOrDefaultAsync(x => x.AppUserId == userId);
         }
     }

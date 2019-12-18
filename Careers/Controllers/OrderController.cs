@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Security.Claims;
 using System.Threading.Tasks;
 using Careers.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -8,21 +6,24 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Careers.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "admin,client")]
     public class OrderController : Controller
     {
         private readonly IOrderService _orderService;
+        private readonly IClientService _clientService;
 
-        public OrderController(IOrderService orderService)
+        public OrderController(IOrderService orderService,IClientService clientService)
         {
             _orderService = orderService;
+            _clientService = clientService;
         }
+
         public async Task<IActionResult> Index()
         {
-            //order with responses
-           // var order = await _orderService.FindAsync(id,true);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var client = await _clientService.FindAsync(userId,true);
             
-            return View();
+            return View(client.Orders);
         }
     }
 }
