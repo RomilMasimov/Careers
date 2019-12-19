@@ -28,10 +28,10 @@
 
             <div class="custom-file">
                 <input name="Image" type="file" required class="custom-file-input" id="inputGroupFile" aria-describedby="inputGroupFile">
-                <label class="custom-file-label" for="inputGroupFile">Choose portrait</label>
+                <label class="custom-file-label" for="inputGroupFile" id="label">Choose portrait</label>
             </div>
             <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="submit" id="inputGroupFile">Upload</button>
+                <button class="btn btn-outline-secondary" type="submit">Upload</button>
             </div>
         </div>
     </form>
@@ -44,3 +44,16 @@
         </form>
     }
 </div>
+
+@section Scripts
+{
+    <script>
+
+        $("#inputGroupFile").change(function () {
+            console.log("test");
+
+            document.getElementById("label").innerText = this.value;
+            
+        });
+    </script>
+}
