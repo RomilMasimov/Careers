@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Careers.Comparers;
 using Careers.EF;
 using Careers.Models;
 using Careers.Repositories;

@@ -8,7 +8,10 @@ namespace Careers.EF
 {
     public class CareersDbContext : IdentityDbContext<AppUser>
     {
+
         public CareersDbContext(DbContextOptions options) : base(options) { }
+
+      
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

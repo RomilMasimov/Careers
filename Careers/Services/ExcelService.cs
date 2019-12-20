@@ -6,9 +6,6 @@ namespace Careers.Services
 {
     public class ExcelService
     {
-
-
-
         public Dictionary<string, List<string>> GetSubCategories()
         {
             var arrs = new List<List<string>>();

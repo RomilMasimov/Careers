@@ -65,7 +65,7 @@ namespace Careers
             services.AddTransient<IQuestionService, QuestionService>();
             services.AddTransient<IReviewService, ReviewService>();
             services.AddTransient<ISpecialistService, SpecialistService>();
-
+            services.AddScoped<Initializer>();
             services.AddScoped<MediaRepository>();
 
 
