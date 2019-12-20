@@ -2,7 +2,6 @@
 using System.IO;
 using System.Threading.Tasks;
 using Careers.Models;
-using Microsoft.AspNetCore.Http;
 
 namespace Careers.Services.Interfaces
 {
@@ -27,6 +26,7 @@ namespace Careers.Services.Interfaces
         Task<Specialist> FindByUserAsync(string userId);
         //need to check
         Task<IEnumerable<Specialist>> FindAllAsync(Order order);
+        Task<IEnumerable<Specialist>> GetBestByCategoryAsync(int count);
     }
 
 }

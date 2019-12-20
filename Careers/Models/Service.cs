@@ -1,4 +1,4 @@
-﻿    using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Careers.Models
 {
@@ -12,6 +12,7 @@ namespace Careers.Models
         public SubCategory SubCategory { get; set; }
         public IEnumerable<ServiceReview> ServiceReviews { get; set; }
         public IEnumerable<SpecialistService> SpecialistServices { get; set; }
+        public IEnumerable<Order> Orders { get; set; }
 
 
     }

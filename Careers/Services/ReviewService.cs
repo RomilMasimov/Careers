@@ -77,6 +77,17 @@ namespace Careers.Services
             return await _context.Reviews.Take(count).OrderByDescending(x => x.DateTime).ToListAsync();
         }
 
+        public async Task<IEnumerable<Review>> GetBestLastReviewsAsync(int count)
+        {
+            return await _context.Reviews
+                .Include(x=>x.Order)
+                .ThenInclude(x=>x.Client)
+                .Where(x=>x.Mark>=4)
+                .Take(count)
+                .OrderByDescending(x => x.DateTime)
+                .ToListAsync();
+        }
+
 
         public async Task<Review> InsertAsync(Review review)
         {

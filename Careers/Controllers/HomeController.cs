@@ -1,30 +1,35 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Careers.Services;
 using Careers.Services.Interfaces;
+using Careers.ViewModels.Home;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Localization;
 
 namespace Careers.Controllers
 {
     public class HomeController : Controller
     {
-        //this will be in a views not in controllers
-        private readonly IStringLocalizer<SharedResource> _sharedLocalizer;
+        private readonly ISpecialistService _specialistService;
+        private readonly IReviewService _reviewService;
 
-        public HomeController(IStringLocalizer<SharedResource> sharedLocalizer)
+        public HomeController(ISpecialistService specialistService, IReviewService reviewService)
         {
-
-            _sharedLocalizer = sharedLocalizer;
+            _specialistService = specialistService;
+            _reviewService = reviewService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            //string localization = _sharedLocalizer["Hello"];
+            var reviews = await _reviewService.GetBestLastReviewsAsync(5);
+            var specialists = await _specialistService.GetBestByCategoryAsync(6);
+            var viewModel = new IndexViewModel
+            {
+                Reviews = reviews,
+                Specialists = specialists
+            };
 
-            return View();
+            return View(viewModel);
         }
 
         [HttpPost]

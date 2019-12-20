@@ -12,6 +12,11 @@ namespace Careers.EF
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Order>()
+                .HasOne(x=>x.Service)
+                .WithMany(x => x.Orders)
+                .OnDelete(DeleteBehavior.NoAction);
+
             modelBuilder.Entity<Client>()
                 .HasIndex(x => x.AppUserId)
                 .IsUnique();
@@ -96,12 +101,14 @@ namespace Careers.EF
 
             modelBuilder.Entity<QuestionAnswer>()
                 .HasOne(pt => pt.Question)
-                .WithMany(p => p.QuestionAnswers).OnDelete(DeleteBehavior.NoAction)
+                .WithMany(p => p.QuestionAnswers)
+                .OnDelete(DeleteBehavior.NoAction)
                 .HasForeignKey(pt => pt.QuestionId);
 
             modelBuilder.Entity<QuestionAnswer>()
                 .HasOne(s => s.Question)
-                .WithMany(cml => cml.QuestionAnswers).OnDelete(DeleteBehavior.NoAction)
+                .WithMany(cml => cml.QuestionAnswers)
+                .OnDelete(DeleteBehavior.NoAction)
                 .HasForeignKey(si => si.QuestionId);
 
             modelBuilder.Entity<SpecialistAnswer>()

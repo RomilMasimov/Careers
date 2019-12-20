@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
-using Careers.Models;
+﻿using System.Globalization;
+using System.Threading.Tasks;
 using Careers.Services.Interfaces;
 using Careers.ViewModels.Service;
 using Microsoft.AspNetCore.Mvc;
@@ -16,14 +15,20 @@ namespace Careers.Controllers
             _categoryService = categoryService;
         }
 
-      
-        public IActionResult Index(string categoryName="others")
+        public async Task<IActionResult> Index(string categoryName = "разные")
         {
-
-            CultureInfo.CurrentCulture = new CultureInfo("az");
-            _categoryService.GetCategoryAndSubCategoriesAsync(categoryName);
-            var viewModel=new CategoryViewModel{SubCategories = new List<SubCategory>()};
+            var categories = await _categoryService.GetCategoryAndSubCategoriesAsync(categoryName);
+            var viewModel = new CategoryViewModel
+            {
+                SubCategories = categories.SubCategories,
+                CategoryName = CultureInfo.CurrentCulture.Name == "ru-RU" ?
+                    categories.DescriptionRU : categories.DescriptionAZ
+            };
             return View(viewModel);
         }
+
+
+
+
     }
 }

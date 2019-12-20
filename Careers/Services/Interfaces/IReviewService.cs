@@ -12,6 +12,7 @@ namespace Careers.Services.Interfaces
         Task WriteCommentAsync(ReviewComment reviewComment, Message message);
         Task<IEnumerable<Message>> GetCommentsAsync(int reviewOrCommentReviewId);
         Task<IEnumerable<Review>> GetLastReviewsAsync(int count);
+        Task<IEnumerable<Review>> GetBestLastReviewsAsync(int count);
         Task<IEnumerable<Review>> FindAllAsync(int orderId);
     }
 }

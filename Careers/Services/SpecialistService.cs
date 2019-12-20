@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
+using Careers.Comparers;
 using Careers.EF;
 using Careers.Models;
 using Careers.Repositories;
@@ -57,6 +59,17 @@ namespace Careers.Services
         public Task<IEnumerable<Specialist>> FindAllAsync(Order order)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<Specialist>> GetBestByCategoryAsync(int count)
+        {
+            return await context.Specialists
+                .Include(x => x.Orders)
+                .ThenInclude(x => x.Service)
+                .OrderByDescending(x => x.Orders.Count())
+                .Distinct(new SpecialistOnSubCategoryComparer())
+                .Take(count)
+                .ToListAsync();
         }
 
         public async Task<bool> UpdatePasport(int specialistId, Stream image)

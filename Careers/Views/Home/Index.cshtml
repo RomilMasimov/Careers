@@ -1,4 +1,5 @@
-﻿
+﻿@model Careers.ViewModels.Home.IndexViewModel
+
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Index";
@@ -10,9 +11,7 @@
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         @TempData["Email"]
     </div>
-
 }
-
 
 <!-- Header Wrapper Start -->
 <div class="jp_top_header_img_wrapper">
@@ -80,7 +79,9 @@
                     <div class="jp_top_jobs_category_wrapper">
                         <div class="jp_top_jobs_category">
                             <i class="fas fa-chalkboard-teacher"></i>
-                            <h3><a href="#">Teachers</a></h3>
+                            <h3><a asp-controller="Service"
+                                   asp-action="Index"
+                                   asp-route-categoryName="репетиторы">Teachers</a></h3>
                             <p>(240 jobs)</p>
                         </div>
                     </div>
@@ -91,7 +92,9 @@
                     <div class="jp_top_jobs_category_wrapper">
                         <div class="jp_top_jobs_category">
                             <i class="fa fa-laptop"></i>
-                            <h3><a href="#">Technology</a></h3>
+                            <h3><a asp-controller="Service"
+                                   asp-action="Index"
+                                   asp-route-categoryName="ит-фрилансеры">Technology</a></h3>
                             <p>(504 jobs))</p>
                         </div>
                     </div>
@@ -102,7 +105,9 @@
                     <div class="jp_top_jobs_category_wrapper">
                         <div class="jp_top_jobs_category">
                             <i class="fa fa-bar-chart"></i>
-                            <h3><a href="#">Accounting</a></h3>
+                            <h3><a asp-controller="Service"
+                                                asp-action="Index"
+                                                asp-route-categoryName="бухгалтеры и юристы">Accounting</a></h3>
                             <p>(2250 jobs))</p>
                         </div>
                     </div>
@@ -113,7 +118,9 @@
                     <div class="jp_top_jobs_category_wrapper">
                         <div class="jp_top_jobs_category">
                             <i class="fa fa-medkit"></i>
-                            <h3><a href="#">Medical</a></h3>
+                            <h3><a asp-controller="Service"
+                                   asp-action="Index"
+                                   asp-route-categoryName="врачи">Medical</a></h3>
                             <p>(202 jobs)</p>
                         </div>
                     </div>
@@ -124,7 +131,9 @@
                     <div class="jp_top_jobs_category_wrapper">
                         <div class="jp_top_jobs_category">
                             <i class="fas fa-tools"></i>
-                            <h3><a href="#">Repairing</a></h3>
+                            <h3><a asp-controller="Service"
+                                   asp-action="Index"
+                                   asp-route-categoryName="мастера по ремонту">Repairing</a></h3>
                             <p>(1457 jobs)</p>
                         </div>
                     </div>
@@ -135,7 +144,9 @@
                     <div class="jp_top_jobs_category_wrapper">
                         <div class="jp_top_jobs_category">
                             <i class="fas fa-venus-mars"></i>
-                            <h3><a href="#">Beauty</a></h3>
+                            <h3><a asp-controller="Service"
+                                   asp-action="Index"
+                                   asp-route-categoryName="мастера красоты">Beauty</a></h3>
                             <p>(2142 jobs)</p>
                         </div>
                     </div>
@@ -146,7 +157,9 @@
                     <div class="jp_top_jobs_category_wrapper">
                         <div class="jp_top_jobs_category">
                             <i class="fas fa-users"></i>
-                            <h3><a href="#">Home personal</a></h3>
+                            <h3><a asp-controller="Service"
+                                   asp-action="Index"
+                                   asp-route-categoryName="домашний персонал">Home personal</a></h3>
                             <p>(2342 jobs)</p>
                         </div>
                     </div>
@@ -157,7 +170,9 @@
                     <div class="jp_top_jobs_category_wrapper">
                         <div class="jp_top_jobs_category">
                             <i class="fa fa-th-large"></i>
-                            <h3><a href="#">Other</a></h3>
+                            <h3><a asp-controller="Service"
+                                   asp-action="Index"
+                                   asp-route-categoryName="разные">Other</a></h3>
                             <p>(2000+ jobs)</p>
                         </div>
                     </div>
