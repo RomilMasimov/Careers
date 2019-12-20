@@ -27,6 +27,8 @@ namespace Careers.Controllers
         {
              //_initializer.CountryAndCity();
              //_initializer.CategorySubCategory();
+             //_initializer.Services();
+
             var reviews = await _reviewService.GetBestLastReviewsAsync(5);
 
             var specialists = await _specialistService.GetBestByCategoryAsync(6);
