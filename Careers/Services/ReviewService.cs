@@ -83,8 +83,8 @@ namespace Careers.Services
                 .Include(x=>x.Order)
                 .ThenInclude(x=>x.Client)
                 .Where(x=>x.Mark>=4)
-                .Take(count)
                 .OrderByDescending(x => x.DateTime)
+                .Take(count)
                 .ToListAsync();
         }
 

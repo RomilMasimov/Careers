@@ -67,7 +67,6 @@ namespace Careers.Services
                 .Include(x => x.Orders)
                 .ThenInclude(x => x.Service)
                 .OrderByDescending(x => x.Orders.Count())
-                .Distinct(new SpecialistOnSubCategoryComparer())
                 .Take(count)
                 .ToListAsync();
         }
