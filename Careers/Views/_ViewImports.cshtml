@@ -1,5 +1,9 @@
 ﻿@using Careers
 @using Careers.Models
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
 
 @addTagHelper *,Careers
 @addTagHelper *,Careers.TagHelpers

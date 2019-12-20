@@ -1,10 +1,10 @@
 ﻿@using System.Globalization
+
 @model Careers.ViewModels.Service.CategoryViewModel
 
 @{
     Layout = "_Layout";
 }
-
 <div class="jp_listing_sidebar_main_wrapper">
     <div class="container">
         <div class="row">
@@ -22,18 +22,18 @@
                             </div>
                             <div class="jp_rightside_job_categories_content">
                                 <ul>
-                                    <li><i class="fa fa-caret-right"></i> <a asp-action="Index" asp-route-categoryName="russian key">Teachers @*<span>(214)</span>*@</a></li>
-                                    <li><i class="fa fa-caret-right"></i> <a asp-action="Index" asp-route-categoryName="russian key">Masters</a></li>
-                                    <li><i class="fa fa-caret-right"></i> <a asp-action="Index" asp-route-categoryName="russian key">Beauty</a></li>
-                                    <li><i class="fa fa-caret-right"></i> <a asp-action="Index" asp-route-categoryName="russian key">Sport Coach</a></li>
-                                    <li><i class="fa fa-caret-right"></i> <a asp-action="Index" asp-route-categoryName="russian key">Driving teachers</a></li>
-                                    <li><i class="fa fa-caret-right"></i> <a asp-action="Index" asp-route-categoryName="russian key">Artists</a></li>
-                                    <li><i class="fa fa-caret-right"></i> <a asp-action="Index" asp-route-categoryName="russian key">IT technologies</a></li>
-                                    <li><i class="fa fa-caret-right"></i> <a asp-action="Index" asp-route-categoryName="russian key">Home staff</a></li>
-                                    <li><i class="fa fa-caret-right"></i> <a asp-action="Index" asp-route-categoryName="russian key">Veterinary</a></li>
-                                    <li><i class="fa fa-caret-right"></i> <a asp-action="Index" asp-route-categoryName="russian key">Accounting</a></li>
-                                    <li><i class="fa fa-caret-right"></i> <a asp-action="Index" asp-route-categoryName="russian key">Doctors</a></li>
-                                    <li><i class="fa fa-caret-right"></i> <a asp-action="Index" asp-route-categoryName="russian key">Other</a></li>
+                                    <li><i class="fa fa-caret-right"></i> <a asp-action="Index" asp-route-categoryName="репетиторы">@SharedLocalizer["teachers"] @*<span>(214)</span>*@</a></li>
+                                    <li><i class="fa fa-caret-right"></i> <a asp-action="Index" asp-route-categoryName="Мастера по ремонту">@SharedLocalizer["masters"]</a></li>
+                                    <li><i class="fa fa-caret-right"></i> <a asp-action="Index" asp-route-categoryName="Мастера красоты">@SharedLocalizer["beauty"]</a></li>
+                                    <li><i class="fa fa-caret-right"></i> <a asp-action="Index" asp-route-categoryName="Спортивные тренеры">@SharedLocalizer["coach"]</a></li>
+                                    <li><i class="fa fa-caret-right"></i> <a asp-action="Index" asp-route-categoryName="Автоинструкторы">@SharedLocalizer["drivingTeacher"]</a></li>
+                                    <li><i class="fa fa-caret-right"></i> <a asp-action="Index" asp-route-categoryName="Артисты">@SharedLocalizer["artists"]</a></li>
+                                    <li><i class="fa fa-caret-right"></i> <a asp-action="Index" asp-route-categoryName="ИТ-фрилансеры">@SharedLocalizer["it"]</a></li>
+                                    <li><i class="fa fa-caret-right"></i> <a asp-action="Index" asp-route-categoryName="Домашний персонал">@SharedLocalizer["homeStaff"]</a></li>
+                                    <li><i class="fa fa-caret-right"></i> <a asp-action="Index" asp-route-categoryName="Ветеринары">@SharedLocalizer["veterinary"]</a></li>
+                                    <li><i class="fa fa-caret-right"></i> <a asp-action="Index" asp-route-categoryName="Бухгалтеры и юристы">@SharedLocalizer["accounting"]</a></li>
+                                    <li><i class="fa fa-caret-right"></i> <a asp-action="Index" asp-route-categoryName="Врачи">@SharedLocalizer["doctors"]</a></li>
+                                    <li><i class="fa fa-caret-right"></i> <a asp-action="Index" asp-route-categoryName="Разные специалисты">@SharedLocalizer["other"]</a></li>
                                 </ul>
                             </div>
                         </div>

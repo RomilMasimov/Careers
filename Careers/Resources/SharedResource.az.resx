@@ -120,4 +120,40 @@
   <data name="Hello" xml:space="preserve">
     <value>Salam</value>
   </data>
+  <data name="teachers" xml:space="preserve">
+    <value>Muellimler</value>
+  </data>
+  <data name="masters" xml:space="preserve">
+    <value>Ustalar</value>
+  </data>
+  <data name="beauty" xml:space="preserve">
+    <value>Gozzelik ustalar</value>
+  </data>
+  <data name="coach" xml:space="preserve">
+    <value>Idman muellimleri</value>
+  </data>
+  <data name="drivingTeacher" xml:space="preserve">
+    <value>Masin muellimi</value>
+  </data>
+  <data name="artists" xml:space="preserve">
+    <value>Artistler</value>
+  </data>
+  <data name="it" xml:space="preserve">
+    <value>IT strukturasi</value>
+  </data>
+  <data name="homeStaff" xml:space="preserve">
+    <value>Ev personali</value>
+  </data>
+  <data name="veterinary" xml:space="preserve">
+    <value>veterinarlar</value>
+  </data>
+  <data name="accounting" xml:space="preserve">
+    <value>Muhasibat</value>
+  </data>
+  <data name="doctors" xml:space="preserve">
+    <value>Doktorlar</value>
+  </data>
+  <data name="other" xml:space="preserve">
+    <value>Diger specialistler</value>
+  </data>
 </root>

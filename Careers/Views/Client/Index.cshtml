@@ -1,4 +1,6 @@
-﻿@model Careers.ViewModels.Client.ClientViewModel
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@model Careers.ViewModels.Client.ClientViewModel
 
 @{
     Layout = "_Layout";
@@ -9,7 +11,7 @@
 {
     <div class="alert alert-success alert-dismissible my-1 info-message" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        @item 
+        @item
     </div>
 }
 
@@ -46,7 +48,7 @@
                     <label class="col-lg-3 col-form-label form-control-label" asp-for="Email"></label>
                     <div class="col-lg-9">
                         <input class="form-control" type="email" asp-for="Email">
-                        <input  type="hidden" asp-for="EmailConfirmed">
+                        <input type="hidden" asp-for="EmailConfirmed">
                         @if (!Model.EmailConfirmed)
                         {
                             <span class="text-danger">Your email is not confirmed</span>
