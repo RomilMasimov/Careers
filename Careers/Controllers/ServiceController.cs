@@ -1,21 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Globalization;
+using Careers.Models;
+using Careers.Services.Interfaces;
+using Careers.ViewModels.Service;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Careers.Controllers
 {
     public class ServiceController : Controller
     {
-        public IActionResult NewOrder()
+        private readonly ICategoryService _categoryService;
+
+        public ServiceController(ICategoryService categoryService)
         {
-            return View();
+            _categoryService = categoryService;
         }
 
-        public IActionResult Services()
+      
+        public IActionResult Index(string categoryName="others")
         {
-            return View();
+
+            CultureInfo.CurrentCulture = new CultureInfo("az");
+            _categoryService.GetCategoryAndSubCategoriesAsync(categoryName);
+            var viewModel=new CategoryViewModel{SubCategories = new List<SubCategory>()};
+            return View(viewModel);
         }
     }
 }

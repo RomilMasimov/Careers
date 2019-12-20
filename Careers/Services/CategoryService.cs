@@ -17,6 +17,39 @@ namespace Careers.Services
         {
             this.context = context;
         }
+
+        public async Task<Category> GetCategoryAndSubCategoriesAsync(int id)
+        {
+            var res = await context.Categories
+                .Include(x=>x.SubCategories)
+                .ThenInclude(x=>x.Services)
+                .FirstOrDefaultAsync(x=>x.Id==id);
+            return res;
+        }
+
+        public async Task<Category> GetCategoryAndSubCategoriesAsync(string name)
+        {
+            var res = await context.Categories
+                .Include(x => x.SubCategories)
+                .ThenInclude(x => x.Services)
+                .FirstOrDefaultAsync(x => x.DescriptionRU == name);
+            return res;
+        }
+
+        public async Task<Category> GetCategoryAsync(int id)
+        {
+            var res = await context.Categories
+                .FirstOrDefaultAsync(x => x.Id == id);
+            return res;
+        }
+
+        public async Task<Category> GetCategoryAsync(string name)
+        {
+            var res = await context.Categories
+                .FirstOrDefaultAsync(x => x.DescriptionRU == name);
+            return res;
+        }
+
         public async Task<bool> DeleteAsync(Category category)
         {
             context.Categories.Remove(category);

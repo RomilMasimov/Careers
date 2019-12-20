@@ -1,0 +1,124 @@
+﻿@using System.Globalization
+@model Careers.ViewModels.Service.CategoryViewModel
+
+@{
+    Layout = "_Layout";
+}
+
+<div class="jp_listing_sidebar_main_wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="jp_listing_heading_wrapper">
+                    <h2>lya lya lya lya </h2>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 hidden-sm hidden-xs">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="jp_rightside_job_categories_wrapper jp_blog_right_box">
+                            <div class="jp_rightside_job_categories_heading">
+                                <h4>Jobs by Location</h4>
+                            </div>
+                            <div class="jp_rightside_job_categories_content">
+                                <ul>
+                                    <li><i class="fa fa-caret-right"></i> <a asp-action="Index" asp-route-categoryName="russian key">Teachers @*<span>(214)</span>*@</a></li>
+                                    <li><i class="fa fa-caret-right"></i> <a asp-action="Index" asp-route-categoryName="russian key">Masters</a></li>
+                                    <li><i class="fa fa-caret-right"></i> <a asp-action="Index" asp-route-categoryName="russian key">Beauty</a></li>
+                                    <li><i class="fa fa-caret-right"></i> <a asp-action="Index" asp-route-categoryName="russian key">Sport Coach</a></li>
+                                    <li><i class="fa fa-caret-right"></i> <a asp-action="Index" asp-route-categoryName="russian key">Driving teachers</a></li>
+                                    <li><i class="fa fa-caret-right"></i> <a asp-action="Index" asp-route-categoryName="russian key">Artists</a></li>
+                                    <li><i class="fa fa-caret-right"></i> <a asp-action="Index" asp-route-categoryName="russian key">IT technologies</a></li>
+                                    <li><i class="fa fa-caret-right"></i> <a asp-action="Index" asp-route-categoryName="russian key">Home staff</a></li>
+                                    <li><i class="fa fa-caret-right"></i> <a asp-action="Index" asp-route-categoryName="russian key">Veterinary</a></li>
+                                    <li><i class="fa fa-caret-right"></i> <a asp-action="Index" asp-route-categoryName="russian key">Accounting</a></li>
+                                    <li><i class="fa fa-caret-right"></i> <a asp-action="Index" asp-route-categoryName="russian key">Doctors</a></li>
+                                    <li><i class="fa fa-caret-right"></i> <a asp-action="Index" asp-route-categoryName="russian key">Other</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="jp_listing_tabs_wrapper">
+
+                            <div class="gc_causes_search_box_wrapper gc_causes_search_box_wrapper2">
+                                <h3 style="text-align: center">@Model.CategoryName</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="tab-content">
+                            <div id="grid" class="tab-pane fade in active">
+                                <div class="row">
+                                    @if (CultureInfo.CurrentCulture.Name == "ru-RU")
+                                    {
+                                        @foreach (var item in Model.SubCategories)
+                                        {
+                                            <partial name="_SubCategoryRuPartial" model="@item" />
+                                        }
+                                    }
+                                    else
+                                    {
+                                        @foreach (var item in Model.SubCategories)
+                                        {
+                                            <partial name="_SubCategoryAzPartial" model="@item" />
+                                        }
+                                    }
+
+
+                                    @*<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <div class="jp_job_post_main_wrapper_cont jp_job_post_grid_main_wrapper_cont">
+                <div class="jp_job_post_keyword_wrapper">
+                    <ul>
+                        <li><i class="fa fa-tags"></i>Keywords :</li>
+                        <li><a href="#">ui designer,</a></li>
+                        <li><a href="#">developer,</a></li>
+                    </ul>
+                </div>
+                <div class="jp_job_post_main_wrapper jp_job_post_grid_main_wrapper">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="jp_job_post_side_img">
+                                <img src="images/content/job_post_img1.jpg" alt="post_img">
+                            </div>
+                            <div class="jp_job_post_right_cont jp_job_post_grid_right_cont">
+                                <h4>HTML Developer (1 - 2 Yrs Exp.)</h4>
+                                <p>Webstrot Technology Pvt. Ltd.</p>
+                                <ul>
+                                    <li><i class="fa fa-cc-paypal"></i>&nbsp; $12K - 15k P.A.</li>
+                                    <li><i class="fa fa-map-marker"></i>&nbsp; Caliphonia, PO 455001</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="jp_job_post_right_btn_wrapper jp_job_post_grid_right_btn_wrapper">
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
+                                    <li><a href="#">Part Time</a></li>
+                                    <li><a href="#">Apply</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>*@
+
+
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -79,6 +82,11 @@
                                         <a href="contact.html"
                                            class="gc_main_navigation">Contact</a>
                                     </li>
+
+                                    <li>
+                                        @await Html.PartialAsync("_SetLocalizationPartial")
+                                    </li>
+                                    
                                 </ul>
                             </div>
                             <!-- mainmenu end -->
@@ -213,9 +221,9 @@
                                                 @if (User.IsInRole("client"))
                                                 {
                                                     <li class="parent"><a asp-controller="Client" asp-action="Index">profile</a></li>
-                                                    <li class="parent"><a asp-controller="Order" asp-action="Index" >Orders</a></li>
+                                                    <li class="parent"><a asp-controller="Order" asp-action="Index">Orders</a></li>
                                                 }
-                                                else if(User.IsInRole("specialist"))
+                                                else if (User.IsInRole("specialist"))
                                                 {
                                                     <li class="parent"><a>profile</a></li>
 
@@ -444,14 +452,14 @@
                                     </div>
                                 </div>
                                 @*<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                    <div class="jp_bottom_footer_right_cont">
-                                        <ul>
-                                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>*@
+                                        <div class="jp_bottom_footer_right_cont">
+                                            <ul>
+                                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>*@
                             </div>
                         </div>
                     </div>

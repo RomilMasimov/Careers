@@ -6,6 +6,11 @@ namespace Careers.Services.Interfaces
 {
     public interface ICategoryService
     {
+        Task<Category> GetCategoryAsync(int id);
+        Task<Category> GetCategoryAsync(string name);
+        Task<Category> GetCategoryAndSubCategoriesAsync(int id);
+        Task<Category> GetCategoryAndSubCategoriesAsync(string name);
+        
         Task<Category> InsertAsync(Category category);
         Task<SubCategory> InsertAsync(SubCategory subCategory);
         Task<Category> UpdateAsync(Category category);

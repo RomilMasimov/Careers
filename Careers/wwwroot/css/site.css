@@ -7,10 +7,6 @@ a.navbar-brand {
   word-break: break-all;
 }
 
-/* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
-}
 
 .btn-primary {
   color: #fff;
@@ -140,4 +136,17 @@ main {
 .my-notification-label {
     display: flex;
     align-items: center;
+}
+
+.services-of-subcategory {
+    height: 370px;
+}
+.services-of-subcategory ul {
+    height: 100%;
+    overflow: auto;
+}
+
+.services-of-subcategory ul li {
+    margin-top: 3px;
+    margin-bottom: 3px;
 }
