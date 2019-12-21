@@ -96,6 +96,9 @@ namespace Careers.Services
 
         public async Task<SpecialistWork> AddWork(int specialistId, Stream file, string description)
         {
+            var works = context.SpecialistWorks.Where(m => m.SpecialistId == specialistId);
+            if (works.Count() >= 10) return null;
+
             var imagePath = await mediaRepository.AddAsync(mediaPath, file);
             if (imagePath == string.Empty) return null;
 

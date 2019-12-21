@@ -97,6 +97,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
                     TempData["Status"] = "Work sent successfully";
                     return RedirectToAction("Works");
                 }
+                TempData["Status"] = "Work did not upload";
             }
             return View(workViewModel);
         }
