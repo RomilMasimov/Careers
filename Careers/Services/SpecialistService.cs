@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Careers.EF;
 using Careers.Models;
@@ -86,9 +87,10 @@ namespace Careers.Services
 
         public async Task<bool> DeleteWork(int workId)
         {
+            if (workId <= 0) return false;
             var specialistWork = await context.SpecialistWorks.FindAsync(workId);
             mediaRepository.Delete(mediaPath, specialistWork.ImagePath);
-            context.Remove(specialistWork);
+            context.SpecialistWorks.Remove(specialistWork);
             return await context.SaveChangesAsync() > 0;
         }
 
@@ -146,6 +148,26 @@ namespace Careers.Services
             specialist.ImageUrl = string.Empty;
             context.Specialists.Update(specialist);
             return await context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<IEnumerable<SpecialistWork>> FindAllWorks(int specialistId)
+        {
+            return await context.SpecialistWorks.Where(m => m.SpecialistId == specialistId).ToListAsync();
+        }
+
+        public Task<SpecialistWork> FindWork(int specialistWorkId)
+        {
+            return context.SpecialistWorks.FindAsync(specialistWorkId).AsTask();
+        }
+
+        public async Task<SpecialistWork> EditWork(int workId, string description)
+        {
+            var work = await context.SpecialistWorks.FindAsync(workId);
+            work.Description = description;
+            var result = context.SpecialistWorks.Update(work);
+            if (await context.SaveChangesAsync() < 0)
+                return null;
+            return result.Entity;
         }
     }
 }

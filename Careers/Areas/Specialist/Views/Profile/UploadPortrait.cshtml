@@ -1,21 +1,9 @@
 ﻿@model string
-@{
-    Layout = "_Layout";
-}
 
 <h2>Photos (clients see them)</h2>
 
-<ul class="nav nav-tabs nav-fill mt-5">
-    <li class="nav-item">
-        <a class="nav-link active" href="#">Your portrait</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#">Works</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#">Educations</a>
-    </li>
-</ul>
+<partial name="_PhotoTabNavigation" />
+
 <div class="my-2">
     @if (TempData.ContainsKey("Status"))
     {
@@ -25,7 +13,6 @@
     }
     <form asp-area="Specialist" asp-controller="Profile" asp-action="UploadPortrait" method="post" enctype="multipart/form-data">
         <div class="input-group">
-
             <div class="custom-file">
                 <input name="Image" type="file" required class="custom-file-input" id="inputGroupFile" aria-describedby="inputGroupFile">
                 <label class="custom-file-label" for="inputGroupFile" id="label">Choose portrait</label>
@@ -53,7 +40,7 @@
             console.log("test");
 
             document.getElementById("label").innerText = this.value;
-            
+
         });
     </script>
 }

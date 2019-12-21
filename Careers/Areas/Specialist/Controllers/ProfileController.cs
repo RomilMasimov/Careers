@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Careers.Areas.SpecialistArea.ViewModels;
 using Careers.Models;
 using Careers.Models.Identity;
 using Careers.Services.Interfaces;
@@ -39,7 +40,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
             var path = setImageUrl(specialist);
             return View(path as object);
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> UploadPortrait(IFormFile Image)
         {
@@ -64,27 +65,82 @@ namespace Careers.Areas.SpecialistArea.Controllers
         }
 
         [HttpGet]
-        public IActionResult Works()
+        public async Task<IActionResult> Works()
         {
-            return View();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var specialist = await _specialistService.FindByUserAsync(userId);
+            var works = await _specialistService.FindAllWorks(specialist.Id);
+            setImageUrl(specialist);
+            return View(works);
         }
 
         [HttpGet]
-        public IActionResult UploadWork()
+        public async Task<IActionResult> UploadWork()
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var specialist = await _specialistService.FindByUserAsync(userId);
+            setImageUrl(specialist);
             return View();
         }
 
         [HttpPost]
-        public IActionResult UploadWork(IFormFile Image)
+        public async Task<IActionResult> UploadWork(UploadWorkViewModel workViewModel)
         {
-            return View();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var specialist = await _specialistService.FindByUserAsync(userId);
+            setImageUrl(specialist);
+            if (ModelState.IsValid)
+            {
+                var result = await _specialistService.AddWork(specialist.Id, workViewModel.Image.OpenReadStream(), workViewModel.Description);
+                if (result != null)
+                {
+                    TempData["Status"] = "Work sent successfully";
+                    return RedirectToAction("Works");
+                }
+            }
+            return View(workViewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditWork(int id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var specialist = await _specialistService.FindByUserAsync(userId);
+            setImageUrl(specialist);
+            var work = await _specialistService.FindWork(id);
+            var model = new EditWorkViewModel { Id = work.Id, ImagePath = work.ImagePath, Description = work.Description };
+            return View(model);
         }
 
         [HttpPost]
-        public IActionResult DeleteWork(int id)
+        public async Task<IActionResult> EditWork(EditWorkViewModel workViewModel)
         {
-            return View();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var specialist = await _specialistService.FindByUserAsync(userId);
+            setImageUrl(specialist);
+            if (ModelState.IsValid)
+            {
+                var work = await _specialistService.EditWork(workViewModel.Id, workViewModel.Description);
+                if (work != null)
+                {
+                    TempData["Status"] = "Changes saved successfully";
+                    return RedirectToAction("Works");
+                }
+            }
+            return View(workViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteWork(int id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var specialist = await _specialistService.FindByUserAsync(userId);
+            setImageUrl(specialist);
+
+            var result = await _specialistService.DeleteWork(id);
+            if (!result) TempData["Status"] = "File did not delete";
+            else TempData["Status"] = "File delete successfully";
+            return RedirectToAction("Works");
         }
 
         [HttpGet]

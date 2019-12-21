@@ -1,0 +1,30 @@
+﻿@model EditWorkViewModel
+
+<h2>File change</h2>
+
+<div class="row m-2">
+    <div class="col-6">
+        <img class="img-rounded w-100 h-100" src="~/Media/@Model.ImagePath" />
+    </div>
+    <div class="col-6">
+        <form asp-area="Specialist" asp-controller="Profile" asp-action="EditWork" method="post">
+            <input hidden asp-for="Id" />
+            <input hidden asp-for="ImagePath" />
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <button class="btn btn-success" type="submit">Save</button>
+        </form>
+        <form asp-area="Specialist" asp-controller="Profile" asp-action="DeleteWork" method="post" class="mt-1">
+            <input hidden asp-for="Id" />
+            <button class="btn btn-danger" type="submit">Delete</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

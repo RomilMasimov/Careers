@@ -17,7 +17,10 @@ namespace Careers.Services.Interfaces
         Task<bool> UpdateImage(int specialistId, Stream file);
         Task<bool> DeleteImage(int specialistId);
 
+        Task<IEnumerable<SpecialistWork>> FindAllWorks(int specialistId);
+        Task<SpecialistWork> FindWork(int specialistWorkId);
         Task<SpecialistWork> AddWork(int specialistId, Stream file, string description);
+        Task<SpecialistWork> EditWork(int workId, string description);
         Task<bool> DeleteWork(int id);
 
         Task<Education> AddEducation(Education education);

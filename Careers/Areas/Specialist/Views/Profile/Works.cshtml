@@ -1,0 +1,30 @@
+﻿@model IEnumerable<SpecialistWork>
+
+<h2>Photos (clients see them)</h2>
+
+<partial name="_PhotoTabNavigation" />
+
+<div class="my-2">
+    @if (TempData.ContainsKey("Status"))
+    {
+        <div class="alert alert-info" role="alert">
+            @TempData["Status"]
+        </div>
+    }
+    <a asp-area="Specialist" asp-controller="Profile" asp-action="UploadWork" class="btn btn-light my-2">Add Image</a>
+    @if (Model?.Count() > 0)
+    {
+        <div class="row m-0">
+            @foreach (var work in Model)
+            {
+                <div class="col-xl-3 col-lg-4 col-sm-6 col-12 p-1">
+                    <a asp-area="Specialist" asp-controller="Profile" asp-action="EditWork" asp-route-id="@work.Id">
+                        <p>@work.Description</p>
+                        <img class="img-rounded w-100" src="~/Media/@work.ImagePath" alt="" />
+                    </a>
+                </div>
+            }
+        </div>
+    }
+</div>
+
