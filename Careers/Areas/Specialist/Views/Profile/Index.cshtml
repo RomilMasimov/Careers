@@ -62,14 +62,25 @@
                     </div>
                     <div class="col-10">
                         <p>
-                            <a href="#">Add</a>
-                            <br>
-                            <span class="text-muted">
-                                Tell us more about yourself so that customers know
-                                you better. What orders are you interested in? What is the peculiarity
-                                of your approach to work? This information will help the customer make a
-                                choice.
-                            </span>
+                            @if (string.IsNullOrWhiteSpace(Model.About))
+                            {
+                                <a asp-area="Specialist" asp-controller="Profile" asp-action="EditAbout">Add</a>
+                                <br>
+                                <span class="text-muted">
+                                    Tell us more about yourself so that customers know
+                                    you better. What orders are you interested in? What is the peculiarity
+                                    of your approach to work? This information will help the customer make a
+                                    choice.
+                                </span>
+                            }
+                            else
+                            {
+                                <a asp-area="Specialist" asp-controller="Profile" asp-action="EditAbout">Edit</a>
+                                <br>
+                                <span>
+                                    @Model.About
+                                </span>
+                            }
                         </p>
                     </div>
                 </div>

@@ -42,6 +42,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> UploadPortrait(IFormFile Image)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -54,6 +55,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeletePortrait()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -84,6 +86,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> UploadWork(UploadWorkViewModel workViewModel)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -114,6 +117,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditWork(EditWorkViewModel workViewModel)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -132,6 +136,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteWork(int id)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -151,6 +156,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult UploadPassport(IFormFile Image)
         {
             return View();
@@ -168,6 +174,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult AddEducation(Education education)
         {
             return View();
@@ -180,27 +187,42 @@ namespace Careers.Areas.SpecialistArea.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult EditEducation(Education education)
         {
             return View();
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult DeleteEducation(int id)
         {
             return View();
         }
 
         [HttpGet]
-        public IActionResult EditAbout()
+        public async Task<IActionResult> EditAboutAsync()
         {
-            return View();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var specialist = await _specialistService.FindByUserAsync(userId);
+            setImageUrl(specialist);
+            var model = new EditAboutViewModel { Text = specialist.About };
+            return View(model);
         }
 
         [HttpPost]
-        public IActionResult EditAbout(string text)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditAbout(EditAboutViewModel model)
         {
-            return View();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var specialist = await _specialistService.FindByUserAsync(userId);
+            setImageUrl(specialist);
+            if (ModelState.IsValid)
+            {
+                var result = await _specialistService.UpdateAbotAsync(specialist.Id, model.Text);
+                if (result != null) return RedirectToAction("Index");
+            }
+            return View(model);
         }
 
         public IActionResult WhereCanGo()

@@ -1,0 +1,11 @@
+﻿@model EditAboutViewModel
+
+<h2>Edit about</h2>
+
+<form asp-area="Specialist" asp-controller="Profile" asp-action="EditAbout" method="post">
+    <div class="form-group">
+        <textarea asp-for="Text" class="form-control" rows="3"></textarea>
+        <span asp-validation-for="Text" class="text-danger"></span>
+    </div>
+    <button class="btn btn-success" type="submit">Save</button>
+</form>
