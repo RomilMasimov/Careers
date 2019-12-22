@@ -17,32 +17,6 @@ namespace Careers.Services
         {
             this.context = context;
         }
-        public async Task<MeetingPointType> InsertMeetingPointTypeAsync(string name)
-        {
-            var type = await context.MeetingPointTypes.AddAsync(new MeetingPointType { Name = name.ToLower() });
-            await context.SaveChangesAsync();
-            return type.Entity;
-        }
-
-        public async Task<MeetingPointType> UpdateMeetingPointTypeAsync(MeetingPointType meetingPointType)
-        {
-            context.MeetingPointTypes.Update(meetingPointType);
-            await context.SaveChangesAsync();
-            return meetingPointType;
-        }
-
-        public async Task<bool> DeleteMeetingPointTypeAsync(MeetingPointType meetingPointType)
-        {
-            context.MeetingPointTypes.Remove(meetingPointType);
-            
-            return await context.SaveChangesAsync() > 0;
-        }
-
-
-        public async Task<IEnumerable<MeetingPointType>> FindAllMeetingPointTypesAsync()
-        {
-            return await context.MeetingPointTypes.ToListAsync();
-        }
 
         public async Task<MeetingPoint> InsertMeetingPointAsync(MeetingPoint meetingPoint)
         {

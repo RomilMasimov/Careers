@@ -6,12 +6,6 @@ namespace Careers.Services.Interfaces
 {
    public interface IMeetingPointService
     {
-        //meeting point type
-        Task<MeetingPointType> InsertMeetingPointTypeAsync(string name);
-        Task<MeetingPointType> UpdateMeetingPointTypeAsync(MeetingPointType meetingPointType);
-        Task<bool> DeleteMeetingPointTypeAsync(MeetingPointType meetingPointType);
-        Task<IEnumerable<MeetingPointType>> FindAllMeetingPointTypesAsync();
-
         //meeting point
         Task<MeetingPoint> InsertMeetingPointAsync(MeetingPoint meetingPoint);
         Task<MeetingPoint> UpdateMeetingPointAsync(MeetingPoint meetingPoint);

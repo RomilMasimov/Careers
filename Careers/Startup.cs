@@ -60,7 +60,6 @@ namespace Careers
             services.AddTransient<SmsService>();
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IClientService, ClientService>();
-            services.AddTransient<IMeetingPointService, MeetingPointService>();
             services.AddTransient<IMessageService, MessageService>();
             services.AddTransient<IOrderService, OrderSercice>();
             services.AddTransient<IQuestionService, QuestionService>();
