@@ -1,6 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
-
+@{
+    string image = "";
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -86,7 +88,7 @@
                                     <li>
                                         @await Html.PartialAsync("_SetLocalizationPartial")
                                     </li>
-                                    
+
                                 </ul>
                             </div>
                             <!-- mainmenu end -->
@@ -233,7 +235,7 @@
                                         </li>
                                         <li>
                                             <div class="my-image">
-                                                <img src="https://i.ytimg.com/vi/nYNBgif23x8/maxresdefault.jpg" alt="">
+                                                <img src="@Context.Request.Cookies.TryGetValue("profileImage", out image)??image" error-src="" alt="">
                                             </div>
                                         </li>
                                     </ul>
