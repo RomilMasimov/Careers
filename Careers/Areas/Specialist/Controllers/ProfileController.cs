@@ -49,7 +49,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var specialist = await _specialistService.FindByUserAsync(userId);
-            var result = await _specialistService.UpdateImage(specialist.Id, Image.OpenReadStream());
+            var result = await _specialistService.UpdateImage(specialist.Id, Image);
             if (!result) TempData["Status"] = "Portrait did not upload";
             else TempData["Status"] = "Portrait sent successfully";
             var path = setImageUrl(specialist);
@@ -96,7 +96,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
             setImageUrl(specialist);
             if (ModelState.IsValid)
             {
-                var result = await _specialistService.AddWork(specialist.Id, workViewModel.Image.OpenReadStream(), workViewModel.Description);
+                var result = await _specialistService.AddWork(specialist.Id, workViewModel.Image, workViewModel.Description);
                 if (result != null)
                 {
                     TempData["Status"] = "Work sent successfully";
@@ -477,9 +477,9 @@ namespace Careers.Areas.SpecialistArea.Controllers
 
         private string setImageUrl(Specialist specialist)
         {
-            string path = string.Empty;
-            if (!string.IsNullOrWhiteSpace(specialist.ImageUrl))
-                path = @$"Media/{specialist.ImageUrl}"; //TODO Сделать по нормально. Забирать путь к папке из сервиса
+            string path = specialist.ImageUrl;
+            if (string.IsNullOrWhiteSpace(specialist.ImageUrl))
+                path = "N/A";
             ViewData["ImageUrl"] = path;
             return path;
         }

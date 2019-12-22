@@ -5,22 +5,21 @@ using System.Linq;
 using System.Threading.Tasks;
 using Careers.EF;
 using Careers.Models;
-using Careers.Repositories;
 using Careers.Services.Interfaces;
+using Careers.Helpers;
 using Microsoft.EntityFrameworkCore;
+using Careers.Models.Enums;
+using Microsoft.AspNetCore.Http;
 
 namespace Careers.Services
 {
     public class SpecialistService : ISpecialistService
     {
         private readonly CareersDbContext context;
-        private readonly MediaRepository mediaRepository;
-        private readonly string mediaPath = Environment.CurrentDirectory + @"\Media";
 
-        public SpecialistService(CareersDbContext context, MediaRepository mediaRepository)
+        public SpecialistService(CareersDbContext context)
         {
             this.context = context;
-            this.mediaRepository = mediaRepository;
         }
 
         public async Task<Specialist> InsertAsync(Specialist specialist)
@@ -60,26 +59,26 @@ namespace Careers.Services
             throw new NotImplementedException();
         }
 
-        public async Task<bool> UpdatePasport(int specialistId, Stream image)
+        public async Task<bool> UpdatePasport(int specialistId, IFormFile image)
         {
-            var newPasportPath = await mediaRepository.AddAsync(mediaPath, image);
+            var newPasportPath = await FileUploadHelper.UploadAsync(image, ImageOwnerEnum.Specialist);
             if (newPasportPath == string.Empty) return false;
 
             var specialist = await context.Specialists.FindAsync(specialistId);
-            if(!string.IsNullOrWhiteSpace(specialist.PassportPath)) 
-                mediaRepository.Delete(mediaPath, specialist.PassportPath);
+            if(!string.IsNullOrWhiteSpace(specialist.PassportPath))
+                FileUploadHelper.Delete(specialist.PassportPath);
             specialist.PassportPath = newPasportPath;
             return await context.SaveChangesAsync() > 0;
         }
 
-        public async Task<bool> UpdateImage(int specialistId, Stream image)
+        public async Task<bool> UpdateImage(int specialistId, IFormFile image)
         {
-            var newImagePath = await mediaRepository.AddAsync(mediaPath, image);
+            var newImagePath = await FileUploadHelper.UploadAsync(image, ImageOwnerEnum.Specialist);
             if (newImagePath == string.Empty) return false;
 
             var specialist = await context.Specialists.FindAsync(specialistId);
             if (!string.IsNullOrWhiteSpace(specialist.ImageUrl))
-                mediaRepository.Delete(mediaPath, specialist.ImageUrl);
+                FileUploadHelper.Delete(specialist.ImageUrl);
             specialist.ImageUrl = newImagePath;
             context.Specialists.Update(specialist);
             return await context.SaveChangesAsync() > 0;
@@ -89,17 +88,17 @@ namespace Careers.Services
         {
             if (workId <= 0) return false;
             var specialistWork = await context.SpecialistWorks.FindAsync(workId);
-            mediaRepository.Delete(mediaPath, specialistWork.ImagePath);
+            FileUploadHelper.Delete(specialistWork.ImagePath);
             context.SpecialistWorks.Remove(specialistWork);
             return await context.SaveChangesAsync() > 0;
         }
 
-        public async Task<SpecialistWork> AddWork(int specialistId, Stream file, string description)
+        public async Task<SpecialistWork> AddWork(int specialistId, IFormFile file, string description)
         {
             var works = context.SpecialistWorks.Where(m => m.SpecialistId == specialistId);
             if (works.Count() >= 10) return null;
 
-            var imagePath = await mediaRepository.AddAsync(mediaPath, file);
+            var imagePath = await FileUploadHelper.UploadAsync(file, ImageOwnerEnum.Specialist);
             if (imagePath == string.Empty) return null;
 
             var specialistWork = new SpecialistWork { SpecialistId = specialistId, ImagePath = imagePath, Description = description };
@@ -169,7 +168,7 @@ namespace Careers.Services
         {
             var specialist = await context.Specialists.FindAsync(specialistId);
             if (!string.IsNullOrWhiteSpace(specialist.ImageUrl))
-                mediaRepository.Delete(mediaPath, specialist.ImageUrl);
+                FileUploadHelper.Delete(specialist.ImageUrl);
             specialist.ImageUrl = string.Empty;
             context.Specialists.Update(specialist);
             return await context.SaveChangesAsync() > 0;

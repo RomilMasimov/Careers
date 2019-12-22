@@ -120,4 +120,40 @@
   <data name="Hello" xml:space="preserve">
     <value>Привет</value>
   </data>
+  <data name="teachers" xml:space="preserve">
+    <value>Репетиторы</value>
+  </data>
+  <data name="masters" xml:space="preserve">
+    <value>Мастера по ремонту</value>
+  </data>
+  <data name="beauty" xml:space="preserve">
+    <value>Мастера красоты</value>
+  </data>
+  <data name="coach" xml:space="preserve">
+    <value>Спортивные тренеры</value>
+  </data>
+  <data name="drivingTeacher" xml:space="preserve">
+    <value>Автоинструкторы</value>
+  </data>
+  <data name="artists" xml:space="preserve">
+    <value>Артисты</value>
+  </data>
+  <data name="it" xml:space="preserve">
+    <value>ИТ-фрилансеры</value>
+  </data>
+  <data name="homeStaff" xml:space="preserve">
+    <value>Домашний персонал</value>
+  </data>
+  <data name="veterinary" xml:space="preserve">
+    <value>Ветеринары</value>
+  </data>
+  <data name="accounting" xml:space="preserve">
+    <value>Бухгалтеры и юристы</value>
+  </data>
+  <data name="doctors" xml:space="preserve">
+    <value>Врачи</value>
+  </data>
+  <data name="other" xml:space="preserve">
+    <value>Разные специалисты</value>
+  </data>
 </root>

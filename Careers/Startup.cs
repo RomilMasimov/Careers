@@ -13,7 +13,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.SignalR;
-using Careers.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
@@ -67,9 +66,6 @@ namespace Careers
             services.AddTransient<IQuestionService, QuestionService>();
             services.AddTransient<IReviewService, ReviewService>();
             services.AddTransient<ISpecialistService, SpecialistService>();
-
-            services.AddScoped<MediaRepository>();
-
 
             services.AddMvc()
                 .AddRazorRuntimeCompilation()
