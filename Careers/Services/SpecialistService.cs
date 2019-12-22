@@ -51,7 +51,7 @@ namespace Careers.Services
         }
         public async Task<Specialist> FindByUserAsync(string userId)
         {
-            return await context.Specialists.FirstOrDefaultAsync(x => x.AppUserId == userId);
+            return await context.Specialists.Include(m => m.AppUser).FirstOrDefaultAsync(x => x.AppUserId == userId);
         }
 
         public Task<IEnumerable<Specialist>> FindAllAsync(Order order)

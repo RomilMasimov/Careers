@@ -56,15 +56,17 @@ namespace Careers
             });
             //services
             services.AddTransient<LocationService>();
-            services.AddTransient<EmailService>();
+            services.AddTransient<SenderService>();
             services.AddTransient<SmsService>();
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IClientService, ClientService>();
+            services.AddTransient<IMeetingPointService, MeetingPointService>();
             services.AddTransient<IMessageService, MessageService>();
             services.AddTransient<IOrderService, OrderSercice>();
             services.AddTransient<IQuestionService, QuestionService>();
             services.AddTransient<IReviewService, ReviewService>();
             services.AddTransient<ISpecialistService, SpecialistService>();
+            services.AddScoped<Initializer>();
 
             services.AddMvc()
                 .AddRazorRuntimeCompilation()

@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using Careers.Models;
+using Careers.Services;
 
 namespace Careers.ViewModels.Auth
 {
@@ -26,7 +29,7 @@ namespace Careers.ViewModels.Auth
         [Display(Name = "Login*")]
         public string UserName { get; set; }
 
-        [Display(Name="Phone")]
+        [Display(Name = "Phone")]
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
     }
@@ -34,8 +37,9 @@ namespace Careers.ViewModels.Auth
 
     public class SpecialistRegistrationVm
     {
+
         [Required]
-        [Display (Name = "Name*")]
+        [Display(Name = "Name*")]
         public string Name { get; set; }
 
         [Required]
@@ -66,6 +70,12 @@ namespace Careers.ViewModels.Auth
         [Display(Name = "Phone")]
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
+
+        [Required]
+        [Display(Name = "City*")]
+        public int CityId { get; set; }
+
+        public IEnumerable<City> Cities { get; set; }
     }
 
     public class RegistrationViewModel

@@ -13,6 +13,8 @@ namespace Careers.Models
         public int ClientId { get; set; }
         public Specialist Specialist { get; set; }
         public int SpecialistId { get; set; }
+        public Service Service { get; set; }
+        public int ServiceId { get; set; }
         public IEnumerable<OrderMeetingPoint> OrderMeetingPoints { get; set; }
         public IEnumerable<Review> Reviews { get; set; }
         public IEnumerable<AnswerOrder> AnswerOrders { get; set; }

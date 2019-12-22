@@ -1,0 +1,90 @@
+﻿@model Specialist
+@{
+    ViewData["Title"] = "Settings";
+}
+
+<div class="py-3">
+    <partial name="_ProfileNavigation" />
+</div>
+
+@if (TempData.ContainsKey("Status"))
+{
+    <div class="alert alert-info" role="alert">
+        @TempData["Status"]
+    </div>
+}
+
+<h3>General profile settings</h3>
+<a asp-area="" asp-controller="Auth" asp-action="ForgotPassword">Forgot password</a>
+
+<div class="list-group mt-2">
+    <div class="list-group-item">
+        <div class="w-100">
+            <div class="row">
+                <div class="col-2">
+                    <h5>Contacts</h5>
+                </div>
+                <div class="col-10">
+                    <p>
+                        <a asp-area="Specialist" asp-controller="Settings" asp-action="EditContacts">Edit</a>
+                    </p>
+                </div>
+            </div>
+            <p>Ways to contact you.<p>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <h6>Full name</h6>
+            </div>
+            <div class="col-10">
+                <p>@Model?.Name @Model?.Surname @Model?.Fathername</p>
+            </div>
+        </div>
+    </div>
+    <div class="list-group-item">
+        <div class="row">
+            <div class="col-2">
+                <h6>Phone number</h6>
+            </div>
+            <div class="col-10">
+                <p>@Model?.AppUser?.PhoneNumber</p>
+            </div>
+        </div>
+    </div>
+    <div class="list-group-item">
+        <div class="row">
+            <div class="col-2">
+                <h6>Email</h6>
+            </div>
+            <div class="col-10">
+                <p>@Model?.AppUser?.Email</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="list-group mt-5">
+    <div class="list-group-item">
+        <div class="w-100">
+            <div class="row">
+                <div class="col-2">
+                    <h5>Additionally</h5>
+                </div>
+                <div class="col-10">
+                    <p>
+                        <a asp-area="Specialist" asp-controller="Settings" asp-action="EditAdditionally">Edit</a>
+                    </p>
+                </div>
+            </div>
+            <p>This information is used to more accurately select orders. Clients do not see her.<p>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <h6>Birthday</h6>
+            </div>
+            <div class="col-10">
+                <p>@Model.DateOfBirth.ToShortDateString()</p>
+            </div>
+        </div>
+    </div>
+</div>

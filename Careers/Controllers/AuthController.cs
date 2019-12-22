@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -17,17 +16,19 @@ namespace Careers.Controllers
 {
     public class AuthController : Controller
     {
+        private readonly LocationService _locationService;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
-        private readonly EmailService _emailService;
+        private readonly SenderService _senderService;
         private readonly ISpecialistService _specialistService;
         private readonly IClientService _clientService;
 
-        public AuthController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, EmailService emailService, ISpecialistService specialistService, IClientService clientService)
+        public AuthController(LocationService locationService, SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, SenderService senderService, ISpecialistService specialistService, IClientService clientService)
         {
+            _locationService = locationService;
             _signInManager = signInManager;
             _userManager = userManager;
-            _emailService = emailService;
+            _senderService = senderService;
             _specialistService = specialistService;
             _clientService = clientService;
         }
@@ -91,9 +92,17 @@ namespace Careers.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public IActionResult SignUp()
+        public async Task<IActionResult> SignUp()
         {
-            return View();
+            var viewModel = new RegistrationViewModel
+            {
+                Specialist = new SpecialistRegistrationVm
+                {
+                    Cities = await _locationService.GetAllCitiesAsync()
+                }
+            };
+
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -139,7 +148,7 @@ namespace Careers.Controllers
                     values: new { userId = user.Id, code },
                     protocol: Request.Scheme);
 
-                await _emailService.SendEmail(clientViewModel.Email, "Confirm your email",
+                await _senderService.SendEmail(clientViewModel.Email, "Confirm your email",
                     $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                 await _clientService.InsertAsync(new Client { AppUser = user });
@@ -178,15 +187,15 @@ namespace Careers.Controllers
                     values: new { userId = user.Id, code },
                     protocol: Request.Scheme);
 
-                await _emailService.SendEmail(specialistViewModel.Email, "Confirm your email",
+                await _senderService.SendEmail(specialistViewModel.Email, "Confirm your email",
                     $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                 await _specialistService.InsertAsync(new Specialist
                 {
+                    AppUser = user,
                     Name = specialistViewModel.Name,
                     Surname = specialistViewModel.Surname,
-                    AppUser = user,
-                    CityId = 7
+                    CityId = specialistViewModel.CityId
                 });
 
                 await _userManager.AddToRolesAsync(user, new[] { "specialist" });
@@ -202,12 +211,134 @@ namespace Careers.Controllers
             return View("SignUp");
         }
 
-        public IActionResult ResetPassword()
+        public IActionResult ForgotPassword()
         {
             return View();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel Input)
+        {
+            if (ModelState.IsValid)
+            {
+                TempData["Email"] = "Please check your email to reset your password.";
+
+                var user = await _userManager.FindByEmailAsync(Input.Email);
+                if (user == null || !await _userManager.IsEmailConfirmedAsync(user))
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+
+                var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+                code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                var callbackUrl = Url.Action("ResetPassword", "Auth",
+                    values: new { code }, protocol: Request.Scheme);
+
+                await _senderService.SendEmail(Input.Email, "Reset Password",
+                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View();
+        }
+
+        public IActionResult ResetPassword(string code = null)
+        {
+            if (code == null)
+            {
+                return BadRequest("A code must be supplied for password reset.");
+            }
+
+            var Input = new ResetPasswordViewModel
+            {
+                Code = code
+            };
+            return View(Input);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel Input)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            TempData["Email"] = "Your password has been reset. Please log in.";
+
+            var user = await _userManager.FindByEmailAsync(Input.Email);
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(Input.Code));
+
+            var result = await _userManager.ResetPasswordAsync(user, code, Input.Password);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+
+            return View();
+        }
+
+        public async Task<IActionResult> ConfirmEmailChange(string userId, string email, string code)
+        {
+            string message = "";
+            if (userId == null || email == null || code == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{userId}'.");
+            }
 
 
+            var result = await _userManager.ChangeEmailAsync(user, email, code);
+            if (!result.Succeeded)
+            {
+                message = "Error changing email.";
+                return View(model: message);
+            }
+
+            await _signInManager.RefreshSignInAsync(user);
+            message = "Thank you for confirming your email change.";
+            return View(model: message);
+        }
+
+        public async Task<IActionResult> ConfirmPhoneNumberChange(string userId, string phoneNumber, string code)
+        {
+            string message = "";
+            if (userId == null || phoneNumber == null || code == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{userId}'.");
+            }
+
+            var result = await _userManager.ChangePhoneNumberAsync(user, phoneNumber, code);
+            if (!result.Succeeded)
+            {
+                message = "Error changing phone.";
+                return View(model: message);
+            }
+
+            await _signInManager.RefreshSignInAsync(user);
+            message = "Thank you for confirming your phone change.";
+            return View(model: message);
+        }
     }
 }

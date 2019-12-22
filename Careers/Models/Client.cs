@@ -13,7 +13,6 @@ namespace Careers.Models
         public bool? Gender { get; set; }
         public bool SmsNotifications { get; set; }
         public bool EmailNotifications { get; set; }
-        public DateTime? DateOfBirth { get; set; }
         public DateTime LastVisit { get; set; }
 
         public AppUser AppUser { get; set; }
