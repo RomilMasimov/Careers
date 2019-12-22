@@ -483,5 +483,10 @@ namespace Careers.Areas.SpecialistArea.Controllers
             ViewData["ImageUrl"] = path;
             return path;
         }
+
+        public IActionResult Balance()
+        {
+            return View();
+        }
     }
 }

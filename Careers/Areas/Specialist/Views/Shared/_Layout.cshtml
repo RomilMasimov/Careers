@@ -14,24 +14,20 @@
             <a class="navbar-brand" href="#">JobPro</a>
             <ul class="navbar-nav w-100 d-flex justify-content-end">
                 <li class="nav-item">
-                    <a asp-area="Specialist" asp-controller="Profile" asp-action="Index">
-                        @*@if (ViewData.TryGetValue("ImageUrl", out var imageUrl))
-                            {
-                                <img src="~/@imageUrl"
-                                     width="40" height="40" class="img-fluid rounded">
-                            }*@
+                    <a asp-area="Specialist" asp-controller="Profile" asp-action="Index" class="w-100 h-100">
                         <img src="~/@ViewData["ImageUrl"]" placeholder-src="/images/content/profile_placeholder.png"
-                             width="40" height="40" class="img-fluid rounded">
+                             width="45" height="45" class="img-fluid rounded">
                     </a>
                 </li>
-                <li class="nav-item dropleft d-flex">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                <li class="nav-item dropleft d-flex flex-column">
+                    <a class="nav-link dropdown-toggle py-0" href="#" id="navbarDropdownMenuLink" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         @if (User.Identity.IsAuthenticated)
                         {
                             @User.Identity.Name
                         }
                     </a>
+                    <a asp-area="Specialist" asp-controller="Profile" asp-action="Balance" class="nav-link py-0">Balance: 0 AZN</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="#">Notifications</a>
                         <a class="dropdown-item" href="#">Notifications settings</a>
