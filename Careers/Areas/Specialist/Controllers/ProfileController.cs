@@ -28,6 +28,8 @@ namespace Careers.Areas.SpecialistArea.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var specialist = await _specialistService.FindByUserAsync(userId);
+            specialist.Educations = await _specialistService.FindEducationsBySpecialist(specialist.Id);
+            specialist.Experiences = await _specialistService.FindExperiencesBySpecialist(specialist.Id);
             setImageUrl(specialist);
             return View(specialist);
         }
@@ -110,9 +112,13 @@ namespace Careers.Areas.SpecialistArea.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var specialist = await _specialistService.FindByUserAsync(userId);
-            setImageUrl(specialist);
             var work = await _specialistService.FindWork(id);
+
+            if (work.SpecialistId != specialist.Id)
+                return RedirectToAction("Works");
+
             var model = new EditWorkViewModel { Id = work.Id, ImagePath = work.ImagePath, Description = work.Description };
+            setImageUrl(specialist);
             return View(model);
         }
 
@@ -141,11 +147,15 @@ namespace Careers.Areas.SpecialistArea.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var specialist = await _specialistService.FindByUserAsync(userId);
-            setImageUrl(specialist);
+
+            var work = await _specialistService.FindWork(id);
+            if (work == null || work.SpecialistId != specialist.Id)
+                return RedirectToAction("Works");
 
             var result = await _specialistService.DeleteWork(id);
             if (!result) TempData["Status"] = "File did not delete";
             else TempData["Status"] = "File delete successfully";
+            setImageUrl(specialist);
             return RedirectToAction("Works");
         }
 
@@ -162,42 +172,219 @@ namespace Careers.Areas.SpecialistArea.Controllers
             return View();
         }
 
-        public IActionResult Educations()
+        public async Task<IActionResult> EducationsAndExperience()
         {
-            return View();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var specialist = await _specialistService.FindByUserAsync(userId);
+
+            var model = new EducationAndExperienceViewModel();
+            model.Educations = await _specialistService.FindEducationsBySpecialist(specialist.Id);
+            model.Experiences = await _specialistService.FindExperiencesBySpecialist(specialist.Id);
+
+            setImageUrl(specialist);
+            return View(model);
         }
 
         [HttpGet]
-        public IActionResult AddEducation()
+        public async Task<IActionResult> AddEducation()
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var specialist = await _specialistService.FindByUserAsync(userId);
+            setImageUrl(specialist);
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AddEducation(Education education)
+        public async Task<IActionResult> AddEducation(EducationViewModel model)
         {
-            return View();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var specialist = await _specialistService.FindByUserAsync(userId);
+            if (ModelState.IsValid)
+            {
+                var education = new Education()
+                {
+                    StudyPlaceName = model.StudyPlaceName,
+                    Specialization = model.Specialization,
+                    StartDate = model.StartDate,
+                    EndDate = model.EndDate,
+                    SpecialistId = specialist.Id
+                };
+                var result = await _specialistService.AddEducation(education);
+                if (result != null)
+                {
+                    TempData["Status"] = "Note has been added";
+                    return RedirectToAction("EducationsAndExperience");
+                }
+            }
+            setImageUrl(specialist);
+            return View(model);
         }
 
         [HttpGet]
-        public IActionResult EditEducation(int id)
+        public async Task<IActionResult> EditEducation(int id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var specialist = await _specialistService.FindByUserAsync(userId);
+            var education = await _specialistService.FindEducation(id);
+            if (education == null || education.SpecialistId != specialist.Id)
+                return RedirectToAction("EducationsAndExperience");
+
+            var model = new EducationViewModel
+            {
+                Id = education.Id,
+                StudyPlaceName = education.StudyPlaceName,
+                Specialization = education.Specialization,
+                StartDate = education.StartDate,
+                EndDate = education.EndDate,
+                SpecialistId = education.SpecialistId
+            };
+            setImageUrl(specialist);
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditEducation(EducationViewModel model)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var specialist = await _specialistService.FindByUserAsync(userId);
+            if (ModelState.IsValid)
+            {
+                var education = new Education()
+                {
+                    Id = model.Id,
+                    StudyPlaceName = model.StudyPlaceName,
+                    Specialization = model.Specialization,
+                    StartDate = model.StartDate,
+                    EndDate = model.EndDate,
+                    SpecialistId = specialist.Id
+                };
+                var result = await _specialistService.UpdateEducation(education);
+                if (result != null)
+                {
+                    TempData["Status"] = "Note has been edited";
+                    return RedirectToAction("EducationsAndExperience");
+                }
+            }
+            setImageUrl(specialist);
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteEducation(int id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var specialist = await _specialistService.FindByUserAsync(userId);
+            var education = await _specialistService.FindEducation(id);
+
+            if (education == null || education.SpecialistId != specialist.Id)
+                return RedirectToAction("EducationsAndExperience");
+
+            var result = await _specialistService.DeleteEducation(id);
+            if (!result) TempData["Status"] = "Note did not delete";
+            else TempData["Status"] = "Note delete successfully";
+            return RedirectToAction("EducationsAndExperience");
+        }
+
+        [HttpGet]
+        public IActionResult AddExperience()
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult EditEducation(Education education)
+        public async Task<IActionResult> AddExperience(ExperienceViewModel model)
         {
-            return View();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var specialist = await _specialistService.FindByUserAsync(userId);
+            if (ModelState.IsValid)
+            {
+                var experiance = new Experience()
+                {
+                    CompanyName = model.CompanyName,
+                    Position = model.Position,
+                    StartDate = model.StartDate,
+                    EndDate = model.EndDate,
+                    SpecialistId = specialist.Id
+                };
+                var result = await _specialistService.AddExperience(experiance);
+                if (result != null)
+                {
+                    TempData["Status"] = "Note has been added";
+                    return RedirectToAction("EducationsAndExperience");
+                }
+            }
+            setImageUrl(specialist);
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditExperience(int id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var specialist = await _specialistService.FindByUserAsync(userId);
+            var experience = await _specialistService.FindExperience(id);
+            if (experience == null || experience.SpecialistId != specialist.Id)
+                return RedirectToAction("EducationsAndExperience");
+            var model = new ExperienceViewModel
+            {
+                Id = experience.Id,
+                CompanyName = experience.CompanyName,
+                Position = experience.Position,
+                StartDate = experience.StartDate,
+                EndDate = experience.EndDate,
+                SpecialistId = experience.SpecialistId
+            };
+            setImageUrl(specialist);
+            return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteEducation(int id)
+        public async Task<IActionResult> EditExperienceAsync(ExperienceViewModel model)
         {
-            return View();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var specialist = await _specialistService.FindByUserAsync(userId);
+            if (ModelState.IsValid)
+            {
+                var experience = new Experience()
+                {
+                    Id = model.Id,
+                    CompanyName = model.CompanyName,
+                    Position = model.Position,
+                    StartDate = model.StartDate,
+                    EndDate = model.EndDate,
+                    SpecialistId = specialist.Id
+                };
+                var result = await _specialistService.UpdateExperience(experience);
+                if (result != null)
+                {
+                    TempData["Status"] = "Note has been edited";
+                    return RedirectToAction("EducationsAndExperience");
+                }
+            }
+            setImageUrl(specialist);
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteExperience(int id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var specialist = await _specialistService.FindByUserAsync(userId);
+            var experience = await _specialistService.FindExperience(id);
+
+            if (experience == null || experience.SpecialistId != specialist.Id)
+                return RedirectToAction("EducationsAndExperience");
+
+            var result = await _specialistService.DeleteExperience(id);
+            if (!result) TempData["Status"] = "Note did not delete";
+            else TempData["Status"] = "Note delete successfully";
+            return RedirectToAction("EducationsAndExperience");
         }
 
         [HttpGet]

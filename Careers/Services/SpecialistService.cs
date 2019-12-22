@@ -119,8 +119,6 @@ namespace Careers.Services
 
         public async Task<Education> UpdateEducation(Education education)
         {
-            var lastEducation = await context.Educations.FindAsync(education.Id);
-            if (lastEducation == null) return null;
             var result = context.Educations.Update(education);
             await context.SaveChangesAsync();
             return result.Entity;
@@ -131,6 +129,30 @@ namespace Careers.Services
             var education = await context.Educations.FindAsync(id);
             if (education == null) return false;
             context.Educations.Remove(education);
+            return await context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<Experience> AddExperience(Experience experience)
+        {
+            experience.Id = 0;
+            if (experience.SpecialistId <= 0) return null;
+            var result = await context.Experiences.AddAsync(experience);
+            await context.SaveChangesAsync();
+            return result.Entity;
+        }
+
+        public async Task<Experience> UpdateExperience(Experience experience)
+        {
+            var result = context.Experiences.Update(experience);
+            await context.SaveChangesAsync();
+            return result.Entity;
+        }
+
+        public async Task<bool> DeleteExperience(int id)
+        {
+            var experience = await context.Experiences.FindAsync(id);
+            if (experience == null) return false;
+            context.Experiences.Remove(experience);
             return await context.SaveChangesAsync() > 0;
         }
 
@@ -171,6 +193,26 @@ namespace Careers.Services
             if (await context.SaveChangesAsync() < 0)
                 return null;
             return result.Entity;
+        }
+
+        public async Task<IEnumerable<Education>> FindEducationsBySpecialist(int specialistId)
+        {
+            return await context.Educations.Where(m => m.SpecialistId == specialistId).ToListAsync();
+        }
+
+        public Task<Education> FindEducation(int id)
+        {
+            return context.Educations.FindAsync(id).AsTask();
+        }
+
+        public async Task<IEnumerable<Experience>> FindExperiencesBySpecialist(int specialistId)
+        {
+            return await context.Experiences.Where(m => m.SpecialistId == specialistId).ToListAsync();
+        }
+
+        public Task<Experience> FindExperience(int id)
+        {
+            return context.Experiences.FindAsync(id).AsTask();
         }
     }
 }

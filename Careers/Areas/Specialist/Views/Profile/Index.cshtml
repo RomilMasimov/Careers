@@ -44,13 +44,44 @@
                     </div>
                     <div class="col-10">
                         <p>
-                            <a href="#">Add</a>
-                            <br>
-                            <span class="text-muted">
-                                Tell us about your education, experience and
-                                achievements. Confirm them with documents. This will ensure that
-                                customers are a true specialist.
-                            </span>
+                            @if ((Model.Educations == null && Model.Experiences == null) ||
+                               (Model.Educations?.Count() == 0 && Model.Experiences?.Count() == 0))
+                            {
+                                <a asp-area="Specialist" asp-controller="Profile" asp-action="EducationsAndExperience">Add</a>
+                                <br>
+                                <span class="text-muted">
+                                    Tell us about your education, experience and
+                                    achievements. Confirm them with documents. This will ensure that
+                                    customers are a true specialist.
+                                </span>
+                            }
+                            else
+                            {
+                                <a asp-area="Specialist" asp-controller="Profile" asp-action="EducationsAndExperience">Edit</a>
+                                <br>
+                                @if (Model.Educations?.Count() > 0)
+                                {
+                                    <h6>Educations</h6>
+                                    @foreach (var item in Model.Educations)
+                                    {
+                                        <span>
+                                            @item.StudyPlaceName (@item.StartDate.ToShortDateString() - @item.EndDate?.ToShortDateString())
+                                        </span>
+                                        <br>
+                                    }
+                                }
+                                @if (Model.Experiences?.Count() > 0)
+                                {
+                                    <h6>Experiences</h6>
+                                    @foreach (var item in Model.Experiences)
+                                    {
+                                        <span>
+                                            @item.CompanyName (@item.StartDate.ToShortDateString() - @item.EndDate?.ToShortDateString())
+                                        </span>
+                                        <br>
+                                    }
+                                }
+                            }
                         </p>
                     </div>
                 </div>

@@ -23,9 +23,17 @@ namespace Careers.Services.Interfaces
         Task<SpecialistWork> EditWork(int workId, string description);
         Task<bool> DeleteWork(int id);
 
+        Task<IEnumerable<Education>> FindEducationsBySpecialist(int specialistId);
+        Task<Education> FindEducation(int id);
         Task<Education> AddEducation(Education education);
         Task<Education> UpdateEducation(Education education);
         Task<bool> DeleteEducation(int id);
+
+        Task<IEnumerable<Experience>> FindExperiencesBySpecialist(int specialistId);
+        Task<Experience> FindExperience(int id);
+        Task<Experience> AddExperience(Experience experience);
+        Task<Experience> UpdateExperience(Experience experience);
+        Task<bool> DeleteExperience(int id);
 
         Task<Specialist> FindAsync(int id);
         Task<Specialist> FindByUserAsync(string userId);
