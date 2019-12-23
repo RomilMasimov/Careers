@@ -3,7 +3,11 @@
 <form asp-area="Specialist" asp-controller="Profile" asp-action="EditWhereCanGo" method="post">
     <div class="form-group">
         <label>Tags:</label>
-        <select name="points" asp-items="@ViewBag.MeetingPoints" data-placeholder="Choose meeting points..." multiple id="points" class="form-control chosen-select"></select>
+        <select name="points" asp-items="@ViewBag.MeetingPoints"
+                data-placeholder="Choose meeting points..."
+                multiple id="points"
+                class="form-control chosen-select">
+        </select>
     </div>
     <button class="btn btn-success" type="submit">Save</button>
 </form>
