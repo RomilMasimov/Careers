@@ -1,0 +1,36 @@
+﻿@model IEnumerable<OrderResponse>
+
+<div class="py-3">
+    <partial name="_MyOrdersTabNavigation" />
+</div>
+
+@foreach (var response in Model)
+{
+    <div class="list-group">
+        <a href="#" class="list-group-item list-group-item-action">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-muted">@response.Order.Service.DescriptionRU</h5>
+                    @foreach (var answerOrder in response.Order.AnswerOrders)
+                    {
+                        <p>@answerOrder.Answer.AskedQuestion.TextRU: @answerOrder.Answer.TextRU</p>
+                    }
+                </div>
+                <div class="col-md-4">
+                    <p>@response.Order.Client.Name @response.Order.Client.Surname</p>
+                    <p>
+                        @foreach (var point in response.Order.OrderMeetingPoints)
+                        {
+                            <span>point.MeetingPoint.Description </span>
+                        }
+                    </p>
+                </div>
+                <div class="col-md-2">
+                    <p>Client price: @response.Order.Price</p>
+                    <p>My price: @response.PriceMin - @response.PriceMax</p>
+                </div>
+            </div>
+        </a>
+    </div>
+}
+

@@ -77,6 +77,10 @@ namespace Careers.EF
                 .WithMany(cml => cml.OrderMeetingPoints)
                 .HasForeignKey(si => si.OrderId);
 
+            modelBuilder.Entity<MeetingPoint>()
+                .Property(o => o.MeetingPointType)
+                .HasConversion<string>();
+
             modelBuilder.Entity<SpecialistService>()
                 .HasOne(pt => pt.Specialist)
                 .WithMany(p => p.SpecialistServices)
@@ -184,7 +188,6 @@ namespace Careers.EF
         public DbSet<Country> Countries { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<ReviewMedia> ReviewMedias { get; set; }
-        public DbSet<MeetingPointType> MeetingPointTypes { get; set; }
         public DbSet<MeetingPoint> MeetingPoints { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }

@@ -1,0 +1,55 @@
+﻿@model EducationAndExperienceViewModel
+
+<h2>Education and experience</h2>
+<p class="text-muted mb-1">Tell us about your education, experience and achievements. So customers will make sure that you are a real specialist.</p>
+@if (TempData.ContainsKey("Status"))
+{
+    <div class="alert alert-info" role="alert">
+        @TempData["Status"]
+    </div>
+}
+<h3 class="mt-2">Education</h3>
+<a asp-area="Specialist" asp-controller="Profile" asp-action="AddEducation" class="btn btn-light">Add</a>
+
+@if (Model.Educations?.Count() > 0)
+{
+    @foreach (var item in Model.Educations)
+    {
+        <div class="row">
+            <p class="col-8 my-auto">@item.StudyPlaceName (@item.StartDate.ToShortDateString() - @item.EndDate?.ToShortDateString())</p>
+            <div class="col-4">
+                <div class="row">
+                    <a asp-area="Specialist" asp-controller="Profile" asp-action="EditEducation" asp-route-id="@item.Id" class="btn btn-light col-md-6">Edit</a>
+                    <form asp-area="Specialist" asp-controller="Profile" asp-action="DeleteEducation" asp-route-id="@item.Id" class="col-md-6" method="post">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+<h3 class="mt-2">Experience</h3>
+<a asp-area="Specialist" asp-controller="Profile" asp-action="AddExperience" class="btn btn-light">Add</a>
+
+@if (Model.Experiences?.Count() > 0)
+{
+    <table class="table">
+        <tbody>
+            @foreach (var item in Model.Experiences)
+            {
+                <tr>
+                    <th>@item.CompanyName (@item.StartDate.ToShortDateString() - @item.EndDate?.ToShortDateString())</th>
+                    <th class="text-left">
+                        <div class="row">
+                            <a asp-area="Specialist" asp-controller="Profile" asp-action="EditExperience" asp-route-id="@item.Id" class="btn btn-light col-md-6">Edit</a>
+                            <form asp-area="Specialist" asp-controller="Profile" asp-action="DeleteExperience" asp-route-id="@item.Id" class="col-md-6" method="post">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
+                    </th>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

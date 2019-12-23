@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Careers.EF;
 using Careers.Models;
+using Careers.Models.Enums;
 
 namespace Careers.Services
 {
@@ -71,10 +72,10 @@ namespace Careers.Services
         public void Services()
         {
             if (context.Services.Any()) return;
-            context.Services.Add(new Service{SubCategory = context.SubCategories.FirstOrDefault(x=>x.DescriptionRU=="Переводчики"), DescriptionAZ = "sdfsdfsdf", DescriptionRU = "Перевод книг" });
-            context.Services.Add(new Service{SubCategory = context.SubCategories.FirstOrDefault(x=>x.DescriptionRU=="Переводчики"), DescriptionAZ = "sfsdfsdg", DescriptionRU = "Перевод с английского" });
-            context.Services.Add(new Service{SubCategory = context.SubCategories.FirstOrDefault(x=>x.DescriptionRU=="Переводчики"), DescriptionAZ = "ASasA", DescriptionRU = "Перевод с корейского" });
-            context.Services.Add(new Service{SubCategory = context.SubCategories.FirstOrDefault(x=>x.DescriptionRU=="Переводчики"), DescriptionAZ = "ADFSHNG", DescriptionRU = "Перевод с французского" });
+            context.Services.Add(new Service { SubCategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU == "Переводчики"), DescriptionAZ = "sdfsdfsdf", DescriptionRU = "Перевод книг" });
+            context.Services.Add(new Service { SubCategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU == "Переводчики"), DescriptionAZ = "sfsdfsdg", DescriptionRU = "Перевод с английского" });
+            context.Services.Add(new Service { SubCategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU == "Переводчики"), DescriptionAZ = "ASasA", DescriptionRU = "Перевод с корейского" });
+            context.Services.Add(new Service { SubCategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU == "Переводчики"), DescriptionAZ = "ADFSHNG", DescriptionRU = "Перевод с французского" });
 
             context.Services.Add(new Service { SubCategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU == "Программисты"), DescriptionAZ = "WEGRZHTJYHTFDGFGD", DescriptionRU = "Адаптивная вёрстка" });
             context.Services.Add(new Service { SubCategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU == "Программисты"), DescriptionAZ = "ASDFDGFGNFF", DescriptionRU = "Доска объявлений" });
@@ -90,5 +91,21 @@ namespace Careers.Services
             context.SaveChanges();
         }
 
+        public void MeetingPoints()
+        {
+            if (context.Services.Any()) return;
+            context.MeetingPoints.Add(new MeetingPoint { Description = "SubWay 1", MeetingPointType = MeetingPointTypeEnum.Subway, CityId = 1 });
+            context.MeetingPoints.Add(new MeetingPoint { Description = "SubWay 1", MeetingPointType = MeetingPointTypeEnum.Subway, CityId = 2 });
+            context.MeetingPoints.Add(new MeetingPoint { Description = "SubWay 2", MeetingPointType = MeetingPointTypeEnum.Subway, CityId = 3 });
+
+            context.MeetingPoints.Add(new MeetingPoint { Description = "City 2", MeetingPointType = MeetingPointTypeEnum.City, CityId = 1 });
+            context.MeetingPoints.Add(new MeetingPoint { Description = "City 2", MeetingPointType = MeetingPointTypeEnum.City, CityId = 2 });
+            context.MeetingPoints.Add(new MeetingPoint { Description = "City 3", MeetingPointType = MeetingPointTypeEnum.City, CityId = 3 });
+
+            context.MeetingPoints.Add(new MeetingPoint { Description = "District 3", MeetingPointType = MeetingPointTypeEnum.District, CityId = 1 });
+            context.MeetingPoints.Add(new MeetingPoint { Description = "District 3", MeetingPointType = MeetingPointTypeEnum.District, CityId = 2 });
+            context.MeetingPoints.Add(new MeetingPoint { Description = "District 3", MeetingPointType = MeetingPointTypeEnum.District, CityId = 3 });
+            context.SaveChanges();
+        }
     }
 }

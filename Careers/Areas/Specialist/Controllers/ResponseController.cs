@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Careers.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Careers.Areas.Specialist.Controllers
+namespace Careers.Areas.SpecialistArea.Controllers
 {
     public class ResponseController : Controller
     {

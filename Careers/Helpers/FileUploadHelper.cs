@@ -35,5 +35,15 @@ namespace Careers.Helpers
             await file.CopyToAsync(fs);
             return $"{selectedPath}/{filename}";
         }
+
+        public static bool Delete(string path)
+        {
+            if (string.IsNullOrWhiteSpace(path)) return false;
+
+            var localPath = $"wwwroot/{path}";
+            if (!File.Exists(localPath)) return false;
+            File.Delete(localPath);
+            return true;
+        }
     }
 }

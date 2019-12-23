@@ -302,7 +302,7 @@ namespace Careers.Controllers
                 return NotFound($"Unable to load user with ID '{userId}'.");
             }
 
-            
+
             var result = await _userManager.ChangeEmailAsync(user, email, code);
             if (!result.Succeeded)
             {

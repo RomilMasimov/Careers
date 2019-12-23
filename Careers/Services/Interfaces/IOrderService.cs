@@ -10,6 +10,13 @@ namespace Careers.Services.Interfaces
         Task<Order> UpdateAsync(Order order);
         Task<bool> DeleteAsync(Order order);
 
+        Task<OrderResponse> InsertResponseAsync(OrderResponse response);
+        Task<OrderResponse> UpdateResponseAsync(OrderResponse response);
+        Task<bool> DeleteResponseAsync(OrderResponse response);
+
+        Task<IEnumerable<OrderResponse>> FindAllResponseBySpecialistAsync(int specialistId);
+        Task<IEnumerable<OrderResponse>> FindAllResponseByOrderAsync(int orderId);
+
         Task<Order> FindAsync(int id, bool responses = false);
         Task<IEnumerable<Order>> FindAllByClientAsync(int clientId);
         Task<IEnumerable<Order>> FindAllBySpecialistAsync(int specialistId);
