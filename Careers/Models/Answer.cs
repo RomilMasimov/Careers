@@ -14,6 +14,6 @@ namespace Careers.Models
         public int? NextQuestionId { get; set; }
         public IEnumerable<QuestionAnswer> QuestionAnswers { get; set; }
         public IEnumerable<AnswerOrder> AnswerOrders { get; set; }
-        public IEnumerable<SpecialistAnswer> SpecialistAnswers { get; set; }
+        //public IEnumerable<SpecialistAnswer> SpecialistAnswers { get; set; }
     }
 }

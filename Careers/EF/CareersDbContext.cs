@@ -123,15 +123,15 @@ namespace Careers.EF
                 .OnDelete(DeleteBehavior.NoAction)
                 .HasForeignKey(si => si.QuestionId);
 
-            modelBuilder.Entity<SpecialistAnswer>()
-              .HasOne(pt => pt.Answer)
-              .WithMany(b => b.SpecialistAnswers)
-              .HasForeignKey(pt => pt.AnswerId);
+            //modelBuilder.Entity<SpecialistAnswer>()
+            //  .HasOne(pt => pt.Answer)
+            //  .WithMany(b => b.SpecialistAnswers)
+            //  .HasForeignKey(pt => pt.AnswerId);
 
-            modelBuilder.Entity<SpecialistAnswer>()
-                .HasOne(pt => pt.Specialist)
-                .WithMany(b => b.SpecialistAnswers)
-                .HasForeignKey(pt => pt.SpecialistId);
+            //modelBuilder.Entity<SpecialistAnswer>()
+            //    .HasOne(pt => pt.Specialist)
+            //    .WithMany(b => b.SpecialistAnswers)
+            //    .HasForeignKey(pt => pt.SpecialistId);
 
             modelBuilder.Entity<Client>()
                 .Property(x => x.EmailNotifications)
@@ -209,7 +209,7 @@ namespace Careers.EF
         public DbSet<SpecialistService> SpecialistServices { get; set; }
         public DbSet<DefaultQuestion> DefaultQuestions { get; set; }
         public DbSet<OrderSchedule> OrderSchedules { get; set; }
-        public DbSet<SpecialistAnswer> SpecialistAnswers { get; set; }
+       //public DbSet<SpecialistAnswer> SpecialistAnswers { get; set; }
         public DbSet<UserSpecialistMessage> UserSpecialistMessages { get; set; }
         public DbSet<LanguageSpecialist> LanguageSpecialists { get; set; }
         public DbSet<MyLanguage> Languages { get; set; }
