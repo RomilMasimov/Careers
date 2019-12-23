@@ -1,17 +1,28 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using Careers.EF;
 using Careers.Models;
 using Careers.Models.Enums;
+using Careers.Models.Identity;
+using Careers.Services.Interfaces;
+using Microsoft.AspNetCore.Identity;
 
 namespace Careers.Services
 {
     public class Initializer
     {
         private readonly CareersDbContext context;
+        private readonly IClientService clientService;
+        private readonly ISpecialistService specialistService;
+        private readonly UserManager<AppUser> userManager;
 
-        public Initializer(CareersDbContext context)
+        public Initializer(CareersDbContext context, IClientService clientService, ISpecialistService specialistService, UserManager<AppUser> userManager)
         {
             this.context = context;
+            this.clientService = clientService;
+            this.specialistService = specialistService;
+            this.userManager = userManager;
         }
 
         public void CountryAndCity()
@@ -144,5 +155,38 @@ namespace Careers.Services
             context.SaveChanges();
         }
 
+
+        public async Task ClientsAndSpecialistsAsync()
+        {
+            var password = "$Secret123";
+
+            var userClient1 = new AppUser { Email = "clientemail1@gmail.com", PhoneNumber = "0000000000", UserName = "clientemail1@gmail.com", EmailConfirmed = true, PhoneNumberConfirmed = true };
+            var userClient2 = new AppUser { Email = "clientemail2@gmail.com", PhoneNumber = "0000000000", UserName = "clientemail2@gmail.com", EmailConfirmed = true, PhoneNumberConfirmed = true };
+
+            await userManager.CreateAsync(userClient1, password);
+            await userManager.AddToRoleAsync(userClient1, "client");
+            await userManager.CreateAsync(userClient2, password);
+            await userManager.AddToRoleAsync(userClient2, "client");
+
+            var client1 = new Client { Name = "ClientName1", Surname = "ClientSurname1", Gender = true, AppUserId = userClient1.Id };
+            var client2 = new Client { Name = "ClientName2", Surname = "ClientSurname2", Gender = false, AppUserId = userClient2.Id };
+            
+            await clientService.InsertAsync(client1);
+            await clientService.InsertAsync(client2);
+            
+            var userSpecialist1 = new AppUser { Email = "specialistemail1@gmail.com", PhoneNumber = "0000000000", UserName = "specialistemail1@gmail.com", EmailConfirmed = true, PhoneNumberConfirmed = true };
+            var userSpecialist2 = new AppUser { Email = "specialistemail2@gmail.com", PhoneNumber = "0000000000", UserName = "specialistemail2@gmail.com", EmailConfirmed = true, PhoneNumberConfirmed = true };
+            
+            await userManager.CreateAsync(userSpecialist1, password);
+            await userManager.AddToRoleAsync(userSpecialist1, "specialist");
+            await userManager.CreateAsync(userSpecialist2, password);
+            await userManager.AddToRoleAsync(userSpecialist2, "specialist");
+            
+            var specialist1 = new Specialist { Name = "SpecName1", Surname = "SpecSurname1", Gender = true, Fathername = "SpecFathername1", CityId = 1, DateOfBirth = DateTime.Now, AppUserId = userSpecialist1.Id };
+            var specialist2 = new Specialist { Name = "SpecName2", Surname = "SpecSurname2", Gender = false, Fathername = "SpecFathername2", CityId = 2, DateOfBirth = DateTime.Now, AppUserId = userSpecialist2.Id };
+            
+            await specialistService.InsertAsync(specialist1);
+            await specialistService.InsertAsync(specialist2);
+        }
     }
 }
