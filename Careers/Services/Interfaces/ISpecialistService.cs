@@ -13,6 +13,9 @@ namespace Careers.Services.Interfaces
         Task<Specialist> UpdateAbotAsync(int specialistId, string about);
         Task<bool> DeleteAsync(Specialist specialist);
 
+        Task<bool> UpdateWhereCanGo(Specialist specialist, int[] pointsId);
+        Task<bool> UpdateWhereCanMeet(int specialistId, int[] pointsId);
+
         Task<bool> UpdatePasport(int specialistId, IFormFile file);
         Task<bool> UpdateImage(int specialistId, IFormFile file);
         Task<bool> DeleteImage(int specialistId);

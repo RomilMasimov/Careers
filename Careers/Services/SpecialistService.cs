@@ -10,6 +10,7 @@ using Careers.Helpers;
 using Microsoft.EntityFrameworkCore;
 using Careers.Models.Enums;
 using Microsoft.AspNetCore.Http;
+using BlogWebsite.Extensions;
 
 namespace Careers.Services
 {
@@ -65,7 +66,7 @@ namespace Careers.Services
             if (newPasportPath == string.Empty) return false;
 
             var specialist = await context.Specialists.FindAsync(specialistId);
-            if(!string.IsNullOrWhiteSpace(specialist.PassportPath))
+            if (!string.IsNullOrWhiteSpace(specialist.PassportPath))
                 FileUploadHelper.Delete(specialist.PassportPath);
             specialist.PassportPath = newPasportPath;
             return await context.SaveChangesAsync() > 0;
@@ -212,6 +213,28 @@ namespace Careers.Services
         public Task<Experience> FindExperience(int id)
         {
             return context.Experiences.FindAsync(id).AsTask();
+        }
+
+        public async Task<bool> UpdateWhereCanGo(Specialist specialist, int[] pointsId)
+        {
+            specialist.WhereCanGoList.ToList().RemoveAll(x => !pointsId.Contains(x.Id));
+            var oldPoints = context.WhereCanGoSpecialists.Where(x => x.SpecialistId == specialist.Id).ToList();
+            var newPoints = oldPoints.Where(m => !pointsId.Contains(m.Id));
+            specialist.WhereCanGoList.ToList().AddRange(newPoints);
+            //context.UpdateManyToMany(
+            //        context.WhereCanGoSpeciaists.Where(x => x.SpecialistId == specialistId),
+            //        pointsId.Select(x => new WhereCanGoSpecialist { SpecialistId = specialistId, WhereCanGoId = x }),
+            //        x => x.WhereCanGoId);
+            return await context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<bool> UpdateWhereCanMeet(int specialistId, int[] pointsId)
+        {
+            context.UpdateManyToMany(
+                    context.WhereCanGoSpecialists.Where(x => x.SpecialistId == specialistId),
+                    pointsId.Select(x => new WhereCanGoSpecialist { SpecialistId = specialistId, WhereCanGoId = x }),
+                    x => x.WhereCanGoId);
+            return await context.SaveChangesAsync() > 0;
         }
     }
 }

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/chosen/chosen.min.css" rel="stylesheet" />
     <title>Profile</title>
 </head>
 <body>
@@ -48,7 +49,7 @@
                             <a class="nav-link font-weight-bolder" href="#">New orders</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link font-weight-bolder" href="#">My orders</a>
+                            <a asp-area="Specialist" asp-controller="Order" asp-action="MyOrders" class="nav-link font-weight-bolder">My orders</a>
                         </li>
                         <li class="nav-item active">
                             <a asp-area="Specialist" asp-controller="Profile" asp-action="Index" class="nav-link font-weight-bolder">Profile</a>

@@ -27,7 +27,12 @@ namespace Careers.Services
         public async Task<bool> DeleteAsync(Order order)
         {
             context.Orders.Remove(order);
+            return await context.SaveChangesAsync() > 0;
+        }
 
+        public async Task<bool> DeleteResponseAsync(OrderResponse response)
+        {
+            context.OrderResponses.Remove(response);
             return await context.SaveChangesAsync() > 0;
         }
 
@@ -41,12 +46,30 @@ namespace Careers.Services
             return await context.Orders.Where(m => m.SpecialistId == specialistId).ToListAsync();
         }
 
+        public async Task<IEnumerable<OrderResponse>> FindAllResponseByOrderAsync(int orderId)
+        {
+            return await context.OrderResponses.Where(m => m.OrderId == orderId)
+                .Include(m => m.Order)
+                .ThenInclude(m => m.AnswerOrders)
+                .Include(m => m.Order.Client)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<OrderResponse>> FindAllResponseBySpecialistAsync(int specialistId)
+        {
+            return await context.OrderResponses.Where(m => m.SpecialistId == specialistId)
+                .Include(m => m.Order)
+                .ThenInclude(m => m.AnswerOrders)
+                .Include(m => m.Order.Client)
+                .ToListAsync();
+        }
+
         public async Task<Order> FindAsync(int id, bool responses = false)
         {
             if (!responses) return await context.Orders.FindAsync(id);
 
             return await context.Orders.Include(x => x.OrderResponses)
-                .ThenInclude(x=>x.Specialist).FirstOrDefaultAsync(x => x.Id == id);
+                .ThenInclude(x => x.Specialist).FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<Order> InsertAsync(Order order)
@@ -57,9 +80,24 @@ namespace Careers.Services
             return res.Entity;
         }
 
+        public async Task<OrderResponse> InsertResponseAsync(OrderResponse response)
+        {
+            response.Id = 0;
+            var res = await context.OrderResponses.AddAsync(response);
+            await context.SaveChangesAsync();
+            return res.Entity;
+        }
+
         public async Task<Order> UpdateAsync(Order order)
         {
             var res = context.Orders.Update(order);
+            await context.SaveChangesAsync();
+            return res.Entity;
+        }
+
+        public async Task<OrderResponse> UpdateResponseAsync(OrderResponse response)
+        {
+            var res = context.OrderResponses.Update(response);
             await context.SaveChangesAsync();
             return res.Entity;
         }

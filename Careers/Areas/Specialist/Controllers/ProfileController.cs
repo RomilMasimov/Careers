@@ -4,11 +4,13 @@ using System.Threading.Tasks;
 using Careers.Areas.SpecialistArea.ViewModels;
 using Careers.Models;
 using Careers.Models.Identity;
+using Careers.Services;
 using Careers.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Careers.Areas.SpecialistArea.Controllers
 {
@@ -18,11 +20,13 @@ namespace Careers.Areas.SpecialistArea.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly ISpecialistService _specialistService;
+        private readonly IMeetingPointService _meetingPointService;
 
-        public ProfileController(UserManager<AppUser> userManager, ISpecialistService specialistService)
+        public ProfileController(UserManager<AppUser> userManager, ISpecialistService specialistService, IMeetingPointService meetingPointService)
         {
             _userManager = userManager;
             _specialistService = specialistService;
+            _meetingPointService = meetingPointService;
         }
         public async Task<IActionResult> Index()
         {
@@ -289,8 +293,11 @@ namespace Careers.Areas.SpecialistArea.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddExperience()
+        public async Task<IActionResult> AddExperience()
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var specialist = await _specialistService.FindByUserAsync(userId);
+            setImageUrl(specialist);
             return View();
         }
 
@@ -388,7 +395,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> EditAboutAsync()
+        public async Task<IActionResult> EditAbout()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var specialist = await _specialistService.FindByUserAsync(userId);
@@ -412,20 +419,32 @@ namespace Careers.Areas.SpecialistArea.Controllers
             return View(model);
         }
 
-        public IActionResult WhereCanGo()
-        {
-            return View();
-        }
-
         [HttpGet]
-        public IActionResult AddWhereCanGo()
+        public async Task<IActionResult> EditWhereCanGo()
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var specialist = await _specialistService.FindByUserAsync(userId);
+
+            var meetingPoints = await _meetingPointService.GetAllAsync();
+            var selectedMeetingPoints = await _meetingPointService.FindAllWhereCanGoBySpecialistAsync(specialist.Id);
+            ViewBag.MeetingPoints = new MultiSelectList(meetingPoints, "Id", "Description", selectedMeetingPoints);
+            setImageUrl(specialist);
             return View();
         }
-
+        
         [HttpPost]
-        public IActionResult AddWhereCanGo(int specialistId, MeetingPoint point)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditWhereCanGo(int[] points)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var specialist = await _specialistService.FindByUserAsync(userId);
+            var result = await _specialistService.UpdateWhereCanGo(specialist, points);
+            if (result)
+            {
+                TempData["Status"] = "Where can go was edsited";
+                return RedirectToAction("Index");
+            }
+            setImageUrl(specialist);
             return View();
         }
 
