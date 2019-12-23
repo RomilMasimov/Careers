@@ -2,6 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 using Careers.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace Careers.Services.Interfaces
 {

@@ -236,5 +236,10 @@ namespace Careers.Services
                     x => x.WhereCanGoId);
             return await context.SaveChangesAsync() > 0;
         }
+
+        public Task<IEnumerable<Specialist>> GetBestByCategoryAsync(int count)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
