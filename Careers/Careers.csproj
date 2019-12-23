@@ -55,11 +55,7 @@
   <ItemGroup>
     <Folder Include="Areas\AdminPanel\Data\" />
     <Folder Include="Areas\AdminPanel\Models\" />
-    <Folder Include="CommentsLog\" />
-    <Folder Include="MessagesLog\" />
     <Folder Include="ViewModels\Home\" />
-    <Folder Include="wwwroot\media\clientProfile\" />
-    <Folder Include="wwwroot\media\specialistProfile\" />
   </ItemGroup>
 
 </Project>

@@ -52,6 +52,11 @@ namespace Careers.EF
                 .WithMany(cgl => cgl.WhereCanGoList)
                 .HasForeignKey(pt => pt.WhereCanGoId);
 
+            modelBuilder.Entity<MeetingPoint>()
+                .HasOne(x => x.City)
+                .WithMany(x => x.MeetingPoints)
+                .OnDelete(DeleteBehavior.NoAction);
+
             modelBuilder.Entity<WhereCanGoSpecialist>()
                 .HasOne(cg => cg.WhereCanGo)
                 .WithMany(cgl => cgl.WhereCanGoList)
