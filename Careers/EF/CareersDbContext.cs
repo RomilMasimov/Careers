@@ -97,7 +97,7 @@ namespace Careers.EF
                 .HasForeignKey(si => si.ServiceId);
 
             modelBuilder.Entity<Question>()
-                .Property(x => x.Type)
+                .Property(x => x.Type).HasConversion<string>()
                 .HasDefaultValue(QuestionTypeEnum.Single);
 
             modelBuilder.Entity<AnswerOrder>()

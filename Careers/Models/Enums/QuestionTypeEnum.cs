@@ -3,6 +3,10 @@
     public enum QuestionTypeEnum
     {
         Single,
-        Multi
+        Multi,
+        Input,
+        Date,
+        MyLocation,
+        MeetingPoints
     }
 }

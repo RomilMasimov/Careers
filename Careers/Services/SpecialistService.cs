@@ -237,9 +237,14 @@ namespace Careers.Services
             return await context.SaveChangesAsync() > 0;
         }
 
-        public Task<IEnumerable<Specialist>> GetBestByCategoryAsync(int count)
+        public async Task<IEnumerable<Specialist>> GetBestByCategoryAsync(int count)
         {
-            throw new NotImplementedException();
+            return await context.Specialists
+                .Include(x => x.Orders)
+                .ThenInclude(x => x.Service)
+                .OrderByDescending(x => x.Orders.Count())
+                .Take(count)
+                .ToListAsync();
         }
     }
 }

@@ -20,14 +20,8 @@ namespace Careers.Controllers
         public async Task<IActionResult> Index(string categoryName = "разные")
         {
             var categories = await _categoryService.GetCategoryAndSubCategoriesAsync(categoryName);
-            if (categories == null)
-            {
-                return View(new CategoryViewModel
-                {
-                    SubCategories = new List<SubCategory>(),
-                    CategoryName = "no category"
-                });
-            }
+
+            if (categories == null) return View(new CategoryViewModel());
 
             var viewModel = new CategoryViewModel
             {
@@ -35,8 +29,13 @@ namespace Careers.Controllers
                 CategoryName = CultureInfo.CurrentCulture.Name == "ru-RU" ?
                     categories.DescriptionRU : categories.DescriptionAZ
             };
+
             return View(viewModel);
         }
+
+
+
+
 
 
 

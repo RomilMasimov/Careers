@@ -97,15 +97,52 @@ namespace Careers.Services
             context.MeetingPoints.Add(new MeetingPoint { Description = "SubWay 1", MeetingPointType = MeetingPointTypeEnum.Subway, CityId = 1 });
             context.MeetingPoints.Add(new MeetingPoint { Description = "SubWay 1", MeetingPointType = MeetingPointTypeEnum.Subway, CityId = 2 });
             context.MeetingPoints.Add(new MeetingPoint { Description = "SubWay 2", MeetingPointType = MeetingPointTypeEnum.Subway, CityId = 3 });
-            
+
             context.MeetingPoints.Add(new MeetingPoint { Description = "City 2", MeetingPointType = MeetingPointTypeEnum.City, CityId = 1 });
             context.MeetingPoints.Add(new MeetingPoint { Description = "City 2", MeetingPointType = MeetingPointTypeEnum.City, CityId = 2 });
             context.MeetingPoints.Add(new MeetingPoint { Description = "City 3", MeetingPointType = MeetingPointTypeEnum.City, CityId = 3 });
-            
+
             context.MeetingPoints.Add(new MeetingPoint { Description = "District 3", MeetingPointType = MeetingPointTypeEnum.District, CityId = 1 });
             context.MeetingPoints.Add(new MeetingPoint { Description = "District 3", MeetingPointType = MeetingPointTypeEnum.District, CityId = 2 });
             context.MeetingPoints.Add(new MeetingPoint { Description = "District 3", MeetingPointType = MeetingPointTypeEnum.District, CityId = 3 });
             context.SaveChanges();
         }
+
+        public void QuestionAndAnswers()
+        {
+            var subcategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU.ToLower() == "программисты");
+            if (context.Questions.Any()) return;
+            var q1 = context.Questions.Add(new Question { Type = QuestionTypeEnum.Input, TextRU = "Что необходимо разработать?", TextAZ = "neynemek lazimdir?", SubCategory = subcategory });
+            var q2 = context.Questions.Add(new Question { Type = QuestionTypeEnum.Input, TextRU = "Для чего?", TextAZ = "Ne ucun?", SubCategory = subcategory });
+            var q3 = context.Questions.Add(new Question { Type = QuestionTypeEnum.Single, TextRU = "Язык программирования?", TextAZ = "Hansi dilinde?", SubCategory = subcategory });
+            var q4 = context.Questions.Add(new Question { Type = QuestionTypeEnum.Input, TextRU = "Детали и сроки задачи?", TextAZ = "deadline?", SubCategory = subcategory });
+            var q5 = context.Questions.Add(new Question { Type = QuestionTypeEnum.Single, TextRU = "Когда приступить к задаче?", TextAZ = "Ne vaxt bashlayaq?", SubCategory = subcategory });
+            var q6 = context.Questions.Add(new Question { Type = QuestionTypeEnum.Multi, TextRU = "Подходящее время", TextAZ = "uygun saat?", SubCategory = subcategory });
+            var def = context.Questions.Add(new Question { Type = QuestionTypeEnum.Multi, TextRU = "Остались пожелания к заказу?", TextAZ = "Artiq nese yazmaq isteyerdiz", SubCategory = subcategory });
+
+            context.Answers.Add(new Answer { TextRU = "", TextAZ = "", AskedQuestion = q1.Entity, NextQuestion = q2.Entity });
+
+            context.Answers.Add(new Answer { TextRU = "", TextAZ = "", AskedQuestion = q2.Entity, NextQuestion = q3.Entity });
+
+            context.Answers.Add(new Answer { TextRU = "Java", TextAZ = "Java", AskedQuestion = q3.Entity, NextQuestion = q4.Entity });
+            context.Answers.Add(new Answer { TextRU = "JavaScript", TextAZ = "JavaScript", AskedQuestion = q3.Entity, NextQuestion = q4.Entity });
+            context.Answers.Add(new Answer { TextRU = "C#", TextAZ = "C#", AskedQuestion = q3.Entity, NextQuestion = q4.Entity });
+            context.Answers.Add(new Answer { TextRU = "PHP", TextAZ = "PHP", AskedQuestion = q3.Entity, NextQuestion = q4.Entity });
+
+            context.Answers.Add(new Answer { TextRU = "", TextAZ = "", AskedQuestion = q4.Entity, NextQuestion = q5.Entity });
+
+            context.Answers.Add(new Answer { TextRU = "Завтра", TextAZ = "sabax", AskedQuestion = q5.Entity, NextQuestion = q6.Entity });
+            context.Answers.Add(new Answer { TextRU = "Послезавтра", TextAZ = "", AskedQuestion = q5.Entity, NextQuestion = q6.Entity });
+            context.Answers.Add(new Answer { TextRU = "Пусть специалист предложит время", TextAZ = "", AskedQuestion = q5.Entity, NextQuestion = q6.Entity });
+
+            context.Answers.Add(new Answer { TextRU = "15:00 — 18:00", TextAZ = "15:00 — 18:00", AskedQuestion = q6.Entity, });
+            context.Answers.Add(new Answer { TextRU = "18:00 — 21:00", TextAZ = "18:00 — 21:00", AskedQuestion = q6.Entity,  });
+            context.Answers.Add(new Answer { TextRU = "После 21:00", TextAZ = "После 21:00", AskedQuestion = q6.Entity,  });
+
+            context.Answers.Add(new Answer { TextRU = "", TextAZ = "", AskedQuestion = def.Entity });
+
+            context.SaveChanges();
+        }
+
     }
 }
