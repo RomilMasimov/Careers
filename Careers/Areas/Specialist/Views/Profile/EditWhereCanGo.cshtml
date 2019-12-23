@@ -1,9 +1,11 @@
-﻿<h2>Edit where can go</h2>
+﻿@model MultiSelectList
+
+<h2>Edit where can go</h2>
 
 <form asp-area="Specialist" asp-controller="Profile" asp-action="EditWhereCanGo" method="post">
     <div class="form-group">
         <label>Tags:</label>
-        <select name="points" asp-items="@ViewBag.MeetingPoints"
+        <select name="points" asp-items="@Model"
                 data-placeholder="Choose meeting points..."
                 multiple id="points"
                 class="form-control chosen-select">

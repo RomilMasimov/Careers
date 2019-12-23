@@ -427,9 +427,9 @@ namespace Careers.Areas.SpecialistArea.Controllers
 
             var meetingPoints = await _meetingPointService.GetAllAsync();
             var selectedMeetingPoints = await _meetingPointService.FindAllWhereCanGoBySpecialistAsync(specialist.Id);
-            ViewBag.MeetingPoints = new MultiSelectList(meetingPoints, "Id", "Description", selectedMeetingPoints);
+            var meetingPointsViewModel = new MultiSelectList(meetingPoints, "Id", "Description", selectedMeetingPoints);
             setImageUrl(specialist);
-            return View();
+            return View(meetingPointsViewModel);
         }
         
         [HttpPost]
