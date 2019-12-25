@@ -58,6 +58,7 @@ namespace Careers
             services.AddTransient<LocationService>();
             services.AddTransient<SenderService>();
             services.AddTransient<SmsService>();
+            services.AddTransient<LanguageService>();
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IClientService, ClientService>();
             services.AddTransient<IMeetingPointService, MeetingPointService>();

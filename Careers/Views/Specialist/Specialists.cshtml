@@ -1,0 +1,250 @@
+﻿@using System.Globalization
+@using System.Linq
+@model Careers.ViewModels.Spec.SpecialistsViewModel
+
+
+<div class="jp_listing_sidebar_main_wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="jp_listing_heading_wrapper">
+                    <h2>We found <span>357</span> Matches for you.</h2>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 hidden-sm hidden-xs">
+                <form asp-controller="Specialist" asp-action="Specialists" method="get" id="hidden-form">
+                    <input type="hidden" asp-for="IsEmpty" value="false" />
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="jp_rightside_job_categories_wrapper">
+                                <div class="jp_rightside_job_categories_heading">
+                                    <h4>Location</h4>
+                                </div>
+                                <div class="jp_rightside_job_categories_content">
+                                    <div class="handyman_sec1_wrapper">
+                                        <div class="content">
+                                            <div class="box">
+
+                                                @foreach (var item in Model.CitiesFilter)
+                                                {
+                                                    <p>
+                                                        <input asp-for="@item.Selected" type="checkbox" id="@("a" + item.Id + "a")" name="cb">
+                                                        <label for="@("a" + item.Id + "a")">@item.Name</label>
+                                                    </p>
+                                                }
+                                            </div>
+                                        </div>
+                                        <ul>
+                                            <li><i class="fa fa-plus-circle"></i> <a href="#">SHOW MORE</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="jp_rightside_job_categories_wrapper jp_job_location_wrapper">
+                                <div class="jp_rightside_job_categories_heading">
+                                    <h4>Category &amp; Sub category</h4>
+                                </div>
+                                <div class="jp_rightside_job_categories_content">
+                                    <div class="handyman_sec1_wrapper">
+                                        <div class="content">
+                                            <div class="box">
+                                                <div class="gc_causes_select_box category-subcategory-margin">
+                                                    <select asp-for="Category.Id" id="category"
+                                                            asp-items="@(CultureInfo.CurrentCulture.Name == "ru-RU" ?
+                                                                           Model.Categories.Select(x => new SelectListItem(x.DescriptionRU, x.Id.ToString())) :
+                                                                           Model.Categories.Select(x => new SelectListItem(x.DescriptionAZ, x.Id.ToString()))) ">
+                                                    </select>
+                                                    <i class="fa fa-angle-down"></i>
+                                                </div>
+                                                @foreach (var item in Model.SubCategoriesFilter)
+                                                {
+                                                    <p>
+                                                        <input asp-for="@item.Selected" type="checkbox" id="@("d" + item.Id + "d")" name="cb">
+                                                        <label for="@("d" + item.Id + "d")">@item.Name</label>
+                                                    </p>
+                                                }
+                                               @* <partial name="_SubCategoriesPartial" model="@Model.Category.SubCategories" />*@
+                                            </div>
+                                        </div>
+                                        <ul>
+                                            <li><i class="fa fa-plus-circle"></i> <a href="#">SHOW MORE</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="jp_rightside_job_categories_wrapper jp_job_location_wrapper">
+                                <div class="jp_rightside_job_categories_heading">
+                                    <h4>Services</h4>
+                                </div>
+                                <div class="jp_rightside_job_categories_content">
+                                    <div class="handyman_sec1_wrapper">
+                                        <div class="content">
+                                            <div class="box">
+                                                @foreach (var item in Model.ServicesFilter)
+                                                {
+                                                    <p>
+                                                        <input asp-for="@item.Selected" type="checkbox" id="@("b" + item.Id + "b")" name="cb">
+                                                        <label for="@("b" + item.Id + "b")">@item.Name</label>
+                                                    </p>
+                                                }
+                                            </div>
+                                        </div>
+                                        <ul>
+                                            <li><i class="fa fa-plus-circle"></i> <a href="#">SHOW MORE</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="jp_rightside_job_categories_wrapper jp_job_location_wrapper">
+                                <div class="jp_rightside_job_categories_heading">
+                                    <h4>Salary</h4>
+                                </div>
+                                <div class="jp_rightside_job_categories_content">
+                                    <div class="handyman_sec1_wrapper">
+                                        <div class="content">
+                                            <div class="box">
+                                                <div>
+                                                    <input type="number">
+                                                    <input type="number">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="jp_rightside_job_categories_wrapper jp_job_location_wrapper">
+                                <div class="jp_rightside_job_categories_heading">
+                                    <h4>Languages should know</h4>
+                                </div>
+                                <div class="jp_rightside_job_categories_content">
+                                    <div class="handyman_sec1_wrapper">
+                                        <div class="content">
+                                            <div class="box">
+                                                @foreach (var item in Model.LanguagesFilter)
+                                                {
+                                                    <p>
+                                                        <input asp-for="@item.Selected" type="checkbox" id="@("c" + item.Id + "c")" name="cb">
+                                                        <label for="@("c" + item.Id + "c")">@item.Name</label>
+                                                    </p>
+                                                }
+                                            </div>
+                                        </div>
+                                        <ul>
+                                            <li><i class="fa fa-plus-circle"></i> <a href="#">SHOW MORE</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*advertisement*@
+                        @*<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="jp_add_resume_wrapper jp_job_location_wrapper">
+                                    <div class="jp_add_resume_img_overlay"></div>
+                                    <div class="jp_add_resume_cont">
+                                        <img src="images/content/resume_logo.png" alt="logo">
+                                        <h4>Get Best Matched Jobs On your Email. Add Resume NOW!</h4>
+                                        <ul>
+                                            <li><a href="#"><i class="fa fa-plus-circle"></i> &nbsp;ADD RESUME</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>*@
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="jp_listing_tabs_wrapper">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div class="gc_causes_select_box_wrapper">
+                                    <div class="gc_causes_select_box">
+                                        <select>
+                                            <option>Sort Default</option>
+                                            <option>Sort Default</option>
+                                            <option>Sort Default</option>
+                                        </select><i class="fa fa-angle-down"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                                <div class="gc_causes_search_box_wrapper gc_causes_search_box_wrapper2">
+                                    <div class="gc_causes_search_box">
+                                        <p>You're Watching &nbsp;<span>01 to 20</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="tab-content">
+                            <div id="list" class="tab-pane fade active in">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="jp_job_post_main_wrapper_cont jp_job_post_grid_main_wrapper_cont">
+                                            <div class="jp_job_post_main_wrapper">
+                                                <div class="row">
+                                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                                                        <div class="jp_job_post_side_img">
+                                                            <img src="images/content/job_post_img2.jpg" alt="post_img">
+                                                        </div>
+                                                        <div class="jp_job_post_right_cont jp_cl_job_cont">
+                                                            <h4>COMERA JOB PORT</h4>
+                                                            <p>MARKETING JOB</p>
+                                                            <ul>
+                                                                <li><i class="fa fa-map-marker"></i>&nbsp; Caliphonia, PO 455001</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                                        <div class="jp_job_post_right_btn_wrapper">
+                                                            <ul>
+                                                                <li><a href="#">145 ACTIVE JOBS</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="jp_job_post_keyword_wrapper">
+                                                <ul>
+                                                    <li><i class="fa fa-tags"></i>Keywords :</li>
+                                                    <li><a href="#">ui designer,</a></li>
+                                                    <li><a href="#">developer,</a></li>
+                                                    <li><a href="#">senior</a></li>
+                                                    <li><a href="#">it company,</a></li>
+                                                    <li><a href="#">design,</a></li>
+                                                    <li><a href="#">call center</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 hidden-sm hidden-xs">
+                                        <div class="pager_wrapper gc_blog_pagination">
+                                            <ul class="pagination">
+                                                <li><a href="#">Priv.</a></li>
+                                                <li><a href="#">1</a></li>
+                                                <li><a href="#">2</a></li>
+                                                <li><a href="#">3</a></li>
+                                                <li class="hidden-xs"><a href="#">4</a></li>
+                                                <li><a href="#">Next</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

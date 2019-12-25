@@ -3,18 +3,36 @@
 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
     <div class="jp_job_post_main_wrapper_cont jp_job_post_grid_main_wrapper_cont">
         <div class="jp_job_post_keyword_wrapper">
-            <ul>
-                <li>@Model.DescriptionAZ </li>
-            </ul>
+            <a asp-controller="Specialist"
+               asp-action="Specialists"
+               asp-route-subCategoryId="@Model.Id">
+                <ul>
+                    <li>
+                        @Model.DescriptionAZ
+                    </li>
+                </ul>
+            </a>
         </div>
         <div class="jp_job_post_main_wrapper jp_job_post_grid_main_wrapper jp_rightside_job_categories_content services-of-subcategory">
             <ul>
                 @foreach (var item in Model.Services)
                 {
-                    <li><a href="#">@item.DescriptionAZ</a></li>
+                    <li>
+                        <a asp-controller="Specialist"
+                           asp-action="Specialists"
+                           asp-route-serviceId="@item.Id"
+                           asp-route-subCategoryId="@Model.Id">
+                            @item.DescriptionAZ
+                        </a>
+                    </li>
                 }
-                <li><a href="#">Others</a></li>
-
+                <li>
+                    <a asp-controller="Specialist"
+                       asp-action="Specialists"
+                       asp-route-subCategoryId="@Model.Id">
+                        Others
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

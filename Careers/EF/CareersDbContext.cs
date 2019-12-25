@@ -62,15 +62,15 @@ namespace Careers.EF
                 .WithMany(cgl => cgl.WhereCanGoList)
                 .HasForeignKey(si => si.SpecialistId);
 
-            modelBuilder.Entity<Answer>()
-                .HasOne(p => p.AskedQuestion)
-                .WithMany(b => b.Answers)
-                .HasForeignKey(p => p.AskedQuestionId);
+            //modelBuilder.Entity<Answer>()
+            //    .HasOne(p => p.AskedQuestion)
+            //    .WithMany(b => b.Answers)
+            //    .HasForeignKey(p => p.AskedQuestionId);
 
-            modelBuilder.Entity<Answer>()
-                .HasOne(p => p.NextQuestion)
-                .WithMany(b => b.FromAnswers)
-                .HasForeignKey(p => p.NextQuestionId);
+            //modelBuilder.Entity<Answer>()
+            //    .HasOne(p => p.NextQuestion)
+            //    .WithMany(b => b.FromAnswers)
+            //    .HasForeignKey(p => p.NextQuestionId);
 
             modelBuilder.Entity<OrderMeetingPoint>()
                .HasOne(pt => pt.MeetingPoint)
@@ -110,18 +110,22 @@ namespace Careers.EF
                 .WithMany(cml => cml.AnswerOrders)
                 .HasForeignKey(si => si.OrderId);
 
+            modelBuilder.Entity<Question>()
+                .HasOne(x => x.SubCategory)
+                .WithMany(x => x.Questions)
+                .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<QuestionAnswer>()
-                .HasOne(pt => pt.Question)
-                .WithMany(p => p.QuestionAnswers)
-                .OnDelete(DeleteBehavior.NoAction)
-                .HasForeignKey(pt => pt.QuestionId);
+            //modelBuilder.Entity<QuestionAnswer>()
+                //.HasOne(pt => pt.Question)
+                //.WithMany(p => p.QuestionAnswers)
+                //.OnDelete(DeleteBehavior.NoAction)
+                //.HasForeignKey(pt => pt.QuestionId);
 
-            modelBuilder.Entity<QuestionAnswer>()
-                .HasOne(s => s.Question)
-                .WithMany(cml => cml.QuestionAnswers)
-                .OnDelete(DeleteBehavior.NoAction)
-                .HasForeignKey(si => si.QuestionId);
+            //modelBuilder.Entity<QuestionAnswer>()
+                //.HasOne(s => s.Question)
+                //.WithMany(cml => cml.QuestionAnswers)
+                //.OnDelete(DeleteBehavior.NoAction)
+                //.HasForeignKey(si => si.QuestionId);
 
             //modelBuilder.Entity<SpecialistAnswer>()
             //  .HasOne(pt => pt.Answer)
@@ -187,7 +191,7 @@ namespace Careers.EF
 
         //public DbSet<OrderSpecialist> OrderSpecialists { get; set; }
         public DbSet<AnswerOrder> AnswerOrders { get; set; }
-        public DbSet<QuestionAnswer> QuestionAnswers { get; set; }
+        //public DbSet<QuestionAnswer> QuestionAnswers { get; set; }
         public DbSet<Specialist> Specialists { get; set; }
         public DbSet<Client> Clients { get; set; }
         public DbSet<Country> Countries { get; set; }
@@ -207,7 +211,7 @@ namespace Careers.EF
         public DbSet<WhereCanGoSpecialist> WhereCanGoSpecialists { get; set; }
         public DbSet<WhereCanMeetSpecialist> WhereCanMeetSpecialists { get; set; }
         public DbSet<SpecialistService> SpecialistServices { get; set; }
-        public DbSet<DefaultQuestion> DefaultQuestions { get; set; }
+        //public DbSet<DefaultQuestion> DefaultQuestions { get; set; }
         public DbSet<OrderSchedule> OrderSchedules { get; set; }
        //public DbSet<SpecialistAnswer> SpecialistAnswers { get; set; }
         public DbSet<UserSpecialistMessage> UserSpecialistMessages { get; set; }

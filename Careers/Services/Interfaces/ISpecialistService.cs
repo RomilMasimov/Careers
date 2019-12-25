@@ -2,6 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 using Careers.Models;
+using Careers.ViewModels.Spec;
 using Microsoft.AspNetCore.Http;
 
 namespace Careers.Services.Interfaces
@@ -37,6 +38,8 @@ namespace Careers.Services.Interfaces
         Task<Experience> AddExperience(Experience experience);
         Task<Experience> UpdateExperience(Experience experience);
         Task<bool> DeleteExperience(int id);
+
+        Task<List<Specialist>> GetByFilterAsync(SpecialistFilter filter);
 
         Task<Specialist> FindAsync(int id);
         Task<Specialist> FindByUserAsync(string userId);

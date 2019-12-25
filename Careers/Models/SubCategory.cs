@@ -12,6 +12,6 @@ namespace Careers.Models
         public Category Category { get; set; }
         public IEnumerable<Service> Services { get; set; }
         public IEnumerable<Question> Questions { get; set; }
-        public IEnumerable<DefaultQuestion> DefaultQuestions { get; set; }
+        //public IEnumerable<DefaultQuestion> DefaultQuestions { get; set; }
     }
 }

@@ -11,6 +11,8 @@ using Microsoft.EntityFrameworkCore;
 using Careers.Models.Enums;
 using Microsoft.AspNetCore.Http;
 using BlogWebsite.Extensions;
+using Careers.ViewModels.Spec;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace Careers.Services
 {
@@ -46,6 +48,63 @@ namespace Careers.Services
             return await context.SaveChangesAsync() > 0;
         }
 
+        public async Task<List<Specialist>> GetByFilterAsync(SpecialistFilter filter)
+        {
+            IQueryable<Specialist> query = context.Specialists;
+
+            if (filter.CityIds.Any())
+            {
+                query = query
+                    .Where(x => filter.CityIds
+                    .Contains(x.CityId));
+            }
+
+            if (filter.LanguageIds.Any())
+            {
+                query = query.Include(x => x.LanguageSpecialists)
+                .Where(x => x.LanguageSpecialists
+                    .Any(y => filter.LanguageIds
+                        .Contains(y.LanguageId)));
+            }
+
+            if (filter.Rating > 0)
+            {
+                query = query.Include(z => z.Orders)
+                    .ThenInclude(z => z.Reviews)
+                    .Where(x => x.Orders
+                        .Any(y => y.Reviews
+                        .Any(q => q.Mark >= filter.Rating)));
+            }
+
+
+            if (filter.ExperienceMin > 0 && filter.ExperienceMax > 0)
+            {
+                query = query.Include(x => x.Experiences).Where(x =>
+                    x.Experiences.Select(y => (y.EndDate - y.EndDate).Value.Days)
+                        .Any(q => q >= filter.ExperienceMin * 364 && q <= filter.ExperienceMax));
+            }
+
+            if (filter.ServiceIds.Any())
+            {
+                query = query.Include(x => x.SpecialistServices)
+                    .ThenInclude(x => x.Service)
+                    .Where(x => x.SpecialistServices
+                        .Any(d => filter.ServiceIds.Contains(d.ServiceId)));
+            }
+
+            if (filter.SubCategoryId > 0)
+            {
+                query = query
+                    .Include(x => x.SpecialistServices)
+                    .ThenInclude(x => x.Service)
+                    .Where(x => x.SpecialistServices
+                        .Any(s => s.Service.SubCategoryId == filter.SubCategoryId));
+            }
+
+
+            return await query.ToListAsync();
+        }
+
         public async Task<Specialist> FindAsync(int id)
         {
             return await context.Specialists.FirstOrDefaultAsync(x => x.Id == id);
@@ -59,6 +118,8 @@ namespace Careers.Services
         {
             throw new NotImplementedException();
         }
+
+      
 
         public async Task<bool> UpdatePasport(int specialistId, IFormFile image)
         {

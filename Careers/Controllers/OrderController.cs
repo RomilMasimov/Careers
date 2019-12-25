@@ -25,5 +25,11 @@ namespace Careers.Controllers
             
             return View(client.Orders);
         }
+
+
+        public IActionResult Create()
+        {
+            return View();
+        }
     }
 }

@@ -11,11 +11,15 @@ namespace Careers.Models
         public QuestionTypeEnum Type { get; set; }
 
         public SubCategory SubCategory { get; set; }
-        public int? SubCategoryId { get; set; }
+        public int SubCategoryId { get; set; }
+
+        public Service Service { get; set; }
+        public int? ServiceId { get; set; }
 
         public IEnumerable<Answer> Answers { get; set; }
-        public IEnumerable<Answer> FromAnswers { get; set; }
-        public IEnumerable<QuestionAnswer> QuestionAnswers { get; set; }
-        public IEnumerable<DefaultQuestion> DefaultQuestions { get; set; }
+
+       // public IEnumerable<QuestionAnswer> QuestionAnswers { get; set; }
+        //public IEnumerable<Answer> FromAnswers { get; set; }
+        //public IEnumerable<DefaultQuestion> DefaultQuestions { get; set; }
     }
 }

@@ -1,0 +1,24 @@
+﻿@using System.Globalization
+@model IEnumerable<SubCategory>
+
+@if (CultureInfo.CurrentCulture.Name == "ru-RU")
+{
+    @foreach (var item in Model)
+    {
+        <p>
+            <input type="checkbox" id="@("c"+item.Id+"1")" name="cb">
+            <label for="@("c"+item.Id+"1")">@item.DescriptionRU</label>
+        </p>
+    }
+}
+else
+{
+    @foreach (var item in Model)
+    {
+        <p>
+            <input type="checkbox" id="@("c"+item.Id+"1")" name="cb">
+            <label for="@("c"+item.Id+"1")">@item.DescriptionAZ</label>
+        </p>
+    }
+}
+

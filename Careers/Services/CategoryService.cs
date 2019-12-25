@@ -125,5 +125,15 @@ namespace Careers.Services
         {
             return await context.Services.Where(x => x.SubCategoryId == subCategoryId).ToListAsync();
         }
+
+        public async Task<IEnumerable<Service>> GetAllServicesAsync()
+        {
+            return await context.Services.ToListAsync();
+        }
+
+        public async Task<IEnumerable<Service>> GetServicesBySubCategoryArrAsync(IEnumerable<int> subCategoryIds)
+        {
+            return await context.Services.Where(x => subCategoryIds.Contains(x.SubCategoryId)).ToListAsync();
+        }
     }
 }

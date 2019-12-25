@@ -2,7 +2,6 @@
 using Careers.Models;
 using Careers.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -32,7 +31,7 @@ namespace Careers.Services
                 //.Include(m => m.QuestionAnswers)
                 .Include(m => m.Answers)
                 //.Include(m => m.FromAnswers)
-                .Include(m => m.DefaultQuestions)
+                //.Include(m => m.DefaultQuestions)
                 .ToListAsync();
         }
 

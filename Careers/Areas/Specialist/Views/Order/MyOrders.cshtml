@@ -13,7 +13,7 @@
                     <h5 class="text-muted">@order.Service.DescriptionRU</h5>
                     @foreach (var answerOrder in order.AnswerOrders)
                     {
-                        <p>@answerOrder.Answer.AskedQuestion.TextRU: @answerOrder.Answer.TextRU</p>
+                        <p>@answerOrder.Answer.Question.TextRU: @answerOrder.Answer.TextRU</p>
                     }
                 </div>
                 <div class="col-md-4">

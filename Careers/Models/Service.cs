@@ -13,7 +13,7 @@ namespace Careers.Models
         public IEnumerable<ServiceReview> ServiceReviews { get; set; }
         public IEnumerable<SpecialistService> SpecialistServices { get; set; }
         public IEnumerable<Order> Orders { get; set; }
-
+        public IEnumerable<Question> Questions { get; set; }
 
     }
 }
