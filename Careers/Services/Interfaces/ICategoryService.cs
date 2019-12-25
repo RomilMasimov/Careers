@@ -22,8 +22,12 @@ namespace Careers.Services.Interfaces
         Task<IEnumerable<Category>> GetPopularCategories();
         Task<IEnumerable<SubCategory>> GetAllSubCategories(int categoryId);
 
+        Task<Service> FindServiceAsync(int serviceId);
         Task<IEnumerable<Service>> GetServicesAsync(int subCategoryId);
         Task<IEnumerable<Service>> GetServicesBySubCategoryArrAsync(IEnumerable<int> subCategoryIds);
         Task<IEnumerable<Service>> GetAllServicesAsync();
+        Task<Careers.Models.SpecialistService> InsertSpecialistServiceAsync(Careers.Models.SpecialistService specialistService);
+        Task<Careers.Models.SpecialistService> UpdateSpecialistServiceAsync(Careers.Models.SpecialistService specialistService);
+        Task<IEnumerable<Measurement>> FindAllMeasurements();
     }
 }

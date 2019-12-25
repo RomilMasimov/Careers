@@ -109,9 +109,22 @@ namespace Careers.Services
         {
             return await context.Specialists.FirstOrDefaultAsync(x => x.Id == id);
         }
+
         public async Task<Specialist> FindByUserAsync(string userId)
         {
-            return await context.Specialists.Include(m => m.AppUser).FirstOrDefaultAsync(x => x.AppUserId == userId);
+            return await context.Specialists
+                            .Include(m => m.AppUser)
+                            .Include(m => m.City)
+                            .Include(m => m.WhereCanGoList)
+                            .ThenInclude(m => m.WhereCanGo)
+                            .Include(m => m.WhereCanMeetList)
+                            .ThenInclude(m => m.WhereCanMeet)
+                            .Include(m => m.SpecialistSubCategories)
+                            .ThenInclude(m => m.SubCategory)
+                            .ThenInclude(m => m.Category)
+                            .Include(m => m.SpecialistServices)
+                            .ThenInclude(m => m.Measure)
+                            .FirstOrDefaultAsync(x => x.AppUserId == userId);
         }
 
         public Task<IEnumerable<Specialist>> FindAllAsync(Order order)
@@ -276,25 +289,21 @@ namespace Careers.Services
             return context.Experiences.FindAsync(id).AsTask();
         }
 
-        public async Task<bool> UpdateWhereCanGo(Specialist specialist, int[] pointsId)
+        public async Task<bool> UpdateWhereCanGo(int specialistId, int[] pointsId)
         {
-            specialist.WhereCanGoList.ToList().RemoveAll(x => !pointsId.Contains(x.Id));
-            var oldPoints = context.WhereCanGoSpecialists.Where(x => x.SpecialistId == specialist.Id).ToList();
-            var newPoints = oldPoints.Where(m => !pointsId.Contains(m.Id));
-            specialist.WhereCanGoList.ToList().AddRange(newPoints);
-            //context.UpdateManyToMany(
-            //        context.WhereCanGoSpeciaists.Where(x => x.SpecialistId == specialistId),
-            //        pointsId.Select(x => new WhereCanGoSpecialist { SpecialistId = specialistId, WhereCanGoId = x }),
-            //        x => x.WhereCanGoId);
+            context.UpdateManyToMany(
+                    context.WhereCanGoSpecialists.Where(x => x.SpecialistId == specialistId),
+                    pointsId.Select(x => new WhereCanGoSpecialist { SpecialistId = specialistId, WhereCanGoId = x }),
+                    x => x.WhereCanGoId);
             return await context.SaveChangesAsync() > 0;
         }
 
         public async Task<bool> UpdateWhereCanMeet(int specialistId, int[] pointsId)
         {
             context.UpdateManyToMany(
-                    context.WhereCanGoSpecialists.Where(x => x.SpecialistId == specialistId),
-                    pointsId.Select(x => new WhereCanGoSpecialist { SpecialistId = specialistId, WhereCanGoId = x }),
-                    x => x.WhereCanGoId);
+                    context.WhereCanMeetSpecialists.Where(x => x.SpecialistId == specialistId),
+                    pointsId.Select(x => new WhereCanMeetSpecialist { SpecialistId = specialistId, WhereCanMeetId = x }),
+                    x => x.WhereCanMeetId);
             return await context.SaveChangesAsync() > 0;
         }
 
@@ -306,6 +315,30 @@ namespace Careers.Services
                 .OrderByDescending(x => x.Orders.Count())
                 .Take(count)
                 .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Service>> FindAllServiceBySpecilalist(int specialistId)
+        {
+            return await context.SpecialistServices.Where(m => m.SpecialistId == specialistId).Include(m => m.Service).Select(m => m.Service).ToListAsync();
+        }
+
+        public Task<bool> UpdateServices(int specialistId, int[] servicesId)
+        {
+            //context.UpdateManyToMany(
+            //    context.SpecialistServices.Where(x => x.SpecialistId == specialistId),
+            //    servicesId.Select(x => new Specialist { SpecialistId = specialistId, WhereCanMeetId = x }),
+            //    x => x.WhereCanMeetId);
+            //return await context.SaveChangesAsync() > 0;
+            throw new NotImplementedException();
+        }
+
+        public async Task<bool> UpdateSubCategoties(int specialistId, int[] subCategoriesId)
+        {
+            context.UpdateManyToMany(
+                context.SpecialistSubCategories.Where(x => x.SpecialistId == specialistId),
+                subCategoriesId.Select(x => new SpecialistSubCategory { SpecialistId = specialistId, SubCategoryId = x }),
+                x => x.SubCategoryId);
+            return await context.SaveChangesAsync() > 0;
         }
     }
 }

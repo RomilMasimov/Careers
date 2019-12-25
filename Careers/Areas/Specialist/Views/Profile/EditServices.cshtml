@@ -1,0 +1,23 @@
+﻿@model IEnumerable<EditServiceViewModel>
+
+<h2>Test</h2>
+
+<ul class="list-group list-group-flush">
+    @foreach (var viewModel in Model)
+    {
+        <li class="list-group-item">
+            <div class="d-flex justify-content-between">
+                <p>@viewModel.Service.DescriptionRU</p>
+                @if (viewModel.SpecialistService != null)
+                {
+                    @if (viewModel.SpecialistService?.PriceMax != null)
+                    {
+                        <span>@viewModel.SpecialistService.PriceMin - @viewModel.SpecialistService?.PriceMax @viewModel.SpecialistService.Measure.TextRU</span>
+                    }
+            <span>@viewModel.SpecialistService.PriceMin @viewModel.SpecialistService.Measure.TextRU</span>
+                }
+                <a asp-area="Specialist" asp-controller="Profile" asp-action="EditService" asp-route-serviceId="@viewModel.Service.Id" class="btn btn-sm btn-light">Edit</a>
+            </div>
+        </li>
+    }
+</ul>

@@ -116,15 +116,15 @@ namespace Careers.Services
         {
             if (context.Services.Any()) return;
             context.MeetingPoints.Add(new MeetingPoint { Description = "SubWay 1", MeetingPointType = MeetingPointTypeEnum.Subway, CityId = 1 });
-            context.MeetingPoints.Add(new MeetingPoint { Description = "SubWay 1", MeetingPointType = MeetingPointTypeEnum.Subway, CityId = 2 });
+            context.MeetingPoints.Add(new MeetingPoint { Description = "SubWay 2", MeetingPointType = MeetingPointTypeEnum.Subway, CityId = 2 });
             context.MeetingPoints.Add(new MeetingPoint { Description = "SubWay 2", MeetingPointType = MeetingPointTypeEnum.Subway, CityId = 3 });
 
-            context.MeetingPoints.Add(new MeetingPoint { Description = "City 2", MeetingPointType = MeetingPointTypeEnum.City, CityId = 1 });
+            context.MeetingPoints.Add(new MeetingPoint { Description = "City 1", MeetingPointType = MeetingPointTypeEnum.City, CityId = 1 });
             context.MeetingPoints.Add(new MeetingPoint { Description = "City 2", MeetingPointType = MeetingPointTypeEnum.City, CityId = 2 });
             context.MeetingPoints.Add(new MeetingPoint { Description = "City 3", MeetingPointType = MeetingPointTypeEnum.City, CityId = 3 });
 
-            context.MeetingPoints.Add(new MeetingPoint { Description = "District 3", MeetingPointType = MeetingPointTypeEnum.District, CityId = 1 });
-            context.MeetingPoints.Add(new MeetingPoint { Description = "District 3", MeetingPointType = MeetingPointTypeEnum.District, CityId = 2 });
+            context.MeetingPoints.Add(new MeetingPoint { Description = "District 1", MeetingPointType = MeetingPointTypeEnum.District, CityId = 1 });
+            context.MeetingPoints.Add(new MeetingPoint { Description = "District 2", MeetingPointType = MeetingPointTypeEnum.District, CityId = 2 });
             context.MeetingPoints.Add(new MeetingPoint { Description = "District 3", MeetingPointType = MeetingPointTypeEnum.District, CityId = 3 });
             context.SaveChanges();
         }
@@ -180,23 +180,32 @@ namespace Careers.Services
 
             var client1 = new Client { Name = "ClientName1", Surname = "ClientSurname1", Gender = true, AppUserId = userClient1.Id };
             var client2 = new Client { Name = "ClientName2", Surname = "ClientSurname2", Gender = false, AppUserId = userClient2.Id };
-            
+
             await clientService.InsertAsync(client1);
             await clientService.InsertAsync(client2);
-            
+
             var userSpecialist1 = new AppUser { Email = "specialistemail1@gmail.com", PhoneNumber = "0000000000", UserName = "specialistemail1@gmail.com", EmailConfirmed = true, PhoneNumberConfirmed = true };
             var userSpecialist2 = new AppUser { Email = "specialistemail2@gmail.com", PhoneNumber = "0000000000", UserName = "specialistemail2@gmail.com", EmailConfirmed = true, PhoneNumberConfirmed = true };
-            
+
             await userManager.CreateAsync(userSpecialist1, password);
             await userManager.AddToRoleAsync(userSpecialist1, "specialist");
             await userManager.CreateAsync(userSpecialist2, password);
             await userManager.AddToRoleAsync(userSpecialist2, "specialist");
-            
+
             var specialist1 = new Specialist { Name = "SpecName1", Surname = "SpecSurname1", Gender = true, Fathername = "SpecFathername1", CityId = 1, DateOfBirth = DateTime.Now, AppUserId = userSpecialist1.Id };
             var specialist2 = new Specialist { Name = "SpecName2", Surname = "SpecSurname2", Gender = false, Fathername = "SpecFathername2", CityId = 2, DateOfBirth = DateTime.Now, AppUserId = userSpecialist2.Id };
-            
+
             await specialistService.InsertAsync(specialist1);
             await specialistService.InsertAsync(specialist2);
+        }
+
+        public void Measurements()
+        {
+            if (context.Measurements.Any()) return;
+
+            context.Measurements.Add(new Measurement { TextAZ = "service", TextRU = "услуга" });
+            context.Measurements.Add(new Measurement { TextAZ = "1 saat", TextRU = "1 час" });
+            context.SaveChanges();
         }
     }
 }

@@ -57,12 +57,20 @@ namespace Careers.Services
 
         public async Task<IEnumerable<MeetingPoint>> FindAllWhereCanMeetBySpecialistAsync(int specialistId)
         {
-            return await context.WhereCanMeetSpecialists.Where(m => m.SpecialistId == specialistId).Include(m => m.WhereCanMeet).Select(m => m.WhereCanMeet).ToListAsync();
+            return await context.WhereCanMeetSpecialists
+                           .Where(m => m.SpecialistId == specialistId)
+                           .Include(m => m.WhereCanMeet)
+                           .Select(m => m.WhereCanMeet)
+                           .ToListAsync();
         }
 
         public async Task<IEnumerable<MeetingPoint>> FindAllWhereCanGoBySpecialistAsync(int specialistId)
         {
-            return await context.WhereCanGoSpecialists.Where(m => m.SpecialistId == specialistId).Include(m => m.WhereCanGo).Select(m => m.WhereCanGo).ToListAsync();
+            return await context.WhereCanGoSpecialists
+                                       .Where(m => m.SpecialistId == specialistId)
+                                       .Include(m => m.WhereCanGo)
+                                       .Select(m => m.WhereCanGo)
+                                       .ToListAsync();
         }
     }
 }

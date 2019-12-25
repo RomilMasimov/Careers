@@ -14,7 +14,7 @@ namespace Careers.Services.Interfaces
         Task<Specialist> UpdateAbotAsync(int specialistId, string about);
         Task<bool> DeleteAsync(Specialist specialist);
 
-        Task<bool> UpdateWhereCanGo(Specialist specialist, int[] pointsId);
+        Task<bool> UpdateWhereCanGo(int specialistId, int[] pointsId);
         Task<bool> UpdateWhereCanMeet(int specialistId, int[] pointsId);
 
         Task<bool> UpdatePasport(int specialistId, IFormFile file);
@@ -40,6 +40,10 @@ namespace Careers.Services.Interfaces
         Task<bool> DeleteExperience(int id);
 
         Task<List<Specialist>> GetByFilterAsync(SpecialistFilter filter);
+
+        Task<IEnumerable<Service>> FindAllServiceBySpecilalist(int specialistId);
+        Task<bool> UpdateSubCategoties(int specialistId, int[] subCategoriesId);
+        Task<bool> UpdateServices(int specialistId, int[] servicesId);
 
         Task<Specialist> FindAsync(int id);
         Task<Specialist> FindByUserAsync(string userId);
