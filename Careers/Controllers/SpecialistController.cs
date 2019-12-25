@@ -28,13 +28,6 @@ namespace Careers.Controllers
 
         public async Task<IActionResult> Specialists(SpecialistsViewModel model, int subCategoryId, int serviceId)
         {
-            //public List<int> CityIds { get; set; }
-            //public List<int> ServiceIds { get; set; }
-            //public int SubCategoryId { get; set; }
-            //public List<int> LanguageIds { get; set; }
-            //public int ExperienceMin { get; set; }
-            //public int ExperienceMax { get; set; }
-            //public int Rating { get; set; }
             var cities = await _locationService.GetAllCitiesAsync();//
             var languages = await _languageService.GetAllAsync();//
             var categories = await _categoryService.GetAllCategories(true);//
