@@ -37,6 +37,7 @@ namespace Careers.Models
         public IEnumerable<WhereCanMeetSpecialist> WhereCanMeetList { get; set; }
         public IEnumerable<WhereCanGoSpecialist> WhereCanGoList { get; set; }
         public IEnumerable<Order> Orders { get; set; }
+        public IEnumerable<SpecialistSubCategory> SpecialistSubCategories { get; set; }
         public IEnumerable<SpecialistService> SpecialistServices { get; set; }
         public IEnumerable<UserSpecialistMessage> UserSpecialistMessages { get; set; }
         public IEnumerable<OrderResponse> OrderResponses { get; set; }

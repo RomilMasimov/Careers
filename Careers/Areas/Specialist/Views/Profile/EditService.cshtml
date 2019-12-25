@@ -1,0 +1,29 @@
+﻿@model EditSpecialistServiceViewModel
+
+<h2>@Model.ServiceDescription</h2>
+
+<form asp-area="Specialist" asp-controller="Profile" asp-action="EditService" method="post">
+    <input asp-for="ServiceId" hidden />
+    <input asp-for="SpecialistId" hidden />
+    <div class="form-group">
+        <label asp-for="PriceMin"></label>
+        <input asp-for="PriceMin" class="form-control" />
+        <span asp-validation-for="PriceMin" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PriceMax"></label>
+        <input asp-for="PriceMax" class="form-control" />
+        <span asp-validation-for="PriceMax" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Select measurement</label>
+        <select asp-for="MeasureId" asp-items="@ViewBag.Measurements" class="form-control"></select>
+        <span asp-validation-for="MeasureId" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-success">Save</button>
+</form>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

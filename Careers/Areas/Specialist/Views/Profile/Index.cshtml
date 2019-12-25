@@ -3,6 +3,16 @@
     ViewData["Title"] = "Profile";
 }
 
+<div class="mt-3">
+
+    @if (TempData.ContainsKey("Status"))
+    {
+        <div class="alert alert-info" role="alert">
+            @TempData["Status"]
+        </div>
+    }
+</div>
+
 <div class="py-3">
     <partial name="_ProfileNavigation" />
 </div>
@@ -37,7 +47,7 @@
 
         <!-- About myself start -->
         <div class="list-group my-5">
-            <div href="#" class="list-group-item">
+            <div class="list-group-item">
                 <div class="w-100">
                     <h5 class="mb-1">About myself</h5>
                     <p>Education and experience, briefly and in detail about yourself</p>
@@ -49,7 +59,7 @@
                     <div class="col-10">
                         <p>
                             @if ((Model.Educations == null && Model.Experiences == null) ||
-                             (Model.Educations?.Count() == 0 && Model.Experiences?.Count() == 0))
+                          (Model.Educations?.Count() == 0 && Model.Experiences?.Count() == 0))
                             {
                                 <a asp-area="Specialist" asp-controller="Profile" asp-action="EducationsAndExperience">Add</a>
                                 <br>
@@ -90,7 +100,7 @@
                     </div>
                 </div>
             </div>
-            <div href="#" class="list-group-item">
+            <div class="list-group-item">
                 <div class="row">
                     <div class="col-2">
                         <h6>About</h6>
@@ -124,7 +134,7 @@
         <!-- About myself end -->
         <!-- Region and addresses start -->
         <div class="list-group my-5">
-            <div href="#" class="list-group-item">
+            <div class="list-group-item">
                 <div class="w-100">
                     <h5 class="mb-1">Region and addresses</h5>
                     <p>Where is it easy for you to work<p>
@@ -136,15 +146,16 @@
                     <div class="col-10">
                         <p>
                             <a asp-area="Specialist" asp-controller="Profile" asp-action="EditWhereCanMeet">Edit</a>
-                            <br>
-                            bla bla bla
-                            <br>
-                            bla bla bla
+                            @foreach (var point in Model.WhereCanMeetList)
+                            {
+                                <br>
+                                <span>@point.WhereCanMeet.Description</span>
+                            }
                         </p>
                     </div>
                 </div>
             </div>
-            <div href="#" class="list-group-item">
+            <div class="list-group-item">
                 <div class="row">
                     <div class="col-2">
                         <h6>Where can go</h6>
@@ -152,26 +163,25 @@
                     <div class="col-10">
                         <p>
                             <a asp-area="Specialist" asp-controller="Profile" asp-action="EditWhereCanGo">Edit</a>
-                            <br>
-                            bla bla bla
-                            <br>
-                            bla bla bla
+                            @foreach (var point in Model.WhereCanGoList)
+                            {
+                                <br>
+                                <span>@point.WhereCanGo.Description</span>
+                            }
                         </p>
                     </div>
                 </div>
             </div>
-            <div href="#" class="list-group-item">
+            <div class="list-group-item">
                 <div class="row">
                     <div class="col-2">
-                        <h6>Cities</h6>
+                        <h6>City</h6>
                     </div>
                     <div class="col-10">
                         <p>
-                            <a href="#">Edit</a>
+                            <a asp-area="Specialist" asp-controller="Profile" asp-action="EditCity">Edit</a>
                             <br>
-                            bla bla bla
-                            <br>
-                            bla bla bla
+                            <span>@Model.City.Name</span>
                         </p>
                     </div>
                 </div>
@@ -180,34 +190,23 @@
         <!-- Region and addresses end -->
         <!-- Specialties start -->
         <div class="list-group my-5">
-            <div href="#" class="list-group-item">
+            <div class="list-group-item">
                 <div class="row">
                     <div class="col-2">
                         <h6>Specialties</h6>
                     </div>
                     <div class="col-10">
-                        <p>
-                            <a href="#">Add or remove</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div href="#" class="list-group-item">
-                <div class="row">
-                    <div class="col-2">
-                        <h6>Specialties</h6>
-                    </div>
-                    <div class="col-10">
-                        <a href="#">Add or remove</a>
-                        <br>
-                        <h6>IT-freelancers</h6>
-                        Programmers <a href="#">Services and prices</a>
-                        <br>
-                        <h6>IT-freelancers</h6>
-                        Programmers <a href="#">Services and prices</a>
-                        Programmers <a href="#">Services and prices</a>
-                        Programmers <a href="#">Services and prices</a>
-                        Programmers <a href="#">Services and prices</a>
+                        <a asp-area="Specialist" asp-controller="Profile" asp-action="EditSubCategories">Add or remove</a>
+                        @foreach (var category in Model.SpecialistSubCategories.GroupBy(m => m.SubCategory.Category))
+                        {
+                            <br>
+                            <h6>@category.Key.DescriptionRU</h6>
+                            @foreach (var subCategory in category)
+                            {
+                                @subCategory.SubCategory.DescriptionRU <a asp-area="Specialist" asp-controller="Profile" asp-action="EditServices" asp-route-subCategoryId="@subCategory.SubCategoryId">Services and prices</a>
+                                <br>
+                            }
+                        }
                     </div>
                 </div>
             </div>

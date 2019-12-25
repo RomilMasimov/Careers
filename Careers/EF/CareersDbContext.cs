@@ -11,19 +11,19 @@ namespace Careers.EF
 
         public CareersDbContext(DbContextOptions options) : base(options) { }
 
-      
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Order>()
-                .HasOne(x=>x.Service)
+                .HasOne(x => x.Service)
                 .WithMany(x => x.Orders)
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Client>()
                 .HasIndex(x => x.AppUserId)
                 .IsUnique();
-           
+
             modelBuilder.Entity<Client>()
                 .Property(x => x.ImageUrl)
                 .HasDefaultValue("");
@@ -52,15 +52,15 @@ namespace Careers.EF
                 .WithMany(cgl => cgl.WhereCanGoList)
                 .HasForeignKey(pt => pt.WhereCanGoId);
 
+            modelBuilder.Entity<WhereCanGoSpecialist>()
+                .HasOne(cg => cg.Specialist)
+                .WithMany(cgl => cgl.WhereCanGoList)
+                .HasForeignKey(pt => pt.SpecialistId);
+
             modelBuilder.Entity<MeetingPoint>()
                 .HasOne(x => x.City)
                 .WithMany(x => x.MeetingPoints)
                 .OnDelete(DeleteBehavior.NoAction);
-
-            modelBuilder.Entity<WhereCanGoSpecialist>()
-                .HasOne(cg => cg.WhereCanGo)
-                .WithMany(cgl => cgl.WhereCanGoList)
-                .HasForeignKey(si => si.SpecialistId);
 
             modelBuilder.Entity<Answer>()
                 .HasOne(p => p.AskedQuestion)
@@ -95,6 +95,16 @@ namespace Careers.EF
                 .HasOne(s => s.Service)
                 .WithMany(cml => cml.SpecialistServices)
                 .HasForeignKey(si => si.ServiceId);
+
+            modelBuilder.Entity<SpecialistSubCategory>()
+                .HasOne(pt => pt.Specialist)
+                .WithMany(p => p.SpecialistSubCategories)
+                .HasForeignKey(pt => pt.SpecialistId);
+
+            modelBuilder.Entity<SpecialistSubCategory>()
+                .HasOne(s => s.SubCategory)
+                .WithMany(cml => cml.SpecialistSubCategories)
+                .HasForeignKey(si => si.SubCategoryId);
 
             modelBuilder.Entity<Question>()
                 .Property(x => x.Type).HasConversion<string>()
@@ -206,10 +216,11 @@ namespace Careers.EF
         public DbSet<OrderMeetingPoint> OrderMeetingPoints { get; set; }
         public DbSet<WhereCanGoSpecialist> WhereCanGoSpecialists { get; set; }
         public DbSet<WhereCanMeetSpecialist> WhereCanMeetSpecialists { get; set; }
+        public DbSet<SpecialistSubCategory> SpecialistSubCategories { get; set; }
         public DbSet<SpecialistService> SpecialistServices { get; set; }
         public DbSet<DefaultQuestion> DefaultQuestions { get; set; }
         public DbSet<OrderSchedule> OrderSchedules { get; set; }
-       //public DbSet<SpecialistAnswer> SpecialistAnswers { get; set; }
+        //public DbSet<SpecialistAnswer> SpecialistAnswers { get; set; }
         public DbSet<UserSpecialistMessage> UserSpecialistMessages { get; set; }
         public DbSet<LanguageSpecialist> LanguageSpecialists { get; set; }
         public DbSet<MyLanguage> Languages { get; set; }
@@ -217,6 +228,7 @@ namespace Careers.EF
         public DbSet<ReviewComment> ReviewComments { get; set; }
         public DbSet<ServiceReview> ServiceReviews { get; set; }
         public DbSet<OrderResponse> OrderResponses { get; set; }
+        public DbSet<Measurement> Measurements { get; set; }
 
     }
 }

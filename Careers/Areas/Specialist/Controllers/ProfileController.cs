@@ -1,4 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Careers.Areas.SpecialistArea.ViewModels;
@@ -21,12 +24,21 @@ namespace Careers.Areas.SpecialistArea.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly ISpecialistService _specialistService;
         private readonly IMeetingPointService _meetingPointService;
+        private readonly ICategoryService _categoryService;
+        private readonly LocationService _locationService;
 
-        public ProfileController(UserManager<AppUser> userManager, ISpecialistService specialistService, IMeetingPointService meetingPointService)
+        public ProfileController(
+            UserManager<AppUser> userManager,
+            ISpecialistService specialistService,
+            IMeetingPointService meetingPointService,
+            ICategoryService categoryService,
+            LocationService locationService)
         {
             _userManager = userManager;
             _specialistService = specialistService;
             _meetingPointService = meetingPointService;
+            this._categoryService = categoryService;
+            this._locationService = locationService;
         }
         public async Task<IActionResult> Index()
         {
@@ -426,72 +438,201 @@ namespace Careers.Areas.SpecialistArea.Controllers
             var specialist = await _specialistService.FindByUserAsync(userId);
 
             var meetingPoints = await _meetingPointService.GetAllAsync();
-            var selectedMeetingPoints = await _meetingPointService.FindAllWhereCanGoBySpecialistAsync(specialist.Id);
-            var meetingPointsViewModel = new MultiSelectList(meetingPoints, "Id", "Description", selectedMeetingPoints);
+            var selectedMeetingPoints = specialist.WhereCanGoList.Select(m => m.WhereCanGo);
+            ViewBag.Points = new MultiSelectList(selectedMeetingPoints, "Id", "Description", selectedMeetingPoints.Select(m => m.Id));
             setImageUrl(specialist);
-            return View(meetingPointsViewModel);
+            return View();
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditWhereCanGo(int[] points)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var specialist = await _specialistService.FindByUserAsync(userId);
-            var result = await _specialistService.UpdateWhereCanGo(specialist, points);
+            var result = await _specialistService.UpdateWhereCanGo(specialist.Id, points);
+            setImageUrl(specialist);
             if (result)
             {
-                TempData["Status"] = "Where can go was edsited";
+                TempData["Status"] = "Where can go was edited";
                 return RedirectToAction("Index");
             }
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditWhereCanMeet()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var specialist = await _specialistService.FindByUserAsync(userId);
+
+            var meetingPoints = await _meetingPointService.GetAllAsync();
+            var selectedMeetingPoints = specialist.WhereCanMeetList.Select(m => m.WhereCanMeet);
+            ViewBag.Points = new MultiSelectList(meetingPoints, "Id", "Description", selectedMeetingPoints.Select(m => m.Id));
             setImageUrl(specialist);
             return View();
         }
 
-        public IActionResult WhereCanMeet()
+        [HttpPost]
+        public async Task<IActionResult> EditWhereCanMeet(int[] points)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var specialist = await _specialistService.FindByUserAsync(userId);
+            setImageUrl(specialist);
+            var result = await _specialistService.UpdateWhereCanMeet(specialist.Id, points);
+            if (result)
+            {
+                TempData["Status"] = "Where can go was edited";
+                return RedirectToAction("Index");
+            }
             return View();
         }
 
         [HttpGet]
-        public IActionResult AddWhereCanMeet()
+        public async Task<IActionResult> EditCity()
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var specialist = await _specialistService.FindByUserAsync(userId);
+            var allCities = await _locationService.GetAllCitiesAsync();
+            ViewBag.Cities = new SelectList(allCities, "Id", "Name", specialist.CityId);
+            setImageUrl(specialist);
             return View();
         }
 
         [HttpPost]
-        public IActionResult AddWhereCanMeet(MeetingPoint point)
+        public async Task<IActionResult> EditCity(int city)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var specialist = await _specialistService.FindByUserAsync(userId);
+            specialist.CityId = city;
+            var result = await _specialistService.UpdateAsync(specialist);
+            if (result != null)
+            {
+                TempData["Status"] = "The city has successfully changed";
+                return RedirectToAction("Index");
+            }
+            var allCities = await _locationService.GetAllCitiesAsync();
+            ViewBag.Cities = new SelectList(allCities, "Id", "Name", specialist.CityId);
+            setImageUrl(specialist);
             return View();
         }
 
         [HttpGet]
-        public IActionResult EditCity()
+        public async Task<IActionResult> EditSubCategories()
         {
-            return View();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var specialist = await _specialistService.FindByUserAsync(userId);
+            var selectedSubCategories = specialist.SpecialistSubCategories.Select(m => m.SubCategory);
+            var allCategories = await _categoryService.GetAllCategories(true);
+
+            var selectCategoriesViewModel = new List<SelectCategoryViewModel>();
+            foreach (var category in allCategories)
+            {
+                var selectCategoryViewModel = new SelectCategoryViewModel();
+                selectCategoryViewModel.Category = category;
+                selectCategoryViewModel.SelectSubCategory = category.SubCategories.Select(m => new SelectSubCategoryViewModel() { Selected = selectedSubCategories.Contains(m), SubCategory = m }).ToList();
+                selectCategoriesViewModel.Add(selectCategoryViewModel);
+            }
+            setImageUrl(specialist);
+            return View(selectCategoriesViewModel);
         }
 
         [HttpPost]
-        public IActionResult EditCity(City city)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditSubCategories(int[] subCategoriesId)  // Add a ViewModel
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var specialist = await _specialistService.FindByUserAsync(userId);
+            var result = await _specialistService.UpdateSubCategoties(specialist.Id, subCategoriesId);
+            setImageUrl(specialist);
+            if (result)
+            {
+                TempData["Status"] = "Subcategories was edited";
+                return RedirectToAction("Index");
+            }
             return View();
         }
 
         [HttpGet]
-        public IActionResult EditServices()
+        public async Task<IActionResult> EditServices(int subCategoryId)
         {
-            return View();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var specialist = await _specialistService.FindByUserAsync(userId);
+            if (!specialist.SpecialistSubCategories.Any(m => m.SubCategoryId == subCategoryId))
+                return RedirectToAction("Index");
+
+            var allServices = await _categoryService.GetServicesAsync(subCategoryId);
+            var specialistServices = specialist.SpecialistServices;
+            var servicesViewModel = new List<EditServiceViewModel>();
+            foreach (var service in allServices)
+            {
+                var serviceViewModel = new EditServiceViewModel();
+                serviceViewModel.Service = service;
+                serviceViewModel.SpecialistService = specialistServices.FirstOrDefault(m => m.ServiceId == service.Id);
+                servicesViewModel.Add(serviceViewModel);
+            }
+            setImageUrl(specialist);
+            return View(servicesViewModel.ToArray());
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditService(int serviceId)  // Add a ViewModel
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var specialist = await _specialistService.FindByUserAsync(userId);
+            var service = await _categoryService.FindServiceAsync(serviceId);
+            if (service != null && specialist.SpecialistSubCategories.Any(m => m.SubCategoryId == service.SubCategoryId))
+            {
+                var specialistService = specialist.SpecialistServices.FirstOrDefault(m => m.ServiceId == service.Id);
+                var viewModel = new EditSpecialistServiceViewModel
+                {
+                    ServiceDescription = service.DescriptionRU,
+                    SpecialistId = specialist.Id,
+                    ServiceId = service.Id,
+                    PriceMin = specialistService == null ? 0 : specialistService.PriceMin,
+                    PriceMax = specialistService?.PriceMax,
+                    MeasureId = specialistService == null ? 0 : specialistService.MeasureId
+                };
+                ViewBag.Measurements = new SelectList(await _categoryService.FindAllMeasurements(), "Id", "TextRU");
+                setImageUrl(specialist);
+                return View(viewModel);
+            }
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public IActionResult EditServices(object services)  // Add a ViewModel
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditService(EditSpecialistServiceViewModel model)  // Add a ViewModel
         {
-            return View();
-        }
-
-        public IActionResult Settings()
-        {
-            return View();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var specialist = await _specialistService.FindByUserAsync(userId);
+            setImageUrl(specialist);
+            if (ModelState.IsValid &&
+                await _categoryService.FindServiceAsync(model.ServiceId) != null)
+            {
+                var specialistService = specialist.SpecialistServices.FirstOrDefault(m => m.ServiceId == model.ServiceId);
+                if (specialistService != null)
+                {
+                    specialistService.PriceMin = model.PriceMin;
+                    specialistService.PriceMax = model.PriceMax;
+                    specialistService.MeasureId = model.MeasureId;
+                }
+                else
+                {
+                    specialistService = new Models.SpecialistService()
+                    {
+                        SpecialistId = specialist.Id,
+                        ServiceId = model.ServiceId,
+                        PriceMin = model.PriceMin,
+                        PriceMax = model.PriceMax,
+                        MeasureId = model.MeasureId
+                    };
+                }
+                await _categoryService.UpdateSpecialistServiceAsync(specialistService);
+                TempData["Status"] = "Edited";
+                return RedirectToAction("EditServices");
+            }
+            return View(model);
         }
 
         private string setImageUrl(Specialist specialist)

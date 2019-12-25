@@ -1,11 +1,11 @@
 ﻿<h2>Edit where can go</h2>
 
-<form asp-area="Specialist" asp-controller="Profile" asp-action="EditWhereCanGo" method="post">
+<form asp-area="Specialist" asp-controller="Profile" asp-action="EditCity" method="post">
     <div class="form-group">
-        <label>Points:</label>
-        <select name="points" asp-items="@ViewBag.Points"
-                data-placeholder="Choose meeting points..."
-                multiple id="points"
+        <label>City:</label>
+        <select name="city" asp-items="@ViewBag.Cities"
+                data-placeholder="Choose city..."
+                id="city"
                 class="form-control chosen-select">
         </select>
     </div>
@@ -17,6 +17,6 @@
     <partial name="_ValidationScriptsPartial" />
     <script src="~/lib/chosen/chosen.jquery.min.js"></script>
     <script>
-        $('#points').chosen();
+        $('#city').chosen();
     </script>
 }

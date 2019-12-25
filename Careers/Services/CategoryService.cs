@@ -125,5 +125,30 @@ namespace Careers.Services
         {
             return await context.Services.Where(x => x.SubCategoryId == subCategoryId).ToListAsync();
         }
+
+        public Task<Service> FindServiceAsync(int serviceId)
+        {
+            return context.Services.FindAsync(serviceId).AsTask();
+        }
+
+        public async Task<IEnumerable<Measurement>> FindAllMeasurements()
+        {
+            return await context.Measurements.ToListAsync();
+        }
+
+        public async Task<Careers.Models.SpecialistService> InsertSpecialistServiceAsync(Careers.Models.SpecialistService specialistService)
+        {
+            specialistService.Id = 0;
+            var res = await context.SpecialistServices.AddAsync(specialistService);
+            await context.SaveChangesAsync();
+            return res.Entity;
+        }
+
+        public async Task<Careers.Models.SpecialistService> UpdateSpecialistServiceAsync(Careers.Models.SpecialistService specialistService)
+        {
+            var res = context.SpecialistServices.Update(specialistService);
+            await context.SaveChangesAsync();
+            return res.Entity;
+        }
     }
 }
