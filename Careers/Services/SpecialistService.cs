@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Careers.EF;
@@ -11,8 +10,6 @@ using Microsoft.EntityFrameworkCore;
 using Careers.Models.Enums;
 using Microsoft.AspNetCore.Http;
 using BlogWebsite.Extensions;
-using Careers.ViewModels.Spec;
-using Microsoft.EntityFrameworkCore.Internal;
 
 namespace Careers.Services
 {
@@ -77,11 +74,27 @@ namespace Careers.Services
             }
 
 
-            if (filter.ExperienceMin > 0 && filter.ExperienceMax > 0)
+            if (filter.Experience > -1)
             {
-                query = query.Include(x => x.Experiences).Where(x =>
-                    x.Experiences.Select(y => (y.EndDate - y.EndDate).Value.Days)
-                        .Any(q => q >= filter.ExperienceMin * 364 && q <= filter.ExperienceMax));
+                switch (filter.Experience)
+                {
+                    case 1:
+                        query = query.Include(x => x.Experiences).Where(x =>
+                            x.Experiences.Select(y => (y.EndDate - y.EndDate).Value.Days)
+                                .Any(q => q >= 0 && q <= filter.Experience * 364)); break;
+                    case 2:
+                        query = query.Include(x => x.Experiences).Where(x =>
+                            x.Experiences.Select(y => (y.EndDate - y.EndDate).Value.Days)
+                                .Any(q => q >= 1 * 364 && q <= filter.Experience * 364)); break;
+                    case 5:
+                        query = query.Include(x => x.Experiences).Where(x =>
+                            x.Experiences.Select(y => (y.EndDate - y.EndDate).Value.Days)
+                                .Any(q => q >= 2 * 364 && q <= filter.Experience * 364)); break;
+                    case 6:
+                        query = query.Include(x => x.Experiences).Where(x =>
+                            x.Experiences.Select(y => (y.EndDate - y.EndDate).Value.Days)
+                                .Any(q => q >= 5 * 364 && q <= 20 * 364)); break;
+                }
             }
 
             if (filter.ServiceIds.Any())
@@ -92,13 +105,12 @@ namespace Careers.Services
                         .Any(d => filter.ServiceIds.Contains(d.ServiceId)));
             }
 
-            if (filter.SubCategoryId > 0)
+            if (filter.SubCategoryIds.Any())
             {
                 query = query
-                    .Include(x => x.SpecialistServices)
-                    .ThenInclude(x => x.Service)
-                    .Where(x => x.SpecialistServices
-                        .Any(s => s.Service.SubCategoryId == filter.SubCategoryId));
+                    .Include(x => x.SpecialistSubCategories)
+                    .Where(x => x.SpecialistSubCategories
+                        .Any(s => filter.SubCategoryIds.Contains(s.SubCategoryId)));
             }
 
 
@@ -132,7 +144,7 @@ namespace Careers.Services
             throw new NotImplementedException();
         }
 
-      
+
 
         public async Task<bool> UpdatePasport(int specialistId, IFormFile image)
         {

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using Careers.EF;
 using Careers.Models.Identity;
 using Careers.Services;
@@ -12,10 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.FileProviders;
-using System.IO;
 
 namespace Careers
 {

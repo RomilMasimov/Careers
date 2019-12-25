@@ -156,3 +156,13 @@ main {
     margin-bottom: 20px;
     margin-right: 10px;
 }
+
+
+.star-rating {
+    line-height: 32px;
+    font-size: 1.25em;
+}
+
+.star-rating .fa-star {
+    color: yellow;
+}

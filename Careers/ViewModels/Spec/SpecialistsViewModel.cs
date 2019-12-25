@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Careers.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Careers.ViewModels.Spec
 {
@@ -8,12 +9,14 @@ namespace Careers.ViewModels.Spec
         public bool IsEmpty { get; set; }
         public SpecialistFilter Filter { get; set; }
         public IEnumerable<Specialist> Specialists { get; set; }
-        public Category Category { get; set; }
+        public int SelectedCategoryId { get; set; }
         public IEnumerable<Category> Categories { get; set; }
         public IEnumerable<Filter> CitiesFilter { get; set; }
         public IEnumerable<Filter> ServicesFilter { get; set; }
         public IEnumerable<Filter> SubCategoriesFilter { get; set; }
+        public IEnumerable<SelectListItem> CategoriesFilter { get; set; }
         public IEnumerable<Filter> LanguagesFilter { get; set; }
+        public IEnumerable<Filter> ExperienceFilter { get; set; }
 
 
         public SpecialistsViewModel()

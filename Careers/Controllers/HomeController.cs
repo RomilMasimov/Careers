@@ -25,15 +25,16 @@ namespace Careers.Controllers
 
         public async Task<IActionResult> Index()
         {
-            //_initializer.Languages();
-            //_initializer.CountryAndCity();
-            //_initializer.CategorySubCategory();
-            //_initializer.Services();
-            //_initializer.MeetingPoints();
-            //_initializer.Services();
             //_initializer.QuestionAndAnswers();
-            //_initializer.Measurements()
-            //await _initializer.ClientsAndSpecialistsAsync();;
+            // _initializer.Languages();
+            // _initializer.CountryAndCity();
+            // _initializer.CategorySubCategory();
+            // _initializer.Services();
+            // _initializer.MeetingPoints();
+            // _initializer.Services();
+            // _initializer.Measurements();
+            // await _initializer.ClientsAndSpecialistsAsync();
+
             var reviews = await _reviewService.GetBestLastReviewsAsync(5);
 
             var specialists = await _specialistService.GetBestByCategoryAsync(6);
