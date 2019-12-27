@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using Careers.Models.Identity;
 
 namespace Careers.Models
@@ -17,13 +18,14 @@ namespace Careers.Models
         public string PassportPath { get; set; }
         public int Balance { get; set; }
         public DateTime LastVisit { get; set; }
+        [NotMapped] public int Rating { get; set; } = 1;
 
         //settings
         public bool TakeOrders { get; set; }
         public bool SmsNotifications { get; set; }
         public bool EmailNotifications { get; set; }
         //end
-
+        
 
         //relationships
         public AppUser AppUser { get; set; }

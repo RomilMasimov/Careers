@@ -46,6 +46,7 @@ namespace Careers.Services.Interfaces
         Task<bool> UpdateServices(int specialistId, int[] servicesId);
 
         Task<Specialist> FindAsync(int id);
+        Task<Specialist> FindDetailedAsync(int id);
         Task<Specialist> FindByUserAsync(string userId);
         //need to check
         Task<IEnumerable<Specialist>> FindAllAsync(Order order);

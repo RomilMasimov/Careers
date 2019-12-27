@@ -6,6 +6,8 @@
         public string Name { get; set; }
         public bool Selected { get; set; }
 
+        public Filter() { }
+
         public Filter(int id, string name)
         {
             Id = id;

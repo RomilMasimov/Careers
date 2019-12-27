@@ -105,6 +105,16 @@ main {
     font-size: 18px;
 }
 
+.profile-img {
+    width: 100%;
+    height: 100%;
+}
+
+.rievew_Section_comment img{
+    width: 100%;
+    height: 100%;
+}
+
 .my-mainmenu {
     float: none !important;
 }
@@ -163,6 +173,37 @@ main {
     font-size: 1.25em;
 }
 
-.star-rating .fa-star {
-    color: yellow;
+.fa-star {
+    color: #FDC91B;
+}
+
+.specialist-description {
+    word-break: break-all;
+}
+
+.spec-rating {
+    margin-left: 0 !important;
+}
+.spec-rating a {
+    width: 100% !important;
+}
+
+.spec-ul {
+    display: flex;
+    flex-direction: column;
+}
+
+.spec-ul li {
+    width: 100%;
+}
+
+.next20 {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.my-head-in-specialist {
+    border: solid 1px #23c0e9;
+    border-radius: 25px
 }

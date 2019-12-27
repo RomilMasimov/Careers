@@ -49,6 +49,7 @@ namespace Careers.Services
         {
             IQueryable<Specialist> query = context.Specialists;
 
+
             if (filter.CityIds.Any())
             {
                 query = query
@@ -64,7 +65,7 @@ namespace Careers.Services
                         .Contains(y.LanguageId)));
             }
 
-            if (filter.Rating > 0)
+            if (filter.Rating > 1)
             {
                 query = query.Include(z => z.Orders)
                     .ThenInclude(z => z.Reviews)
@@ -113,13 +114,36 @@ namespace Careers.Services
                         .Any(s => filter.SubCategoryIds.Contains(s.SubCategoryId)));
             }
 
+            if (filter.Page == 1) return await query.Take(20).ToListAsync();
+            var result = await query.ToListAsync();
 
-            return await query.ToListAsync();
+            return result.Skip((filter.Page - 1) * 20).Take(20).ToList();
         }
 
         public async Task<Specialist> FindAsync(int id)
         {
             return await context.Specialists.FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<Specialist> FindDetailedAsync(int id)
+        {
+            return await context.Specialists
+                .Include(x=>x.City)
+                .Include(x=>x.LanguageSpecialists)
+                .ThenInclude(x=>x.Language)
+                .Include(x=>x.Educations)
+                .Include(x=>x.Experiences)
+                .Include(x=>x.Orders)
+                .ThenInclude(x=>x.Client)
+                .Include(x=>x.SpecialistSubCategories)
+                .ThenInclude(x=>x.SubCategory)
+                .Include(x=>x.SpecialistServices)
+                .ThenInclude(x=>x.Service)
+                .Include(x=>x.WhereCanGoList)
+                .ThenInclude(x=>x.WhereCanGo)
+                .Include(x=>x.WhereCanMeetList)
+                .ThenInclude(x=>x.WhereCanMeet)
+                .FirstOrDefaultAsync(x=>x.Id==id);
         }
 
         public async Task<Specialist> FindByUserAsync(string userId)

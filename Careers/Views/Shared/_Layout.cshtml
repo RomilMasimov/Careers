@@ -1,7 +1,6 @@
-﻿@using Microsoft.AspNetCore.Mvc.Localization
-@inject IViewLocalizer Localizer
+﻿@inject IViewLocalizer Localizer
 @{
-    string image = "";
+    var image = "";
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -470,9 +469,10 @@
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap-select.min.js"></script>
+    @*<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
+    @*<script src="~/lib/bootstrap/dist/js/bootstrap-select.min.js"></script>*@
     <script src="https://kit.fontawesome.com/74b23692b6.js" crossorigin="anonymous"></script>
+
     @* from template *@
     <script src="~/js/jquery_min.js"></script>
     <script src="~/js/bootstrap.js"></script>

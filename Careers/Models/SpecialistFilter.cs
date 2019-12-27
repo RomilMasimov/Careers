@@ -10,17 +10,17 @@ namespace Careers.Models
         public List<int> LanguageIds { get; set; }
         public int Experience{ get; set; }
         public int Rating { get; set; }
+        public int Page { get; set; }
+
 
         public SpecialistFilter()
         {
+            Page = 1;
             Experience = -1;
             CityIds = new List<int>();
             ServiceIds = new List<int>();
             LanguageIds = new List<int>();
             SubCategoryIds=new List<int>();
         }
-
-       
-
     }
 }

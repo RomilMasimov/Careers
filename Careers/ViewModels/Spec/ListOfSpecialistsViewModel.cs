@@ -4,22 +4,22 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Careers.ViewModels.Spec
 {
-    public class SpecialistsViewModel
+    public class ListOfSpecialistsViewModel
     {
         public bool IsEmpty { get; set; }
         public SpecialistFilter Filter { get; set; }
-        public IEnumerable<Specialist> Specialists { get; set; }
+        public List<Specialist> Specialists { get; set; }
         public int SelectedCategoryId { get; set; }
-        public IEnumerable<Category> Categories { get; set; }
-        public IEnumerable<Filter> CitiesFilter { get; set; }
-        public IEnumerable<Filter> ServicesFilter { get; set; }
-        public IEnumerable<Filter> SubCategoriesFilter { get; set; }
-        public IEnumerable<SelectListItem> CategoriesFilter { get; set; }
-        public IEnumerable<Filter> LanguagesFilter { get; set; }
-        public IEnumerable<Filter> ExperienceFilter { get; set; }
+        public List<Category> Categories { get; set; }
+        public List<Filter> CitiesFilter { get; set; }
+        public List<Filter> ServicesFilter { get; set; }
+        public List<Filter> SubCategoriesFilter { get; set; }
+        public List<SelectListItem> CategoriesFilter { get; set; }
+        public List<Filter> LanguagesFilter { get; set; }
+        public List<Filter> ExperienceFilter { get; set; }
 
 
-        public SpecialistsViewModel()
+        public ListOfSpecialistsViewModel()
         {
             IsEmpty = true;
             //LanguagesFilter = new List<Filter>();

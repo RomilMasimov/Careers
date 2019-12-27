@@ -1,0 +1,58 @@
+﻿@model Careers.ViewModels.Spec.SpecPartialViewModel
+
+
+@foreach (var spec in Model.Specialists)
+{
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+        <div class="jp_job_post_main_wrapper_cont jp_job_post_grid_main_wrapper_cont">
+            <div class="jp_job_post_main_wrapper">
+                <div class="row">
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                        <div class="jp_job_post_side_img">
+                            <img class="profile-img" src="@spec.ImageUrl" error-src="" alt="profile">
+                        </div>
+                        <div class="jp_job_post_right_cont jp_cl_job_cont">
+                            <h4>@spec.Name @spec.Surname</h4>
+                            <p class="specialist-description">@spec.About </p>
+                            <ul>
+                                <li><i class="fa fa-map-marker"></i>&nbsp; @spec.City.Name</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="jp_job_post_right_btn_wrapper">
+                            <ul class="spec-ul">
+                                <li class="spec-rating"><a asp-action="Specialist" asp-route-id="@spec.Id">Visit Profile</a></li>
+                                <li class="spec-rating">
+                                    <div class="star-rating">
+
+                                        <span class="fa fa-star-o not" data-rating="1"></span>
+                                        <span class="fa fa-star-o not" data-rating="2"></span>
+                                        <span class="fa fa-star-o not" data-rating="3"></span>
+                                        <span class="fa fa-star-o not" data-rating="4"></span>
+                                        <span class="fa fa-star-o not" data-rating="5"></span>
+                                        <input type="hidden" class="rating-value" asp-for="@spec.Rating">
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="jp_job_post_keyword_wrapper">
+                <ul>
+                    <li><i class="fa fa-tags"></i>Keywords :</li>
+                    @foreach (var service in Model.ServicesFilter)
+                    {
+                        if (service.Selected)
+                        {
+                            <li>@service.Name</li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+
+    </div>
+}

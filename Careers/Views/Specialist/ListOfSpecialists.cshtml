@@ -1,6 +1,5 @@
-﻿@using System.Globalization
-@using System.Linq
-@model Careers.ViewModels.Spec.SpecialistsViewModel
+﻿@using Careers.ViewModels.Spec
+@model Careers.ViewModels.Spec.ListOfSpecialistsViewModel
 
 
 <div class="jp_listing_sidebar_main_wrapper">
@@ -8,12 +7,14 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="jp_listing_heading_wrapper">
-                    <h2>We found <span>357</span> Matches for you.</h2>
+                    <h2>We found <span>@Model.Specialists.Count</span> Matches for you.</h2>
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 hidden-sm hidden-xs">
-                <form asp-controller="Specialist" asp-action="Specialists" method="get" id="hidden-form">
+                <form asp-controller="Specialist" asp-action="Specialists" method="post" id="main-form">
                     <input type="hidden" asp-for="IsEmpty" value="false" />
+                    <input asp-for="@Model.Filter.Page" type="hidden" />
+
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="jp_rightside_job_categories_wrapper">
@@ -24,12 +25,13 @@
                                     <div class="handyman_sec1_wrapper">
                                         <div class="content">
                                             <div class="box">
-
-                                                @foreach (var item in Model.CitiesFilter)
+                                                @for (int i = 0; i < Model.CitiesFilter.Count; i++)
                                                 {
+                                                    <input asp-for="@Model.CitiesFilter[i].Id" type="hidden">
+                                                    <input asp-for="@Model.CitiesFilter[i].Name" type="hidden">
                                                     <p>
-                                                        <input asp-for="@item.Selected" type="checkbox" id="@("a" + item.Id + "a")" name="cb">
-                                                        <label for="@("a" + item.Id + "a")">@item.Name</label>
+                                                        <input asp-for="@Model.CitiesFilter[i].Selected" type="checkbox">
+                                                        <label asp-for="@Model.CitiesFilter[i].Selected">@Model.CitiesFilter[i].Name</label>
                                                     </p>
                                                 }
                                             </div>
@@ -56,11 +58,13 @@
                                                     </select>
                                                     <i class="fa fa-angle-down"></i>
                                                 </div>
-                                                @foreach (var item in Model.SubCategoriesFilter)
+                                                @for (int i = 0; i < Model.SubCategoriesFilter.Count; i++)
                                                 {
+                                                    <input asp-for="@Model.SubCategoriesFilter[i].Id" type="hidden">
+                                                    <input asp-for="@Model.SubCategoriesFilter[i].Name" type="hidden">
                                                     <p>
-                                                        <input asp-for="@item.Selected" type="checkbox" id="@("b" + item.Id + "b")" name="cb">
-                                                        <label for="@("b" + item.Id + "b")">@item.Name</label>
+                                                        <input asp-for="@Model.SubCategoriesFilter[i].Selected" type="checkbox">
+                                                        <label asp-for="@Model.SubCategoriesFilter[i].Selected">@Model.SubCategoriesFilter[i].Name</label>
                                                     </p>
                                                 }
                                                 @* <partial name="_SubCategoriesPartial" model="@Model.Category.SubCategories" />*@
@@ -82,11 +86,13 @@
                                     <div class="handyman_sec1_wrapper">
                                         <div class="content">
                                             <div class="box">
-                                                @foreach (var item in Model.ServicesFilter)
+                                                @for (int i = 0; i < Model.ServicesFilter.Count; i++)
                                                 {
+                                                    <input asp-for="@Model.ServicesFilter[i].Id" type="hidden">
+                                                    <input asp-for="@Model.ServicesFilter[i].Name" type="hidden">
                                                     <p>
-                                                        <input asp-for="@item.Selected" type="checkbox" id="@("c" + item.Id + "c")" name="cb">
-                                                        <label for="@("c" + item.Id + "c")">@item.Name</label>
+                                                        <input asp-for="@Model.ServicesFilter[i].Selected" type="checkbox">
+                                                        <label asp-for="@Model.ServicesFilter[i].Selected">@Model.ServicesFilter[i].Name</label>
                                                     </p>
                                                 }
                                             </div>
@@ -107,11 +113,13 @@
                                     <div class="handyman_sec1_wrapper">
                                         <div class="content">
                                             <div class="box">
-                                                @foreach (var item in Model.ExperienceFilter)
+                                                @for (int i = 0; i < Model.ExperienceFilter.Count; i++)
                                                 {
+                                                    <input asp-for="@Model.ExperienceFilter[i].Id" type="hidden">
+                                                    <input asp-for="@Model.ExperienceFilter[i].Name" type="hidden">
                                                     <p>
-                                                        <input asp-for="@item.Selected" type="checkbox" id="@("d" + item.Id + "d")" name="single-experience">
-                                                        <label for="@("d" + item.Id + "d")">@item.Name Years</label>
+                                                        <input asp-for="@Model.ExperienceFilter[i].Selected" type="checkbox" data-single="1">
+                                                        <label asp-for="@Model.ExperienceFilter[i].Selected">@Model.ExperienceFilter[i].Name</label>
                                                     </p>
                                                 }
                                             </div>
@@ -130,31 +138,12 @@
                                         <div class="content">
                                             <div class="box">
                                                 <div class="star-rating">
-                                                    <span class="fa fa-star-o" data-rating="1"></span>
-                                                    <span class="fa fa-star-o" data-rating="2"></span>
-                                                    <span class="fa fa-star-o" data-rating="3"></span>
-                                                    <span class="fa fa-star-o" data-rating="4"></span>
-                                                    <span class="fa fa-star-o" data-rating="5"></span>
-                                                    <input type="hidden" name="whatever1" class="rating-value" asp-for="Filter.Rating">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="jp_rightside_job_categories_wrapper jp_job_location_wrapper">
-                                <div class="jp_rightside_job_categories_heading">
-                                    <h4>Salary</h4>
-                                </div>
-                                <div class="jp_rightside_job_categories_content">
-                                    <div class="handyman_sec1_wrapper">
-                                        <div class="content">
-                                            <div class="box">
-                                                <div>
-                                                    <input type="number">
-                                                    <input type="number">
+                                                    <span class="fa fa-star-o yes" data-rating="1"></span>
+                                                    <span class="fa fa-star-o yes" data-rating="2"></span>
+                                                    <span class="fa fa-star-o yes" data-rating="3"></span>
+                                                    <span class="fa fa-star-o yes" data-rating="4"></span>
+                                                    <span class="fa fa-star-o yes" data-rating="5"></span>
+                                                    <input type="hidden" class="rating-value" asp-for="@Model.Filter.Rating">
                                                 </div>
                                             </div>
                                         </div>
@@ -171,11 +160,13 @@
                                     <div class="handyman_sec1_wrapper">
                                         <div class="content">
                                             <div class="box">
-                                                @foreach (var item in Model.LanguagesFilter)
+                                                @for (int i = 0; i < Model.LanguagesFilter.Count; i++)
                                                 {
+                                                    <input asp-for="@Model.LanguagesFilter[i].Id" type="hidden">
+                                                    <input asp-for="@Model.LanguagesFilter[i].Name" type="hidden">
                                                     <p>
-                                                        <input asp-for="@item.Selected" type="checkbox" id="@("e" + item.Id + "e")" name="cb">
-                                                        <label for="@("e" + item.Id + "e")">@item.Name</label>
+                                                        <input asp-for="@Model.LanguagesFilter[i].Selected" type="checkbox">
+                                                        <label asp-for="@Model.LanguagesFilter[i].Selected">@Model.LanguagesFilter[i].Name</label>
                                                     </p>
                                                 }
                                             </div>
@@ -206,82 +197,29 @@
             <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="jp_listing_tabs_wrapper">
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                <div class="gc_causes_select_box_wrapper">
-                                    <div class="gc_causes_select_box">
-                                        <select>
-                                            <option>Sort Default</option>
-                                            <option>Sort Default</option>
-                                            <option>Sort Default</option>
-                                        </select><i class="fa fa-angle-down"></i>
-                                    </div>
-                                </div>
+                        <div class="jp_listing_tabs_wrapper my-head-in-specialist">
+
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                                <h4>Fill more detailed order here</h4>
                             </div>
-                            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
-                                <div class="gc_causes_search_box_wrapper gc_causes_search_box_wrapper2">
-                                    <div class="gc_causes_search_box">
-                                        <p>You're Watching &nbsp;<span>01 to 20</span></p>
-                                    </div>
-                                </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                <a asp-controller="Order" asp-action="Create" class="btn btn-danger">Create Order</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="tab-content">
                             <div id="list" class="tab-pane fade active in">
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                        <div class="jp_job_post_main_wrapper_cont jp_job_post_grid_main_wrapper_cont">
-                                            <div class="jp_job_post_main_wrapper">
-                                                <div class="row">
-                                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                                                        <div class="jp_job_post_side_img">
-                                                            <img src="images/content/job_post_img2.jpg" alt="post_img">
-                                                        </div>
-                                                        <div class="jp_job_post_right_cont jp_cl_job_cont">
-                                                            <h4>COMERA JOB PORT</h4>
-                                                            <p>MARKETING JOB</p>
-                                                            <ul>
-                                                                <li><i class="fa fa-map-marker"></i>&nbsp; Caliphonia, PO 455001</li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                                        <div class="jp_job_post_right_btn_wrapper">
-                                                            <ul>
-                                                                <li><a href="#">145 ACTIVE JOBS</a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="jp_job_post_keyword_wrapper">
-                                                <ul>
-                                                    <li><i class="fa fa-tags"></i>Keywords :</li>
-                                                    <li><a href="#">ui designer,</a></li>
-                                                    <li><a href="#">developer,</a></li>
-                                                    <li><a href="#">senior</a></li>
-                                                    <li><a href="#">it company,</a></li>
-                                                    <li><a href="#">design,</a></li>
-                                                    <li><a href="#">call center</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="row" id="specialists-container">
 
-                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 hidden-sm hidden-xs">
-                                        <div class="pager_wrapper gc_blog_pagination">
-                                            <ul class="pagination">
-                                                <li><a href="#">Priv.</a></li>
-                                                <li><a href="#">1</a></li>
-                                                <li><a href="#">2</a></li>
-                                                <li><a href="#">3</a></li>
-                                                <li class="hidden-xs"><a href="#">4</a></li>
-                                                <li><a href="#">Next</a></li>
-                                            </ul>
+                                    <partial name="_SpecialistsPartial" model="@(new SpecPartialViewModel{Specialists = Model.Specialists, ServicesFilter = Model.ServicesFilter})" />
+
+                                    @if (Model.Specialists.Count >= Model.Filter.Page * 20)
+                                    {
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 next20">
+                                            <button type="button" id="next-button" class="btn btn-info">Next 20</button>
                                         </div>
-                                    </div>
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -289,5 +227,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 </div>
+
