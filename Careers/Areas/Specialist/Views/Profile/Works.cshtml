@@ -1,33 +1,63 @@
 ﻿@model IEnumerable<SpecialistWork>
+@{
+    ViewData["Title"] = "Works";
+}
 
-<h2>Photos (clients see them)</h2>
-
-<partial name="_PhotoTabNavigation" />
-
-<div class="my-2">
-    @if (TempData.ContainsKey("Status"))
-    {
-        <div class="alert alert-info" role="alert">
-            @TempData["Status"]
-        </div>
-    }
-    @if (Model?.Count() < 10)
-    {
-        <a asp-area="Specialist" asp-controller="Profile" asp-action="UploadWork" class="btn btn-light my-2">Add Image</a>
-    }
-    @if (Model?.Count() > 0)
-    {
-        <div class="row m-0">
-            @foreach (var work in Model)
-            {
-                <div class="col-xl-3 col-lg-4 col-sm-6 col-12 p-1">
-                    <a asp-area="Specialist" asp-controller="Profile" asp-action="EditWork" asp-route-id="@work.Id">
-                        <p>@work.Description</p>
-                        <img class="img-rounded w-100" src="~/@work.ImagePath" alt="" />
-                    </a>
+<div class="jp_tittle_main_wrapper">
+    <div class="jp_tittle_img_overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="jp_tittle_heading_wrapper">
+                    <div class="jp_tittle_heading">
+                        <h2>Photos (clients see them)</h2>
+                    </div>
+                    <div class="jp_tittle_breadcrumb_main_wrapper">
+                        <div class="jp_tittle_breadcrumb_wrapper">
+                            <ul>
+                                <li><a asp-area="Specialist" asp-controller="Profile" asp-action="Index">Profile</a> <i class="fa fa-angle-right"></i></li>
+                                <li>Works</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-            }
+            </div>
         </div>
-    }
+    </div>
+</div>
+
+<div class="jp_adp_main_section_wrapper">
+    <div class="container">
+        <div class="row">
+            <partial name="_PhotoTabNavigation" />
+
+            <div class="my-2">
+                @if (TempData.ContainsKey("Status"))
+                {
+                    <div class="alert alert-info" role="alert">
+                        @TempData["Status"]
+                    </div>
+                }
+                @if (Model?.Count() < 10)
+                {
+                    <a asp-area="Specialist" asp-controller="Profile" asp-action="UploadWork" class="btn btn-light my-2">Add Image</a>
+                }
+                @if (Model?.Count() > 0)
+                {
+                    <div class="row m-0">
+                        @foreach (var work in Model)
+                        {
+                            <div class="col-xl-3 col-lg-4 col-sm-6 col-12 p-1">
+                                <a asp-area="Specialist" asp-controller="Profile" asp-action="EditWork" asp-route-id="@work.Id">
+                                    <p>@work.Description</p>
+                                    <img class="img-rounded w-100" src="~/@work.ImagePath" alt="" />
+                                </a>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
 </div>
 
