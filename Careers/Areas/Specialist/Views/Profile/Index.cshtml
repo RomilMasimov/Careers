@@ -34,7 +34,7 @@
                         <div class="col-sm-6 col-md-8">
                             <h4>@Model.Name @Model.Surname</h4>
                             <p>
-                                Rating 3,8s <a href="#">detail</a>
+                                Rating 3,8 <a href="#">detail</a>
                                 <br>
                                 Reviews <small class="text-muted">no reviews yet</small>
                                 <br>
@@ -61,7 +61,7 @@
                                 <div class="col-10">
                                     <p>
                                         @if ((Model.Educations == null && Model.Experiences == null) ||
-                                   (Model.Educations?.Count() == 0 && Model.Experiences?.Count() == 0))
+                                  (Model.Educations?.Count() == 0 && Model.Experiences?.Count() == 0))
                                         {
                                             <a asp-area="Specialist" asp-controller="Profile" asp-action="EducationsAndExperience">Add</a>
                                             <br>
@@ -81,18 +81,19 @@
                                                 @foreach (var item in Model.Educations)
                                                 {
                                                     <span>
-                                                        @item.StudyPlaceName (@item.StartDate.ToShortDateString() - @item.EndDate?.ToShortDateString())
+                                                        @item.StudyPlaceName  (@item.StartDate.ToShortDateString()@(item.EndDate.HasValue ? $" - {item.EndDate?.ToShortDateString()}" : ""))
                                                     </span>
                                                     <br>
                                                 }
                                             }
                                             @if (Model.Experiences?.Count() > 0)
                                             {
+                                                <br>
                                                 <h5>Experiences</h5>
                                                 @foreach (var item in Model.Experiences)
                                                 {
                                                     <span>
-                                                        @item.CompanyName (@item.StartDate.ToShortDateString() - @item.EndDate?.ToShortDateString())
+                                                        @item.CompanyName  (@item.StartDate.ToShortDateString()@(item.EndDate.HasValue ? $"- {item.EndDate?.ToShortDateString()}" : ""))
                                                     </span>
                                                     <br>
                                                 }

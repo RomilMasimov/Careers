@@ -30,7 +30,7 @@
         <div class="row">
             <form asp-area="Specialist" asp-controller="Profile" asp-action="EditWhereCanGo" method="post" class="col-12">
                 <div class="form-group">
-                    <label>Points:</label>
+                    @*<label>Points:</label>*@
                     <select name="points" asp-items="@ViewBag.Points"
                             data-placeholder="Choose meeting points..."
                             multiple id="points"

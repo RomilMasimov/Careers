@@ -60,11 +60,6 @@ namespace Careers.EF
                 .WithMany(x => x.MeetingPoints)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<WhereCanGoSpecialist>()
-                .HasOne(cg => cg.WhereCanGo)
-                .WithMany(cgl => cgl.WhereCanGoList)
-                .HasForeignKey(si => si.SpecialistId);
-
             //modelBuilder.Entity<Answer>()
             //    .HasOne(p => p.AskedQuestion)
             //    .WithMany(b => b.Answers)
