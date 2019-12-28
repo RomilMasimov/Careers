@@ -21,11 +21,15 @@ namespace Careers.Services.Interfaces
         Task<IEnumerable<Category>> GetAllCategories(bool includeSubcategories = false);
         Task<IEnumerable<Category>> GetPopularCategories();
         Task<IEnumerable<SubCategory>> GetAllSubCategories(int categoryId);
+        Task<IEnumerable<SubCategory>> GetAllSubCategoriesByAzTextAsync(string text);
+        Task<IEnumerable<SubCategory>> GetAllSubCategoriesByRuTextAsync(string text);
 
         Task<Service> FindServiceAsync(int serviceId);
         Task<IEnumerable<Service>> GetServicesAsync(int subCategoryId);
         Task<IEnumerable<Service>> GetServicesBySubCategoryArrAsync(IEnumerable<int> subCategoryIds);
         Task<IEnumerable<Service>> GetAllServicesAsync();
+        Task<IEnumerable<Service>> GetAllServicesByAzTextAsync(string text);
+        Task<IEnumerable<Service>> GetAllServicesByRuTextAsync(string text);
         Task<Careers.Models.SpecialistService> InsertSpecialistServiceAsync(Careers.Models.SpecialistService specialistService);
         Task<Careers.Models.SpecialistService> UpdateSpecialistServiceAsync(Careers.Models.SpecialistService specialistService);
         Task<IEnumerable<Measurement>> FindAllMeasurements();
