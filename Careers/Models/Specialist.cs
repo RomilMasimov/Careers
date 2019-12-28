@@ -47,17 +47,17 @@ namespace Careers.Models
 
         public Specialist()
         {
-            this.LanguageSpecialists = Enumerable.Empty<LanguageSpecialist>();
-            this.SpecialistWorks = Enumerable.Empty<SpecialistWork>();
-            this.Educations = Enumerable.Empty<Education>();
-            this.Experiences = Enumerable.Empty<Experience>();
-            this.WhereCanMeetList = Enumerable.Empty<WhereCanMeetSpecialist>();
-            this.WhereCanGoList = Enumerable.Empty<WhereCanGoSpecialist>();
-            this.Orders = Enumerable.Empty<Order>();
-            this.SpecialistSubCategories = Enumerable.Empty<SpecialistSubCategory>();
-            this.SpecialistServices = Enumerable.Empty<SpecialistService>();
-            this.UserSpecialistMessages = Enumerable.Empty<UserSpecialistMessage>();
-            this.OrderResponses = Enumerable.Empty<OrderResponse>();
+            this.LanguageSpecialists = new List<LanguageSpecialist>();
+            this.SpecialistWorks = new List<SpecialistWork>();
+            this.Educations = new List<Education>();
+            this.Experiences = new List<Experience>();
+            this.WhereCanMeetList = new List<WhereCanMeetSpecialist>();
+            this.WhereCanGoList = new List<WhereCanGoSpecialist>();
+            this.Orders = new List<Order>();
+            this.SpecialistSubCategories = new List<SpecialistSubCategory>();
+            this.SpecialistServices = new List<SpecialistService>();
+            this.UserSpecialistMessages = new List<UserSpecialistMessage>();
+            this.OrderResponses = new List<OrderResponse>();
         }
     }
 }
