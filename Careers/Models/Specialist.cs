@@ -25,7 +25,7 @@ namespace Careers.Models
         public bool SmsNotifications { get; set; }
         public bool EmailNotifications { get; set; }
         //end
-        
+
 
         //relationships
         public AppUser AppUser { get; set; }
@@ -45,5 +45,20 @@ namespace Careers.Models
         public IEnumerable<OrderResponse> OrderResponses { get; set; }
 
         //public IEnumerable<SpecialistAnswer> SpecialistAnswers { get; set; }
+
+        public Specialist()
+        {
+            this.LanguageSpecialists = new List<LanguageSpecialist>();
+            this.SpecialistWorks = new List<SpecialistWork>();
+            this.Educations = new List<Education>();
+            this.Experiences = new List<Experience>();
+            this.WhereCanMeetList = new List<WhereCanMeetSpecialist>();
+            this.WhereCanGoList = new List<WhereCanGoSpecialist>();
+            this.Orders = new List<Order>();
+            this.SpecialistSubCategories = new List<SpecialistSubCategory>();
+            this.SpecialistServices = new List<SpecialistService>();
+            this.UserSpecialistMessages = new List<UserSpecialistMessage>();
+            this.OrderResponses = new List<OrderResponse>();
+        }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Careers.Models;
 using Careers.Services;
 using Careers.Services.Interfaces;
 using Careers.ViewModels.Home;
@@ -37,11 +39,11 @@ namespace Careers.Controllers
 
             var reviews = await _reviewService.GetBestLastReviewsAsync(5);
 
-            var specialists = await _specialistService.GetBestByCategoryAsync(6);
+            //var specialists = await _specialistService.GetBestByCategoryAsync(6);
             var viewModel = new IndexViewModel
             {
                 Reviews = reviews,
-                Specialists = specialists
+                Specialists = new List<Specialist>()
             };
 
             return View(viewModel);

@@ -40,7 +40,7 @@ namespace Careers.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> LogInAsync(LoginViewModel model, string returnUrl = null)
+        public async Task<IActionResult> LogIn(LoginViewModel model, string returnUrl = null)
         {
             if (ModelState.IsValid)
             {
@@ -60,7 +60,8 @@ namespace Careers.Controllers
                     if (roles.Any(m => m.Value == "specialist")) return RedirectToAction("Index", "Order", new { area = "Specialist" });
                     return RedirectToAction("Index", "Home");
                 }
-                else ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
             }
             return View(model);
         }
