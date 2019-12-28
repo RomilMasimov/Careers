@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Threading.Tasks;
 using Careers.Services;
 using Careers.Services.Interfaces;
@@ -6,6 +7,7 @@ using Careers.ViewModels.Home;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Careers.Controllers
 {
@@ -13,12 +15,16 @@ namespace Careers.Controllers
     {
         private readonly ISpecialistService _specialistService;
         private readonly IReviewService _reviewService;
+        private readonly ICategoryService _categoryService;
+        private readonly LocationService _locationService;
         private readonly Initializer _initializer;
 
-        public HomeController(ISpecialistService specialistService, IReviewService reviewService, Initializer initializer)
+        public HomeController(ISpecialistService specialistService, IReviewService reviewService, ICategoryService categoryService, LocationService locationService, Initializer initializer)
         {
             _specialistService = specialistService;
             _reviewService = reviewService;
+            _categoryService = categoryService;
+            _locationService = locationService;
             _initializer = initializer;
 
         }
@@ -43,7 +49,12 @@ namespace Careers.Controllers
                 Reviews = reviews,
                 Specialists = specialists
             };
+            var cities = await _locationService.GetAllCitiesAsync();
+            ViewBag.Locations = new SelectList(cities, "Id", "Name");
 
+            var isRu = CultureInfo.CurrentCulture.Name == "ru-RU";
+            var services = await _categoryService.GetAllServicesAsync();
+            ViewBag.Services = new SelectList(services, "Id", isRu ? "DescriptionRU" : "DescriptionAZ");
             return View(viewModel);
         }
 
