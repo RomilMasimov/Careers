@@ -11,7 +11,7 @@
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 hidden-sm hidden-xs">
-                <form asp-controller="Specialist" asp-action="Specialists" method="post" id="main-form">
+                <form asp-controller="Specialist" asp-action="ListOfSpecialists" method="post" id="main-form">
                     <input type="hidden" asp-for="IsEmpty" value="false" />
                     <input asp-for="@Model.Filter.Page" type="hidden" />
 

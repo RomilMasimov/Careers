@@ -41,23 +41,27 @@ namespace Careers.ViewModels.Spec
             Name = specialist.Name;
             FatherName = specialist.Fathername;
             DateOfBirth = specialist.DateOfBirth;
-            CityName = specialist.City.Name;
+            CityName = specialist.City?.Name;
             Rating = specialist.Rating;
             About = specialist.About;
-            Languages = specialist.LanguageSpecialists.Select(x => x.Language.Name).ToList();
-
-            Educations = specialist.Educations.ToList();
-            Experiences = specialist.Experiences.ToList();
-            SpecialistServices = specialist.SpecialistServices.ToList();
+            Languages = specialist.LanguageSpecialists?.Select(x => x.Language.Name).ToList() ?? new List<string>();
+            Educations = specialist.Educations?.ToList()?? new List<Education>();
+            Experiences = specialist.Experiences?.ToList() ?? new List<Experience>();
+            SpecialistServices = specialist.SpecialistServices?.ToList() ?? new List<SpecialistService>();
             if (CultureInfo.CurrentCulture.Name == "ru-RU")
-                SubCategories = specialist.SpecialistSubCategories.Select(x => x.SubCategory.DescriptionRU).ToList();
-            else SubCategories = specialist.SpecialistSubCategories.Select(x => x.SubCategory.DescriptionAZ).ToList();
+                SubCategories = specialist.SpecialistSubCategories?.Select(x => x.SubCategory.DescriptionRU).ToList() ?? new List<string>();
+            else SubCategories = specialist.SpecialistSubCategories?.Select(x => x.SubCategory.DescriptionAZ).ToList() ?? new List<string>();
 
-            var rs = specialist.Orders;
-
-            foreach (var order in rs)
+            if (specialist.Orders != null)
             {
-                Reviews.AddRange(order.Reviews);
+                foreach (var order in specialist.Orders)
+                {
+                    Reviews.AddRange(order.Reviews);
+                }
+            }
+            else
+            {
+                Reviews= new List<Review>();
             }
         }
     }

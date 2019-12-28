@@ -114,7 +114,7 @@ namespace Careers.Services
 
         public void MeetingPoints()
         {
-            if (context.Services.Any()) return;
+            if (context.MeetingPoints.Any()) return;
             context.MeetingPoints.Add(new MeetingPoint { Description = "SubWay 1", MeetingPointType = MeetingPointTypeEnum.Subway, CityId = 1 });
             context.MeetingPoints.Add(new MeetingPoint { Description = "SubWay 2", MeetingPointType = MeetingPointTypeEnum.Subway, CityId = 2 });
             context.MeetingPoints.Add(new MeetingPoint { Description = "SubWay 2", MeetingPointType = MeetingPointTypeEnum.Subway, CityId = 3 });

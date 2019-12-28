@@ -29,7 +29,7 @@ namespace Careers.Controllers
 
 
 
-        public async Task<IActionResult> Specialists(ListOfSpecialistsViewModel model, int subCategoryId, int serviceId)
+        public async Task<IActionResult> ListOfSpecialists(ListOfSpecialistsViewModel model, int subCategoryId, int serviceId)
         {
             var cities = await _locationService.GetAllCitiesAsync();
             var languages = await _languageService.GetAllAsync();

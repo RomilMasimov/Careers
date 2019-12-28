@@ -4,7 +4,7 @@
     <div class="jp_job_post_main_wrapper_cont jp_job_post_grid_main_wrapper_cont">
         <div class="jp_job_post_keyword_wrapper">
             <a asp-controller="Specialist"
-               asp-action="Specialists"
+               asp-action="ListOfSpecialists"
                asp-route-subCategoryId="@Model.Id">
                 <ul>
                     <li>
@@ -19,7 +19,7 @@
                 {
                     <li>
                         <a asp-controller="Specialist"
-                           asp-action="Specialists"
+                           asp-action="ListOfSpecialists"
                            asp-route-serviceId="@item.Id"
                            asp-route-subCategoryId="@Model.Id">
                             @item.DescriptionAZ
@@ -28,7 +28,7 @@
                 }
                 <li>
                     <a asp-controller="Specialist"
-                       asp-action="Specialists"
+                       asp-action="ListOfSpecialists"
                        asp-route-subCategoryId="@Model.Id">
                         Others
                     </a>
