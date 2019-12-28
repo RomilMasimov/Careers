@@ -39,11 +39,11 @@ namespace Careers.Controllers
 
             var reviews = await _reviewService.GetBestLastReviewsAsync(5);
 
-            //var specialists = await _specialistService.GetBestByCategoryAsync(6);
+            var specialists = await _specialistService.GetBestByCategoryAsync(6);
             var viewModel = new IndexViewModel
             {
                 Reviews = reviews,
-                Specialists = new List<Specialist>()
+                Specialists = specialists
             };
 
             return View(viewModel);
