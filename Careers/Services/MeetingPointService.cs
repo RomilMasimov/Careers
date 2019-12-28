@@ -55,6 +55,11 @@ namespace Careers.Services
             return await context.MeetingPoints.ToListAsync();
         }
 
+        public async Task<IEnumerable<MeetingPoint>> GetAllByCityAsync(int cityId)
+        {
+            return await context.MeetingPoints.Where(m => m.CityId == cityId).ToListAsync();
+        }
+
         public async Task<IEnumerable<MeetingPoint>> FindAllWhereCanMeetBySpecialistAsync(int specialistId)
         {
             return await context.WhereCanMeetSpecialists

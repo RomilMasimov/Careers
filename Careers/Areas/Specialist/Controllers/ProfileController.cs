@@ -437,7 +437,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var specialist = await _specialistService.FindByUserAsync(userId);
 
-            var meetingPoints = await _meetingPointService.GetAllAsync();
+            var meetingPoints = await _meetingPointService.GetAllByCityAsync(specialist.CityId);
             var selectedMeetingPoints = specialist.WhereCanGoList.Select(m => m.WhereCanGo);
             ViewBag.Points = new MultiSelectList(meetingPoints, "Id", "Description", selectedMeetingPoints.Select(m => m.Id));
             setImageUrl(specialist);
@@ -466,7 +466,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var specialist = await _specialistService.FindByUserAsync(userId);
 
-            var meetingPoints = await _meetingPointService.GetAllAsync();
+            var meetingPoints = await _meetingPointService.GetAllByCityAsync(specialist.CityId);
             var selectedMeetingPoints = specialist.WhereCanMeetList.Select(m => m.WhereCanMeet);
             ViewBag.Points = new MultiSelectList(meetingPoints, "Id", "Description", selectedMeetingPoints.Select(m => m.Id));
             setImageUrl(specialist);
@@ -504,9 +504,8 @@ namespace Careers.Areas.SpecialistArea.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var specialist = await _specialistService.FindByUserAsync(userId);
-            specialist.CityId = city;
-            var result = await _specialistService.UpdateAsync(specialist);
-            if (result != null)
+            var result = await _specialistService.UpdateCity(specialist.Id, city);
+            if (result)
             {
                 TempData["Status"] = "The city has successfully changed";
                 return RedirectToAction("Index");

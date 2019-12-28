@@ -301,6 +301,16 @@ namespace Careers.Services
             return context.Experiences.FindAsync(id).AsTask();
         }
 
+        public async Task<bool> UpdateCity(int specialistId, int cityId)
+        {
+            var specialist = await context.Specialists.FindAsync(specialistId);
+            specialist.CityId = cityId;
+            await context.SaveChangesAsync();
+            await UpdateWhereCanGo(specialist.Id, new int[0]);
+            await UpdateWhereCanMeet(specialist.Id, new int[0]);
+            return true;
+        }
+
         public async Task<bool> UpdateWhereCanGo(int specialistId, int[] pointsId)
         {
             context.UpdateManyToMany(
