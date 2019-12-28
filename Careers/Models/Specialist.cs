@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Careers.Models.Identity;
 
 namespace Careers.Models
@@ -43,5 +44,20 @@ namespace Careers.Models
         public IEnumerable<OrderResponse> OrderResponses { get; set; }
 
         //public IEnumerable<SpecialistAnswer> SpecialistAnswers { get; set; }
+
+        public Specialist()
+        {
+            this.LanguageSpecialists = Enumerable.Empty<LanguageSpecialist>();
+            this.SpecialistWorks = Enumerable.Empty<SpecialistWork>();
+            this.Educations = Enumerable.Empty<Education>();
+            this.Experiences = Enumerable.Empty<Experience>();
+            this.WhereCanMeetList = Enumerable.Empty<WhereCanMeetSpecialist>();
+            this.WhereCanGoList = Enumerable.Empty<WhereCanGoSpecialist>();
+            this.Orders = Enumerable.Empty<Order>();
+            this.SpecialistSubCategories = Enumerable.Empty<SpecialistSubCategory>();
+            this.SpecialistServices = Enumerable.Empty<SpecialistService>();
+            this.UserSpecialistMessages = Enumerable.Empty<UserSpecialistMessage>();
+            this.OrderResponses = Enumerable.Empty<OrderResponse>();
+        }
     }
 }

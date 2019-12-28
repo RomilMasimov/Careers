@@ -304,6 +304,9 @@ namespace Careers.Services
         public async Task<bool> UpdateCity(int specialistId, int cityId)
         {
             var specialist = await context.Specialists.FindAsync(specialistId);
+            if (specialist.CityId == cityId)
+                return false;
+
             specialist.CityId = cityId;
             await context.SaveChangesAsync();
             await UpdateWhereCanGo(specialist.Id, new int[0]);
