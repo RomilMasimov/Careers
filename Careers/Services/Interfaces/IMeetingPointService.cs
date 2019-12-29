@@ -13,6 +13,8 @@ namespace Careers.Services.Interfaces
         Task<MeetingPoint> FindAsync(int id);
         Task<MeetingPoint> FindAsync(string description);
         Task<IEnumerable<MeetingPoint>> GetAllAsync();
+        Task<IEnumerable<MeetingPoint>> GetAllByCityAsync(int cityId);
+        Task<IEnumerable<MeetingPoint>> GetAllByTextAsync(string text);
         Task<IEnumerable<MeetingPoint>> FindAllWhereCanMeetBySpecialistAsync(int specialistId);
         Task<IEnumerable<MeetingPoint>> FindAllWhereCanGoBySpecialistAsync(int specialistId);
     }

@@ -1,35 +1,65 @@
 ﻿@model string
+@{
+    ViewData["Title"] = "Upload portrait";
+}
 
-<h2>Photos (clients see them)</h2>
-
-<partial name="_PhotoTabNavigation" />
-
-<div class="my-2">
-    @if (TempData.ContainsKey("Status"))
-    {
-        <div class="alert alert-info" role="alert">
-            @TempData["Status"]
-        </div>
-    }
-    <form asp-area="Specialist" asp-controller="Profile" asp-action="UploadPortrait" method="post" enctype="multipart/form-data">
-        <div class="input-group">
-            <div class="custom-file">
-                <input name="Image" type="file" required class="custom-file-input" id="inputGroupFile" aria-describedby="inputGroupFile">
-                <label class="custom-file-label" for="inputGroupFile" id="label">Choose portrait</label>
+<div class="jp_tittle_main_wrapper">
+    <div class="jp_tittle_img_overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="jp_tittle_heading_wrapper">
+                    <div class="jp_tittle_heading">
+                        <h2>Photos (clients see them)</h2>
+                    </div>
+                    <div class="jp_tittle_breadcrumb_main_wrapper">
+                        <div class="jp_tittle_breadcrumb_wrapper">
+                            <ul>
+                                <li><a asp-area="Specialist" asp-controller="Profile" asp-action="Index">Profile</a> <i class="fa fa-angle-right"></i></li>
+                                <li>Upload portrait</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="submit">Upload</button>
-            </div>
         </div>
-    </form>
+    </div>
+</div>
 
-    @if (!string.IsNullOrWhiteSpace(Model))
-    {
-        <img class="img-fluid img-rounded my-2" width="200" height="200" src="~/@Model" />
-        <form asp-area="Specialist" asp-controller="Profile" asp-action="DeletePortrait" method="post" class="mt-1">
-            <button class="btn btn-danger">Delete</button>
-        </form>
-    }
+<div class="jp_adp_main_section_wrapper">
+    <div class="container">
+        <div class="row">
+            <partial name="_PhotoTabNavigation" />
+
+            @if (TempData.ContainsKey("Status"))
+            {
+                <div class="alert alert-info w-100" role="alert">
+                    @TempData["Status"]
+                </div>
+            }
+            <form asp-area="Specialist" asp-controller="Profile" asp-action="UploadPortrait" method="post" enctype="multipart/form-data" class="col-12 mt-2">
+                <div class="input-group d-flex">
+                    <div class="custom-file">
+                        <input name="Image" type="file" required class="custom-file-input" id="inputGroupFile" aria-describedby="inputGroupFile">
+                        <label class="custom-file-label" for="inputGroupFile" id="label">Choose portrait</label>
+                    </div>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit">Upload</button>
+                    </div>
+                </div>
+            </form>
+
+            @if (!string.IsNullOrWhiteSpace(Model) && Model != "N/A")
+            {
+                <div class="w-100 px-3">
+                    <img class="img-fluid img-rounded my-2" width="200" height="200" src="~/@Model" />
+                    <form asp-area="Specialist" asp-controller="Profile" asp-action="DeletePortrait" method="post" class="mt-1">
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            }
+        </div>
+    </div>
 </div>
 
 @section Scripts

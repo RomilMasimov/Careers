@@ -70,6 +70,16 @@ namespace Careers.Services
             return await context.SubCategories.Where(m => m.CategoryId == categoryId).ToListAsync();
         }
 
+        public async Task<IEnumerable<SubCategory>> GetAllSubCategoriesByAzTextAsync(string text)
+        {
+            return await context.SubCategories.Where(m => m.DescriptionAZ.Contains(text)).ToListAsync();
+        }
+
+        public async Task<IEnumerable<SubCategory>> GetAllSubCategoriesByRuTextAsync(string text)
+        { 
+            return await context.SubCategories.Where(m => m.DescriptionRU.Contains(text)).ToListAsync();
+        }
+
         public async Task<IEnumerable<Category>> GetAllCategories(bool includeSubcategories = false)
         {
             if (includeSubcategories)
@@ -159,6 +169,16 @@ namespace Careers.Services
         public async Task<IEnumerable<Service>> GetServicesBySubCategoryArrAsync(IEnumerable<int> subCategoryIds)
         {
             return await context.Services.Where(x => subCategoryIds.Contains(x.SubCategoryId)).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Service>> GetAllServicesByAzTextAsync(string text)
+        {
+            return await context.Services.Where(m => m.DescriptionAZ.Contains(text)).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Service>> GetAllServicesByRuTextAsync(string text)
+        {
+            return await context.Services.Where(m => m.DescriptionRU.Contains(text)).ToListAsync();
         }
     }
 }

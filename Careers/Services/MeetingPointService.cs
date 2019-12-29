@@ -36,7 +36,7 @@ namespace Careers.Services
         public async Task<bool> DeleteMeetingPointAsync(MeetingPoint meetingPoint)
         {
             context.MeetingPoints.Remove(meetingPoint);
-            
+
             return await context.SaveChangesAsync() > 0;
         }
 
@@ -53,6 +53,16 @@ namespace Careers.Services
         public async Task<IEnumerable<MeetingPoint>> GetAllAsync()
         {
             return await context.MeetingPoints.ToListAsync();
+        }
+
+        public async Task<IEnumerable<MeetingPoint>> GetAllByCityAsync(int cityId)
+        {
+            return await context.MeetingPoints.Where(m => m.CityId == cityId).ToListAsync();
+        }
+
+        public async Task<IEnumerable<MeetingPoint>> GetAllByTextAsync(string text)
+        {
+            return await context.MeetingPoints.Where(m => m.Description.Contains(text)).ToListAsync();
         }
 
         public async Task<IEnumerable<MeetingPoint>> FindAllWhereCanMeetBySpecialistAsync(int specialistId)
