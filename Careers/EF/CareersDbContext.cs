@@ -1,4 +1,5 @@
 ﻿using Careers.Models;
+using Careers.Models.Configurations;
 using Careers.Models.Enums;
 using Careers.Models.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -13,7 +14,22 @@ namespace Careers.EF
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<Answer>()
+            modelBuilder.ApplyConfiguration(new AnswerOrderConfigurator());
+            modelBuilder.ApplyConfiguration(new ClientConfigurator());
+            modelBuilder.ApplyConfiguration(new MeasurementConfigurator());
+            modelBuilder.ApplyConfiguration(new MeetingPointConfigurator());
+            modelBuilder.ApplyConfiguration(new OrderConfigurator());
+            modelBuilder.ApplyConfiguration(new OrderConfigurator());
+            modelBuilder.ApplyConfiguration(new OrderMeetingPointConfigurator());
+            modelBuilder.ApplyConfiguration(new OrderResponseConfigurator());
+            modelBuilder.ApplyConfiguration(new QuestionConfigurator());
+            modelBuilder.ApplyConfiguration(new SpecialistConfigurator());
+            modelBuilder.ApplyConfiguration(new SpecialistServiceConfigurator());
+            modelBuilder.ApplyConfiguration(new SpecialistSubCategoryConfigurator());
+            modelBuilder.ApplyConfiguration(new UserSpecialistMessageConfigurator());
+            modelBuilder.ApplyConfiguration(new WhereCanGoSpecialistConfigurator());
+            modelBuilder.ApplyConfiguration(new WhereCanMeetSpecialistConfigurator());
+
             //    .HasOne(p => p.AskedQuestion)
             //    .WithMany(b => b.Answers)
             //    .HasForeignKey(p => p.AskedQuestionId);
@@ -24,16 +40,16 @@ namespace Careers.EF
             //    .HasForeignKey(p => p.NextQuestionId);
 
             //modelBuilder.Entity<QuestionAnswer>()
-                //.HasOne(pt => pt.Question)
-                //.WithMany(p => p.QuestionAnswers)
-                //.OnDelete(DeleteBehavior.NoAction)
-                //.HasForeignKey(pt => pt.QuestionId);
+            //.HasOne(pt => pt.Question)
+            //.WithMany(p => p.QuestionAnswers)
+            //.OnDelete(DeleteBehavior.NoAction)
+            //.HasForeignKey(pt => pt.QuestionId);
 
             //modelBuilder.Entity<QuestionAnswer>()
-                //.HasOne(s => s.Question)
-                //.WithMany(cml => cml.QuestionAnswers)
-                //.OnDelete(DeleteBehavior.NoAction)
-                //.HasForeignKey(si => si.QuestionId);
+            //.HasOne(s => s.Question)
+            //.WithMany(cml => cml.QuestionAnswers)
+            //.OnDelete(DeleteBehavior.NoAction)
+            //.HasForeignKey(si => si.QuestionId);
 
             //modelBuilder.Entity<SpecialistAnswer>()
             //  .HasOne(pt => pt.Answer)
