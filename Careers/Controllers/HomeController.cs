@@ -53,12 +53,6 @@ namespace Careers.Controllers
                 Reviews = reviews,
                 Specialists = specialists
             };
-            var cities = await _locationService.GetAllCitiesAsync();
-            ViewBag.Locations = new SelectList(cities, "Id", "Name");
-
-            var isRu = CultureInfo.CurrentCulture.Name == "ru-RU";
-            var services = await _categoryService.GetAllServicesAsync();
-            ViewBag.Services = new SelectList(services, "Id", isRu ? "DescriptionRU" : "DescriptionAZ");
             return View(viewModel);
         }
 
