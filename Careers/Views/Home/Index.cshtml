@@ -472,23 +472,7 @@
 <!-- jp client slider wrapper End -->
 <!-- jp Newsletter Wrapper Start -->
 <!-- jp footer Wrapper End -->
-<!-- Modal -->
-<div class="modal fade" id="modal-window" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                ...
-            </div>
 
-        </div>
-    </div>
-</div>
 
 @section Scripts
 {
@@ -496,11 +480,17 @@
     <script>
         $("#services").autocomplete({
             source: '/Home/ServicesAndSubCategoriesAutocomplete',
-            minLength: 2
+            minLength: 2,
         });
         $("#locations").autocomplete({
             source: '/Home/MeetingPointsAutocomplete',
             minLength: 2
         });
+
+        document.getElementById('services').onchange = function (event) {
+            console.log(event);
+            
+        };
+
     </script>
 }
