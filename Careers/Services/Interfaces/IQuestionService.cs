@@ -9,6 +9,6 @@ namespace Careers.Services.Interfaces
         Task<Question> InsertAsync(Question question);
         Task<Question> UpdateAsync(Question question);
         Task<bool> DeleteAsync(Question question);
-        Task<IEnumerable<Question>> FindAllAsync(int subCategoryId);
+        Task<IEnumerable<Question>> FindAllAsync(int subCategoryId, int? serviceId = null);
     }
 }
