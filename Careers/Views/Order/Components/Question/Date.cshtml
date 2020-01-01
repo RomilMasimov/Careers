@@ -1,0 +1,6 @@
+﻿@model Question
+
+<div class="jp_adp_form_wrapper">
+    <p>@(ViewBag.isRu ? Model.TextRU : Model.TextAZ)</p>
+    <input name="answer" type="datetime-local">
+</div>

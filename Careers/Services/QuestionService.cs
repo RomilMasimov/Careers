@@ -20,14 +20,15 @@ namespace Careers.Services
         public async Task<bool> DeleteAsync(Question question)
         {
             context.Questions.Remove(question);
-        
+
             return await context.SaveChangesAsync() > 0;
         }
 
-        public async Task<IEnumerable<Question>> FindAllAsync(int subCategoryId)
+        public async Task<IEnumerable<Question>> FindAllAsync(int subCategoryId, int? serviceId = null)
         {
             return await context.Questions
-                .Where(m => m.SubCategoryId == subCategoryId)
+                .Where(m => m.SubCategoryId == subCategoryId ||
+                       (m.SubCategoryId == subCategoryId && m.ServiceId == serviceId))
                 //.Include(m => m.QuestionAnswers)
                 .Include(m => m.Answers)
                 //.Include(m => m.FromAnswers)

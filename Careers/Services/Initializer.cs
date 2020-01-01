@@ -137,10 +137,20 @@ namespace Careers.Services
             var q2 = context.Questions.Add(new Question { Type = QuestionTypeEnum.Input, TextRU = "Для чего?", TextAZ = "Ne ucun?", SubCategory = subcategory });
             var q3 = context.Questions.Add(new Question { Type = QuestionTypeEnum.Single, TextRU = "Язык программирования?", TextAZ = "Hansi dilinde?", SubCategory = subcategory });
             var q4 = context.Questions.Add(new Question { Type = QuestionTypeEnum.Input, TextRU = "Детали и сроки задачи?", TextAZ = "deadline?", SubCategory = subcategory });
-            var q5 = context.Questions.Add(new Question { Type = QuestionTypeEnum.Single, TextRU = "Когда приступить к задаче?", TextAZ = "Ne vaxt bashlayaq?", SubCategory = subcategory });
-            var q6 = context.Questions.Add(new Question { Type = QuestionTypeEnum.Multi, TextRU = "Подходящее время", TextAZ = "uygun saat?", SubCategory = subcategory });
-            var def = context.Questions.Add(new Question { Type = QuestionTypeEnum.Multi, TextRU = "Остались пожелания к заказу?", TextAZ = "Artiq nese yazmaq isteyerdiz", SubCategory = subcategory });
+            var q5 = context.Questions.Add(new Question { Type = QuestionTypeEnum.Date, TextRU = "Когда приступить к задаче?", TextAZ = "Ne vaxt bashlayaq?", SubCategory = subcategory });
+            var q6 = context.Questions.Add(new Question { Type = QuestionTypeEnum.MyLocation, TextRU = "Ваш адрес", TextAZ = "Sizin adresiniz", SubCategory = subcategory });
 
+            context.Answers.Add(new Answer { TextRU = "JavaScript", TextAZ = "JavaScript", QuestionId = q3.Entity.Id });
+            context.Answers.Add(new Answer { TextRU = "Java", TextAZ = "Java", QuestionId = q3.Entity.Id });
+            context.Answers.Add(new Answer { TextRU = "Python", TextAZ = "Python", QuestionId = q3.Entity.Id });
+            context.Answers.Add(new Answer { TextRU = "PHP", TextAZ = "PHP", QuestionId = q3.Entity.Id });
+            context.Answers.Add(new Answer { TextRU = "C++", TextAZ = "C++", QuestionId = q3.Entity.Id });
+            context.Answers.Add(new Answer { TextRU = "CSS", TextAZ = "CSS", QuestionId = q3.Entity.Id });
+            context.Answers.Add(new Answer { TextRU = "C#", TextAZ = "C#", QuestionId = q3.Entity.Id });
+            context.Answers.Add(new Answer { TextRU = "C", TextAZ = "C", QuestionId = q3.Entity.Id });
+            context.Answers.Add(new Answer { TextRU = "Не знаю, нужна рекомендация специалиста", TextAZ = "Bilmirəm, mütəxəssis tövsiyəsinə ehtiyacım var", QuestionId = q3.Entity.Id });
+
+            #region
             //context.Answers.Add(new Answer { TextRU = "", TextAZ = "", AskedQuestion = q1.Entity, NextQuestion = q2.Entity });
 
             //context.Answers.Add(new Answer { TextRU = "", TextAZ = "", AskedQuestion = q2.Entity, NextQuestion = q3.Entity });
@@ -161,6 +171,7 @@ namespace Careers.Services
             //context.Answers.Add(new Answer { TextRU = "После 21:00", TextAZ = "После 21:00", AskedQuestion = q6.Entity,  });
 
             //context.Answers.Add(new Answer { TextRU = "", TextAZ = "", AskedQuestion = def.Entity });
+            #endregion
 
             context.SaveChanges();
         }

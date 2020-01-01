@@ -1,0 +1,9 @@
+﻿@model Question
+
+<div class="jp_adp_form_wrapper">
+    <p>@(ViewBag.isRu ? Model.TextRU : Model.TextAZ)</p>
+    @foreach (var answer in Model.Answers)
+    {
+        <input name="answer" type="checkbox" value="@answer.Id" /> @(ViewBag.isRu ? answer.TextRU : answer.TextAZ) <br>
+    }
+</div>
