@@ -8,10 +8,12 @@ using Careers.Models;
 using Careers.Services;
 using Careers.Services.Interfaces;
 using Careers.ViewModels.Home;
+using Careers.ViewModels.Spec;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Routing;
 
 namespace Careers.Controllers
 {
@@ -66,8 +68,8 @@ namespace Careers.Controllers
             {
                 services = await _categoryService.GetAllServicesByRuTextAsync(term);
                 subCategories = await _categoryService.GetAllSubCategoriesByRuTextAsync(term);
-                selectServices.AddRange(services.Select(m => new AutocompleteViewModel { Id = m.Id, Value = m.DescriptionRU, Label = m.DescriptionRU }));
-                selectServices.AddRange(subCategories.Select(m => new AutocompleteViewModel { Id = m.Id, Value = m.DescriptionRU, Label = m.DescriptionRU }));
+                selectServices.AddRange(services.Select(m => new AutocompleteViewModel { Id = m.Id, Value = m.DescriptionRU, Label = m.DescriptionRU, Type = "service" }));
+                selectServices.AddRange(subCategories.Select(m => new AutocompleteViewModel { Id = m.Id, Value = m.DescriptionRU, Label = m.DescriptionRU, Type = "subcategory" }));
             }
             else
             {
@@ -85,8 +87,20 @@ namespace Careers.Controllers
         {
             IEnumerable<MeetingPoint> meetingPoints = await _meetingPointService.GetAllByTextAsync(term);
             List<AutocompleteViewModel> selectPoints = new List<AutocompleteViewModel>(); ;
-            selectPoints.AddRange(meetingPoints.Select(m => new AutocompleteViewModel() { Id = m.Id, Value = m.Description, Label = m.Description }));
+            selectPoints.AddRange(meetingPoints.Select(m => new AutocompleteViewModel() { Id = m.Id, Value = m.Description, Label = m.Description, Type = "meetingpoint" }));
             return Json(selectPoints);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> FilterCreator(SearchViewModel model)
+        {
+            int cityId = 0;
+            if (model.MettingPointId > 0)
+            {
+                var meetingPoint = await _meetingPointService.FindAsync(model.MettingPointId);
+                cityId = meetingPoint.CityId;
+            }
+            return RedirectToAction("ListOfSpecialists", "Specialist", new { cityId, subCategoryId = model.SubCategoryId, serviceId = model.ServiceId }); ;
         }
 
         [HttpPost]

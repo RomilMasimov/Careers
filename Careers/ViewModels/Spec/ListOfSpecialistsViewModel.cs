@@ -22,11 +22,11 @@ namespace Careers.ViewModels.Spec
         public ListOfSpecialistsViewModel()
         {
             IsEmpty = true;
+            Filter = new SpecialistFilter();
             //LanguagesFilter = new List<Filter>();
             //CitiesFilter = new List<Filter>();
             //ServicesFilter = new List<Filter>();
             //Specialists = new List<Specialist>();
-            //Filter = new SpecialistFilter();
             //Categories = new List<Category>();
         }
     }

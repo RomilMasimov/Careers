@@ -27,9 +27,22 @@ namespace Careers.Controllers
             _categoryService = categoryService;
         }
 
+        [HttpGet]
+        public Task<IActionResult> ListOfSpecialists(int subCategoryId, int serviceId, int cityId)
+        {
+            var listOfSpecialistsViewModel = new ListOfSpecialistsViewModel();
 
+            if (cityId > 0)
+                listOfSpecialistsViewModel.Filter.CityIds.Add(cityId);
+            if (serviceId > 0)
+                listOfSpecialistsViewModel.Filter.ServiceIds.Add(serviceId);
+            else if (subCategoryId > 0)
+                listOfSpecialistsViewModel.Filter.SubCategoryIds.Add(subCategoryId);
+            return ListOfSpecialists(listOfSpecialistsViewModel);
+        }
 
-        public async Task<IActionResult> ListOfSpecialists(ListOfSpecialistsViewModel model, int subCategoryId, int serviceId)
+        [HttpPost]
+        public async Task<IActionResult> ListOfSpecialists(ListOfSpecialistsViewModel model, int subCategoryId = 0, int serviceId = 0)
         {
             var cities = await _locationService.GetAllCitiesAsync();
             var languages = await _languageService.GetAllAsync();

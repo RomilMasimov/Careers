@@ -28,21 +28,20 @@
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="jp_header_form_wrapper">
+                    <form asp-area="" asp-controller="Home" asp-action="FilterCreator" method="post" class="jp_header_form_wrapper">
+                        <input id="subCategotyId" name="SubCategoryId" hidden />
+                        <input id="serviceId" name="ServiceId" hidden />
+                        <input id="meetingPointId" name="MettingPointId" hidden />
                         <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
-                            <input id="services" type="text" placeholder="Keyword e.g. (Job Title, Description, Tags)">
+                            <input name="ServicesInputText" id="services" type="text" placeholder="Keyword e.g. (Job Title, Description, Tags)">
                         </div>
-                        <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
-                            <input id="locations" type="text" placeholder="Locations">
+                        <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 mt-lg-0 mt-md-0 mt-sm-2 mt-xs-2 mt-2">
+                            <input name="LocationsInputText" id="locations" type="text" placeholder="Locations">
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-                            <div class="jp_form_btn_wrapper">
-                                <ul>
-                                    <li><a href="#"><i class="fa fa-search"></i> Search</a></li>
-                                </ul>
-                            </div>
+                        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 mt-lg-0 mt-md-0 mt-sm-2 mt-xs-2 mt-2">
+                            <button class="index_btn_search"><i class="fa fa-search"></i> Search</button>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="jp_banner_main_jobs_wrapper">
@@ -481,16 +480,17 @@
         $("#services").autocomplete({
             source: '/Home/ServicesAndSubCategoriesAutocomplete',
             minLength: 2,
+            select: function (event, ui) {
+                if (ui.item.type == "service") $("#serviceId").val(ui.item.id);
+                else if (ui.item.type == "subcategory") $("#subCategotyId").val(ui.item.id);
+            }
         });
         $("#locations").autocomplete({
             source: '/Home/MeetingPointsAutocomplete',
-            minLength: 2
+            minLength: 2,
+            select: function (event, ui) {
+                if (ui.item.type == "meetingpoint") $("#meetingPointId").val(ui.item.id); 
+            }
         });
-
-        document.getElementById('services').onchange = function (event) {
-            console.log(event);
-            
-        };
-
     </script>
 }

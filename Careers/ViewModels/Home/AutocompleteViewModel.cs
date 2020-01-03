@@ -14,6 +14,9 @@ namespace Careers.ViewModels.Home
         [JsonPropertyName("value")]
         public string Value { get; set; }
 
+        [JsonPropertyName("type")]
+        public string Type { get; set; }
+
         [JsonPropertyName("label")]
         public string Label { get; set; }
     }
