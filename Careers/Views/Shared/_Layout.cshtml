@@ -230,10 +230,10 @@
                                                 }
                                                 else if (User.IsInRole("specialist"))
                                                 {
-                                                    <li class="parent"><a>profile</a></li>
+                                                    <li class="parent"><a asp-area="Specialist" asp-controller="Profile" asp-action="Index">profile</a></li>
 
                                                 }
-                                                <li class="parent"><a asp-controller="Auth" asp-action="SignOut">Sign out</a></li>
+                                                <li class="parent"><a asp-area="Home" asp-controller="Auth" asp-action="SignOut">Sign out</a></li>
                                             </ul>
                                         </li>
                                         <li>
