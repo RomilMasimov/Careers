@@ -4,6 +4,6 @@
     <p>@(ViewBag.isRu ? Model.TextRU : Model.TextAZ)</p>
     @foreach (var answer in Model.Answers)
     {
-        <input name="answer" type="checkbox" value="@answer.Id" /> @(ViewBag.isRu ? answer.TextRU : answer.TextAZ) <br>
+        <input name="answer" type="checkbox" value="@answer.Id" class="w-auto h-auto"> @(ViewBag.isRu ? answer.TextRU : answer.TextAZ) <br>
     }
 </div>
