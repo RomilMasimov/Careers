@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Threading.Tasks;
-using Careers.Models;
 using Careers.Services;
 using Careers.Services.Interfaces;
 using Careers.ViewModels.Service;
