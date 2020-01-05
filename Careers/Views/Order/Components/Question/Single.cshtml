@@ -4,6 +4,6 @@
     <p>@(ViewBag.isRu ? Model.TextRU : Model.TextAZ)</p>
     @foreach (var answer in Model.Answers)
     {
-        <input name="answer" type="radio" value="@answer.Id" class="w-auto h-auto" /> @(ViewBag.isRu ? answer.TextRU : answer.TextAZ)<br>
+        <input name="answer" type="radio" value="@answer.Id" class="w-auto h-auto"> @(ViewBag.isRu ? answer.TextRU : answer.TextAZ)<br>
     }
 </div>

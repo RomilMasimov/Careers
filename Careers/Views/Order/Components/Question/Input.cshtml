@@ -1,5 +1,6 @@
 ﻿@model Question
 
 <div class="jp_adp_textarea_main_wrapper p-0 mt-4 border-0">
-    <textarea name="answer" type="text" placeholder="@(ViewBag.isRu ? Model.TextRU : Model.TextAZ)" rows="3"></textarea>
+    <p>@(ViewBag.isRu ? Model.TextRU : Model.TextAZ)</p>
+    <textarea name="answer" type="text" rows="3"></textarea>
 </div>

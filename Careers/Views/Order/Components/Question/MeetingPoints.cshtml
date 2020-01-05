@@ -1,6 +1,7 @@
 ﻿@model Question
 
 <div class="jp_adp_form_wrapper">
+    <p>@(ViewBag.isRu ? Model.TextRU : Model.TextAZ)</p>
     <select name="answer" id="points" asp-items="ViewBag.Points" data-placeholder="@(ViewBag.isRu ? Model.TextRU : Model.TextAZ)" multiple class="chosen-select"></select>
 </div>
 

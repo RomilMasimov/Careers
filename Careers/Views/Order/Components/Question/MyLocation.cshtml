@@ -1,5 +1,6 @@
 ﻿@model Question
 
 <div class="jp_adp_form_wrapper">
-    <input name="answer" type="text" placeholder="@(ViewBag.isRu ? Model.TextRU : Model.TextAZ)">
+    <p>@(ViewBag.isRu ? Model.TextRU : Model.TextAZ)</p>
+    <input name="answer" type="text">
 </div>
