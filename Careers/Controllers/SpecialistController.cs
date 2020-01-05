@@ -27,22 +27,8 @@ namespace Careers.Controllers
             _categoryService = categoryService;
         }
 
-        [HttpGet]
-        public Task<IActionResult> ListOfSpecialists(int subCategoryId, int serviceId, int cityId)
-        {
-            var listOfSpecialistsViewModel = new ListOfSpecialistsViewModel();
-
-            if (cityId > 0)
-                listOfSpecialistsViewModel.Filter.CityIds.Add(cityId);
-            if (serviceId > 0)
-                listOfSpecialistsViewModel.Filter.ServiceIds.Add(serviceId);
-            else if (subCategoryId > 0)
-                listOfSpecialistsViewModel.Filter.SubCategoryIds.Add(subCategoryId);
-            return ListOfSpecialists(listOfSpecialistsViewModel);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> ListOfSpecialists(ListOfSpecialistsViewModel model, int subCategoryId = 0, int serviceId = 0)
+    
+        public async Task<IActionResult> ListOfSpecialists(ListOfSpecialistsViewModel model, int cityId=0, int subCategoryId = 0, int serviceId = 0)
         {
             var cities = await _locationService.GetAllCitiesAsync();
             var languages = await _languageService.GetAllAsync();
@@ -120,6 +106,13 @@ namespace Careers.Controllers
                 model.Filter.ServiceIds.Add(serviceId);
                 model.Filter.SubCategoryIds.Add(subCategoryId);
 
+                var city2 = model.CitiesFilter.FirstOrDefault(x => x.Id == cityId);
+                if (city2 != null)
+                {
+                    city2.Selected = true;
+                    model.Filter.CityIds.Add(cityId);
+                }
+
                 model.Specialists = await _specialistService.GetByFilterAsync(model.Filter);
 
                 return View(model);
@@ -164,6 +157,13 @@ namespace Careers.Controllers
                 model.Filter = new SpecialistFilter();
                 model.Filter.SubCategoryIds.Add(subCategoryId);
 
+                var city1 = model.CitiesFilter.FirstOrDefault(x => x.Id == cityId);
+                if (city1 != null)
+                {
+                    city1.Selected = true;
+                    model.Filter.CityIds.Add(cityId);
+                }
+
                 model.Specialists = await _specialistService.GetByFilterAsync(model.Filter);
 
                 return View(model);
@@ -203,7 +203,14 @@ namespace Careers.Controllers
             }
 
             model.Filter = new SpecialistFilter();
-
+            
+            var city = model.CitiesFilter.FirstOrDefault(x => x.Id == cityId);
+            if (city != null)
+            {
+                city.Selected = true;
+                model.Filter.CityIds.Add(cityId);
+            }
+            
             model.Specialists = await _specialistService.GetByFilterAsync(model.Filter);
 
             return View(model);

@@ -25,7 +25,8 @@ namespace Careers.Controllers
         private readonly ICategoryService _categoryService;
         private readonly Initializer _initializer;
 
-        public HomeController(ISpecialistService specialistService, IReviewService reviewService, IMeetingPointService meetingPointService, ICategoryService categoryService, Initializer initializer)
+        public HomeController(ISpecialistService specialistService, IReviewService reviewService,
+            IMeetingPointService meetingPointService, ICategoryService categoryService, Initializer initializer)
         {
             _specialistService = specialistService;
             _reviewService = reviewService;
@@ -55,6 +56,7 @@ namespace Careers.Controllers
                 Reviews = reviews,
                 Specialists = specialists
             };
+
             return View(viewModel);
         }
 
@@ -63,20 +65,38 @@ namespace Careers.Controllers
         {
             IEnumerable<Service> services;
             IEnumerable<SubCategory> subCategories;
-            List<AutocompleteViewModel> selectServices = new List<AutocompleteViewModel>(); ;
+            List<AutocompleteViewModel> selectServices = new List<AutocompleteViewModel>();
+
             if (CultureInfo.CurrentCulture.Name == "ru-RU")
             {
                 services = await _categoryService.GetAllServicesByRuTextAsync(term);
                 subCategories = await _categoryService.GetAllSubCategoriesByRuTextAsync(term);
                 selectServices.AddRange(services.Select(m => new AutocompleteViewModel { Id = m.Id, Value = m.DescriptionRU, Label = m.DescriptionRU, Type = "service" }));
-                selectServices.AddRange(subCategories.Select(m => new AutocompleteViewModel { Id = m.Id, Value = m.DescriptionRU, Label = m.DescriptionRU, Type = "subcategory" }));
+                selectServices.AddRange(subCategories.Select(m => new AutocompleteViewModel
+                {
+                    Id = m.Id,
+                    Value = m.DescriptionRU,
+                    Label = m.DescriptionRU,
+                    Type = "subcategory"
+                }));
             }
             else
             {
                 services = await _categoryService.GetAllServicesByAzTextAsync(term);
                 subCategories = await _categoryService.GetAllSubCategoriesByAzTextAsync(term);
-                selectServices.AddRange(services.Select(m => new AutocompleteViewModel { Id = m.Id, Value = m.DescriptionAZ, Label = m.DescriptionAZ }));
-                selectServices.AddRange(subCategories.Select(m => new AutocompleteViewModel { Id = m.Id, Value = m.DescriptionAZ, Label = m.DescriptionAZ }));
+                selectServices.AddRange(services.Select(m => new AutocompleteViewModel
+                {
+                    Id = m.Id,
+                    Value = m.DescriptionAZ,
+                    Label = m.DescriptionAZ
+                }));
+
+                selectServices.AddRange(subCategories.Select(m => new AutocompleteViewModel
+                {
+                    Id = m.Id,
+                    Value = m.DescriptionAZ,
+                    Label = m.DescriptionAZ
+                }));
             }
 
             return Json(selectServices);
@@ -87,7 +107,14 @@ namespace Careers.Controllers
         {
             IEnumerable<MeetingPoint> meetingPoints = await _meetingPointService.GetAllByTextAsync(term);
             List<AutocompleteViewModel> selectPoints = new List<AutocompleteViewModel>(); ;
-            selectPoints.AddRange(meetingPoints.Select(m => new AutocompleteViewModel() { Id = m.Id, Value = m.Description, Label = m.Description, Type = "meetingpoint" }));
+            selectPoints.AddRange(meetingPoints.Select(m => new AutocompleteViewModel()
+            {
+                Id = m.Id,
+                Value = m.Description,
+                Label = m.Description,
+                Type = "meetingpoint"
+            }));
+
             return Json(selectPoints);
         }
 
@@ -100,7 +127,13 @@ namespace Careers.Controllers
                 var meetingPoint = await _meetingPointService.FindAsync(model.MettingPointId);
                 cityId = meetingPoint.CityId;
             }
-            return RedirectToAction("ListOfSpecialists", "Specialist", new { cityId, subCategoryId = model.SubCategoryId, serviceId = model.ServiceId }); ;
+
+            return RedirectToAction("ListOfSpecialists", "Specialist", new
+            {
+                cityId,
+                subCategoryId = model.SubCategoryId,
+                serviceId = model.ServiceId
+            });
         }
 
         [HttpPost]
