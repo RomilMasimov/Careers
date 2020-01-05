@@ -156,4 +156,7 @@
   <data name="other" xml:space="preserve">
     <value>Diger specialistler</value>
   </data>
+  <data name="review" xml:space="preserve">
+    <value>Otziv saxlamaq</value>
+  </data>
 </root>

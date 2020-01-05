@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Careers.Models;
 using Careers.Services.Interfaces;
+using Careers.ViewModels.Order;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -32,7 +33,23 @@ namespace Careers.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var client = await _clientService.FindAsync(userId, true);
 
-            return View(client.Orders);
+            var isRu = CultureInfo.CurrentCulture.Name == "ru-RU";            
+            var model = client.Orders.Select(m => new OrderViewModel
+            {
+                Id = m.Id,
+                State = m.State,
+                Created = m.Created,
+                ServiceDescription = isRu ? m.Service.DescriptionRU : m.Service.DescriptionAZ,
+                SpecialistId = m.SpecialistId,
+                SpecialistImage = m.Specialist.ImageUrl,
+                SpecialistFullName = $"{m.Specialist.Name} {m.Specialist.Surname}",
+            });
+            return View(model);
+        }
+
+        public IActionResult Order(int id)
+        {
+            return Content($"I'm oreder {id}");
         }
 
         [HttpGet]

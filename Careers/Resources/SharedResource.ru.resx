@@ -156,4 +156,7 @@
   <data name="other" xml:space="preserve">
     <value>Разные специалисты</value>
   </data>
+  <data name="review" xml:space="preserve">
+    <value>Оставить отзыв</value>
+  </data>
 </root>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Careers.Models.Enums;
 
 namespace Careers.Models
@@ -7,6 +8,7 @@ namespace Careers.Models
     {
         public int Id { get; set; }
         public OrderStateTypeEnum State { get; set; }
+        public DateTime Created { get; set; }
         public int PriceMin { get; set; }
         public int? PriceMax { get; set; }
 
