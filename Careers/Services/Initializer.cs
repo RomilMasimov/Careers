@@ -169,15 +169,12 @@ namespace Careers.Services
 
             context.Answers.Add(new Answer { TextRU = "Устный", TextAZ = "Şifahi", QuestionId = t1.Entity.Id });
             context.Answers.Add(new Answer { TextRU = "Письменный", TextAZ = "Yazılıb", QuestionId = t1.Entity.Id });
-
             context.Answers.Add(new Answer { TextRU = "Английский", TextAZ = "İngilis", QuestionId = t2.Entity.Id });
             context.Answers.Add(new Answer { TextRU = "Русский", TextAZ = "Rus", QuestionId = t2.Entity.Id });
             context.Answers.Add(new Answer { TextRU = "Азербайджанский", TextAZ = "Azərbaycan", QuestionId = t2.Entity.Id });
-
             context.Answers.Add(new Answer { TextRU = "Английский", TextAZ = "İngilis", QuestionId = t3.Entity.Id });
             context.Answers.Add(new Answer { TextRU = "Русский", TextAZ = "Rus", QuestionId = t3.Entity.Id });
             context.Answers.Add(new Answer { TextRU = "Азербайджанский", TextAZ = "Azərbaycan", QuestionId = t3.Entity.Id });
-
             context.Answers.Add(new Answer { TextRU = "Техническую документацию", TextAZ = "Texniki sənədlər", QuestionId = t4.Entity.Id });
             context.Answers.Add(new Answer { TextRU = "Художественный текст", TextAZ = "Bədii mətn", QuestionId = t4.Entity.Id });
             #endregion
