@@ -33,7 +33,8 @@ namespace Careers.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var client = await _clientService.FindAsync(userId, true);
 
-            var isRu = CultureInfo.CurrentCulture.Name == "ru-RU";            
+            var isRu = CultureInfo.CurrentCulture.Name == "ru-RU";
+            
             var model = client.Orders.Select(m => new OrderViewModel
             {
                 Id = m.Id,
@@ -44,6 +45,7 @@ namespace Careers.Controllers
                 SpecialistImage = m.Specialist.ImageUrl,
                 SpecialistFullName = $"{m.Specialist.Name} {m.Specialist.Surname}",
             });
+
             return View(model);
         }
 
