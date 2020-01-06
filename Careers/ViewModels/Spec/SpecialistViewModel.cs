@@ -52,7 +52,7 @@ namespace Careers.ViewModels.Spec
                 SubCategories = specialist.SpecialistSubCategories?.Select(x => x.SubCategory.DescriptionRU).ToList() ?? new List<string>();
             else SubCategories = specialist.SpecialistSubCategories?.Select(x => x.SubCategory.DescriptionAZ).ToList() ?? new List<string>();
 
-            if (specialist.Orders != null)
+            if (specialist.Orders.Any())
             {
                 foreach (var order in specialist.Orders)
                 {
