@@ -43,7 +43,11 @@ namespace Careers.Services
 
         public async Task<IEnumerable<Order>> FindAllBySpecialistAsync(int specialistId)
         {
-            return await context.Orders.Where(m => m.SpecialistId == specialistId).ToListAsync();
+            return await context.Orders.Where(m => m.SpecialistId == specialistId)
+                .Include(m => m.Service)
+                .Include(m => m.Client)
+                .Include(m => m.Specialist)
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<OrderResponse>> FindAllResponseByOrderAsync(int orderId)
