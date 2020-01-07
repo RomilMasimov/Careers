@@ -3407,6 +3407,9 @@ ul{
 	bottom:0%;
 	background:#0e1427d9;
 }
+.header {
+	font-weight: bold;
+}
 .jp_tittle_heading{
 	float:left;
 	width:100%;
