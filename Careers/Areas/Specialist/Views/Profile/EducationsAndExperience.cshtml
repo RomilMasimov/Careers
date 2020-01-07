@@ -39,9 +39,9 @@
             }
 
             <div class="jp_adp_form_heading_wrapper col-12">
-                <div class="d-flex align-items-center">
+                <div class="d-flex align-items-center justify-content-between">
                     <h2>Education</h2>
-                    <a asp-area="Specialist" asp-controller="Profile" asp-action="AddEducation" class="btn btn-light ml-2"><i class="fa fa-plus-circle"></i> Add</a>
+                    <a asp-area="Specialist" asp-controller="Profile" asp-action="AddEducation" class="jp_btn_default ml-2"><i class="fa fa-plus-circle"></i> Add</a>
                 </div>
             </div>
 
@@ -51,12 +51,14 @@
                     @foreach (var item in Model.Educations)
                     {
                         <li class="list-group-item">
-                            <div class="row">
+                            <div class="d-flex align-items-center justify-content-between">
                                 <p class="col-md-8 my-auto">@item.StudyPlaceName (@item.StartDate.ToShortDateString()@(item.EndDate.HasValue ? $" - {item.EndDate?.ToShortDateString()}" : ""))</p>
-                                <a asp-area="Specialist" asp-controller="Profile" asp-action="EditEducation" asp-route-id="@item.Id" class="btn btn-light col-md-2">Edit</a>
-                                <form asp-area="Specialist" asp-controller="Profile" asp-action="DeleteEducation" asp-route-id="@item.Id" class="col-md-2" method="post">
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </form>
+                                <div class="d-flex align-items-center">
+                                    <a asp-area="Specialist" asp-controller="Profile" asp-action="EditEducation" asp-route-id="@item.Id"><i class="fa fa-edit"></i></a>
+                                    <form asp-area="Specialist" asp-controller="Profile" asp-action="DeleteEducation" asp-route-id="@item.Id" class="ml-3" method="post">
+                                        <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                    </form>
+                                </div>
                             </div>
                         </li>
                     }
@@ -64,9 +66,9 @@
             }
 
             <div class="jp_adp_form_heading_wrapper col-12 mt-5">
-                <div class="d-flex align-items-center">
+                <div class="d-flex align-items-center justify-content-between">
                     <h2>Experience</h2>
-                    <a asp-area="Specialist" asp-controller="Profile" asp-action="AddExperience" class="btn btn-light ml-2"><i class="fa fa-plus-circle"></i> Add</a>
+                    <a asp-area="Specialist" asp-controller="Profile" asp-action="AddExperience" class="jp_btn_default ml-2"><i class="fa fa-plus-circle"></i> Add</a>
                 </div>
             </div>
 
@@ -76,12 +78,14 @@
                     @foreach (var item in Model.Experiences)
                     {
                         <li class="list-group-item">
-                            <div class="row">
+                            <div class="d-flex align-items-center justify-content-between">
                                 <p class="col-md-8 my-auto">@item.CompanyName (@item.StartDate.ToShortDateString()@(item.EndDate.HasValue ? $" - {item.EndDate?.ToShortDateString()}" : ""))</p>
-                                <a asp-area="Specialist" asp-controller="Profile" asp-action="EditExperience" asp-route-id="@item.Id" class="btn btn-light col-md-2">Edit</a>
-                                <form asp-area="Specialist" asp-controller="Profile" asp-action="DeleteExperience" asp-route-id="@item.Id" class="col-md-2" method="post">
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </form>
+                                <div class="d-flex align-items-center">
+                                    <a asp-area="Specialist" asp-controller="Profile" asp-action="EditExperience" asp-route-id="@item.Id"><i class="fa fa-edit"></i></a>
+                                    <form asp-area="Specialist" asp-controller="Profile" asp-action="DeleteExperience" asp-route-id="@item.Id" class="ml-3" method="post">
+                                        <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                    </form>
+                                </div>
                             </div>
                         </li>
                     }

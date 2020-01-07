@@ -32,17 +32,17 @@
     <div class="container">
         <div class="row">
             <form asp-area="Specialist" asp-controller="Profile" asp-action="UploadWork" method="post" enctype="multipart/form-data" class="col-12">
-                <div class="custom-file">
-                    <input name="Image" type="file" class="custom-file-input" id="inputFile">
-                    <label class="custom-file-label" for="inputFile">Choose file</label>
+                <div class="jp_adp_choose_resume form-group">
+                    <div class="custom-input">
+                        <span><i class="fa fa-upload"></i> &nbsp;Upload Image</span>
+                        <input name="Image" type="file" />
+                    </div>
                 </div>
-                <div class="jp_adp_textarea_main_wrapper">
-                    <textarea asp-for="Description" class="form-control" rows="7" placeholder="Description"></textarea>
+                <div class="form-group">
+                    <textarea asp-for="Description" class="jp_textarea_default" rows="7" placeholder="Description"></textarea>
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
-                <div class="jp_adp_form_wrapper">
-                    <button class="btn btn-success" type="submit">Upload</button>
-                </div>
+                <button class="jp_btn_default" type="submit">Upload</button>
             </form>
         </div>
     </div>

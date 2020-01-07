@@ -7380,6 +7380,25 @@ input[type="checkbox"]:checked + label:after {
     -moz-transition: all 0.5s;
     transition: all 0.5s;
 }
+.jp_textarea_default {
+	width:100%;
+	border: 1px solid #e9e9e9;
+	padding-left:20px;
+	padding-top:20px;
+	-webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+	resize:none;
+}
+.jp_textarea_default:hover, .jp_textarea_default:focus {
+    border: 1px solid #23c0e9;
+    border-top: 1px solid #e9e9e9;
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+}
 .bottom_line_Wrapper{
 	padding-bottom:60px;
 }
@@ -7446,6 +7465,53 @@ input[type="checkbox"]:checked + label:after {
 .jp_adp_choose_resume_bottom_btn_post li a:hover{
 	background: #23c0e9;
     border: 1px solid #ffffff40;
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+}
+a.jp_btn_default {
+	float: left;
+    width: 170px;
+    height: 50px;
+    line-height: 50px;
+    color: #ffffff;
+    border: 1px solid #f36969;
+    background: #f36969;
+    text-align: center;
+    text-transform: uppercase;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+}
+button.jp_btn_default {
+	float: left;
+    width: 170px;
+    height: 50px;
+    color: #ffffff;
+    border: 1px solid #f36969;
+    background: #f36969;
+    text-align: center;
+    text-transform: uppercase;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+}
+.jp_btn_default:hover {
+	background: #23c0e9;
+	border: 1px solid #ffffff40;
+	color: #ffffff;
     -webkit-transition: all 0.5s;
     -o-transition: all 0.5s;
     -ms-transition: all 0.5s;

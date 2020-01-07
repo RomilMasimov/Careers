@@ -17,7 +17,7 @@
                         <div class="jp_tittle_breadcrumb_wrapper">
                             <ul>
                                 <li><a asp-area="Specialist" asp-controller="Profile" asp-action="Index">Profile</a> <i class="fa fa-angle-right"></i></li>
-                                <li>Edit services <i class="fa fa-angle-right"></i></li>
+                                <li><a asp-area="Specialist" asp-controller="Profile" asp-action="EditServices" asp-route-subCategoryId="@Model.SubCategoryId">Edit services </a><i class="fa fa-angle-right"></i></li>
                                 <li>@Model.ServiceDescription</li>
                             </ul>
                         </div>
@@ -34,16 +34,16 @@
             <form asp-area="Specialist" asp-controller="Profile" asp-action="EditService" method="post" class="col-12">
                 <input asp-for="ServiceId" hidden />
                 <input asp-for="SpecialistId" hidden />
-                <div class="form-row">
-                    <div class="jp_adp_form_wrapper col-md-4 col-12">
+                <div class="form-group form-row">
+                    <div class="jp_adp_form_wrapper col-lg-4 col-12">
                         <input asp-for="PriceMin" placeholder="Price min">
                         <span asp-validation-for="PriceMin" class="text-danger"></span>
                     </div>
-                    <div class="jp_adp_form_wrapper col-md-4  col-12">
+                    <div class="jp_adp_form_wrapper col-lg-4  col-12">
                         <input asp-for="PriceMax" placeholder="Price max">
                         <span asp-validation-for="PriceMax" class="text-danger"></span>
                     </div>
-                    <div class="jp_adp_form_wrapper col-md-4  col-12">
+                    <div class="jp_adp_form_wrapper col-lg-4  col-12">
                         <select asp-for="MeasureId" asp-items="@ViewBag.Measurements" class="form-control"></select>
                         <span asp-validation-for="MeasureId" class="text-danger"></span>
                     </div>
@@ -63,8 +63,8 @@
                         <select asp-for="MeasureId" asp-items="@ViewBag.Measurements" class="form-control"></select>
                         <span asp-validation-for="MeasureId" class="text-danger"></span>
                     </div>*@
-                <div class="jp_adp_form_wrapper">
-                    <button type="submit" class="btn btn-success">Save</button>
+                <div class="form-group">
+                    <button class="jp_btn_default" type="submit">Save</button>
                 </div>
             </form>
         </div>

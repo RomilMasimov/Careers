@@ -29,17 +29,17 @@
 <div class="jp_adp_main_section_wrapper">
     <div class="container">
         <div class="row">
-            <form asp-area="Specialist" asp-controller="Profile" asp-action="EditSubCategories" method="post">
-                <ul id="categories" class="pl-0">
+            <form asp-area="Specialist" asp-controller="Profile" asp-action="EditSubCategories" method="post" class="col-12">
+                <ul id="categories" class="form-group w-100 pl-0">
                     @foreach (var category in Model)
                     {
-                        <li>
+                        <li class="w-100">
                             @category.Category.DescriptionRU
-                            <ul class="pl-0">
+                            <ul class="w-100 pl-0">
 
                                 @foreach (var subCategory in category.SelectSubCategory)
                                 {
-                                    <li class="d-flex align-items-center pl-0">
+                                    <li class="d-flex align-items-center w-100 pl-0">
                                         <input type="checkbox" name="subCategoriesId" id="@subCategory.SubCategory.Id" value="@subCategory.SubCategory.Id" @(subCategory.Selected ? "checked" : "") hidden />
                                         <label class="w-100 m-0" for="@subCategory.SubCategory.Id">@subCategory.SubCategory.DescriptionRU</label>
                                     </li>
@@ -48,8 +48,8 @@
                         </li>
                     }
                 </ul>
-                <div class="jp_adp_form_wrapper">
-                    <button type="submit" class="btn btn-success">Save</button>
+                <div class="form-group">
+                    <button class="jp_btn_default" type="submit">Save</button>
                 </div>
             </form>
         </div>

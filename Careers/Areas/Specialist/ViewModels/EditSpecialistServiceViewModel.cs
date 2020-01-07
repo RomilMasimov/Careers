@@ -10,6 +10,8 @@ namespace Careers.Areas.SpecialistArea.ViewModels
 {
     public class EditSpecialistServiceViewModel
     {
+        public int SubCategoryId { get; set; }
+
         [Required]
         [Range(0, int.MaxValue)]
         public int PriceMin { get; set; }

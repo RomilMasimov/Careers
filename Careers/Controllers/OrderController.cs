@@ -51,7 +51,7 @@ namespace Careers.Controllers
 
         public IActionResult Order(int id)
         {
-            return Content($"I'm oreder {id}");
+            return View();
         }
 
         [HttpGet]

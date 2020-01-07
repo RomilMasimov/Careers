@@ -584,6 +584,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
                 var specialistService = specialist.SpecialistServices.FirstOrDefault(m => m.ServiceId == service.Id);
                 var viewModel = new EditSpecialistServiceViewModel
                 {
+                    SubCategoryId = service.SubCategoryId,
                     ServiceDescription = service.DescriptionRU,
                     SpecialistId = specialist.Id,
                     ServiceId = service.Id,
