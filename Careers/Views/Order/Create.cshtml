@@ -1,4 +1,6 @@
-﻿<div class="jp_adp_main_section_wrapper">
+﻿@model string
+
+<div class="jp_adp_main_section_wrapper">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -23,32 +25,26 @@
             <div id="quetions" class="col-12 mt-3 pb-3 border-top border-bottom"></div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="jp_adp_textarea_main_wrapper p-0 mt-4 border-0">
-                    <textarea rows="7" placeholder="Job Description"></textarea>
+                    <textarea id="description" rows="5" placeholder="Job Description"></textarea>
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 col-md-6 col-xs-12">
                 <div class="jp_adp_form_wrapper">
-                    <input type="text" placeholder="Salary Min">
+                    <input id="salary-min" type="text" placeholder="Salary Min">
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 col-md-6 col-xs-12">
                 <div class="jp_adp_form_wrapper">
-                    <input type="text" placeholder="Salary Max">
+                    <input id="salary-max" type="text" placeholder="Salary Max">
                 </div>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="jp_adp_choose_resume">
-                    <p>Company Post</p>
-                    <div class="custom-input">
-                        <span><i class="fa fa-upload"></i> &nbsp;Upload Job Post</span>
-                        <input type="file" name="resume" id="resume">
-                    </div>
-                </div>
+
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="jp_adp_choose_resume_bottom_btn_post">
                     <ul>
-                        <li><a href="#"><i class="fa fa-plus-circle"></i>&nbsp; Post a job</a></li>
+                        <li><a href="#" id="ClickButton"><i class="fa fa-plus-circle"></i>&nbsp; Post a job</a></li>
                     </ul>
                 </div>
             </div>
@@ -59,35 +55,113 @@
 @section Scripts
 {
     <script>
-        $('#categories').change(async function () {
+
+        $('#ClickButton').click(async function(e) {
+
+            e.preventDefault();
+
+            let single = Array();
+            let multi = Array();
+            let meetingPoints = Array();
+            let clientLocation = null;
+            let clientInputAnswers = Array();
+            let description = null;
+            let salaryMin = null;
+            let salaryMax = null;
+            let serviceId = null;
+
+            $('input[type="radio"]:checked').each(function() {
+                single.push($(this).val());
+            });
+
+            $('input[type="checkbox"]:checked').each(function() {
+                multi.push($(this).val());
+            });
+
+            if ($('#points')[0] != undefined) {
+                let options = $('#points')[0].selectedOptions;
+                for (var i = 0; i < options.length; i++) {
+                    meetingPoints.push(options[i].value);
+                }
+            }
+
+            $('textarea[data-question-id]').each(function() {
+                clientInputAnswers.push({
+                    QuestionId: $(this).data('question-id'),
+                    Answer: $(this).val()
+                });
+            });
+
+            clientLocation = $('input[data-question-id]').val();
+            description = $('#description').val();
+            salaryMin = $('#salary-min').val();
+            salaryMax = $('#salary-max').val();
+
+            //here must be serviceid
+
+            await fetch('@Url.Action("Create", "Order")',
+                {
+                    method: 'post',
+                    headers: new Headers({
+                        'Content-Type': 'application/json'
+                    }),
+                    body: JSON.stringify({
+                        Single: single,
+                        Multi: multi,
+                        OrderMeetingPoints: meetingPoints,
+                        ClientLocation: clientLocation,
+                        ClientAnswers: clientInputAnswers,
+                        Description: description,
+                        SalaryMin: salaryMin,
+                        SalaryMax: salaryMax,
+                        ServiceId: serviceId
+                    })
+
+                }).then((res) => {
+                if (res.ok){
+                    return res.json();
+                } else {
+                    throw new Error ('Something went wrong with sending data');
+                    }
+
+                }).then((json) => {
+                    let url = '@Url.Action("Order", "Order",new {id=719 })';
+                    url= url.replace("719", json);
+                    window.location.href = url;
+                });
+        });
+
+
+        $('#categories').change(async function() {
             let categoryId = $('#categories option:selected').first().val();
             if (categoryId == 0) {
                 $('#subCategories').children().slice(1).remove();
             } else {
-                let subCategories = await (await fetch(`SubCategoryOptions?categoryId=${categoryId}`)).text();
+                let subCategories = await(await fetch(`SubCategoryOptions?categoryId=${categoryId}`)).text();
                 $('#subCategories').html(subCategories);
             }
         });
-        $('#subCategories').change(async function () {
+        $('#subCategories').change(async function() {
             let subCategoryId = $('#subCategories option:selected').first().val();
             if (subCategoryId == 0) {
                 $('#services').children().slice(1).remove();
                 $('#quetions').html('');
             } else {
-                let services = await (await fetch(`ServicesOptions?subCategoryId=${subCategoryId}`)).text();
+                let services = await(await fetch(`ServicesOptions?subCategoryId=${subCategoryId}`)).text();
                 $('#services').html(services);
-                let questions = await (await fetch(`Questions?subCategoryId=${subCategoryId}`)).text();
+                let questions = await(await fetch(`Questions?subCategoryId=${subCategoryId}`)).text();
                 $('#quetions').html(questions);
             }
         });
-        $('#services').change(async function () {
+        $('#services').change(async function() {
             let serviceId = $('#services option:selected').first().val();
             let subCategoryId = $('#subCategories option:selected').first().val();
             if (serviceId == 0) {
-                let questions = await (await fetch(`Questions?subCategoryId=${subCategoryId}`)).text();
+                let questions = await(await fetch(`Questions?subCategoryId=${subCategoryId}`)).text();
                 $('#quetions').html(questions);
             } else {
-                let questions = await (await fetch(`Questions?subCategoryId=${subCategoryId}&serviceId=${serviceId}`)).text();
+                let questions = await(await fetch(`Questions?subCategoryId=${subCategoryId}&serviceId=${serviceId}`))
+                    .text();
                 $('#quetions').html(questions);
             }
         });

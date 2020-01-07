@@ -11,6 +11,8 @@ namespace Careers.Models
         public DateTime Created { get; set; }
         public int PriceMin { get; set; }
         public int? PriceMax { get; set; }
+        public string ClientLocation { get; set; }
+        public string Description { get; set; }
 
         public Client Client { get; set; }
         public int ClientId { get; set; }
@@ -24,10 +26,10 @@ namespace Careers.Models
         public IEnumerable<Review> Reviews { get; set; }
         public IEnumerable<AnswerOrder> AnswerOrders { get; set; }
         public IEnumerable<OrderMeetingPoint> OrderMeetingPoints { get; set; }
-        //remove ???
-        public IEnumerable<OrderSchedule> OrderSchedules { get; set; }
+        public IEnumerable<OrderSchedule> OrderSchedules { get; set; }  //remove ???
         public IEnumerable<OrderResponse> OrderResponses { get; set; }
         public IEnumerable<UserSpecialistMessage> UserSpecialistMessages { get; set; }
+        public IEnumerable<ClientAnswer> ClientAnswers { get; set; }
         // public IEnumerable<OrderSpecialist> OrderSpecialists { get; set; }
     }
 }

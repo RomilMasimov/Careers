@@ -46,6 +46,13 @@ namespace Careers.Services
             return await context.Orders.Where(m => m.SpecialistId == specialistId).ToListAsync();
         }
 
+        public async Task<bool> AddMeetingPoints(IEnumerable<OrderMeetingPoint> orderMeetingPoints)
+        {
+            await context.OrderMeetingPoints.AddRangeAsync(orderMeetingPoints);
+            var rows = await context.SaveChangesAsync();
+            return rows > 0;
+        }
+
         public async Task<IEnumerable<OrderResponse>> FindAllResponseByOrderAsync(int orderId)
         {
             return await context.OrderResponses.Where(m => m.OrderId == orderId)

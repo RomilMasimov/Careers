@@ -1,9 +1,31 @@
-﻿@model Question
+﻿@using System.Globalization
+@model Question
 
-<div class="jp_adp_form_wrapper">
-    <p>@(ViewBag.isRu ? Model.TextRU : Model.TextAZ)</p>
-    @foreach (var answer in Model.Answers)
-    {
-        <input name="answer" type="checkbox" value="@answer.Id" class="w-auto h-auto"> @(ViewBag.isRu ? answer.TextRU : answer.TextAZ) <br>
-    }
-</div>
+    <div class="jp_adp_form_wrapper">
+        @if (CultureInfo.CurrentCulture.Name == "ru-RU")
+        {
+            <p>@Model.TextRU</p>
+
+            foreach (var answer in Model.Answers)
+            {
+                <input name="answer" type="checkbox" value="@answer.Id" class="w-auto h-auto">
+
+                @answer.TextRU
+
+                <br>
+            }
+        }
+        else
+        {
+            <p>@Model.TextAZ</p>
+
+            foreach (var answer in Model.Answers)
+            {
+                <input name="answer" type="checkbox" value="@answer.Id" class="w-auto h-auto">
+
+                @answer.TextAZ
+
+                <br>
+            }
+        }
+    </div>

@@ -64,6 +64,7 @@ namespace Careers.EF
             base.OnModelCreating(modelBuilder);
         }
 
+        public DbSet<ClientAnswer> ClientAnswers { get; set; }
         public DbSet<AnswerOrder> AnswerOrders { get; set; }
         public DbSet<Specialist> Specialists { get; set; }
         public DbSet<Client> Clients { get; set; }

@@ -1,12 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Careers.Models;
+using Careers.Models.Enums;
 using Careers.Services.Interfaces;
 using Careers.ViewModels.Order;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -19,13 +22,16 @@ namespace Careers.Controllers
         private readonly IQuestionService _questionService;
         private readonly IClientService _clientService;
         private readonly ICategoryService _categoryService;
+        private readonly IAnswerService _answerService;
 
-        public OrderController(IOrderService orderService, IQuestionService questionService, IClientService clientService, ICategoryService categoryService)
+        public OrderController(IOrderService orderService, IQuestionService questionService,
+            IClientService clientService, ICategoryService categoryService, IAnswerService answerService)
         {
             _orderService = orderService;
             _questionService = questionService;
             _clientService = clientService;
             _categoryService = categoryService;
+            _answerService = answerService;
         }
 
         public async Task<IActionResult> Index()
@@ -34,7 +40,7 @@ namespace Careers.Controllers
             var client = await _clientService.FindAsync(userId, true);
 
             var isRu = CultureInfo.CurrentCulture.Name == "ru-RU";
-            
+
             var model = client.Orders.Select(m => new OrderViewModel
             {
                 Id = m.Id,
@@ -51,7 +57,54 @@ namespace Careers.Controllers
 
         public IActionResult Order(int id)
         {
-            return Content($"I'm oreder {id}");
+            return Content($"I'm order {id}");
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody]CreatedOrderViewModel model)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var client = await _clientService.FindAsync(userId);
+
+            var order = new Order
+            {
+                Created = DateTime.Now,
+                State = OrderStateTypeEnum.InSearchOfSpec,
+                ClientLocation = model.ClientLocation,
+                Client = client,
+                ServiceId = model.ServiceId,
+                Description = model.Description
+            };
+
+            if (int.TryParse(model.SalaryMin, out var min)) order.PriceMin = min;
+            else return StatusCode(StatusCodes.Status500InternalServerError);
+
+            if (model.SalaryMax != null)
+            {
+                if (int.TryParse(model.SalaryMin, out var max)) order.PriceMax = min;
+                else return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+
+            await _orderService.InsertAsync(order);
+
+            await _orderService.AddMeetingPoints(model.OrderMeetingPoints.Select(x => new OrderMeetingPoint
+            {
+                OrderId = order.Id,
+                MeetingPointId = int.Parse(x)
+            }));
+
+            await _answerService.AddInputAnswersToOrders(model.ClientAnswers.Select(x => new ClientAnswer
+            {
+                Text = x.Answer,
+                OrderId = order.Id,
+                QuestionId = x.QuestionId
+            }));
+
+            await _answerService.AddAnswersToOrders(model.Single.Select(int.Parse).ToArray(), order.Id);
+            await _answerService.AddAnswersToOrders(model.Multi.Select(int.Parse).ToArray(), order.Id);
+
+            return Json(order.Id);
         }
 
         [HttpGet]
@@ -64,8 +117,6 @@ namespace Careers.Controllers
             ViewBag.Categories = new SelectList(categories, "Id", isRu ? "DescriptionRU" : "DescriptionAZ");
             ViewBag.SubCategories = new SelectList(new[] { new { Id = 0, Text = isRu ? "Выберите подкатегорию" : "Alt kateqoriyanı seçin" } }, "Id", "Text");
             ViewBag.Services = new SelectList(new[] { new { Id = 0, Text = isRu ? "Выберите услугу" : "Xidməti seçin" } }, "Id", "Text");
-
-
 
             return View();
         }

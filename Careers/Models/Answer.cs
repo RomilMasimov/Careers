@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Careers.Models
 {
@@ -7,7 +8,8 @@ namespace Careers.Models
         public int Id { get; set; }
         public string TextAZ { get; set; }
         public string TextRU { get; set; }
-
+        [NotMapped]
+        public string MyAnswer { get; set; }
         public Question Question { get; set; }
         public int QuestionId { get; set; }
         public IEnumerable<AnswerOrder> AnswerOrders { get; set; }

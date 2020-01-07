@@ -1,11 +1,24 @@
-﻿@model Question
+﻿@using System.Globalization
+@model Question
 
-<div class="jp_adp_form_wrapper">
-    <p>@(ViewBag.isRu ? Model.TextRU : Model.TextAZ)</p>
-    <select name="answer" id="points" asp-items="ViewBag.Points" data-placeholder="@(ViewBag.isRu ? Model.TextRU : Model.TextAZ)" multiple class="chosen-select"></select>
-</div>
+    <div class="jp_adp_form_wrapper">
+        @if (CultureInfo.CurrentCulture.Name == "ru-RU")
+        {
+            <p>@Model.TextRU</p>
+            <select name="answer" id="points" asp-items="ViewBag.Points" 
+                    data-placeholder="@Model.TextRU" multiple class="chosen-select"></select>
+        }
+        else
+        {
+            <p>@Model.TextAZ</p>
+            <select name="answer" id="points" asp-items="ViewBag.Points" 
+                    data-placeholder="@Model.TextAZ" multiple class="chosen-select"></select>
+        }
+    </div>
+
 
 <script src="~/lib/chosen/chosen.jquery.min.js"></script>
+
 <script>
     $('#points').chosen();
 </script>

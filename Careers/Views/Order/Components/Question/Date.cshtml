@@ -1,6 +1,10 @@
-﻿@model Question
+﻿@using System.Globalization
+@model Question
 
-<div class="jp_adp_form_wrapper">
-    <p>@(ViewBag.isRu ? Model.TextRU : Model.TextAZ)</p>
-    <input name="answer" type="datetime-local">
-</div>
+    <div class="jp_adp_form_wrapper">
+        @if (CultureInfo.CurrentCulture.Name == "ru-RU")
+        {<p>@Model.TextRU</p>}
+        else
+        {<p>@Model.TextAZ</p>}
+        <input name="answer" type="date">
+    </div>
