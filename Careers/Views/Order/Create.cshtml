@@ -97,7 +97,7 @@
             salaryMin = $('#salary-min').val();
             salaryMax = $('#salary-max').val();
 
-            //here must be serviceid
+            serviceId = $('#services').val();
 
             await fetch('@Url.Action("Create", "Order")',
                 {
