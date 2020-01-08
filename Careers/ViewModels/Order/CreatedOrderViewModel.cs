@@ -12,8 +12,8 @@ namespace Careers.ViewModels.Order
         public string SalaryMax { get; set; }
         public string Description { get; set; }
         public string ClientLocation { get; set; }
-        public int ServiceId { get; set; }
-        public int SubCategoryId { get; set; }
+        public string ServiceId { get; set; }
+        public string SubCategoryId { get; set; }
     }
 
     public class ClientInputAnswer
