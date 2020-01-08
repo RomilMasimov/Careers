@@ -32,9 +32,11 @@
                 <div class="jp_cp_left_side_wrapper">
                     <div class="jp_cp_left_pro_wallpaper">
                         <img src="@Model.ImagePath" error-src="" alt="profile">
-                        <h2>@Model.Name @Model.Surname</h2>
-                        <p>UI/UX Designer in Dewas</p>
-
+                        @*<h2>@Model.Name @Model.Surname</h2>
+                        @foreach (var subCategory in Model.SubCategories)
+                        {
+                            <p>@subCategory</p>
+                        }*@
                     </div>
                     <div class="jp_cp_rd_wrapper">
                         <ul>
@@ -62,20 +64,15 @@
                                 <tr>
                                     <td class="td-w25">Full Name</td>
                                     <td class="td-w10">:</td>
-                                    <td class="td-w65">@Model.Name @Model.Surname</td>
-                                </tr>
+                                    <td class="td-w65">@Model.Name @Model.Surname @Model.FatherName</td>
+                                @*</tr>
                                 <tr>
-                                    <td class="td-w25">Father's Name</td>
+                                    <td class="td-w25">Rating</td>
                                     <td class="td-w10">:</td>
-                                    <td class="td-w65">@Model.FatherName</td>
-                                </tr>
+                                    <td class="td-w65">@Model.Rating</td>
+                                </tr>*@
                                 <tr>
-                                    <td class="td-w25">Birth</td>
-                                    <td class="td-w10">:</td>
-                                    <td class="td-w65">@Model.DateOfBirth.ToLongDateString()</td>
-                                </tr>
-                                <tr>
-                                    <td class="td-w25">Location</td>
+                                    <td class="td-w25">City</td>
                                     <td class="td-w10">:</td>
                                     <td class="td-w65">@Model.CityName</td>
                                 </tr>
@@ -83,19 +80,23 @@
                         </table>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
-                        <div class="jp_cp_accor_heading_wrapper">
-                            <h2>Languages</h2>
-                            <p>
-                                @foreach (var item in Model.Languages)
-                                {
-                                    <span>@item</span>
-                                }
-                            </p>
+
+                @if (Model.Languages?.Count > 0)
+                {
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                            <div class="jp_cp_accor_heading_wrapper">
+                                <h2>Languages</h2>
+                                <p>
+                                    @foreach (var lang in Model.Languages)
+                                    {
+                                        <span>@lang</span>
+                                    }
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
 
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
@@ -107,77 +108,104 @@
                     <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
                         <div class="accordion_wrapper abt_page_2_wrapper">
                             <div class="panel-group" id="accordion_threeLeft">
+                                <!-- Educations -->
+                                @if (Model.Educations.Count > 0)
+                                {
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading bell">
+                                            <h4 class="panel-title">
+                                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion_threeLeft" href="#collapseTwentyLeftThree" aria-expanded="false">
+                                                    EDUCATION
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseTwentyLeftThree" class="panel-collapse collapse" aria-expanded="false" role="tablist" style="height: 0;">
+                                            <div class="panel-body">
+                                                @foreach (var item in Model.Educations)
+                                                {
+                                                    <p>
+                                                        @item.StudyPlaceName,
+                                                        <span>specialization - </span>
+                                                        <span>@item.Specialization,</span>
+                                                        <span>@item.StartDate.Year @(item.EndDate.HasValue ? $" - {item.EndDate.Value.Year}" : "") years.</span>
+                                                    </p>
+                                                    @*<p>From: <span>@item.StartDate.ToLongDateString()</span></p>
+                                                        <p>To: <span>@(item.EndDate == null ? "now" : item.EndDate.Value.ToLongDateString())</span></p>*@
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
 
-                                <!-- /.panel-default -->
-                                <div class="panel panel-default">
-                                    <div class="panel-heading bell">
-                                        <h4 class="panel-title">
-                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion_threeLeft" href="#collapseTwentyLeftThree" aria-expanded="false">
-                                                EDUCATION
-                                            </a>
-                                        </h4>
-                                    </div>
-                                    <div id="collapseTwentyLeftThree" class="panel-collapse collapse" aria-expanded="false" role="tablist" style="height: 0;">
-                                        <div class="panel-body">
-                                            @foreach (var item in Model.Educations)
-                                            {
-                                                <p>@item.StudyPlaceName. <span>Specialization</span></p>
-                                                <p>From: <span>@item.StartDate.ToLongDateString()</span></p>
-                                                <p>To: <span>@(item.EndDate == null ? "now" : item.EndDate.Value.ToLongDateString())</span></p>
-                                            }
+                                <!-- Experiences -->
+                                @if (Model.Experiences.Count > 0)
+                                {
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading bell">
+                                            <h4 class="panel-title">
+                                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion_threeLeft" href="#collapseTwentyLeftThree2" aria-expanded="false">
+                                                    EXPERIENCE
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseTwentyLeftThree2" class="panel-collapse collapse" aria-expanded="false" role="tablist" style="height: 0px;">
+                                            <div class="panel-body">
+                                                @foreach (var item in Model.Experiences)
+                                                {
+                                                    <p>
+                                                        @item.CompanyName,
+                                                        <span>specialization - </span>
+                                                        <span>@item.Position,</span>
+                                                        <span>@item.StartDate.Year @(item.EndDate.HasValue ? $" - {item.EndDate.Value.Year}" : "") years.</span>
+                                                    </p>
+                                                    @*<p>@item.CompanyName. <span>Position</span></p>
+                                                        <p>From: <span>@item.StartDate.ToLongDateString()</span></p>
+                                                        <p>To: <span>@(item.EndDate == null ? "now" : item.EndDate.Value.ToLongDateString())</span></p>*@
+                                                }
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="panel panel-default">
-                                    <div class="panel-heading bell">
-                                        <h4 class="panel-title">
-                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion_threeLeft" href="#collapseTwentyLeftThree2" aria-expanded="false">
-                                                EXPERIENCE
-                                            </a>
-                                        </h4>
-                                    </div>
-                                    <div id="collapseTwentyLeftThree2" class="panel-collapse collapse" aria-expanded="false" role="tablist" style="height: 0px;">
-                                        <div class="panel-body">
-                                            @foreach (var item in Model.Experiences)
-                                            {
-                                                <p>@item.CompanyName. <span>Position</span></p>
-                                                <p>From: <span>@item.StartDate.ToLongDateString()</span></p>
-                                                <p>To: <span>@(item.EndDate == null ? "now" : item.EndDate.Value.ToLongDateString())</span></p>
-                                            }
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /.panel-default -->
+                                }
                             </div>
                             <!--end of /.panel-group-->
                         </div>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
-                        <div class="jp_cp_accor_heading_wrapper">
-                            <h2>Categories</h2>
-                            <p>
-                                @foreach (var item in Model.SubCategories)
-                                {
-                                    <span>@item</span>
-                                }
-                            </p>
+                @*<div class="row">
+                        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                            <div class="jp_cp_accor_heading_wrapper">
+                                <h2>Categories</h2>
+                                <p>
+                                    @foreach (var item in Model.SubCategories)
+                                    {
+                                        <span>@item</span>
+                                    }
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    </div>*@
 
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
                         <div class="jp_cp_accor_heading_wrapper">
                             <h2>Services</h2>
 
-                            @foreach (var item in Model.SpecialistServices)
+                            @foreach (var item in Model.SpecialistServices.GroupBy(m => m.Service.SubCategory))
                             {
-                                <p>@item.Service.DescriptionRU</p>
-                                <p>@item.PriceMin</p>
-                                <p>@item.PriceMax</p>
+                                <div class="w-100 d-flex flex-column">
+                                    <p class="header pb-0 w-100">@item.Key.DescriptionRU</p>
+                                    @foreach (var service in item)
+                                    {
+                                        <div class="w-100 d-flex align-items-center justify-content-between">
+                                            <p class="mt-0 pb-0">@service.Service.DescriptionRU</p>
+                                            <p class="mt-0 pb-0">@service.PriceMin @(service.PriceMax.HasValue ? $" - {service.PriceMax.Value}" : "") / @service.Measure.TextRU</p>
+                                        </div>
+                                    }
+                                </div>
+                                @*<p>@item.Service.DescriptionRU</p>
+                                    <p>@item.PriceMin</p>
+                                    <p>@item.PriceMax</p>*@
                             }
 
                         </div>
