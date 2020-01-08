@@ -68,6 +68,7 @@ $('#ClickButton').click(async function (e) {
     let description = null;
     let salaryMin = null;
     let salaryMax = null;
+    let subCategoryId = null;
     let serviceId = null;
 
     $('input[type="radio"]:checked').each(function () {
@@ -97,6 +98,7 @@ $('#ClickButton').click(async function (e) {
     salaryMin = $('#salary-min').val();
     salaryMax = $('#salary-max').val();
     serviceId = $('#services').val();
+    subCategoryId = $('#subCategories').val();
 
     await fetch( '@Url.Action("Create", "Order")',
         {
@@ -113,7 +115,8 @@ $('#ClickButton').click(async function (e) {
                 Description: description,
                 SalaryMin: salaryMin,
                 SalaryMax: salaryMax,
-                ServiceId: serviceId
+                ServiceId: serviceId,
+                SubCategoryId: subCategoryId
             })
 
         }).then((res) => {

@@ -13,6 +13,7 @@ namespace Careers.ViewModels.Order
         public string Description { get; set; }
         public string ClientLocation { get; set; }
         public int ServiceId { get; set; }
+        public int SubCategoryId { get; set; }
     }
 
     public class ClientInputAnswer
