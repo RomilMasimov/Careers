@@ -128,7 +128,9 @@ namespace Careers.Services
         public async Task<Specialist> FindDetailedAsync(int id)
         {
             return await context.Specialists
+                .Include(x => x.AppUser)
                 .Include(x => x.City)
+                .Include(x => x.SpecialistWorks)
                 .Include(x => x.LanguageSpecialists)
                 .ThenInclude(x => x.Language)
                 .Include(x => x.Educations)

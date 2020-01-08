@@ -14,8 +14,11 @@ namespace Careers.ViewModels.Spec
         public string FatherName { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string CityName { get; set; }
+        public string Phone { get; set; }
+        public string Email { get; set; }
         public int Rating { get; set; }
         public string About { get; set; }
+        public IEnumerable<SpecialistWork> Works { get; set; }
         public List<string> Languages { get; set; }
         public List<Education> Educations { get; set; }
         public List<Experience> Experiences { get; set; }
@@ -42,8 +45,11 @@ namespace Careers.ViewModels.Spec
             FatherName = specialist.Fathername;
             DateOfBirth = specialist.DateOfBirth;
             CityName = specialist.City?.Name;
+            Phone = specialist.AppUser.PhoneNumber;
+            Email = specialist.AppUser.Email;
             Rating = specialist.Rating;
             About = specialist.About;
+            Works = specialist.SpecialistWorks;
             Languages = specialist.LanguageSpecialists?.Select(x => x.Language.Name).ToList() ?? new List<string>();
             Educations = specialist.Educations?.ToList()?? new List<Education>();
             Experiences = specialist.Experiences?.ToList() ?? new List<Experience>();
