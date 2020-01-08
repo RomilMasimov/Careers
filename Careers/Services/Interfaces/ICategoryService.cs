@@ -25,6 +25,7 @@ namespace Careers.Services.Interfaces
         Task<IEnumerable<SubCategory>> GetAllSubCategoriesByRuTextAsync(string text);
 
         Task<Service> FindServiceAsync(int serviceId);
+        Task<Service> FindServiceAsync(string name);
         Task<IEnumerable<Service>> GetServicesAsync(int subCategoryId);
         Task<IEnumerable<Service>> GetServicesBySubCategoryArrAsync(IEnumerable<int> subCategoryIds);
         Task<IEnumerable<Service>> GetAllServicesAsync();

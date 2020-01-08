@@ -21,9 +21,9 @@ namespace Careers.Services
         public async Task<Category> GetCategoryAndSubCategoriesAsync(int id)
         {
             var res = await context.Categories
-                .Include(x=>x.SubCategories)
-                .ThenInclude(x=>x.Services)
-                .FirstOrDefaultAsync(x=>x.Id==id);
+                .Include(x => x.SubCategories)
+                .ThenInclude(x => x.Services)
+                .FirstOrDefaultAsync(x => x.Id == id);
             return res;
         }
 
@@ -76,7 +76,7 @@ namespace Careers.Services
         }
 
         public async Task<IEnumerable<SubCategory>> GetAllSubCategoriesByRuTextAsync(string text)
-        { 
+        {
             return await context.SubCategories.Where(m => m.DescriptionRU.Contains(text)).ToListAsync();
         }
 
@@ -129,6 +129,13 @@ namespace Careers.Services
             var res = context.SubCategories.Update(subCategory);
             await context.SaveChangesAsync();
             return res.Entity;
+        }
+
+        public async Task<Service> FindServiceAsync(string name)
+        {
+            return await context.Services.FirstOrDefaultAsync(x =>
+                string.Equals(x.DescriptionRU.ToUpper(), name.ToUpper(), StringComparison.Ordinal) ||
+                string.Equals(x.DescriptionAZ.ToUpper(), name.ToUpper(), StringComparison.Ordinal));
         }
 
         public async Task<IEnumerable<Service>> GetServicesAsync(int subCategoryId)
