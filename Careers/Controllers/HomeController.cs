@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -8,12 +7,9 @@ using Careers.Models;
 using Careers.Services;
 using Careers.Services.Interfaces;
 using Careers.ViewModels.Home;
-using Careers.ViewModels.Spec;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Routing;
 
 namespace Careers.Controllers
 {

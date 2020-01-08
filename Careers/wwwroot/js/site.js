@@ -60,6 +60,43 @@ var SetRatingStar1 = function () {
     });
 };
 
-
 SetRatingStar();
 SetRatingStar1();
+
+//create.cshtml
+
+$('#categories').change(async function () {
+    let categoryId = $('#categories option:selected').first().val();
+    if (categoryId == 0) {
+        $('#subCategories').children().slice(1).remove();
+    } else {
+        let subCategories = await (await fetch(`SubCategoryOptions?categoryId=${categoryId}`)).text();
+        $('#subCategories').html(subCategories);
+    }
+});
+$('#subCategories').change(async function () {
+    let subCategoryId = $('#subCategories option:selected').first().val();
+    if (subCategoryId == 0) {
+        $('#services').children().slice(1).remove();
+        $('#quetions').html('');
+    } else {
+        let services = await (await fetch(`ServicesOptions?subCategoryId=${subCategoryId}`)).text();
+        $('#services').html(services);
+        let questions = await (await fetch(`Questions?subCategoryId=${subCategoryId}`)).text();
+        $('#quetions').html(questions);
+    }
+});
+$('#services').change(async function () {
+    let serviceId = $('#services option:selected').first().val();
+    let subCategoryId = $('#subCategories option:selected').first().val();
+    if (serviceId == 0) {
+        let questions = await (await fetch(`Questions?subCategoryId=${subCategoryId}`)).text();
+        $('#quetions').html(questions);
+    } else {
+        let questions = await (await fetch(`Questions?subCategoryId=${subCategoryId}&serviceId=${serviceId}`))
+            .text();
+        $('#quetions').html(questions);
+    }
+});
+
+//end

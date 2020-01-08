@@ -64,6 +64,13 @@ namespace Careers.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody]CreatedOrderViewModel model)
         {
+            if (model.ClientAnswers == null && model.ClientLocation == null && model.Multi == null &&
+                model.OrderMeetingPoints == null && model.Description == null && model.SalaryMin == null)
+            {
+                ModelState.AddModelError("error", "Please at least add description and min price!");
+                return View();
+            }
+
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var client = await _clientService.FindAsync(userId);
 

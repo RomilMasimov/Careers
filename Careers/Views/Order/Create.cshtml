@@ -1,7 +1,7 @@
-﻿@model string
-
+﻿
 <div class="jp_adp_main_section_wrapper">
     <div class="container">
+        <div asp-validation-summary="All" class="text-danger"></div>
         <div class="row">
             <div class="col-12">
                 <div class="jp_adp_form_heading_wrapper">
@@ -44,7 +44,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="jp_adp_choose_resume_bottom_btn_post">
                     <ul>
-                        <li><a href="#" id="ClickButton"><i class="fa fa-plus-circle"></i>&nbsp; Post a job</a></li>
+                        <li><a href="#" id="ClickButton"><i class="fa fa-plus-circle"></i>&nbsp; Create order</a></li>
                     </ul>
                 </div>
             </div>
@@ -56,113 +56,77 @@
 {
     <script>
 
-        $('#ClickButton').click(async function(e) {
+$('#ClickButton').click(async function (e) {
 
-            e.preventDefault();
+    e.preventDefault();
 
-            let single = Array();
-            let multi = Array();
-            let meetingPoints = Array();
-            let clientLocation = null;
-            let clientInputAnswers = Array();
-            let description = null;
-            let salaryMin = null;
-            let salaryMax = null;
-            let serviceId = null;
+    let single = Array();
+    let multi = Array();
+    let meetingPoints = Array();
+    let clientLocation = null;
+    let clientInputAnswers = Array();
+    let description = null;
+    let salaryMin = null;
+    let salaryMax = null;
+    let serviceId = null;
 
-            $('input[type="radio"]:checked').each(function() {
-                single.push($(this).val());
-            });
+    $('input[type="radio"]:checked').each(function () {
+        single.push($(this).val());
+    });
 
-            $('input[type="checkbox"]:checked').each(function() {
-                multi.push($(this).val());
-            });
+    $('input[type="checkbox"]:checked').each(function () {
+        multi.push($(this).val());
+    });
 
-            if ($('#points')[0] != undefined) {
-                let options = $('#points')[0].selectedOptions;
-                for (var i = 0; i < options.length; i++) {
-                    meetingPoints.push(options[i].value);
-                }
-            }
+    if ($('#points')[0] != undefined) {
+        let options = $('#points')[0].selectedOptions;
+        for (var i = 0; i < options.length; i++) {
+            meetingPoints.push(options[i].value);
+        }
+    }
 
-            $('textarea[data-question-id]').each(function() {
-                clientInputAnswers.push({
-                    QuestionId: $(this).data('question-id'),
-                    Answer: $(this).val()
-                });
-            });
-
-            clientLocation = $('input[data-question-id]').val();
-            description = $('#description').val();
-            salaryMin = $('#salary-min').val();
-            salaryMax = $('#salary-max').val();
-            serviceId = $('#services').val();
-
-            await fetch('@Url.Action("Create", "Order")',
-                {
-                    method: 'post',
-                    headers: new Headers({
-                        'Content-Type': 'application/json'
-                    }),
-                    body: JSON.stringify({
-                        Single: single,
-                        Multi: multi,
-                        OrderMeetingPoints: meetingPoints,
-                        ClientLocation: clientLocation,
-                        ClientAnswers: clientInputAnswers,
-                        Description: description,
-                        SalaryMin: salaryMin,
-                        SalaryMax: salaryMax,
-                        ServiceId: serviceId
-                    })
-
-                }).then((res) => {
-                if (res.ok){
-                    return res.json();
-                } else {
-                    throw new Error ('Something went wrong with sending data');
-                    }
-
-                }).then((json) => {
-                    let url = '@Url.Action("Order", "Order",new {id=719 })';
-                    url= url.replace("719", json);
-                    window.location.href = url;
-                });
+    $('textarea[data-question-id]').each(function () {
+        clientInputAnswers.push({
+            QuestionId: $(this).data('question-id'),
+            Answer: $(this).val()
         });
+    });
 
+    clientLocation = $('input[data-question-id]').val();
+    description = $('#description').val();
+    salaryMin = $('#salary-min').val();
+    salaryMax = $('#salary-max').val();
+    serviceId = $('#services').val();
 
-        $('#categories').change(async function() {
-            let categoryId = $('#categories option:selected').first().val();
-            if (categoryId == 0) {
-                $('#subCategories').children().slice(1).remove();
+    await fetch( '@Url.Action("Create", "Order")',
+        {
+            method: 'post',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify({
+                Single: single,
+                Multi: multi,
+                OrderMeetingPoints: meetingPoints,
+                ClientLocation: clientLocation,
+                ClientAnswers: clientInputAnswers,
+                Description: description,
+                SalaryMin: salaryMin,
+                SalaryMax: salaryMax,
+                ServiceId: serviceId
+            })
+
+        }).then((res) => {
+            if (res.ok) {
+                return res.json();
             } else {
-                let subCategories = await(await fetch(`SubCategoryOptions?categoryId=${categoryId}`)).text();
-                $('#subCategories').html(subCategories);
+                throw new Error('Something went wrong with sending data');
             }
+        }).then((json) => {
+            let url = '@Url.Action("Order", "Order",new {id=719 })';
+            url = url.replace("719", json);
+            window.location.href = url;
         });
-        $('#subCategories').change(async function() {
-            let subCategoryId = $('#subCategories option:selected').first().val();
-            if (subCategoryId == 0) {
-                $('#services').children().slice(1).remove();
-                $('#quetions').html('');
-            } else {
-                let services = await(await fetch(`ServicesOptions?subCategoryId=${subCategoryId}`)).text();
-                $('#services').html(services);
-                let questions = await(await fetch(`Questions?subCategoryId=${subCategoryId}`)).text();
-                $('#quetions').html(questions);
-            }
-        });
-        $('#services').change(async function() {
-            let serviceId = $('#services option:selected').first().val();
-            let subCategoryId = $('#subCategories option:selected').first().val();
-            if (serviceId == 0) {
-                let questions = await(await fetch(`Questions?subCategoryId=${subCategoryId}`)).text();
-                $('#quetions').html(questions);
-            } else {
-                let questions = await(await fetch(`Questions?subCategoryId=${subCategoryId}&serviceId=${serviceId}`))
-                    .text();
-                $('#quetions').html(questions);
-            }
-        });
+});
     </script>
 }
