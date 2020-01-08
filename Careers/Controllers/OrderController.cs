@@ -84,8 +84,10 @@ namespace Careers.Controllers
                 Description = model.Description
             };
 
-            if (model.ServiceId == "0") 
+            if (model.ServiceId == "0")
+            {
                 order.ServiceId = (await _categoryService.FindServiceAsync("другое")).Id;
+            }
 
             if (int.TryParse(model.SalaryMin, out var min)) order.PriceMin = min;
             else return StatusCode(StatusCodes.Status500InternalServerError);

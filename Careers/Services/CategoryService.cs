@@ -134,8 +134,8 @@ namespace Careers.Services
         public async Task<Service> FindServiceAsync(string name)
         {
             return await context.Services.FirstOrDefaultAsync(x =>
-                string.Equals(x.DescriptionRU.ToUpper(), name.ToUpper(), StringComparison.Ordinal) ||
-                string.Equals(x.DescriptionAZ.ToUpper(), name.ToUpper(), StringComparison.Ordinal));
+                x.DescriptionRU.ToUpper()== name.ToUpper() ||
+                x.DescriptionAZ.ToUpper()== name.ToUpper());
         }
 
         public async Task<IEnumerable<Service>> GetServicesAsync(int subCategoryId)
