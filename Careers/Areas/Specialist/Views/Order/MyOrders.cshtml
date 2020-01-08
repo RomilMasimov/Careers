@@ -1,34 +1,23 @@
-﻿@model IEnumerable<Order>
+﻿@model IEnumerable<OrderViewModel>
 
-<div class="py-3">
-    <partial name="_MyOrdersTabNavigation" />
-</div>
+<div class="jp_adp_main_section_wrapper">
+    <div class="container">
+        <partial name="_MyOrdersTabNavigation" />
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="tab-content">
+                    <div id="list" class="tab-pane fade active in">
+                        <div class="row">
 
-@foreach (var order in Model)
-{
-    <div class="list-group">
-        <a href="#" class="list-group-item list-group-item-action">
-            <div class="row">
-                <div class="col-md-6">
-                    <h5 class="text-muted">@order.Service.DescriptionRU</h5>
-                    @foreach (var answerOrder in order.AnswerOrders)
-                    {
-                        <p>@answerOrder.Answer.Question.TextRU: @answerOrder.Answer.TextRU</p>
-                    }
-                </div>
-                <div class="col-md-4">
-                    <p>@order.Client.Name @order.Client.Surname</p>
-                    <p>
-                        @foreach (var point in order.OrderMeetingPoints)
-                        {
-                            <span>point.MeetingPoint.Description </span>
-                        }
-                    </p>
-                </div>
-                <div class="col-md-2">
-                    @order.PriceMax
+                            @foreach (var order in Model)
+                            {
+                                <partial name="_OrderPartial" model="order" />
+                            }
+
+                        </div>
+                    </div>
                 </div>
             </div>
-        </a>
+        </div>
     </div>
-}
+</div>

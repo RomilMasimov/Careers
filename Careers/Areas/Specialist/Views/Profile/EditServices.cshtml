@@ -33,8 +33,8 @@
                 @foreach (var viewModel in Model)
                 {
                     <li class="list-group-item">
-                        <div class="d-flex justify-content-between">
-                            <p>@viewModel.Service.DescriptionRU</p>
+                        <div class="h-100 d-flex align-items-center justify-content-between">
+                            <p class="m-0">@viewModel.Service.DescriptionRU</p>
                             @if (viewModel.SpecialistService != null)
                             {
                                 @if (viewModel.SpecialistService?.PriceMax != null)
@@ -43,7 +43,7 @@
                                 }
                                 <span>@viewModel.SpecialistService.PriceMin @viewModel.SpecialistService.Measure.TextRU</span>
                             }
-                            <a asp-area="Specialist" asp-controller="Profile" asp-action="EditService" asp-route-serviceId="@viewModel.Service.Id" class="btn btn-sm btn-light">Edit</a>
+                            <a asp-area="Specialist" asp-controller="Profile" asp-action="EditService" asp-route-serviceId="@viewModel.Service.Id" class="jp_btn_default">Edit</a>
                         </div>
                     </li>
                 }

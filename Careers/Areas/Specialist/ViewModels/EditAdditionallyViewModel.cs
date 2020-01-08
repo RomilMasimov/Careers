@@ -9,6 +9,7 @@ namespace Careers.Areas.SpecialistArea.ViewModels
     public class EditAdditionallyViewModel
     {
         [Required]
+        [DataType(DataType.Date)]
         public DateTime Birthday { get; set; }
     }
 }
