@@ -38,7 +38,7 @@
                         <textarea asp-for="Description" class="jp_textarea_default" rows="7" placeholder="Description"></textarea>
                         <span asp-validation-for="Description" class="text-danger"></span>
                     </div>
-                    <button class="jp_btn_default" type="submit">Save</button>
+                    <button class="jp_btn_default" type="submit">@Localizer["save"]</button>
                 </form>
                 <form asp-area="Specialist" asp-controller="Profile" asp-action="DeleteWork" method="post">
                     <input hidden asp-for="Id" />

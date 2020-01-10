@@ -11,7 +11,7 @@
         .ToList();
 }
 
-<form asp-controller="Home" asp-action="SetLanguage" style="padding: 2px" 
+<form asp-area="" asp-controller="Home" asp-action="SetLanguage" style="padding: 2px" 
       asp-route-returnUrl="@Context.Request.GetEncodedPathAndQuery() "
       method="post" class="form-horizontal">
 
