@@ -55,9 +55,11 @@ namespace Careers.Controllers
             return View(model);
         }
 
-        public IActionResult Order(int id)
+        public async Task<IActionResult> Order(int id)
         {
-            return Content($"I'm order {id}");
+            var order = await _orderService.FindDetailedAsync(id);
+            var model = new OrderDetailsViewModel(order);
+            return View(model);
         }
 
 

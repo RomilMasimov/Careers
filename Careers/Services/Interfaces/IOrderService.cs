@@ -18,6 +18,7 @@ namespace Careers.Services.Interfaces
         Task<IEnumerable<OrderResponse>> FindAllResponseByOrderAsync(int orderId);
 
         Task<Order> FindAsync(int id, bool responses = false);
+        Task<Order> FindDetailedAsync(int id);
         Task<IEnumerable<Order>> FindAllByClientAsync(int clientId);
         Task<IEnumerable<Order>> FindAllBySpecialistAsync(int specialistId);
         Task<bool> AddMeetingPoints(IEnumerable<OrderMeetingPoint> orderMeetingPoints);

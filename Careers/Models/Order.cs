@@ -11,6 +11,7 @@ namespace Careers.Models
         public DateTime Created { get; set; }
         public int PriceMin { get; set; }
         public int? PriceMax { get; set; }
+        public Measurement Measure { get; set; }
         public string ClientLocation { get; set; }
         public string Description { get; set; }
 
