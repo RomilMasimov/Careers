@@ -29,9 +29,22 @@ namespace Careers.Areas.SpecialistArea.Controllers
             this._orderService = orderService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var orders = await _orderService.FindAllAsync();
+
+            var isRu = CultureInfo.CurrentCulture.Name == "ru-RU";
+            var model = orders.Select(m => new OrderViewModel
+            {
+                Id = m.Id,
+                State = m.State,
+                Created = m.Created,
+                ServiceDescription = isRu ? m.Service.DescriptionRU : m.Service.DescriptionAZ,
+                ClientId = m.ClientId,
+                ClientImage = m.Client.ImageUrl,
+                ClientFullName = $"{m.Client.Name} {m.Client.Surname}",
+            });
+            return View(model);
         }
 
         public IActionResult ByFilters(object filters) // Add a ViewModel

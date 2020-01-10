@@ -93,6 +93,7 @@ namespace Careers.Services
                 .ThenInclude(m => m.Question)
                 .Include(m => m.Service)
                 .Include(m => m.Specialist)
+                .Include(m => m.Client)
                 .FirstOrDefaultAsync(m => m.Id == id);
         }
 
@@ -124,6 +125,15 @@ namespace Careers.Services
             var res = context.OrderResponses.Update(response);
             await context.SaveChangesAsync();
             return res.Entity;
+        }
+
+        public async Task<IEnumerable<Order>> FindAllAsync()
+        {
+            return await context.Orders
+                .Include(m => m.Service)
+                .Include(m => m.Client)
+                .Include(m => m.Specialist)
+                .ToListAsync();
         }
     }
 }

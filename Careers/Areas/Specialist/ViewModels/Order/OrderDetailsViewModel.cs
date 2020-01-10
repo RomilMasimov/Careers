@@ -20,8 +20,8 @@ namespace Careers.Areas.SpecialistArea.ViewModels.Order
         public IEnumerable<ClientAnswer> ClientAnswers { get; set; }
 
         public Models.Service Service { get; set; }
-        public string SpecialistFullName { get; set; }
-        public int? SpecialistId { get; set; }
+        public string ClientFullName { get; set; }
+        public int? ClientId { get; set; }
 
         public OrderDetailsViewModel(Models.Order order)
         {
@@ -35,8 +35,8 @@ namespace Careers.Areas.SpecialistArea.ViewModels.Order
             AnswerOrders = order.AnswerOrders;
             ClientAnswers = order.ClientAnswers;
             Service = order.Service;
-            SpecialistId = order.SpecialistId;
-            SpecialistFullName = $"{order.Specialist?.Name} {order.Specialist?.Surname} {order.Specialist?.Fathername}";
+            ClientId = order.ClientId;
+            ClientFullName = $"{order.Client.Name} {order.Client.Surname}";
         }
     }
 }

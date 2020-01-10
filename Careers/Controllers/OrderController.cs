@@ -48,8 +48,8 @@ namespace Careers.Controllers
                 Created = m.Created,
                 ServiceDescription = isRu ? m.Service.DescriptionRU : m.Service.DescriptionAZ,
                 SpecialistId = m.SpecialistId,
-                SpecialistImage = m.Specialist.ImageUrl,
-                SpecialistFullName = $"{m.Specialist.Name} {m.Specialist.Surname}",
+                SpecialistImage = m.Specialist?.ImageUrl,
+                SpecialistFullName = $"{m.Specialist?.Name} {m.Specialist?.Surname}",
             });
 
             return View(model);
