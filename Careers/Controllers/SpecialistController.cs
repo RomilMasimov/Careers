@@ -219,7 +219,7 @@ namespace Careers.Controllers
 
         public async Task<IActionResult> Specialist(int id)
         {
-            var specialist = await _specialistService.FindAsync(id);
+            var specialist = await _specialistService.FindDetailedAsync(id);
             var model = new SpecialistViewModel(specialist);
             return View(model);
         }

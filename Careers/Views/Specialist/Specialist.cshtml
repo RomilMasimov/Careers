@@ -1,5 +1,5 @@
 ﻿@model Careers.ViewModels.Spec.SpecialistViewModel
-<!-- jp Title Wrapper Start -->
+
 <div class="jp_tittle_main_wrapper">
     <div class="jp_tittle_img_overlay"></div>
     <div class="container">
@@ -23,18 +23,14 @@
         </div>
     </div>
 </div>
-<!-- jp Tittle Wrapper End -->
-<!-- jp profile Wrapper Start -->
+
 <div class="jp_cp_profile_main_wrapper">
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                 <div class="jp_cp_left_side_wrapper">
                     <div class="jp_cp_left_pro_wallpaper">
-                        <img src="@Model.ImagePath" error-src="" alt="profile">
-                        <h2>@Model.Name @Model.Surname</h2>
-                        <p>UI/UX Designer in Dewas</p>
-
+                        <img src="~/@Model.ImagePath" error-src="" alt="profile">
                     </div>
                     <div class="jp_cp_rd_wrapper">
                         <ul>
@@ -42,16 +38,6 @@
                         </ul>
                     </div>
                 </div>
-                @*<div class="jp_add_resume_wrapper jp_job_location_wrapper jp_cp_left_ad_res">
-                        <div class="jp_add_resume_img_overlay"></div>
-                        <div class="jp_add_resume_cont">
-                            <img src="images/content/resume_logo.png" error-src="" alt="logo" />
-                            <h4>Get Best Matched Jobs On your Email. Add Resume NOW!</h4>
-                            <ul>
-                                <li><a href="#"><i class="fa fa-plus-circle"></i> &nbsp;ADD RESUME</a></li>
-                            </ul>
-                        </div>
-                    </div>*@
             </div>
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                 <div class="jp_cp_right_side_wrapper">
@@ -62,40 +48,44 @@
                                 <tr>
                                     <td class="td-w25">Full Name</td>
                                     <td class="td-w10">:</td>
-                                    <td class="td-w65">@Model.Name @Model.Surname</td>
+                                    <td class="td-w65">@Model.Name @Model.Surname @Model.FatherName</td>
                                 </tr>
                                 <tr>
-                                    <td class="td-w25">Father's Name</td>
-                                    <td class="td-w10">:</td>
-                                    <td class="td-w65">@Model.FatherName</td>
-                                </tr>
-                                <tr>
-                                    <td class="td-w25">Birth</td>
-                                    <td class="td-w10">:</td>
-                                    <td class="td-w65">@Model.DateOfBirth.ToLongDateString()</td>
-                                </tr>
-                                <tr>
-                                    <td class="td-w25">Location</td>
+                                    <td class="td-w25">City</td>
                                     <td class="td-w10">:</td>
                                     <td class="td-w65">@Model.CityName</td>
+                                </tr>
+                                <tr>
+                                    <td class="td-w25">Phone</td>
+                                    <td class="td-w10">:</td>
+                                    <td class="td-w65">@Model.Phone</td>
+                                </tr>
+                                <tr>
+                                    <td class="td-w25">Email</td>
+                                    <td class="td-w10">:</td>
+                                    <td class="td-w65">@Model.Email</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
-                        <div class="jp_cp_accor_heading_wrapper">
-                            <h2>Languages</h2>
-                            <p>
-                                @foreach (var item in Model.Languages)
-                                {
-                                    <span>@item</span>
-                                }
-                            </p>
+
+                @if (Model.Languages?.Count > 0)
+                {
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                            <div class="jp_cp_accor_heading_wrapper">
+                                <h2>Languages</h2>
+                                <p>
+                                    @foreach (var lang in Model.Languages)
+                                    {
+                                        <span>@lang</span>
+                                    }
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
 
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
@@ -107,90 +97,121 @@
                     <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
                         <div class="accordion_wrapper abt_page_2_wrapper">
                             <div class="panel-group" id="accordion_threeLeft">
-
-                                <!-- /.panel-default -->
-                                <div class="panel panel-default">
-                                    <div class="panel-heading bell">
-                                        <h4 class="panel-title">
-                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion_threeLeft" href="#collapseTwentyLeftThree" aria-expanded="false">
-                                                EDUCATION
-                                            </a>
-                                        </h4>
-                                    </div>
-                                    <div id="collapseTwentyLeftThree" class="panel-collapse collapse" aria-expanded="false" role="tablist" style="height: 0;">
-                                        <div class="panel-body">
-                                            @foreach (var item in Model.Educations)
-                                            {
-                                                <p>@item.StudyPlaceName. <span>Specialization</span></p>
-                                                <p>From: <span>@item.StartDate.ToLongDateString()</span></p>
-                                                <p>To: <span>@(item.EndDate == null ? "now" : item.EndDate.Value.ToLongDateString())</span></p>
-                                            }
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="panel panel-default">
-                                    <div class="panel-heading bell">
-                                        <h4 class="panel-title">
-                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion_threeLeft" href="#collapseTwentyLeftThree2" aria-expanded="false">
-                                                EXPERIENCE
-                                            </a>
-                                        </h4>
-                                    </div>
-                                    <div id="collapseTwentyLeftThree2" class="panel-collapse collapse" aria-expanded="false" role="tablist" style="height: 0px;">
-                                        <div class="panel-body">
-                                            @foreach (var item in Model.Experiences)
-                                            {
-                                                <p>@item.CompanyName. <span>Position</span></p>
-                                                <p>From: <span>@item.StartDate.ToLongDateString()</span></p>
-                                                <p>To: <span>@(item.EndDate == null ? "now" : item.EndDate.Value.ToLongDateString())</span></p>
-                                            }
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /.panel-default -->
-                            </div>
-                            <!--end of /.panel-group-->
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
-                        <div class="jp_cp_accor_heading_wrapper">
-                            <h2>Categories</h2>
-                            <p>
-                                @foreach (var item in Model.SubCategories)
+                                @if (Model.Educations.Count > 0)
                                 {
-                                    <span>@item</span>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading bell">
+                                            <h4 class="panel-title">
+                                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion_threeLeft" href="#collapseTwentyLeftThree" aria-expanded="false">
+                                                    EDUCATION
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseTwentyLeftThree" class="panel-collapse collapse" aria-expanded="false" role="tablist" style="height: 0;">
+                                            <div class="panel-body">
+                                                @foreach (var item in Model.Educations)
+                                                {
+                                                    <ul>
+                                                        <li>
+                                                            <p>
+                                                                <b>@item.StudyPlaceName</b>,
+                                                                <span>specialization - </span>
+                                                                <i>@item.Specialization,</i>
+                                                                <span>@item.StartDate.Year @(item.EndDate.HasValue ? $" - {item.EndDate.Value.Year} years" : "year").</span>
+                                                            </p>
+                                                        </li>
+                                                    </ul>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
                                 }
-                            </p>
+
+                                @if (Model.Experiences.Count > 0)
+                                {
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading bell">
+                                            <h4 class="panel-title">
+                                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion_threeLeft" href="#collapseTwentyLeftThree2" aria-expanded="false">
+                                                    EXPERIENCE
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseTwentyLeftThree2" class="panel-collapse collapse" aria-expanded="false" role="tablist" style="height: 0px;">
+                                            <div class="panel-body">
+                                                @foreach (var item in Model.Experiences)
+                                                {
+                                                    <p>
+                                                        <b>@item.CompanyName</b>,
+                                                        <span>position - </span>
+                                                        <i>@item.Position,</i>
+                                                        <span>@item.StartDate.Year @(item.EndDate.HasValue ? $" - {item.EndDate.Value.Year} years" : "year").</span>
+                                                    </p>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
-                        <div class="jp_cp_accor_heading_wrapper">
-                            <h2>Services</h2>
 
-                            @foreach (var item in Model.SpecialistServices)
-                            {
-                                <p>@item.Service.DescriptionRU</p>
-                                <p>@item.PriceMin</p>
-                                <p>@item.PriceMax</p>
-                            }
-
+                @if (Model.Works.Count() > 0)
+                {
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                            <div class="jp_cp_accor_heading_wrapper">
+                                <h2>
+                                    Works
+                                </h2>
+                                <div class="mt-5">
+                                    <ul id="works">
+                                        @foreach (var item in Model.Works)
+                                        {
+                                            <li>
+                                                <a title="@item.Description" href="~/@item.ImagePath">
+                                                    <img src="~/@item.ImagePath" height="150" />
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
 
+                @if (Model.SpecialistServices.Count > 0)
+                {
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                            <div class="jp_cp_accor_heading_wrapper">
+                                <h2>Services</h2>
 
-
+                                @foreach (var item in Model.SpecialistServices.GroupBy(m => m.Service.SubCategory))
+                                {
+                                    <div class="w-100 d-flex flex-column">
+                                        <p class="header pb-0 w-100">@item.Key.DescriptionRU</p>
+                                        @foreach (var service in item)
+                                        {
+                                            <div class="w-100 d-flex align-items-center justify-content-between">
+                                                <p class="mt-0 pb-0">@service.Service.DescriptionRU</p>
+                                                <p class="mt-0 pb-0">@service.PriceMin @(service.PriceMax.HasValue ? $" - {service.PriceMax.Value}" : "") / @service.Measure.TextRU</p>
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     </div>
 </div>
-<!-- jp profile Wrapper End -->
+
 <!-- client rivew wrapper start -->
 <div class="client_rivew_wrapper">
 
@@ -205,7 +226,7 @@
                 <div class="progress_box_Wrapper">
                     <div class="row">
                         <div class="col-md-3 col-sm-3 col-xs-12 rating-part-left text-center">
-                            <h1>1.3</h1>
+                            <h1>@Model.Rating</h1>
                             <i class="fa fa-star" aria-hidden="true"></i>
                             <i class="fa fa-star" aria-hidden="true"></i>
                             <i class="fa fa-star" aria-hidden="true"></i>
@@ -355,3 +376,32 @@
     </div>
 </div>
 <!-- client rivew wrapper end -->
+
+@section Scripts {
+    <script src="~/lib/lightslider/js/lightslider.min.js"></script>
+    <script src="~/lib/magnific-popup/js/jquery.magnific-popup.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#works").lightSlider({
+                keyPress: true,
+                autoWidth: true,
+                onSliderLoad: function () {
+                    $('#works').magnificPopup({
+                        delegate: 'a',
+                        type: 'image',
+                        gallery: {
+                            enabled: true,
+                            navigateByImgClick: true,
+                            preload: [0, 1]
+                        },
+                        zoom: {
+                            enabled: true,
+                            duration: 300,
+                            easing: 'ease-in-out',
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}
