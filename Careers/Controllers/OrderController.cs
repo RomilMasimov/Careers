@@ -57,7 +57,15 @@ namespace Careers.Controllers
 
         public async Task<IActionResult> Order(int id)
         {
-            var order = await _orderService.FindDetailedAsync(id);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var client = await _clientService.FindAsync(userId, true);
+            Order order = null;
+            if (client.Orders.Any(m => m.Id == id))
+                order = await _orderService.FindDetailedAsync(id);
+
+            if (order == null)
+                return RedirectToAction("Error", "Home", new { code = 404, message = "Order not found.", returnController = "Order", returnAction = "Index"});
+
             var model = new OrderDetailsViewModel(order);
             return View(model);
         }

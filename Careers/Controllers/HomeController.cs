@@ -148,9 +148,17 @@ namespace Careers.Controllers
             return View();
         }
 
-        public IActionResult Error()
+        public IActionResult Error(int code, string message, string returnArea, string returnController, string returnAction)
         {
-            return View();
+            var model = new ErrorViewModel
+            {
+                Code = code,
+                Message = message,
+                ReturnArea = returnArea,
+                ReturnController = returnController,
+                ReturnAction = returnAction
+            };
+            return View(model);
         }
     }
 }

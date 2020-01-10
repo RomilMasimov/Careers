@@ -55,6 +55,10 @@ namespace Careers.Areas.SpecialistArea.Controllers
         public async Task<IActionResult> Order(int id)
         {
             var order = await _orderService.FindDetailedAsync(id);
+
+            if (order == null)
+                return RedirectToAction("Error", "Home", new { area = "", code = 404, message = "Order not found.", returnArea = "Specialist", returnController = "Order", returnAction = "Index" });
+
             var model = new OrderDetailsViewModel(order);
             return View(model);
         }
