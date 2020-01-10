@@ -124,12 +124,13 @@ namespace Careers.Controllers
         {
             var isRu = CultureInfo.CurrentCulture.Name == "ru-RU";
             var categories = new List<Category>();
+            var measurments =  await _categoryService.FindAllMeasurements();
             categories.Add(new Category { Id = 0, DescriptionRU = "Выберите категорию", DescriptionAZ = "Kateqoriya seçin" }); //TODO add localization
             categories.AddRange(await _categoryService.GetAllCategories());
             ViewBag.Categories = new SelectList(categories, "Id", isRu ? "DescriptionRU" : "DescriptionAZ");
             ViewBag.SubCategories = new SelectList(new[] { new { Id = 0, Text = isRu ? "Выберите подкатегорию" : "Alt kateqoriyanı seçin" } }, "Id", "Text");
             ViewBag.Services = new SelectList(new[] { new { Id = 0, Text = isRu ? "Выберите услугу" : "Xidməti seçin" } }, "Id", "Text");
-
+            ViewBag.Measurments = new SelectList(measurments, "Id", isRu ? "TextAZ" : "TextRU");
             return View();
         }
 
