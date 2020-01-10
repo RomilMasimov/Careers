@@ -1,0 +1,118 @@
+﻿@using System.Globalization
+@model OrderDetailsViewModel
+@{
+    var isRu = CultureInfo.CurrentCulture.Name == "ru-RU";
+}
+
+<div class="jp_tittle_main_wrapper">
+    <div class="jp_tittle_img_overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="jp_tittle_heading_wrapper">
+                    <div class="jp_tittle_heading">
+                        <h2>Order</h2>
+                    </div>
+                    <div class="jp_tittle_breadcrumb_main_wrapper">
+                        <div class="jp_tittle_breadcrumb_wrapper">
+                            <ul>
+                                <li>Home <i class="fa fa-angle-right"></i></li>
+                                <li><a asp-area="" asp-controller="Order" asp-action="Index">Orders <i class="fa fa-angle-right"></i></a></li>
+                                <li>Order details</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="jp_cp_profile_main_wrapper">
+    <div class="container">
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+            <div class="jp_listing_left_sidebar_wrapper">
+                <div class="jp_job_des">
+                    <h2>Job Description</h2>
+                    <p>
+                        @Model.Description
+                    </p>
+                </div>
+                @foreach (var answerOrder in Model.AnswerOrders.Select(m => m.Answer).GroupBy(m => m.Question))
+                {
+                    <div class="jp_job_res">
+                        <h2>@(isRu ? answerOrder.Key.TextRU : answerOrder.Key.TextAZ)</h2>
+                        <ul>
+                            @foreach (var answer in answerOrder)
+                            {
+                                <li><i class="fa fa-caret-right"></i>&nbsp;&nbsp; @(isRu ? answer.TextRU : answer.TextAZ)</li>
+                            }
+                        </ul>
+                    </div>
+                }
+                @foreach (var clientAnswer in Model.ClientAnswers)
+                {
+                    <div class="jp_job_res">
+                        <h2>@(isRu ? clientAnswer.Question.TextRU : clientAnswer.Question.TextAZ)</h2>
+                        <p>@clientAnswer.Text</p>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="jp_rightside_job_categories_wrapper jp_rightside_listing_single_wrapper">
+                        <div class="jp_rightside_job_categories_heading">
+                            <h4>Job Overview</h4>
+                        </div>
+                        <div class="jp_jop_overview_img_wrapper">
+                            <div class="jp_jop_overview_img">
+                                <img order-state="@Model.State">
+                            </div>
+                        </div>
+                        <div class="jp_job_listing_single_post_right_cont">
+                            <div class="jp_job_listing_single_post_right_cont_wrapper">
+                                <h4>@(isRu ? Model.Service.DescriptionRU : Model.Service.DescriptionAZ)</h4>
+                                <p>@*bla bla...*@</p>
+                            </div>
+                        </div>
+                        <div class="jp_listing_overview_list_outside_main_wrapper">
+                            <div class="jp_listing_overview_list_main_wrapper">
+                                <div class="jp_listing_list_icon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <div class="jp_listing_list_icon_cont_wrapper">
+                                    <ul>
+                                        <li>Date Posted:</li>
+                                        <li>@Model.Created.ToString()</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="jp_listing_overview_list_main_wrapper jp_listing_overview_list_main_wrapper2">
+                                <div class="jp_listing_list_icon">
+                                    <i class="fa fa-money"></i>
+                                </div>
+                                <div class="jp_listing_list_icon_cont_wrapper">
+                                    <ul>
+                                        <li>@Localizer["salary"]:</li>
+                                        <li>@Model.PriceMin @(Model.PriceMax.HasValue ? $" - {Model.PriceMax.Value}" : "") AZN / @(isRu ? Model.Measure?.TextRU : Model.Measure?.TextAZ)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="jp_listing_right_bar_btn_wrapper">
+                                <div class="jp_listing_right_bar_btn">
+                                    <ul>
+                                        <li><a href="#"><i class="fa fa-plus-circle"></i> &nbsp;@Localizer["response"]</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

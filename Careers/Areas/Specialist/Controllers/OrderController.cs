@@ -39,9 +39,11 @@ namespace Careers.Areas.SpecialistArea.Controllers
             return View();
         }
 
-        public IActionResult Order(int id)
+        public async Task<IActionResult> Order(int id)
         {
-            return View();
+            var order = await _orderService.FindDetailedAsync(id);
+            var model = new OrderDetailsViewModel(order);
+            return View(model);
         }
 
         public async Task<IActionResult> MyOrders()
