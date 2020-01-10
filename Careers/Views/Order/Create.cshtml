@@ -14,12 +14,10 @@
                     <select asp-items="ViewBag.Categories" id="categories"></select>
                 </div>
                 <div class="jp_adp_form_wrapper">
-                    <select asp-items="ViewBag.SubCategories" id="subCategories">
-                    </select>
+                    <select asp-items="ViewBag.SubCategories" id="subCategories"></select>
                 </div>
                 <div class="jp_adp_form_wrapper">
-                    <select asp-items="ViewBag.Services" id="services">
-                    </select>
+                    <select asp-items="ViewBag.Services" id="services"></select>
                 </div>
             </div>
             <div id="quetions" class="col-12 mt-3 pb-3 border-top border-bottom"></div>
@@ -28,12 +26,17 @@
                     <textarea id="description" rows="5" placeholder="Job Description"></textarea>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-md-6 col-xs-12">
+            <div class="col-lg-4 col-md-4 col-md-4 col-xs-12">
+                <div class="jp_adp_form_wrapper">
+                    <select asp-items="ViewBag.Measurments" id="measurments"></select>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-md-4 col-xs-12">
                 <div class="jp_adp_form_wrapper">
                     <input id="salary-min" type="text" placeholder="Salary Min">
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-md-6 col-xs-12">
+            <div class="col-lg-4 col-md-4 col-md-4 col-xs-12">
                 <div class="jp_adp_form_wrapper">
                     <input id="salary-max" type="text" placeholder="Salary Max">
                 </div>
@@ -70,6 +73,7 @@ $('#ClickButton').click(async function (e) {
     let salaryMax = null;
     let subCategoryId = null;
     let serviceId = null;
+    let measurmentId = null;
 
     $('input[type="radio"]:checked').each(function () {
         single.push($(this).val());
@@ -99,6 +103,7 @@ $('#ClickButton').click(async function (e) {
     salaryMax = $('#salary-max').val();
     serviceId = $('#services').val();
     subCategoryId = $('#subCategories').val();
+    measurmentId = $('#measurments').val();
 
     await fetch( '@Url.Action("Create", "Order")',
         {
@@ -116,14 +121,15 @@ $('#ClickButton').click(async function (e) {
                 SalaryMin: salaryMin,
                 SalaryMax: salaryMax,
                 ServiceId: serviceId,
-                SubCategoryId: subCategoryId
+                SubCategoryId: subCategoryId,
+                MeasurmentId:measurmentId
             })
 
         }).then((res) => {
             if (res.ok) {
                 return res.json();
             } else {
-                throw new Error('Something went wrong with sending data');
+                throw new Error('Something went wrong with sending data or action');
             }
         }).then((json) => {
             let url = '@Url.Action("Order", "Order",new {id=719 })';

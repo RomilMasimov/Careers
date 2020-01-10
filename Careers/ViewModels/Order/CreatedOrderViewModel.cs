@@ -14,6 +14,7 @@ namespace Careers.ViewModels.Order
         public string ClientLocation { get; set; }
         public string ServiceId { get; set; }
         public string SubCategoryId { get; set; }
+        public string MeasurmentId { get; set; }
     }
 
     public class ClientInputAnswer

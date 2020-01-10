@@ -54,7 +54,7 @@ namespace Careers.Controllers
             };
 
             return View(viewModel);
-        }
+         }
 
         [HttpGet]
         public async Task<IActionResult> ServicesAndSubCategoriesAutocomplete(string term)

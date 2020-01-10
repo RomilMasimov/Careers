@@ -23,6 +23,9 @@ namespace Careers.Models
         public Service Service { get; set; }
         public int ServiceId { get; set; }
 
+        public Measurement Measurement { get; set; }
+        public int MeasurementId { get; set; }
+
         public IEnumerable<Review> Reviews { get; set; }
         public IEnumerable<AnswerOrder> AnswerOrders { get; set; }
         public IEnumerable<OrderMeetingPoint> OrderMeetingPoints { get; set; }
