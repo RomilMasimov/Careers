@@ -70,7 +70,6 @@ namespace Careers.Controllers
             return View(model);
         }
 
-
         [HttpPost]
         public async Task<IActionResult> Create([FromBody]CreatedOrderViewModel model)
         {
@@ -141,6 +140,18 @@ namespace Careers.Controllers
             ViewBag.SubCategories = new SelectList(new[] { new { Id = 0, Text = isRu ? "Выберите подкатегорию" : "Alt kateqoriyanı seçin" } }, "Id", "Text");
             ViewBag.Services = new SelectList(new[] { new { Id = 0, Text = isRu ? "Выберите услугу" : "Xidməti seçin" } }, "Id", "Text");
             ViewBag.Measurments = new SelectList(measurments, "Id", isRu ? "TextAZ" : "TextRU");
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult AddReview(int id) 
+        {
+            return View(id);
+        }
+
+        [HttpPost]
+        public IActionResult AddReview(ReviewViewModel model)
+        {
             return View();
         }
 
