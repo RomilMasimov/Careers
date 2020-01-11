@@ -18,6 +18,8 @@ namespace Careers.ViewModels.Spec
         public string Email { get; set; }
         public int Rating { get; set; }
         public string About { get; set; }
+        public IEnumerable<WhereCanMeetSpecialist> WhereCanMeetList { get; set; }
+        public IEnumerable<WhereCanGoSpecialist> WhereCanGoList { get; set; }
         public IEnumerable<SpecialistWork> Works { get; set; }
         public List<string> Languages { get; set; }
         public List<Education> Educations { get; set; }
@@ -48,6 +50,8 @@ namespace Careers.ViewModels.Spec
             Phone = specialist.AppUser.PhoneNumber;
             Email = specialist.AppUser.Email;
             Rating = specialist.Rating;
+            WhereCanMeetList = specialist.WhereCanMeetList;
+            WhereCanGoList = specialist.WhereCanGoList;
             About = specialist.About;
             Works = specialist.SpecialistWorks;
             Languages = specialist.LanguageSpecialists?.Select(x => x.Language.Name).ToList() ?? new List<string>();

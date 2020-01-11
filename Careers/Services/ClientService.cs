@@ -60,6 +60,8 @@ namespace Careers.Services
                 .Include(x => x.AppUser)
                 .Include(x => x.Orders)
                 .ThenInclude(x => x.Specialist)
+                .Include(x => x.Orders)
+                .ThenInclude(x => x.Service)
                 .FirstOrDefaultAsync(x => x.AppUserId == userId);
         }
     }

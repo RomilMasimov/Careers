@@ -1,0 +1,22 @@
+﻿@model IEnumerable<OrderViewModel>
+
+<div class="jp_adp_main_section_wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="tab-content">
+                    <div id="list" class="tab-pane fade active in">
+                        <div class="row">
+
+                            @foreach (var order in Model)
+                            {
+                                <partial name="_OrderPartial" model="order" />
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

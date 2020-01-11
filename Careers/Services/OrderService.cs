@@ -83,6 +83,20 @@ namespace Careers.Services
                 .ThenInclude(x => x.Specialist).FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public async Task<Order> FindDetailedAsync(int id)
+        {
+            return await context.Orders
+                .Include(m => m.AnswerOrders)
+                .ThenInclude(m => m.Answer)
+                .ThenInclude(m => m.Question)
+                .Include(m => m.ClientAnswers)
+                .ThenInclude(m => m.Question)
+                .Include(m => m.Service)
+                .Include(m => m.Specialist)
+                .Include(m => m.Client)
+                .FirstOrDefaultAsync(m => m.Id == id);
+        }
+
         public async Task<Order> InsertAsync(Order order)
         {
             order.Id = 0;
@@ -111,6 +125,15 @@ namespace Careers.Services
             var res = context.OrderResponses.Update(response);
             await context.SaveChangesAsync();
             return res.Entity;
+        }
+
+        public async Task<IEnumerable<Order>> FindAllAsync()
+        {
+            return await context.Orders
+                .Include(m => m.Service)
+                .Include(m => m.Client)
+                .Include(m => m.Specialist)
+                .ToListAsync();
         }
     }
 }

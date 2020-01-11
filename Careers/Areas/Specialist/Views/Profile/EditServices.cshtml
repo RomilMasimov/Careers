@@ -1,6 +1,8 @@
-﻿@model IEnumerable<EditServiceViewModel>
+﻿@using System.Globalization
+@model IEnumerable<EditServiceViewModel>
 @{
     ViewData["Title"] = "Edit services";
+    var isRu = CultureInfo.CurrentCulture.Name == "ru-RU";
 }
 
 <div class="jp_tittle_main_wrapper">
@@ -34,16 +36,15 @@
                 {
                     <li class="list-group-item">
                         <div class="h-100 d-flex align-items-center justify-content-between">
-                            <p class="m-0">@viewModel.Service.DescriptionRU</p>
+                            <p class="m-0">@(isRu ? viewModel.Service.DescriptionRU : viewModel.Service.DescriptionAZ)</p>
                             @if (viewModel.SpecialistService != null)
                             {
                                 @if (viewModel.SpecialistService?.PriceMax != null)
                                 {
-                                    <span>@viewModel.SpecialistService.PriceMin - @viewModel.SpecialistService?.PriceMax @viewModel.SpecialistService.Measure.TextRU</span>
+                                    <span>@viewModel.SpecialistService.PriceMin @(viewModel.SpecialistService.PriceMax.HasValue ? $" - {viewModel.SpecialistService?.PriceMax}" : "") / @(isRu ? viewModel.SpecialistService.Measure.TextRU : viewModel.SpecialistService.Measure.TextAZ)</span>
                                 }
-                                <span>@viewModel.SpecialistService.PriceMin @viewModel.SpecialistService.Measure.TextRU</span>
                             }
-                            <a asp-area="Specialist" asp-controller="Profile" asp-action="EditService" asp-route-serviceId="@viewModel.Service.Id" class="jp_btn_default">Edit</a>
+                            <a asp-area="Specialist" asp-controller="Profile" asp-action="EditService" asp-route-serviceId="@viewModel.Service.Id" class="jp_btn_default">@Localizer["edit"]</a>
                         </div>
                     </li>
                 }
