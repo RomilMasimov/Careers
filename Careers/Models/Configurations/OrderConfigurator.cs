@@ -15,6 +15,10 @@ namespace Careers.Models.Configurations
             builder
                 .Property(o => o.State)
                 .HasConversion<string>();
+
+            builder
+                .Property(o => o.MeasurementId)
+                .HasDefaultValue(1);
         }
     }
 }
