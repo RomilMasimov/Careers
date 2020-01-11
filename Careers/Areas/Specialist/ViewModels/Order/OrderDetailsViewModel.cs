@@ -30,7 +30,7 @@ namespace Careers.Areas.SpecialistArea.ViewModels.Order
             State = order.State;
             PriceMin = order.PriceMin;
             PriceMax = order.PriceMax;
-            Measure = order.Measure;
+            Measure = order.Measurement;
             Description = order.Description;
             AnswerOrders = order.AnswerOrders;
             ClientAnswers = order.ClientAnswers;
