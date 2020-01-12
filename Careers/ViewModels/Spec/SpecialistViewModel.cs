@@ -64,6 +64,7 @@ namespace Careers.ViewModels.Spec
 
             if (specialist.Orders.Any())
             {
+                Reviews = new List<Review>();
                 foreach (var order in specialist.Orders)
                 {
                     Reviews.AddRange(order.Reviews);

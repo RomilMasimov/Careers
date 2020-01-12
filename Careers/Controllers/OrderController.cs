@@ -52,6 +52,7 @@ namespace Careers.Controllers
                 SpecialistId = m.SpecialistId,
                 SpecialistImage = m.Specialist?.ImageUrl,
                 SpecialistFullName = $"{m.Specialist?.Name} {m.Specialist?.Surname}",
+                IsCanBeRated = m.Reviews.Any() || m.State != OrderStateTypeEnum.Finished
             });
 
             return View(model);
@@ -152,10 +153,13 @@ namespace Careers.Controllers
             var client = await _clientService.FindAsync(userId, true);
             var order = client.Orders.FirstOrDefault(m => m.Id == id);
 
-            if (order == null || order.State != OrderStateTypeEnum.Finished)
-                return RedirectToAction("Error", "Home", new { code = 404, message = "You can't review this order.", returnController = "Order", returnAction = "Index" });
+            if (order == null || order.State != OrderStateTypeEnum.Finished || order.Reviews.Any())
+            {
+                TempData["Status"] = "You can't review this order.";
+                return RedirectToAction("Index");
+            }
 
-            var model = new ReviewGetViewModel
+            var model = new ReviewViewModel
             {
                 OrderId = order.Id,
                 SpecialistId = order.Specialist.Id,
@@ -167,18 +171,29 @@ namespace Careers.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddReview(ReviewPostViewModel model)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddReview(ReviewViewModel model)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var client = await _clientService.FindAsync(userId, true);
             var order = client.Orders.FirstOrDefault(m => m.Id == model.OrderId);
 
             if (order == null || order.State != OrderStateTypeEnum.Finished)
-                return RedirectToAction("Error", "Home", new { code = 404, message = "You can't review this order.", returnController = "Order", returnAction = "Index" });
+            {
+                TempData["Status"] = "You can't review this order.";
+                return RedirectToAction("Index");
+            }
 
-            if (model.Images.Count() <= 6 && model.Mark >= 1 && model.Mark <= 5)
+            if (ModelState.IsValid && (model.Images == null || model.Images.Count() <= 6))
+            {
                 await _reviewService.InsertAsync(model.Text, model.Mark, model.OrderId, model.Images);
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+            model.SpecialistId = order.Specialist.Id;
+            model.SpecialistFullName = $"{order.Specialist.Name} {order.Specialist.Surname}";
+            model.SpecialistImage = order.Specialist.ImageUrl;
+            return View(model);
+
         }
 
         public async Task<IActionResult> SubCategoryOptions(int categoryId)

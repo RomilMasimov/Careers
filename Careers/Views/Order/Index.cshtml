@@ -6,7 +6,14 @@
             <div class="tab-content">
                 <div id="list" class="tab-pane fade active in">
                     <div class="row">
-
+                        <div class="col-12 mt-3">
+                            @if (TempData.ContainsKey("Status"))
+                            {
+                                <div class="alert alert-info w-100" role="alert">
+                                    @TempData["Status"]
+                                </div>
+                            }
+                        </div>
                         @foreach (var order in Model)
                         {
                             <partial name="_OrderPartial" model="order" />

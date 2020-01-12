@@ -268,3 +268,9 @@ main {
     font-size: 28px;
     margin-top: 6px;
 }
+
+a.disabled {
+    pointer-events: none;
+    cursor: default;
+    background-color: gray;
+}

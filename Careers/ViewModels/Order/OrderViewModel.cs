@@ -17,5 +17,6 @@ namespace Careers.ViewModels.Order
         public string SpecialistImage { get; set; }
         public string SpecialistFullName { get; set; }
         public int? SpecialistId { get; set; }
+        public bool IsCanBeRated { get; set; }
     }
 }
