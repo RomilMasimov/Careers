@@ -1,4 +1,4 @@
-﻿@model int
+﻿@model ReviewGetViewModel
 
 <div class="jp_tittle_main_wrapper">
     <div class="jp_tittle_img_overlay"></div>
@@ -31,20 +31,26 @@
                 <div class="jp_contact_form_box mt-0">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="jp_contact_inputs_wrapper jp_contact_inputs4_wrapper">
-                                <textarea id="text" rows="6" placeholder="Type Your Comment *"></textarea>
+                            <div class="jp_contact_inputs_wrapper jp_contact_inputs4_wrapper row">
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+                                    <h2 class="header">How do you like the job of a specialist?</h2>
+                                </div>
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <img src="~/@Model.SpecialistImage" error-src="" class="w-100 img-rounded">
+                                        </div>
+                                        <div class="col-8 jp_job_post_right_cont">
+                                            <h4>@Model.SpecialistFullName</h4>
+                                            <a asp-area="" asp-controller="Specialist" asp-action="Specialist" asp-route-id="@Model.SpecialistId">Профиль</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="jp_contact_inputs_wrapper jp_contact_inputs4_wrapper">
-                                <div class="star-rating">
-                                    <span class="fa fa-star-o yes" data-rating="1"></span>
-                                    <span class="fa fa-star-o yes" data-rating="2"></span>
-                                    <span class="fa fa-star-o yes" data-rating="3"></span>
-                                    <span class="fa fa-star-o yes" data-rating="4"></span>
-                                    <span class="fa fa-star-o yes" data-rating="5"></span>
-                                    <input id="mark" type="hidden" class="rating-value">
-                                </div>
+                                <textarea id="text" rows="6" placeholder="Type Your Comment *"></textarea>
                             </div>
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -60,8 +66,21 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="jp_adp_choose_resume_bottom_btn_post">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-5">
+                            <div class="jp_contact_inputs_wrapper jp_contact_inputs4_wrapper">
+                                <h2 class="header">Mark</h2>
+                                <div class="star-rating reviwe-stars">
+                                    <span class="fa fa-star-o yes" data-rating="1"></span>
+                                    <span class="fa fa-star-o yes" data-rating="2"></span>
+                                    <span class="fa fa-star-o yes" data-rating="3"></span>
+                                    <span class="fa fa-star-o yes" data-rating="4"></span>
+                                    <span class="fa fa-star-o yes" data-rating="5"></span>
+                                    <input id="mark" type="hidden" class="rating-value">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-3">
+                            <div class="jp_adp_choose_resume">
                                 <button id="submit" type="button" class="jp_btn_default">Submit</button>
                             </div>
                         </div>
@@ -87,13 +106,16 @@
                     var reader = new FileReader();
                     reader.onload = function (e) {
                         $('#imageContainer').append(
-                            `<div class="review-image">
-                                        <img src="${e.target.result}" class="mr-2 mb-2">
+                            `<div class="review-image mb-2 mr-2">
+                                        <img src="${e.target.result}">
                                         <button data-index="${count++}" type="button"></button>
-                                        <i class="close cross"></i>
+                                        <span data-index="${count}" class="close cross"></span>
                                      </div>`);
                     }
                     reader.readAsDataURL(file);
+                }
+                if (Images.filter(m => m != null).length >= 6) {
+                    $('#submit').attr('disabled', true);
                 }
             }
         });
@@ -103,9 +125,23 @@
             let index = target.data('index');
             Images[index] = null;
             target.parent().remove();
+            if (Images.filter(m => m != null).length < 6) {
+                $('#submit').attr('disabled', false);
+            }
         })
 
         $('#submit').click(function () {
+            let text = $('#text').val();
+            let mark = $('#mark').val();
+            if (text == '' || mark == '') {
+                alert('Enter required fields');
+                return;
+            }
+            if (Images.length > 6) {
+                 alert('Too many pictures');
+                return;
+            }
+
             let postSettings = {
                 method: 'POST',
                 credentials: 'include',
@@ -115,12 +151,15 @@
             for (image of Images) {
                 data.append('Images', image);
             }
-            data.append('OrderId', @Model);
-            data.append('Text', $('#text').val());
-            data.append('Mark', $('#mark').val());
+            data.append('OrderId', @Model.OrderId);
+
+            data.append('Text', text);
+            data.append('Mark', mark);
             postSettings.body = data;
 
-            fetch('/order/addreview', postSettings);
+            fetch('@Url.Action("AddReview", "Order")', postSettings).then(function(response) {
+                document.location.href = '@Url.Action("Index", "Order")';
+            });
         });
     </script>
 }

@@ -217,14 +217,14 @@ main {
     height: 150px;
 }
 
-.review-image img {
-    height: 100%;
-}
+    .review-image img {
+        height: 100%;
+    }
 
     .review-image button {
         position: absolute;
         top: 0;
-        right: 8px;
+        right: 0;
         cursor: pointer;
         width: 0;
         height: 0;
@@ -238,7 +238,6 @@ main {
     }
 
 .cross {
-    font-style: normal;
     position: absolute;
     top: 6px !important;
     right: 14px !important;
@@ -249,7 +248,7 @@ main {
 .close:before, .close:after {
     position: absolute;
     top: -2px !important;
-    right: 8px !important;
+    right: 0 !important;
     left: auto !important;
     content: ' ';
     height: 25px;
@@ -263,4 +262,9 @@ main {
 
 .close:after {
     transform: rotate(-45deg);
+}
+
+.reviwe-stars {
+    font-size: 28px;
+    margin-top: 6px;
 }

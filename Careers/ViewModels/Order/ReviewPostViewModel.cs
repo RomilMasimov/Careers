@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Careers.ViewModels.Order
 {
-    public class ReviewViewModel
+    public class ReviewPostViewModel
     {
         public int OrderId { get; set; }
         public string Text { get; set; }

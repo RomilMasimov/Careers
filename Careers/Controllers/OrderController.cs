@@ -23,15 +23,17 @@ namespace Careers.Controllers
         private readonly IClientService _clientService;
         private readonly ICategoryService _categoryService;
         private readonly IAnswerService _answerService;
+        private readonly IReviewService _reviewService;
 
         public OrderController(IOrderService orderService, IQuestionService questionService,
-            IClientService clientService, ICategoryService categoryService, IAnswerService answerService)
+            IClientService clientService, ICategoryService categoryService, IAnswerService answerService, IReviewService reviewService)
         {
             _orderService = orderService;
             _questionService = questionService;
             _clientService = clientService;
             _categoryService = categoryService;
             _answerService = answerService;
+            _reviewService = reviewService;
         }
 
         public async Task<IActionResult> Index()
@@ -64,7 +66,7 @@ namespace Careers.Controllers
                 order = await _orderService.FindDetailedAsync(id);
 
             if (order == null)
-                return RedirectToAction("Error", "Home", new { code = 404, message = "Order not found.", returnController = "Order", returnAction = "Index"});
+                return RedirectToAction("Error", "Home", new { code = 404, message = "Order not found.", returnController = "Order", returnAction = "Index" });
 
             var model = new OrderDetailsViewModel(order);
             return View(model);
@@ -133,7 +135,7 @@ namespace Careers.Controllers
         {
             var isRu = CultureInfo.CurrentCulture.Name == "ru-RU";
             var categories = new List<Category>();
-            var measurments =  await _categoryService.FindAllMeasurements();
+            var measurments = await _categoryService.FindAllMeasurements();
             categories.Add(new Category { Id = 0, DescriptionRU = "Выберите категорию", DescriptionAZ = "Kateqoriya seçin" }); //TODO add localization
             categories.AddRange(await _categoryService.GetAllCategories());
             ViewBag.Categories = new SelectList(categories, "Id", isRu ? "DescriptionRU" : "DescriptionAZ");
@@ -144,15 +146,39 @@ namespace Careers.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddReview(int id) 
+        public async Task<IActionResult> AddReview(int id)
         {
-            return View(id);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var client = await _clientService.FindAsync(userId, true);
+            var order = client.Orders.FirstOrDefault(m => m.Id == id);
+
+            if (order == null || order.State != OrderStateTypeEnum.Finished)
+                return RedirectToAction("Error", "Home", new { code = 404, message = "You can't review this order.", returnController = "Order", returnAction = "Index" });
+
+            var model = new ReviewGetViewModel
+            {
+                OrderId = order.Id,
+                SpecialistId = order.Specialist.Id,
+                SpecialistFullName = $"{order.Specialist.Name} {order.Specialist.Surname}",
+                SpecialistImage = order.Specialist.ImageUrl
+            };
+
+            return View(model);
         }
 
         [HttpPost]
-        public IActionResult AddReview(ReviewViewModel model)
+        public async Task<IActionResult> AddReview(ReviewPostViewModel model)
         {
-            return View();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var client = await _clientService.FindAsync(userId, true);
+            var order = client.Orders.FirstOrDefault(m => m.Id == model.OrderId);
+
+            if (order == null || order.State != OrderStateTypeEnum.Finished)
+                return RedirectToAction("Error", "Home", new { code = 404, message = "You can't review this order.", returnController = "Order", returnAction = "Index" });
+
+            if (model.Images.Count() <= 6 && model.Mark >= 1 && model.Mark <= 5)
+                await _reviewService.InsertAsync(model.Text, model.Mark, model.OrderId, model.Images);
+            return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> SubCategoryOptions(int categoryId)
