@@ -63,9 +63,10 @@ var SetRatingStar1 = function () {
 SetRatingStar();
 SetRatingStar1();
 
+
 //create.cshtml
 
-$('#categories').change(async function () {
+async function categoriesLoaded() {
     let categoryId = $('#categories option:selected').first().val();
     if (categoryId == 0) {
         $('#subCategories').children().slice(1).remove();
@@ -73,8 +74,9 @@ $('#categories').change(async function () {
         let subCategories = await (await fetch(`SubCategoryOptions?categoryId=${categoryId}`)).text();
         $('#subCategories').html(subCategories);
     }
-});
-$('#subCategories').change(async function () {
+};
+
+async function subCategoriesLoaded() {
     let subCategoryId = $('#subCategories option:selected').first().val();
     if (subCategoryId == 0) {
         $('#services').children().slice(1).remove();
@@ -85,8 +87,9 @@ $('#subCategories').change(async function () {
         let questions = await (await fetch(`Questions?subCategoryId=${subCategoryId}`)).text();
         $('#quetions').html(questions);
     }
-});
-$('#services').change(async function () {
+};
+
+async function servicesLoaded() {
     let serviceId = $('#services option:selected').first().val();
     let subCategoryId = $('#subCategories option:selected').first().val();
     if (serviceId == 0) {
@@ -97,6 +100,6 @@ $('#services').change(async function () {
             .text();
         $('#quetions').html(questions);
     }
-});
+};
 
 //end

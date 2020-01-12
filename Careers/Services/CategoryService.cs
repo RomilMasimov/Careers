@@ -187,5 +187,10 @@ namespace Careers.Services
         {
             return await context.Services.Where(m => m.DescriptionRU.Contains(text)).ToListAsync();
         }
+
+        public async Task<SubCategory> GetSubCategoryAsync(int subCategoryId)
+        {
+            return await context.SubCategories.FirstOrDefaultAsync(x => x.Id == subCategoryId);
+        }
     }
 }

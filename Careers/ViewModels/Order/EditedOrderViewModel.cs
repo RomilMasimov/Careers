@@ -2,8 +2,9 @@
 
 namespace Careers.ViewModels.Order
 {
-    public class CreatedOrderViewModel
+    public class EditedOrderViewModel
     {
+        public int Id { get; set; }
         public string CategoryId { get; set; }
         public string SubCategoryId { get; set; }
         public string ServiceId { get; set; }
@@ -16,7 +17,7 @@ namespace Careers.ViewModels.Order
         public List<string> OrderMeetingPoints { get; set; }
         public List<ClientInputAnswer> ClientAnswers { get; set; }
 
-        public CreatedOrderViewModel()
+        public EditedOrderViewModel()
         {
             CategoryId = "0";
             SubCategoryId = "0";

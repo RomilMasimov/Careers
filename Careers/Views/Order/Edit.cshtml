@@ -1,4 +1,6 @@
-﻿
+﻿@model EditedOrderViewModel
+
+
 <div class="jp_adp_main_section_wrapper">
     <div class="container">
         <div asp-validation-summary="All" class="text-danger"></div>
@@ -8,7 +10,7 @@
                     <h2>@SharedLocalizer["orderDetails"]</h2>
                 </div>
                 <div class="jp_adp_form_wrapper">
-                    <select asp-items="ViewBag.Categories" id="categories"></select>
+                    <select asp-items="ViewBag.Categories" asp-for="@Model.CategoryId" id="categories"></select>
                 </div>
                 <div class="jp_adp_form_wrapper">
                     <select asp-items="ViewBag.SubCategories" id="subCategories"></select>
@@ -55,6 +57,37 @@
 @section Scripts {
 
     <script>
+
+        $(document).ready(function () {
+
+            let categoryId = $('#categories').val();
+            //let subCategoryId = $('#subCategories').val();
+            //let serviceId = $('#services').val();
+
+            if (categoryId != "0") {
+                categoriesLoaded().then( function () {
+                    $('#subCategories').val('@Model.SubCategoryId');
+                    subCategoriesLoaded().then(function () {
+                        $('#services').val('@Model.ServiceId');
+                        servicesLoaded().then(function () {
+
+                            //fill questions with answers
+
+                        });
+                    });
+                });
+            }
+
+            @*if (subCategoryId != "") {
+                console.log(subCategoryId);
+                console.log('@Model.SubCategoryId');
+                subCategoriesLoaded();
+            }
+
+            if (serviceId != "") {
+                servicesLoaded();
+            }*@
+        });
 
         $('#categories').change(categoriesLoaded);
         $('#subCategories').change(subCategoriesLoaded);
@@ -126,6 +159,7 @@
                         'Content-Type': 'application/json'
                     }),
                     body: JSON.stringify({
+                        Id:'@Model.Id',
                         CategoryId:categoryId,
                         SubCategoryId: subCategoryId,
                         ServiceId: serviceId,
@@ -147,7 +181,7 @@
                     }
 
                 }).then((json) => {
-                    let url = '@Url.Action("Order", "Order",new {id=719 })';
+                    let url = '@Url.Action("Edit", "Order",new {id=719 })';
                     url = url.replace("719", json);
                     window.location.href = url;
                 });

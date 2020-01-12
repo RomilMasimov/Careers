@@ -34,5 +34,6 @@ namespace Careers.Services.Interfaces
         Task<Careers.Models.SpecialistService> InsertSpecialistServiceAsync(Careers.Models.SpecialistService specialistService);
         Task<Careers.Models.SpecialistService> UpdateSpecialistServiceAsync(Careers.Models.SpecialistService specialistService);
         Task<IEnumerable<Measurement>> FindAllMeasurements();
+        Task<SubCategory> GetSubCategoryAsync(int subCategoryId);
     }
 }

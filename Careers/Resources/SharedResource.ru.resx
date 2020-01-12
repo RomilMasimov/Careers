@@ -159,4 +159,7 @@
   <data name="review" xml:space="preserve">
     <value>Оставить отзыв</value>
   </data>
+  <data name="orderDetails" xml:space="preserve">
+    <value>Детали заказа</value>
+  </data>
 </root>

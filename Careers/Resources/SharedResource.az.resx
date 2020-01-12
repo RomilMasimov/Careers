@@ -159,4 +159,7 @@
   <data name="review" xml:space="preserve">
     <value>Otziv saxlamaq</value>
   </data>
+  <data name="orderDetails" xml:space="preserve">
+    <value>Zakaz melumatlari</value>
+  </data>
 </root>

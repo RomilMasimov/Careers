@@ -28,11 +28,11 @@ namespace Careers.Models
 
         public IEnumerable<Review> Reviews { get; set; }
         public IEnumerable<AnswerOrder> AnswerOrders { get; set; }
-        public IEnumerable<OrderMeetingPoint> OrderMeetingPoints { get; set; }
-        public IEnumerable<OrderSchedule> OrderSchedules { get; set; }  //remove ???
-        public IEnumerable<OrderResponse> OrderResponses { get; set; }
-        public IEnumerable<UserSpecialistMessage> UserSpecialistMessages { get; set; }
         public IEnumerable<ClientAnswer> ClientAnswers { get; set; }
+        public IEnumerable<OrderResponse> OrderResponses { get; set; }
+        public IEnumerable<OrderMeetingPoint> OrderMeetingPoints { get; set; }
+        public IEnumerable<UserSpecialistMessage> UserSpecialistMessages { get; set; }
+        public IEnumerable<OrderSchedule> OrderSchedules { get; set; }  //remove ???
         // public IEnumerable<OrderSpecialist> OrderSpecialists { get; set; }
     }
 }

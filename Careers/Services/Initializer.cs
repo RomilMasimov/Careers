@@ -24,7 +24,7 @@ namespace Careers.Services
             this.specialistService = specialistService;
             this.userManager = userManager;
         }
-
+        
         public void CountryAndCity()
         {
             if (context.Cities.Any()) return;
@@ -225,9 +225,11 @@ namespace Careers.Services
         public void Measurements()
         {
             if (context.Measurements.Any()) return;
-
             context.Measurements.Add(new Measurement { TextAZ = "service", TextRU = "услуга" });
+            context.Measurements.Add(new Measurement { TextAZ = "dest", TextRU = "шт" });
+            context.Measurements.Add(new Measurement { TextAZ = "30 degige", TextRU = "30 мин" });
             context.Measurements.Add(new Measurement { TextAZ = "1 saat", TextRU = "1 час" });
+            context.Measurements.Add(new Measurement { TextAZ = "Ders", TextRU = "урок" });
             context.SaveChanges();
         }
     }
