@@ -125,9 +125,10 @@
                             });
 
                             //отрендерить выбранные options не доделано
-
-                            $('#points')[0].options[1].selected = true;
-                            $('#points')[0].options[2].selected = true;
+                            console.log($('#points option[value="1"]'));
+                            $('#points option[value="1"]').attr('selected', 'selected');
+                            $('#points option[value="2"]').attr('selected', 'selected');
+                            $('points').trigger("chosen:updated");
 
                         });
                     });
