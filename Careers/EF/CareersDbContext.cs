@@ -92,7 +92,7 @@ namespace Careers.EF
         public DbSet<MyLanguage> Languages { get; set; }
         public DbSet<SpecialistWork> SpecialistWorks { get; set; }
         public DbSet<ReviewComment> ReviewComments { get; set; }
-        public DbSet<ServiceReview> ServiceReviews { get; set; }
+      //  public DbSet<ServiceReview> ServiceReviews { get; set; }
         public DbSet<OrderResponse> OrderResponses { get; set; }
         public DbSet<Measurement> Measurements { get; set; }
 

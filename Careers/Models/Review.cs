@@ -16,7 +16,7 @@ namespace Careers.Models
         public Order Order { get; set; }
         public int OrderId { get; set; }
         public IEnumerable<ReviewMedia> ImagePathes { get; set; }
-        public IEnumerable<ServiceReview> ServiceReviews { get; set; }
+        //public IEnumerable<ServiceReview> ServiceReviews { get; set; }
         public IEnumerable<ReviewComment> ReviewComments { get; set; }
     }
 }

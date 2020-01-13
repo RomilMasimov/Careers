@@ -10,7 +10,7 @@ namespace Careers.Models
 
         public int SubCategoryId { get; set; }
         public SubCategory SubCategory { get; set; }
-        public IEnumerable<ServiceReview> ServiceReviews { get; set; }
+       // public IEnumerable<ServiceReview> ServiceReviews { get; set; }
         public IEnumerable<SpecialistService> SpecialistServices { get; set; }
         public IEnumerable<Order> Orders { get; set; }
         public IEnumerable<Question> Questions { get; set; }

@@ -166,7 +166,7 @@ namespace Careers.Services
             return await _context.Reviews.Where(m => m.OrderId == orderId)
                                  .Include(m => m.ImagePathes)
                                  .Include(m => m.ReviewComments)
-                                 .Include(m => m.ServiceReviews)
+                                 //.Include(m => m.ServiceReviews)
                                  .ToListAsync();
         }
     }
