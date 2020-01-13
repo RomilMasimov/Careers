@@ -124,11 +124,10 @@
                                 }
                             });
 
-                            //отрендерить выбранные options не доделано
-                            console.log($('#points option[value="1"]'));
-                            $('#points option[value="1"]').attr('selected', 'selected');
-                            $('#points option[value="2"]').attr('selected', 'selected');
-                            $('points').trigger("chosen:updated");
+                            for (var i = 0; i < meetingPoints.length; i++) {
+                                $('#points option[value="' + meetingPoints[i] + '"]').attr('selected', 'selected');
+                            }
+                            $('#points').trigger("chosen:updated");
 
                         });
                     });
