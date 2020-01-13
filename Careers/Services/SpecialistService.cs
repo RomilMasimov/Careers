@@ -68,10 +68,9 @@ namespace Careers.Services
             if (filter.Rating > 1)
             {
                 query = query.Include(z => z.Orders)
-                    .ThenInclude(z => z.Reviews)
+                    .ThenInclude(z => z.Review)
                     .Where(x => x.Orders
-                        .Any(y => y.Reviews
-                        .Any(q => q.Mark >= filter.Rating)));
+                        .Any(y => y.Review.Mark >= filter.Rating));
             }
 
 
@@ -142,7 +141,7 @@ namespace Careers.Services
                 .Include(x => x.SpecialistServices)
                 .ThenInclude(x => x.Service)
                 .Include(x => x.SpecialistServices)
-                .ThenInclude(x => x.Measure)
+                .ThenInclude(x => x.Measurement)
                 .Include(x => x.WhereCanGoList)
                 .ThenInclude(x => x.WhereCanGo)
                 .Include(x => x.WhereCanMeetList)
@@ -163,7 +162,7 @@ namespace Careers.Services
                             .ThenInclude(m => m.SubCategory)
                             .ThenInclude(m => m.Category)
                             .Include(m => m.SpecialistServices)
-                            .ThenInclude(m => m.Measure)
+                            .ThenInclude(m => m.Measurement)
                             .FirstOrDefaultAsync(x => x.AppUserId == userId);
         }
 

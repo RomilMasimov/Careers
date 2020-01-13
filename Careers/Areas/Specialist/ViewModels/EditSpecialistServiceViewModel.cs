@@ -1,10 +1,5 @@
-﻿using Careers.Models;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Careers.Areas.SpecialistArea.ViewModels
 {
@@ -28,6 +23,6 @@ namespace Careers.Areas.SpecialistArea.ViewModels
         public int ServiceId { get; set; }
 
         [Required]
-        public int MeasureId { get; set; }
+        public int MeasurementId { get; set; }
     }
 }

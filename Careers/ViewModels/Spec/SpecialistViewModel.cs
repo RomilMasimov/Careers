@@ -66,7 +66,7 @@ namespace Careers.ViewModels.Spec
             {
                 foreach (var order in specialist.Orders)
                 {
-                    Reviews.AddRange(order.Reviews);
+                    Reviews.Add(order.Review);
                 }
             }
             else

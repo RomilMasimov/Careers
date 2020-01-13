@@ -26,7 +26,8 @@ namespace Careers.Models
         public Measurement Measurement { get; set; }
         public int MeasurementId { get; set; }
 
-        public IEnumerable<Review> Reviews { get; set; }
+        public Review Review { get; set; }
+ 
         public IEnumerable<AnswerOrder> AnswerOrders { get; set; }
         public IEnumerable<ClientAnswer> ClientAnswers { get; set; }
         public IEnumerable<OrderResponse> OrderResponses { get; set; }

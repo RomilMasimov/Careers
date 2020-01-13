@@ -14,7 +14,7 @@ namespace Careers.ViewModels.Order
         public OrderStateTypeEnum State { get; set; }
         public int PriceMin { get; set; }
         public int? PriceMax { get; set; }
-        public Measurement Measure { get; set; }
+        public Measurement Measurement { get; set; }
         public string Description { get; set; }
         public IEnumerable<AnswerOrder> AnswerOrders { get; set; }
         public IEnumerable<ClientAnswer> ClientAnswers { get; set; }
@@ -30,7 +30,7 @@ namespace Careers.ViewModels.Order
             State = order.State;
             PriceMin = order.PriceMin;
             PriceMax = order.PriceMax;
-            Measure = order.Measurement;
+            Measurement = order.Measurement;
             Description = order.Description;
             AnswerOrders = order.AnswerOrders;
             ClientAnswers = order.ClientAnswers;

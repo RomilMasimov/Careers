@@ -10,7 +10,7 @@
         public int SpecialistId { get; set; }
         public Service Service { get; set; }
         public int ServiceId { get; set; }
-        public Measurement Measure { get; set; }
-        public int MeasureId { get; set; }
+        public Measurement Measurement { get; set; }
+        public int MeasurementId { get; set; }
     }
 }

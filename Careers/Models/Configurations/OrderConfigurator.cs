@@ -19,6 +19,7 @@ namespace Careers.Models.Configurations
             builder
                 .Property(o => o.MeasurementId)
                 .HasDefaultValue(1);
+
         }
     }
 }

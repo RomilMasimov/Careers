@@ -135,5 +135,16 @@ namespace Careers.Services
                 .Include(m => m.Specialist)
                 .ToListAsync();
         }
+
+        public async Task<bool> UpdateAsnwerOrdersAsync(IEnumerable<int> answers, int orderId)
+        {
+            var dbAnswers = await context.AnswerOrders.Where(x => x.OrderId == orderId).ToListAsync();
+            var toRemove = dbAnswers.Where(x => answers.Contains(x.AnswerId));
+            var toAdd = dbAnswers.Where(x => !answers.Contains(x.AnswerId));
+            context.AnswerOrders.RemoveRange(toRemove);
+            await context.AddRangeAsync(toAdd);
+           var rows= await context.SaveChangesAsync();
+            return rows > 0;
+        }
     }
 }

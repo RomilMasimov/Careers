@@ -590,7 +590,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
                     ServiceId = service.Id,
                     PriceMin = specialistService == null ? 0 : specialistService.PriceMin,
                     PriceMax = specialistService?.PriceMax,
-                    MeasureId = specialistService == null ? 0 : specialistService.MeasureId
+                    MeasurementId = specialistService == null ? 0 : specialistService.MeasurementId
                 };
                 ViewBag.Measurements = new SelectList(await _categoryService.FindAllMeasurements(), "Id", "TextRU");
                 setImageUrl(specialist);
@@ -614,7 +614,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
                 {
                     specialistService.PriceMin = model.PriceMin;
                     specialistService.PriceMax = model.PriceMax;
-                    specialistService.MeasureId = model.MeasureId;
+                    specialistService.MeasurementId = model.MeasurementId;
                 }
                 else
                 {
@@ -624,7 +624,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
                         ServiceId = model.ServiceId,
                         PriceMin = model.PriceMin,
                         PriceMax = model.PriceMax,
-                        MeasureId = model.MeasureId
+                        MeasurementId = model.MeasurementId
                     };
                 }
                 await _categoryService.UpdateSpecialistServiceAsync(specialistService);

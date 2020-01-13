@@ -9,7 +9,6 @@ using Careers.Models.Enums;
 using Careers.Services.Interfaces;
 using Careers.ViewModels.Order;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -99,16 +98,26 @@ namespace Careers.Controllers
                 order.ServiceId = (await _categoryService.FindServiceAsync("другое")).Id;
             }
 
-            if (int.TryParse(model.SalaryMin, out var min)) order.PriceMin = min;
-            else return StatusCode(StatusCodes.Status500InternalServerError);
+            if (model.SalaryMin != null &&
+                model.SalaryMin != "" &&
+                int.TryParse(model.SalaryMin, out var min))
+                order.PriceMin = min;
+            else order.PriceMin=0;
 
-            if (model.SalaryMax != null)
+
+            if (model.SalaryMax != null &&
+                model.SalaryMax != "" &&
+                int.TryParse(model.SalaryMax, out var max))
+                order.PriceMax = max;
+            
+            try
             {
-                if (int.TryParse(model.SalaryMin, out var max)) order.PriceMax = min;
-                else return StatusCode(StatusCodes.Status500InternalServerError);
+                var result = await _orderService.InsertAsync(order);
             }
-
-            await _orderService.InsertAsync(order);
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
 
             await _orderService.AddMeetingPoints(model.OrderMeetingPoints.Select(x => new OrderMeetingPoint
             {
@@ -134,7 +143,7 @@ namespace Careers.Controllers
             var isRu = CultureInfo.CurrentCulture.Name == "ru-RU";
             var categories = new List<Category>();
             var measurments = await _categoryService.FindAllMeasurements();
-            categories.Add(new Category { Id = 0, DescriptionRU = "Выберите категорию", DescriptionAZ = "Kateqoriya seçin" }); //TODO add localization
+            categories.Add(new Category { Id = 0, DescriptionRU = "Выберите категорию", DescriptionAZ = "Kateqoriya seçin" });
             categories.AddRange(await _categoryService.GetAllCategories());
             ViewBag.Categories = new SelectList(categories, "Id", isRu ? "DescriptionRU" : "DescriptionAZ");
             ViewBag.SubCategories = new SelectList(new[] { new { Id = 0, Text = isRu ? "Выберите подкатегорию" : "Alt kateqoriyanı seçin" } }, "Id", "Text");
@@ -144,9 +153,73 @@ namespace Careers.Controllers
             return View();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Edit([FromBody]EditedOrderViewModel model)
+        {
+            if (model.ClientAnswers == null && model.ClientLocation == null && model.AnswerIds == null &&
+                model.OrderMeetingPoints == null && model.Description == null && model.SalaryMin == null)
+            {
+                ModelState.AddModelError("error", "Please at least add description and min price!");
+                return View();
+            }
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var client = await _clientService.FindAsync(userId);
+            var order = await _orderService.FindAsync(model.Id);
+
+            order.ClientLocation = model.ClientLocation;
+            order.ServiceId = int.Parse(model.ServiceId);
+            order.Description = model.Description;
+
+            if (model.SalaryMin != null &&
+                model.SalaryMin != "" &&
+                int.TryParse(model.SalaryMin, out var min))
+                order.PriceMin = min;
+            else order.PriceMin = 0;
+
+
+            if (model.SalaryMax != null &&
+                model.SalaryMax != "" &&
+                int.TryParse(model.SalaryMax, out var max))
+                order.PriceMax = max;
+
+            var meetingPoints = model.OrderMeetingPoints.Select(x => new OrderMeetingPoint
+            {
+                OrderId = order.Id,
+                MeetingPointId = int.Parse(x)
+            });
+
+            if (!order.OrderMeetingPoints.All(x => meetingPoints.Any(y => y.Id == x.Id)))
+            {
+                order.OrderMeetingPoints = meetingPoints;
+            }
+
+            var ClientAnswers = model.ClientAnswers.Select(x => new ClientAnswer
+            {
+                Text = x.Answer,
+                OrderId = order.Id,
+                QuestionId = x.QuestionId
+            });
+
+            if (!order.ClientAnswers.All(x => ClientAnswers.Any(y => y.Id == x.Id)))
+            {
+                order.ClientAnswers = ClientAnswers;
+            }
+
+            var answers = model.AnswerIds.Select(int.Parse);
+
+            if (!order.AnswerOrders.All(x => answers.Any(y => y == x.Id)))
+            {
+                await _orderService.UpdateAsnwerOrdersAsync(answers, order.Id);
+            }
+
+            await _orderService.UpdateAsync(order);
+
+            return RedirectToAction("Order", "Order", order.Id);
+        }
+
         public async Task<IActionResult> Edit(int id)
         {
-
             var order = await _orderService.FindAsync(id);
             var subCategory = await _categoryService
                 .GetSubCategoryAsync(order.Service.SubCategoryId);
@@ -165,14 +238,13 @@ namespace Careers.Controllers
             model.CategoryId = subCategory.CategoryId.ToString();
             model.SubCategoryId = subCategory.Id.ToString();
             model.ServiceId = order.ServiceId.ToString();
-            //left
-            model.AnswerIds = null;
-
+            model.AnswerIds = order.AnswerOrders
+                .Select(x => x.AnswerId.ToString()).ToList();
 
             var isRu = CultureInfo.CurrentCulture.Name == "ru-RU";
             var categories = new List<Category>();
             var measurments = await _categoryService.FindAllMeasurements();
-            categories.Add(new Category { Id = 0, DescriptionRU = "Выберите категорию", DescriptionAZ = "Kateqoriya seçin" }); //TODO add localization
+            categories.Add(new Category { Id = 0, DescriptionRU = "Выберите категорию", DescriptionAZ = "Kateqoriya seçin" });
             categories.AddRange(await _categoryService.GetAllCategories());
             ViewBag.Categories = new SelectList(categories, "Id", isRu ? "DescriptionRU" : "DescriptionAZ");
             ViewBag.SubCategories = new SelectList(new[] { new { Id = 0, Text = isRu ? "Выберите подкатегорию" : "Alt kateqoriyanı seçin" } }, "Id", "Text");
@@ -180,66 +252,6 @@ namespace Careers.Controllers
             ViewBag.Measurments = new SelectList(measurments, "Id", isRu ? "TextAZ" : "TextRU");
 
             return View(model);
-        }
-
-
-
-        [HttpPost]
-        public async Task<IActionResult> Edit([FromBody]EditedOrderViewModel model)
-        {
-            if (model.ClientAnswers == null && model.ClientLocation == null && model.AnswerIds == null &&
-                model.OrderMeetingPoints == null && model.Description == null && model.SalaryMin == null)
-            {
-                ModelState.AddModelError("error", "Please at least add description and min price!");
-                return View();
-            }
-
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var client = await _clientService.FindAsync(userId);
-            var dbOrder = await _orderService.FindAsync(model.Id);
-            //change
-            var order = new Order
-            {
-                Created = DateTime.Now,
-                State = OrderStateTypeEnum.InSearchOfSpec,
-                ClientLocation = model.ClientLocation,
-                Client = client,
-                ServiceId = int.Parse(model.ServiceId),
-                Description = model.Description
-            };
-
-            if (model.ServiceId == "0")
-            {
-                order.ServiceId = (await _categoryService.FindServiceAsync("другое")).Id;
-            }
-
-            if (int.TryParse(model.SalaryMin, out var min)) order.PriceMin = min;
-            else return StatusCode(StatusCodes.Status500InternalServerError);
-
-            if (model.SalaryMax != null)
-            {
-                if (int.TryParse(model.SalaryMin, out var max)) order.PriceMax = min;
-                else return StatusCode(StatusCodes.Status500InternalServerError);
-            }
-
-            await _orderService.InsertAsync(order);
-
-            await _orderService.AddMeetingPoints(model.OrderMeetingPoints.Select(x => new OrderMeetingPoint
-            {
-                OrderId = order.Id,
-                MeetingPointId = int.Parse(x)
-            }));
-
-            await _answerService.AddInputAnswersToOrders(model.ClientAnswers.Select(x => new ClientAnswer
-            {
-                Text = x.Answer,
-                OrderId = order.Id,
-                QuestionId = x.QuestionId
-            }));
-
-            await _answerService.AddAnswersToOrders(model.AnswerIds.Select(int.Parse).ToArray(), order.Id);
-
-            return Json(order.Id);
         }
 
         public async Task<IActionResult> SubCategoryOptions(int categoryId)

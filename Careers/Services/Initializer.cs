@@ -88,8 +88,6 @@ namespace Careers.Services
             context.SubCategories.Add(new SubCategory { Category = it.Entity, DescriptionAZ = "proqramci", DescriptionRU = "Программисты" });
             context.SubCategories.Add(new SubCategory { Category = it.Entity, DescriptionAZ = "tercumeci", DescriptionRU = "Переводчики" });
             
-            context.SubCategories.Add(new SubCategory { Category = other.Entity, DescriptionRU = "другое", DescriptionAZ = "basqa" });
-
             context.SaveChanges();
         }
 
@@ -112,9 +110,7 @@ namespace Careers.Services
             context.Services.Add(new Service { SubCategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU == "Дизайнеры"), DescriptionAZ = "fghfchj", DescriptionRU = "Дизайн плакатов" });
             context.Services.Add(new Service { SubCategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU == "Дизайнеры"), DescriptionAZ = "zdgxhfcjghkvjg", DescriptionRU = "Моделирование здания" });
             context.Services.Add(new Service { SubCategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU == "Дизайнеры"), DescriptionAZ = "zgxhtcyjguk zxdheg", DescriptionRU = "Разработка мокапа" });
-         
-            context.Services.Add(new Service { SubCategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU == "другое"), DescriptionRU = "другое", DescriptionAZ = "basqa" });
-            
+
             context.SaveChanges();
         }
 
@@ -145,7 +141,6 @@ namespace Careers.Services
             var p2 = context.Questions.Add(new Question { Type = QuestionTypeEnum.Input, TextRU = "Для чего?", TextAZ = "Ne ucun?", SubCategory = prog });
             var p3 = context.Questions.Add(new Question { Type = QuestionTypeEnum.Single, TextRU = "Язык программирования?", TextAZ = "Hansi dilinde?", SubCategory = prog });
             var p4 = context.Questions.Add(new Question { Type = QuestionTypeEnum.Input, TextRU = "Детали и сроки задачи?", TextAZ = "deadline?", SubCategory = prog });
-            var p5 = context.Questions.Add(new Question { Type = QuestionTypeEnum.Date, TextRU = "Когда приступить к задаче?", TextAZ = "Ne vaxt bashlayaq?", SubCategory = prog });
             var p6 = context.Questions.Add(new Question { Type = QuestionTypeEnum.MyLocation, TextRU = "Ваш адрес", TextAZ = "Sizin adresiniz", SubCategory = prog });
             var p7 = context.Questions.Add(new Question { Type = QuestionTypeEnum.MeetingPoints, TextRU = "Куда вам удобно приехать?", TextAZ = "Haraya gəlmək rahatdır?", SubCategory = prog });
 
@@ -188,7 +183,6 @@ namespace Careers.Services
             context.SaveChanges();
         }
 
-
         public async Task ClientsAndSpecialistsAsync()
         {
             var password = "$Secret123";
@@ -225,11 +219,11 @@ namespace Careers.Services
         public void Measurements()
         {
             if (context.Measurements.Any()) return;
-            context.Measurements.Add(new Measurement { TextAZ = "service", TextRU = "услуга" });
             context.Measurements.Add(new Measurement { TextAZ = "dest", TextRU = "шт" });
             context.Measurements.Add(new Measurement { TextAZ = "30 degige", TextRU = "30 мин" });
             context.Measurements.Add(new Measurement { TextAZ = "1 saat", TextRU = "1 час" });
             context.Measurements.Add(new Measurement { TextAZ = "Ders", TextRU = "урок" });
+            context.Measurements.Add(new Measurement { TextAZ = "service", TextRU = "услуга" });
             context.SaveChanges();
         }
     }
