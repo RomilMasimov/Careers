@@ -117,8 +117,10 @@
                 $('#reviewForm').append(`<input name="Images" data-index="${count}" type="file" hidden />`);
                 document.querySelector(`input[data-index="${count}"]`).files = this.files;
                 reader.readAsDataURL(file);
-                if (Images.filter(m => m != null).length >= 6) {
-                    $('#submit').attr('disabled', true);
+                let uploadedImagesCount = document.querySelectorAll(`input[data-index]`).length;
+                if (uploadedImagesCount == 6) {
+                    $('#imageContainer').parent().after('<span class="text-danger field-validation-error">You cannot add more pictures.</span>')
+                    $('#upload').attr('disabled', true);
                 }
             }
         });
