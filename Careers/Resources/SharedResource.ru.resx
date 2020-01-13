@@ -165,4 +165,13 @@
   <data name="edit" xml:space="preserve">
     <value>Исправить</value>
   </data>
+  <data name="createorder" xml:space="preserve">
+    <value>Создать заказ</value>
+  </data>
+  <data name="noorderstext" xml:space="preserve">
+    <value>У вас нет заказов</value>
+  </data>
+  <data name="save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
 </root>

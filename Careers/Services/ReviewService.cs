@@ -5,8 +5,11 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Careers.EF;
+using Careers.Helpers;
 using Careers.Models;
+using Careers.Models.Enums;
 using Careers.Services.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace Careers.Services
@@ -80,9 +83,9 @@ namespace Careers.Services
         public async Task<IEnumerable<Review>> GetBestLastReviewsAsync(int count)
         {
             return await _context.Reviews
-                .Include(x=>x.Order)
-                .ThenInclude(x=>x.Client)
-                .Where(x=>x.Mark>=4)
+                .Include(x => x.Order)
+                .ThenInclude(x => x.Client)
+                .Where(x => x.Mark >= 4)
                 .OrderByDescending(x => x.DateTime)
                 .Take(count)
                 .ToListAsync();
@@ -93,6 +96,31 @@ namespace Careers.Services
         {
             review.Id = 0;
             var res = await _context.Reviews.AddAsync(review);
+            await _context.SaveChangesAsync();
+            return res.Entity;
+        }
+
+        public async Task<Review> InsertAsync(string text, int mark, int orderId, IEnumerable<IFormFile> images)
+        {
+            var imagePathes = new List<string>();
+            if (images != null)
+                foreach (var image in images)
+                {
+                    var path = await FileUploadHelper.UploadAsync(image, ImageOwnerEnum.Client);
+                    if (path == string.Empty) continue;
+                    imagePathes.Add(path);
+                }
+
+            var review = new Review
+            {
+                OrderId = orderId,
+                Text = text,
+                Mark = mark,
+                DateTime = DateTime.Now
+            };
+            var res = await _context.Reviews.AddAsync(review);
+            await _context.SaveChangesAsync();
+            _context.ReviewMedias.AddRange(imagePathes.Select(m => new ReviewMedia { Path = m, ReviewId = res.Entity.Id }));
             await _context.SaveChangesAsync();
             return res.Entity;
         }

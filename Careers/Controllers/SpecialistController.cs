@@ -220,6 +220,9 @@ namespace Careers.Controllers
         public async Task<IActionResult> Specialist(int id)
         {
             var specialist = await _specialistService.FindDetailedAsync(id);
+            if (specialist == null)
+                return RedirectToAction("Error", "Home", new { code = 404, message = "Specialist not found.", returnController = "Specialist", returnAction = "ListOfSpecialists" });
+
             var model = new SpecialistViewModel(specialist);
             return View(model);
         }

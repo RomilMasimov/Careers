@@ -22,15 +22,17 @@ namespace Careers.Controllers
         private readonly IClientService _clientService;
         private readonly ICategoryService _categoryService;
         private readonly IAnswerService _answerService;
+        private readonly IReviewService _reviewService;
 
         public OrderController(IOrderService orderService, IQuestionService questionService,
-            IClientService clientService, ICategoryService categoryService, IAnswerService answerService)
+            IClientService clientService, ICategoryService categoryService, IAnswerService answerService, IReviewService reviewService)
         {
             _orderService = orderService;
             _questionService = questionService;
             _clientService = clientService;
             _categoryService = categoryService;
             _answerService = answerService;
+            _reviewService = reviewService;
         }
 
         public async Task<IActionResult> Index()
@@ -49,6 +51,7 @@ namespace Careers.Controllers
                 SpecialistId = m.SpecialistId,
                 SpecialistImage = m.Specialist?.ImageUrl,
                 SpecialistFullName = $"{m.Specialist?.Name} {m.Specialist?.Surname}",
+                IsCanBeRated = m.Reviews.Any() || m.State != OrderStateTypeEnum.Finished
             });
 
             return View(model);
@@ -68,7 +71,6 @@ namespace Careers.Controllers
             var model = new OrderDetailsViewModel(order);
             return View(model);
         }
-
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody]CreatedOrderViewModel model)
@@ -255,6 +257,56 @@ namespace Careers.Controllers
             ViewBag.Measurments = new SelectList(measurments, "Id", isRu ? "TextAZ" : "TextRU");
 
             return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AddReview(int id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var client = await _clientService.FindAsync(userId, true);
+            var order = client.Orders.FirstOrDefault(m => m.Id == id);
+
+            if (order == null || order.State != OrderStateTypeEnum.Finished || order.Reviews.Any())
+            {
+                TempData["Status"] = "You can't review this order.";
+                return RedirectToAction("Index");
+            }
+
+            var model = new ReviewViewModel
+            {
+                OrderId = order.Id,
+                SpecialistId = order.Specialist.Id,
+                SpecialistFullName = $"{order.Specialist.Name} {order.Specialist.Surname}",
+                SpecialistImage = order.Specialist.ImageUrl
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddReview(ReviewViewModel model)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var client = await _clientService.FindAsync(userId, true);
+            var order = client.Orders.FirstOrDefault(m => m.Id == model.OrderId);
+
+            if (order == null || order.State != OrderStateTypeEnum.Finished)
+            {
+                TempData["Status"] = "You can't review this order.";
+                return RedirectToAction("Index");
+            }
+
+            if (ModelState.IsValid && (model.Images == null || model.Images.Count() <= 6))
+            {
+                await _reviewService.InsertAsync(model.Text, model.Mark, model.OrderId, model.Images);
+                return RedirectToAction("Index");
+            }
+            model.SpecialistId = order.Specialist.Id;
+            model.SpecialistFullName = $"{order.Specialist.Name} {order.Specialist.Surname}";
+            model.SpecialistImage = order.Specialist.ImageUrl;
+            return View(model);
+
         }
 
         public async Task<IActionResult> SubCategoryOptions(int categoryId)

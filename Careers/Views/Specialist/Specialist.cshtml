@@ -359,7 +359,7 @@
                         </div>
                         @foreach (var item in @Model.Reviews)
                         {
-                            <div class="row rievew_Section_comment my-4">
+                            <div class="row my-4">
                                 <div class="col-lg-3 col-md-4 col-xs-4 review-part-left">
                                     <div class="row">
                                         <div class="col-md-6 col-sm-12">
@@ -367,7 +367,7 @@
                                         </div>
                                         <div class="col-md-6 col-sm-12 mt-md-0 mt-sm-3 client_reivew_img">
                                             <p>@item.DateTime.ToLocalTime()</p>
-                                            <span><a href="#">@item.Order.Client.Name @item.Order.Client.Surname</a></span>
+                                            <small class="text-black-50">@item.Order.Client.Name @item.Order.Client.Surname</small>
                                         </div>
                                     </div>
                                 </div>
@@ -389,6 +389,21 @@
                                                 @item.Text
                                             </p>
                                         </div>
+                                        @if (item.ImagePathes.Any())
+                                        {
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <div data-image class="d-flex flex-wrap">
+                                                    @foreach (var reviewMedia in item.ImagePathes)
+                                                    {
+                                                        <div class="review-sm-image mb-2 mr-2">
+                                                            <a href="~/@reviewMedia.Path">
+                                                                <img src="~/@reviewMedia.Path">
+                                                            </a>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -424,6 +439,21 @@
                             easing: 'ease-in-out',
                         }
                     });
+                }
+            });
+
+            $("[data-image]").magnificPopup({
+                delegate: 'a',
+                type: 'image',
+                gallery: {
+                    enabled: true,
+                    navigateByImgClick: true,
+                    preload: [0, 1]
+                },
+                zoom: {
+                    enabled: true,
+                    duration: 300,
+                    easing: 'ease-in-out',
                 }
             });
         });
