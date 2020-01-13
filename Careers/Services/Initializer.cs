@@ -157,6 +157,20 @@ namespace Careers.Services
             context.Answers.Add(new Answer { TextRU = "Не знаю, нужна рекомендация специалиста", TextAZ = "Bilmirəm, mütəxəssis tövsiyəsinə ehtiyacım var", QuestionId = p3.Entity.Id });
             #endregion
 
+            var php = context.Services.FirstOrDefault(x => x.DescriptionRU.ToLower() == "Создание сайта на PHP");
+            var phpq1 = context.Questions.Add(new Question { Type = QuestionTypeEnum.Single, TextRU = "Тип спайта", TextAZ = "Sayt növü", SubCategoryId = php.SubCategoryId, ServiceId = php.Id });
+            var phpq2 = context.Questions.Add(new Question { Type = QuestionTypeEnum.Single, TextRU = "Тип вёрстки", TextAZ = "Layout növü", SubCategoryId = php.SubCategoryId, ServiceId = php.Id });
+
+            context.SaveChanges();
+
+            context.Answers.Add(new Answer { TextRU = "Интернет сайт", TextAZ = "Onlayn mağaza", QuestionId = phpq1.Entity.Id });
+            context.Answers.Add(new Answer { TextRU = "Сайт-визитка", TextAZ = "Iş haqqinda", QuestionId = phpq1.Entity.Id });
+            context.Answers.Add(new Answer { TextRU = "Корпоративный сайт", TextAZ = "Korporativ veb sayt", QuestionId = phpq1.Entity.Id });
+
+            context.Answers.Add(new Answer { TextRU = "Адаптивная", TextAZ = "Uyğunlaşır", QuestionId = phpq2.Entity.Id });
+            context.Answers.Add(new Answer { TextRU = "Фиксированная", TextAZ = "Sabitdir", QuestionId = phpq2.Entity.Id });
+
+
             #region Переводчики
             var translators = context.SubCategories.FirstOrDefault(x => x.DescriptionRU.ToLower() == "переводчики");
             var t1 = context.Questions.Add(new Question { Type = QuestionTypeEnum.Multi, TextRU = "Перевод", TextAZ = "Tərcümə", SubCategory = translators });
