@@ -162,4 +162,7 @@
   <data name="orderDetails" xml:space="preserve">
     <value>Детали заказа</value>
   </data>
+  <data name="edit" xml:space="preserve">
+    <value>Исправить</value>
+  </data>
 </root>

@@ -2,8 +2,6 @@
 using Careers.Models.Enums;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Careers.Areas.SpecialistArea.ViewModels.Order
 {
@@ -22,6 +20,9 @@ namespace Careers.Areas.SpecialistArea.ViewModels.Order
         public Models.Service Service { get; set; }
         public string ClientFullName { get; set; }
         public int? ClientId { get; set; }
+
+
+        public OrderDetailsViewModel() { }
 
         public OrderDetailsViewModel(Models.Order order)
         {

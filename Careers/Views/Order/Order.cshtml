@@ -105,7 +105,12 @@
                             <div class="jp_listing_right_bar_btn_wrapper">
                                 <div class="jp_listing_right_bar_btn">
                                     <ul>
-                                        <li><a href="#"><i class="fa fa-plus-circle"></i> &nbsp;Edit</a></li>
+                                        <li><a asp-action="Edit" 
+                                               asp-controller="Order" 
+                                               asp-area=""
+                                               asp-route-id="@Model.Id">
+                                            <i class="fa fa-plus-circle"></i> &nbsp;@SharedLocalizer["edit"]
+                                            </a></li>
                                     </ul>
                                 </div>
                             </div>
