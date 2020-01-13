@@ -314,7 +314,7 @@ namespace Careers.Controllers
             var isRu = CultureInfo.CurrentCulture.Name == "ru-RU";
             var subCategories = await _categoryService.GetAllSubCategories(categoryId);
             var selectItems = new List<SelectListItem>();
-            selectItems.Add(new SelectListItem(isRu ? "Выберите подкатегорию" : "Alt kateqoriyanı seçin", 0.ToString())); //TODO add localization
+            selectItems.Add(new SelectListItem(isRu ? "Выберите подкатегорию" : "Alt kateqoriyanı seçin", 0.ToString())); 
             selectItems.AddRange(subCategories.Select(m => new SelectListItem(isRu ? m.DescriptionRU : m.DescriptionAZ, m.Id.ToString())));
             return PartialView("_SelectOptionsPartial", selectItems);
         }

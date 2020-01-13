@@ -157,5 +157,61 @@
                 });
         });
 
+
+        
+        //create.cshtml
+        async function categoriesLoaded() {
+            let categoryId = $('#categories option:selected').first().val();
+            if (categoryId == 0) {
+                $('#subCategories').children().slice(1).remove();
+            } else {
+                let url ='@Url.Action("SubCategoryOptions", "Order", new { categoryId = 719 })';
+                url = url.replace("719", categoryId);
+                let subCategories = await (await fetch(url)).text();
+                $('#subCategories').html(subCategories);
+            }
+        };
+
+        async function subCategoriesLoaded() {
+            let subCategoryId = $('#subCategories option:selected').first().val();
+            if (subCategoryId == 0) {
+                $('#services').children().slice(1).remove();
+                $('#quetions').html('');
+            } else {
+
+                let url ='@Url.Action("ServicesOptions", "Order", new { subCategoryId = 719 })';
+                url = url.replace("719", subCategoryId);
+                let services = await (await fetch(url)).text();
+                $('#services').html(services);
+
+                url ='@Url.Action("Questions", "Order", new { subCategoryId = 719 })';
+                url = url.replace("719", subCategoryId);
+                let questions = await (await fetch(url)).text();
+                $('#quetions').html(questions);
+            }
+        };
+
+        async function servicesLoaded() {
+            let serviceId = $('#services option:selected').first().val();
+            let subCategoryId = $('#subCategories option:selected').first().val();
+            if (serviceId == 0) {
+
+                let url ='@Url.Action("Questions", "Order", new { subCategoryId = 719 })';
+                url = url.replace("719", subCategoryId);
+                let questions = await (await fetch(url)).text();
+                $('#quetions').html(questions);
+            } else {
+
+                 let url ='@(Html.Raw(Url.Action("Questions", "Order", new { subCategoryId = 718,serviceId=719 })))';
+                url = url.replace("718", subCategoryId);
+                url = url.replace("719", serviceId);
+                let questions = await (await fetch(url)).text();
+                $('#quetions').html(questions);
+            }
+        };
+
+        //end
+
+
     </script>
 }
