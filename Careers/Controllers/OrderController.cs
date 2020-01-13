@@ -73,11 +73,13 @@ namespace Careers.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody]CreatedOrderViewModel model)
         {
-            if (model.ClientAnswers == null && model.ClientLocation == null && model.AnswerIds == null &&
-                model.OrderMeetingPoints == null && model.Description == null && model.SalaryMin == null)
+            if ((model.ServiceId == "0" &&
+                model.Description == "" &&
+                model.ClientAnswers.Count(x => x.Answer == "") == 0 &&
+                model.AnswerIds.Count() == 0) ||
+                model.SalaryMin == "")
             {
-                ModelState.AddModelError("error", "Please at least add description and min price!");
-                return View();
+                return Json("error data");
             }
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -93,46 +95,43 @@ namespace Careers.Controllers
                 Description = model.Description
             };
 
-            if (model.ServiceId == "0")
-            {
-                order.ServiceId = (await _categoryService.FindServiceAsync("другое")).Id;
-            }
-
             if (model.SalaryMin != null &&
                 model.SalaryMin != "" &&
                 int.TryParse(model.SalaryMin, out var min))
                 order.PriceMin = min;
-            else order.PriceMin=0;
+            else order.PriceMin = 0;
 
 
             if (model.SalaryMax != null &&
                 model.SalaryMax != "" &&
                 int.TryParse(model.SalaryMax, out var max))
                 order.PriceMax = max;
-            
-            try
+
+            var result = await _orderService.InsertAsync(order);
+
+            if (model.OrderMeetingPoints.Any())
             {
-                var result = await _orderService.InsertAsync(order);
+                await _orderService.AddMeetingPoints(model.OrderMeetingPoints.Select(x => new OrderMeetingPoint
+                {
+                    OrderId = order.Id,
+                    MeetingPointId = int.Parse(x)
+                }));
             }
-            catch (Exception ex)
+
+            if (model.ClientAnswers.Any(x => x.Answer != ""))
             {
-                throw new Exception(ex.Message);
+                await _answerService.AddInputAnswersToOrders(model.ClientAnswers.Where(x => x.Answer != "").Select(x => new ClientAnswer
+                {
+                    Text = x.Answer,
+                    OrderId = order.Id,
+                    QuestionId = x.QuestionId
+                }));
             }
 
-            await _orderService.AddMeetingPoints(model.OrderMeetingPoints.Select(x => new OrderMeetingPoint
+            if (model.AnswerIds.Any())
             {
-                OrderId = order.Id,
-                MeetingPointId = int.Parse(x)
-            }));
-
-            await _answerService.AddInputAnswersToOrders(model.ClientAnswers.Select(x => new ClientAnswer
-            {
-                Text = x.Answer,
-                OrderId = order.Id,
-                QuestionId = x.QuestionId
-            }));
-
-            await _answerService.AddAnswersToOrders(model.AnswerIds.Select(int.Parse).ToArray(), order.Id);
+                await _answerService.AddAnswersToOrders(model.AnswerIds.Select(int.Parse).ToArray(), order.Id);
+            }
 
             return Json(order.Id);
         }
@@ -156,11 +155,13 @@ namespace Careers.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit([FromBody]EditedOrderViewModel model)
         {
-            if (model.ClientAnswers == null && model.ClientLocation == null && model.AnswerIds == null &&
-                model.OrderMeetingPoints == null && model.Description == null && model.SalaryMin == null)
+            if ((model.ServiceId == "0" &&
+                model.Description == "" &&
+                model.ClientAnswers.Count(x => x.Answer == "") == 0 &&
+                model.AnswerIds.Count() == 0) ||
+                model.SalaryMin == "")
             {
-                ModelState.AddModelError("error", "Please at least add description and min price!");
-                return View();
+                return Json("error data");
             }
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -194,16 +195,17 @@ namespace Careers.Controllers
                 order.OrderMeetingPoints = meetingPoints;
             }
 
-            var ClientAnswers = model.ClientAnswers.Select(x => new ClientAnswer
-            {
-                Text = x.Answer,
-                OrderId = order.Id,
-                QuestionId = x.QuestionId
-            });
+            var clientAnswers = model.ClientAnswers
+                .Where(x => x.Answer != "").Select(x => new ClientAnswer
+                {
+                    Text = x.Answer,
+                    OrderId = order.Id,
+                    QuestionId = x.QuestionId
+                });
 
-            if (!order.ClientAnswers.All(x => ClientAnswers.Any(y => y.Id == x.Id)))
+            if (!order.ClientAnswers.All(x => clientAnswers.Any(y => y.Id == x.Id)))
             {
-                order.ClientAnswers = ClientAnswers;
+                order.ClientAnswers = clientAnswers;
             }
 
             var answers = model.AnswerIds.Select(int.Parse);

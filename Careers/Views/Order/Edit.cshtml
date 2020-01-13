@@ -185,8 +185,12 @@
 
                 }).then((json) => {
                     let url = '@Url.Action("Edit", "Order",new {id=719 })';
-                    url = url.replace("719", json);
-                    window.location.href = url;
+                    if (json == 'error data') {
+                        alert('Enter required fields');
+                    } else {
+                        url = url.replace("719", json);
+                        window.location.href = url;
+                    }
                 });
         });
 

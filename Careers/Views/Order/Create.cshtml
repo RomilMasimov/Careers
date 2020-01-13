@@ -112,12 +112,12 @@
             let isHaveMulti = $('input').is('[type="checkbox"]');
             let isHaveClientInputAnswers = $('textarea').is('[data-question-id]');
 
-            if (description == '' || salaryMin == '' || subCategoryId == 0 ||
-                (isHaveSingle && answerIds.length == 0) || (isHaveMulti && answerIds.length == 0) ||
-                (isHaveClientInputAnswers && clientInputAnswers.some(m => m.Answer == ''))) {
-                alert('Enter required fields');
-                return;
-            }
+            //if (salaryMin == ''|| (description == '' && subCategoryId == 0) ||
+            //    (isHaveSingle && answerIds.length == 0) || (isHaveMulti && answerIds.length == 0) ||
+            //    (isHaveClientInputAnswers && clientInputAnswers.some(m => m.Answer == ''))) {
+            //    alert('Enter required fields');
+            //    return;
+            //}
 
             await fetch( '@Url.Action("Create", "Order")',
                 {
@@ -148,8 +148,12 @@
 
                 }).then((json) => {
                     let url = '@Url.Action("Order", "Order",new {id=719 })';
-                    url = url.replace("719", json);
-                    window.location.href = url;
+                    if (json == 'error data') {
+                        alert('Enter required fields');
+                    } else {
+                        url = url.replace("719", json);
+                        window.location.href = url;
+                    }
                 });
         });
 
