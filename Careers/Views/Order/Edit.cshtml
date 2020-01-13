@@ -76,6 +76,12 @@
 
                             let answerIds = Array();
                             let modelInputanswers = Array();
+                            let meetingPoints = Array();
+
+                            @foreach(var item in Model.OrderMeetingPoints)
+                            {
+                                @:meetingPoints.push(@item);
+                            }
 
                             @foreach(var item in Model.AnswerIds)
                             {
@@ -118,9 +124,10 @@
                                 }
                             });
 
+                            //отрендерить выбранные options не доделано
 
-
-
+                            $('#points')[0].options[1].selected = true;
+                            $('#points')[0].options[2].selected = true;
 
                         });
                     });
