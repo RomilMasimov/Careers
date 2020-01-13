@@ -1,14 +1,14 @@
 ﻿@using System.Globalization
 @model Question
 
-<div class="jp_adp_form_wrapper">
+<div class="jp_adp_form_wrapper @Model.Id">
     @if (CultureInfo.CurrentCulture.Name == "ru-RU")
     {
         <p>@Model.TextRU</p>
 
         foreach (var answer in Model.Answers)
         {
-            <input name="answer" type="radio" value="@answer.Id" class="w-auto h-auto">
+            <input name="answer-@Model.Id" type="radio" value="@answer.Id" class="w-auto h-auto">
 
             @answer.TextRU
 
@@ -21,7 +21,7 @@
 
         foreach (var answer in Model.Answers)
         {
-            <input name="answer" type="radio" value="@answer.Id" class="w-auto h-auto">
+            <input name="answer-@Model.Id" type="radio" value="@answer.Id" class="w-auto h-auto">
 
             @answer.TextAZ
 
