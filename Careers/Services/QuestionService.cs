@@ -27,7 +27,7 @@ namespace Careers.Services
         public async Task<IEnumerable<Question>> FindAllAsync(int subCategoryId, int? serviceId = null)
         {
             return await context.Questions
-                .Where(m => m.SubCategoryId == subCategoryId ||
+                .Where(m => (m.SubCategoryId == subCategoryId && !m.ServiceId.HasValue) ||
                        (m.SubCategoryId == subCategoryId && m.ServiceId == serviceId))
                 //.Include(m => m.QuestionAnswers)
                 .Include(m => m.Answers)
