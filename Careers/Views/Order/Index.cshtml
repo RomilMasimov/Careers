@@ -14,11 +14,20 @@
                                 </div>
                             }
                         </div>
-                        @foreach (var order in Model)
+                        @if (Model.Any())
                         {
-                            <partial name="_OrderPartial" model="order" />
+                            @foreach (var order in Model)
+                            {
+                                <partial name="_OrderPartial" model="order" />
+                            }
                         }
-
+                        else
+                        {
+                            <div class="w-100 mt-5 d-flex flex-column align-items-center justify-content-center">
+                                <h2 class="header">@SharedLocalizer["noorderstext"]</h2>
+                                <a asp-area="" asp-controller="Order" asp-action="Create" class="jp_btn_default mt-3">@SharedLocalizer["createorder"]</a>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>

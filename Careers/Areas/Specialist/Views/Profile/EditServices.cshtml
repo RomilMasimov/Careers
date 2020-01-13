@@ -44,7 +44,7 @@
                                     <span>@viewModel.SpecialistService.PriceMin @(viewModel.SpecialistService.PriceMax.HasValue ? $" - {viewModel.SpecialistService?.PriceMax}" : "") / @(isRu ? viewModel.SpecialistService.Measure.TextRU : viewModel.SpecialistService.Measure.TextAZ)</span>
                                 }
                             }
-                            <a asp-area="Specialist" asp-controller="Profile" asp-action="EditService" asp-route-serviceId="@viewModel.Service.Id" class="jp_btn_default">@Localizer["edit"]</a>
+                            <a asp-area="Specialist" asp-controller="Profile" asp-action="EditService" asp-route-serviceId="@viewModel.Service.Id" class="jp_btn_default">@SharedLocalizer["edit"]</a>
                         </div>
                     </li>
                 }

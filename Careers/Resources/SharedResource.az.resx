@@ -159,4 +159,13 @@
   <data name="review" xml:space="preserve">
     <value>Otziv saxlamaq</value>
   </data>
+  <data name="createorder" xml:space="preserve">
+    <value>Sifarişinizi yaradın</value>
+  </data>
+  <data name="noorderstext" xml:space="preserve">
+    <value>Sifarişiniz yoxdur</value>
+  </data>
+  <data name="save" xml:space="preserve">
+    <value>yadda saxla</value>
+  </data>
 </root>
