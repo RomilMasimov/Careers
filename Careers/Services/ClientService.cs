@@ -63,7 +63,7 @@ namespace Careers.Services
                 .Include(x => x.Orders)
                 .ThenInclude(x => x.Service)
                 .Include(x => x.Orders)
-                .ThenInclude(x => x.Reviews)
+                .ThenInclude(x => x.Review)
                 .FirstOrDefaultAsync(x => x.AppUserId == userId);
         }
     }

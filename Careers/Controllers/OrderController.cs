@@ -51,7 +51,7 @@ namespace Careers.Controllers
                 SpecialistId = m.SpecialistId,
                 SpecialistImage = m.Specialist?.ImageUrl,
                 SpecialistFullName = $"{m.Specialist?.Name} {m.Specialist?.Surname}",
-                IsCanBeRated = m.Reviews.Any() || m.State != OrderStateTypeEnum.Finished
+                IsCanBeRated = m.Review!=null || m.State != OrderStateTypeEnum.Finished
             });
 
             return View(model);
@@ -266,7 +266,7 @@ namespace Careers.Controllers
             var client = await _clientService.FindAsync(userId, true);
             var order = client.Orders.FirstOrDefault(m => m.Id == id);
 
-            if (order == null || order.State != OrderStateTypeEnum.Finished || order.Reviews.Any())
+            if (order == null || order.State != OrderStateTypeEnum.Finished || order.Review!=null)
             {
                 TempData["Status"] = "You can't review this order.";
                 return RedirectToAction("Index");

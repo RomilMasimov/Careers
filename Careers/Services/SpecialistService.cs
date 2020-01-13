@@ -137,7 +137,7 @@ namespace Careers.Services
                 .Include(x => x.Orders)
                 .ThenInclude(x => x.Client)
                 .Include(x => x.Orders)
-                .ThenInclude(x => x.Reviews)
+                .ThenInclude(x => x.Review)
                 .ThenInclude(x => x.ImagePathes)
                 .Include(x => x.SpecialistSubCategories)
                 .ThenInclude(x => x.SubCategory)
