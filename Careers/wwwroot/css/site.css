@@ -217,25 +217,25 @@ main {
     height: 150px;
 }
 
-    .review-image img {
-        height: 100%;
-    }
+.review-image img {
+    height: 100%;
+}
 
-    .review-image button {
-        position: absolute;
-        top: 0;
-        right: 0;
-        cursor: pointer;
-        width: 0;
-        height: 0;
-        padding: 0;
-        border: 0;
-        border-top: 55px solid rgba(0,0,0,.5);
-        border-left: 55px solid transparent;
-        background-color: transparent;
-        transition-duration: .2s;
-        transition-property: all;
-    }
+.review-image button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    width: 0;
+    height: 0;
+    padding: 0;
+    border: 0;
+    border-top: 55px solid rgba(0,0,0,.5);
+    border-left: 55px solid transparent;
+    background-color: transparent;
+    transition-duration: .2s;
+    transition-property: all;
+}
 
 .cross {
     position: absolute;
