@@ -219,10 +219,11 @@ namespace Careers.Controllers
 
             return RedirectToAction("Order", "Order", order.Id);
         }
-
+        
+        [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var order = await _orderService.FindAsync(id);
+            var order = await _orderService.FindDetailedAsync(id);
             var subCategory = await _categoryService
                 .GetSubCategoryAsync(order.Service.SubCategoryId);
 

@@ -61,12 +61,12 @@
         $(document).ready(function () {
 
             let categoryId = $('#categories').val();
-            let answerIds = Array('@Model.AnswerIds');
 
             if (categoryId != "0") {
+
                 categoriesLoaded().then(function () {
 
-                    $('#subCategories').val('@Model.SubCategoryId');
+                   $('#subCategories option[value="@Model.SubCategoryId"]').attr('selected','selected');
 
                     subCategoriesLoaded().then(function () {
 
@@ -74,22 +74,59 @@
 
                         servicesLoaded().then(function () {
 
+                            let answerIds = Array();
+                            let modelInputanswers = Array();
+
+                            @foreach(var item in Model.AnswerIds)
+                            {
+                                @:answerIds.push(@item);
+                            }
+
+                            let one = null;
+
+                            @foreach (var item in Model.ClientAnswers)
+                            {
+                                @:one={Answer:'@item.Answer', QuestionId: '@item.QuestionId' }
+                                @:modelInputanswers.push(one);
+                            }
+
+                            $('#salary-min').val('@Model.SalaryMin');
+                            $('#salary-max').val('@Model.SalaryMax');
+                            $('#description').val('@Model.Description');
+                            $('#measurments option[value="@Model.MeasurmentId"]').attr('selected', 'selected');
+
+                            if ($('input[data-question-id]').length) {
+                                $('input[data-question-id]').val('@Model.ClientLocation');
+                            }
+
+                            $('textarea[data-question-id]').each(function () {
+                                let found = modelInputanswers.find(x => x.QuestionId == $(this).data('question-id'));
+                                if (found) {
+                                   $(this).val(found.Answer);
+                                }
+                            });
+
                             $('input[type="radio"]').each(function () {
-                                if ($.inArray($(this).val(), answerIds) !== -1) {
+                                if (+$.inArray(+$(this).val(), answerIds) != -1) {
                                     $(this).prop("checked", true);
                                 }
                             });
 
                             $('input[type="checkbox"]').each(function () {
-                                if ($.inArray($(this).val(), answerIds) !== -1) {
+                                if (+$.inArray(+$(this).val(), answerIds) != -1) {
                                     $(this).prop("checked", true);
                                 }
                             });
+
+
+
+
+
                         });
                     });
                 });
             }
-          
+
         });
 
         $('#categories').change(categoriesLoaded);

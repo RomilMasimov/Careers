@@ -86,6 +86,7 @@ namespace Careers.Services
         public async Task<Order> FindDetailedAsync(int id)
         {
             return await context.Orders
+                .Include(x=>x.OrderMeetingPoints)
                 .Include(o=>o.Measurement)
                 .Include(m => m.AnswerOrders)
                 .ThenInclude(m => m.Answer)
