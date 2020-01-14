@@ -4,7 +4,7 @@ namespace Careers.ViewModels.Order
 {
     public class EditedOrderViewModel
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string CategoryId { get; set; }
         public string SubCategoryId { get; set; }
         public string ServiceId { get; set; }

@@ -51,7 +51,7 @@ namespace Careers.Controllers
                 SpecialistId = m.SpecialistId,
                 SpecialistImage = m.Specialist?.ImageUrl,
                 SpecialistFullName = $"{m.Specialist?.Name} {m.Specialist?.Surname}",
-                IsCanBeRated = m.Review!=null || m.State != OrderStateTypeEnum.Finished
+                IsCanBeRated = m.Review != null || m.State != OrderStateTypeEnum.Finished
             });
 
             return View(model);
@@ -122,7 +122,7 @@ namespace Careers.Controllers
 
             if (model.ClientAnswers.Any(x => x.Answer != ""))
             {
-                await _answerService.AddInputAnswersToOrders(model.ClientAnswers.Where(x => x.Answer != "").Select(x => new ClientAnswer
+                await _answerService.AddInputAnswers(model.ClientAnswers.Where(x => x.Answer != "").Select(x => new ClientAnswer
                 {
                     Text = x.Answer,
                     OrderId = order.Id,
@@ -168,7 +168,7 @@ namespace Careers.Controllers
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var client = await _clientService.FindAsync(userId);
-            var order = await _orderService.FindAsync(model.Id);
+            var order = await _orderService.FindDetailedAsync(int.Parse(model.Id));
 
             order.ClientLocation = model.ClientLocation;
             order.ServiceId = int.Parse(model.ServiceId);
@@ -185,12 +185,13 @@ namespace Careers.Controllers
                 model.SalaryMax != "" &&
                 int.TryParse(model.SalaryMax, out var max))
                 order.PriceMax = max;
+            else order.PriceMax = 0;
 
             var meetingPoints = model.OrderMeetingPoints.Select(x => new OrderMeetingPoint
             {
                 OrderId = order.Id,
                 MeetingPointId = int.Parse(x)
-            });
+            }).ToList();
 
             if (!order.OrderMeetingPoints.All(x => meetingPoints.Any(y => y.Id == x.Id)))
             {
@@ -203,25 +204,27 @@ namespace Careers.Controllers
                     Text = x.Answer,
                     OrderId = order.Id,
                     QuestionId = x.QuestionId
-                });
+                }).ToList();
+
 
             if (!order.ClientAnswers.All(x => clientAnswers.Any(y => y.Id == x.Id)))
             {
-                order.ClientAnswers = clientAnswers;
+                await _answerService.DeleteInputAnswers(order.ClientAnswers);
+                await _answerService.AddInputAnswers(clientAnswers);
             }
 
             var answers = model.AnswerIds.Select(int.Parse);
 
             if (!order.AnswerOrders.All(x => answers.Any(y => y == x.Id)))
             {
-                await _orderService.UpdateAsnwerOrdersAsync(answers, order.Id);
+                await _orderService.UpdateAnswerOrdersAsync(answers, order.Id);
             }
 
             await _orderService.UpdateAsync(order);
 
-            return RedirectToAction("Order", "Order", order.Id);
+            return Json(order.Id);
         }
-        
+
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
@@ -230,7 +233,7 @@ namespace Careers.Controllers
                 .GetSubCategoryAsync(order.Service.SubCategoryId);
 
             var model = new EditedOrderViewModel();
-            model.Id = order.Id;
+            model.Id = order.Id.ToString();
             model.ClientLocation = order.ClientLocation;
             model.Description = order.Description;
             model.MeasurmentId = order.MeasurementId.ToString();
@@ -266,7 +269,7 @@ namespace Careers.Controllers
             var client = await _clientService.FindAsync(userId, true);
             var order = client.Orders.FirstOrDefault(m => m.Id == id);
 
-            if (order == null || order.State != OrderStateTypeEnum.Finished || order.Review!=null)
+            if (order == null || order.State != OrderStateTypeEnum.Finished || order.Review != null)
             {
                 TempData["Status"] = "You can't review this order.";
                 return RedirectToAction("Index");
@@ -314,7 +317,7 @@ namespace Careers.Controllers
             var isRu = CultureInfo.CurrentCulture.Name == "ru-RU";
             var subCategories = await _categoryService.GetAllSubCategories(categoryId);
             var selectItems = new List<SelectListItem>();
-            selectItems.Add(new SelectListItem(isRu ? "Выберите подкатегорию" : "Alt kateqoriyanı seçin", 0.ToString())); 
+            selectItems.Add(new SelectListItem(isRu ? "Выберите подкатегорию" : "Alt kateqoriyanı seçin", 0.ToString()));
             selectItems.AddRange(subCategories.Select(m => new SelectListItem(isRu ? m.DescriptionRU : m.DescriptionAZ, m.Id.ToString())));
             return PartialView("_SelectOptionsPartial", selectItems);
         }

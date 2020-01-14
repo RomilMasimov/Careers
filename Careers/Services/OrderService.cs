@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Careers.Models.Enums;
+using BlogWebsite.Extensions;
 
 namespace Careers.Services
 {
@@ -86,8 +87,8 @@ namespace Careers.Services
         public async Task<Order> FindDetailedAsync(int id)
         {
             return await context.Orders
-                .Include(x=>x.OrderMeetingPoints)
-                .Include(o=>o.Measurement)
+                .Include(x => x.OrderMeetingPoints)
+                .Include(o => o.Measurement)
                 .Include(m => m.AnswerOrders)
                 .ThenInclude(m => m.Answer)
                 .ThenInclude(m => m.Question)
@@ -138,15 +139,14 @@ namespace Careers.Services
                 .ToListAsync();
         }
 
-        public async Task<bool> UpdateAsnwerOrdersAsync(IEnumerable<int> answers, int orderId)
+        public async Task<bool> UpdateAnswerOrdersAsync(IEnumerable<int> answers, int orderId)
         {
-            var dbAnswers = await context.AnswerOrders.Where(x => x.OrderId == orderId).ToListAsync();
-            var toRemove = dbAnswers.Where(x => answers.Contains(x.AnswerId));
-            var toAdd = dbAnswers.Where(x => !answers.Contains(x.AnswerId));
-            context.AnswerOrders.RemoveRange(toRemove);
-            await context.AddRangeAsync(toAdd);
-           var rows= await context.SaveChangesAsync();
-            return rows > 0;
+            context.UpdateManyToMany(
+                   context.AnswerOrders.Where(x => x.OrderId == orderId),
+                   answers.Select(x => new AnswerOrder { OrderId = orderId,  AnswerId = x }),
+                   x => x.AnswerId);
+
+            return  await context.SaveChangesAsync() > 0;
         }
     }
 }

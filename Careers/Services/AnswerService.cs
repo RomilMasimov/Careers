@@ -55,6 +55,13 @@ namespace Careers.Services
             return rows > 0;
         }
 
+        public async Task<bool> DeleteInputAnswers(IEnumerable <ClientAnswer> answers)
+        {
+            _context.ClientAnswers.RemoveRange(answers);
+            var rows = await _context.SaveChangesAsync();
+            return rows > 0;
+        }
+
         public async Task<bool> AddAnswersToOrders(int[] answerIds, int orderId)
         {
             await _context.AnswerOrders.AddRangeAsync(answerIds.Select(x => new AnswerOrder
@@ -79,14 +86,14 @@ namespace Careers.Services
             return result.Entity;
         }
 
-        public async Task<bool> AddInputAnswersToOrders(IEnumerable<ClientAnswer> answers)
+        public async Task<bool> AddInputAnswers(IEnumerable<ClientAnswer> answers)
         {
            await _context.ClientAnswers.AddRangeAsync(answers);
            var rows = await _context.SaveChangesAsync();
            return rows > 0;
         }
 
-        public async Task<ClientAnswer> AddInputAnswerToOrder(ClientAnswer answer)
+        public async Task<ClientAnswer> AddInputAnswer(ClientAnswer answer)
         {
            var result= await _context.ClientAnswers.AddAsync(answer);
             return result.Entity;
