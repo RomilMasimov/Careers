@@ -16,6 +16,6 @@ namespace Careers.Services.Interfaces
         Task<AnswerOrder> AddAnswerToOrder(int answerId, int orderId);
         Task<bool> AddInputAnswers(IEnumerable<ClientAnswer> answers);
         Task<ClientAnswer> AddInputAnswer(ClientAnswer answer);
-        Task<bool> DeleteInputAnswers(IEnumerable<ClientAnswer> answers)
+        Task<bool> DeleteInputAnswers(IEnumerable<ClientAnswer> answers);
     }
 }

@@ -56,7 +56,7 @@ namespace Careers.Controllers
                 }
 
                 model.Filter.CityIds = model.CitiesFilter.Where(x => x.Selected).Select(x => x.Id).ToList();
-                model.Filter.SubCategoryIds = model.SubCategoriesFilter.Where(x => x.Selected).Select(x => x.Id).ToList();
+                model.Filter.SubCategoryIds = model.SubCategoriesFilter?.Where(x => x.Selected).Select(x => x.Id).ToList()?? new List<int>();
                 model.Filter.ServiceIds = model.ServicesFilter.Where(x => x.Selected).Select(x => x.Id).ToList();
                 model.Filter.LanguageIds = model.LanguagesFilter.Where(x => x.Selected).Select(x => x.Id).ToList();
 

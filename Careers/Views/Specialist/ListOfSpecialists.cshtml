@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="jp_listing_heading_wrapper">
-                    <h2>We found <span>@Model.Specialists.Count</span> Matches for you.</h2>
+                    <h2>We found <span>@(Model.Specialists == null ? 0 : Model.Specialists.Count)</span> Matches for you.</h2>
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 hidden-sm hidden-xs">
@@ -58,14 +58,18 @@
                                                     </select>
                                                     <i class="fa fa-angle-down"></i>
                                                 </div>
-                                                @for (int i = 0; i < Model.SubCategoriesFilter.Count; i++)
+                                                @if (Model.SubCategoriesFilter != null)
                                                 {
-                                                    <input asp-for="@Model.SubCategoriesFilter[i].Id" type="hidden">
-                                                    <input asp-for="@Model.SubCategoriesFilter[i].Name" type="hidden">
-                                                    <p>
-                                                        <input asp-for="@Model.SubCategoriesFilter[i].Selected" type="checkbox">
-                                                        <label asp-for="@Model.SubCategoriesFilter[i].Selected">@Model.SubCategoriesFilter[i].Name</label>
-                                                    </p>
+
+                                                    for (int i = 0; i < Model.SubCategoriesFilter.Count; i++)
+                                                    {
+                                                        <input asp-for="@Model.SubCategoriesFilter[i].Id" type="hidden">
+                                                        <input asp-for="@Model.SubCategoriesFilter[i].Name" type="hidden">
+                                                        <p>
+                                                            <input asp-for="@Model.SubCategoriesFilter[i].Selected" type="checkbox">
+                                                            <label asp-for="@Model.SubCategoriesFilter[i].Selected">@Model.SubCategoriesFilter[i].Name</label>
+                                                        </p>
+                                                    }
                                                 }
                                                 @* <partial name="_SubCategoriesPartial" model="@Model.Category.SubCategories" />*@
                                             </div>
