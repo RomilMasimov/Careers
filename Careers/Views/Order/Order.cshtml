@@ -38,6 +38,16 @@
                         @Model.Description
                     </p>
                 </div>
+                <div class="jp_job_res">
+                    <h2>@(isRu ? "Места встречи" : "Görüş yerləri")</h2>
+                    <p>
+                        <span>@Model.MeetingPoint?.First().Description</span>
+                        @foreach (var point in Model.MeetingPoint.Skip(1))
+                        {
+                            <span>, @point.Description</span>
+                        }
+                    </p>
+                </div>
                 @foreach (var answerOrder in Model.AnswerOrders.Select(m => m.Answer).GroupBy(m => m.Question))
                 {
                     <div class="jp_job_res">
@@ -60,7 +70,7 @@
             </div>
         </div>
 
-        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 mt-md-0 mt-3">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="jp_rightside_job_categories_wrapper jp_rightside_listing_single_wrapper">
@@ -105,12 +115,14 @@
                             <div class="jp_listing_right_bar_btn_wrapper">
                                 <div class="jp_listing_right_bar_btn">
                                     <ul>
-                                        <li><a asp-action="Edit" 
-                                               asp-controller="Order" 
+                                        <li>
+                                            <a asp-action="Edit"
+                                               asp-controller="Order"
                                                asp-area=""
                                                asp-route-id="@Model.Id">
-                                            <i class="fa fa-plus-circle"></i> &nbsp;@SharedLocalizer["edit"]
-                                            </a></li>
+                                                <i class="fa fa-plus-circle"></i> &nbsp;@SharedLocalizer["edit"]
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>

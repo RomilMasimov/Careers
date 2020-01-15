@@ -16,6 +16,7 @@ namespace Careers.ViewModels.Order
         public int? PriceMax { get; set; }
         public Measurement Measurement { get; set; }
         public string Description { get; set; }
+        public IEnumerable<MeetingPoint> MeetingPoint { get; set; }
         public IEnumerable<AnswerOrder> AnswerOrders { get; set; }
         public IEnumerable<ClientAnswer> ClientAnswers { get; set; }
 
@@ -32,6 +33,7 @@ namespace Careers.ViewModels.Order
             PriceMax = order.PriceMax;
             Measurement = order.Measurement;
             Description = order.Description;
+            MeetingPoint = order.OrderMeetingPoints.Select(m => m.MeetingPoint);
             AnswerOrders = order.AnswerOrders;
             ClientAnswers = order.ClientAnswers;
             Service = order.Service;

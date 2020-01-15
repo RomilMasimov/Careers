@@ -88,6 +88,7 @@ namespace Careers.Services
         {
             return await context.Orders
                 .Include(x => x.OrderMeetingPoints)
+                .ThenInclude(m => m.MeetingPoint)
                 .Include(o => o.Measurement)
                 .Include(m => m.AnswerOrders)
                 .ThenInclude(m => m.Answer)
