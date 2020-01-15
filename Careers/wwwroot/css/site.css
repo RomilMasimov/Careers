@@ -223,11 +223,15 @@ main {
 }
 
 .review-image img {
+    width: 100%;
     height: 100%;
+    object-fit: cover;
 }
 
 .review-sm-image img {
+    width: 100%;
     height: 100%;
+    object-fit: cover;
 }
 
 .review-image button {

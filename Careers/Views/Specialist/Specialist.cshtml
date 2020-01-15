@@ -392,10 +392,10 @@
                                         @if (item.ImagePathes.Any())
                                         {
                                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                                <div data-image class="d-flex flex-wrap">
+                                                <div class="row">
                                                     @foreach (var reviewMedia in item.ImagePathes)
                                                     {
-                                                        <div class="review-sm-image mb-2 mr-2">
+                                                        <div data-image class="col-lg-3 col-md-4 col-sm-6 px-1 mb-2 review-sm-image">
                                                             <a href="~/@reviewMedia.Path">
                                                                 <img src="~/@reviewMedia.Path">
                                                             </a>

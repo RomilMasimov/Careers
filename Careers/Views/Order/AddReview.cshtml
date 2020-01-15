@@ -57,7 +57,7 @@
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="jp_contact_inputs_wrapper jp_contact_inputs4_wrapper">
-                                <div id="imageContainer" class="mt-5 d-flex flex-wrap">
+                                <div id="imageContainer" class="mt-5 row">
 
                                 </div>
                             </div>
@@ -107,11 +107,11 @@
                 var reader = new FileReader();
                 reader.onload = function (e) {
                     $('#imageContainer').append(
-                        `<div class="review-image mb-2 mr-2">
-                                                    <img src="${e.target.result}">
-                                                    <button data-index="${count}" type="button"></button>
-                                                    <span data-index="${count}" class="close cross"></span>
-                                                 </div>`);
+                        `<div class="col-md-4 col-6 pr-0 mb-3 review-image">
+                            <img src="${e.target.result}">
+                            <button data-index="${count}" type="button"></button>
+                            <span data-index="${count}" class="close cross"></span>
+                         </div>`);
                     count++;
                 }
                 $('#reviewForm').append(`<input name="Images" data-index="${count}" type="file" hidden />`);
