@@ -108,16 +108,14 @@
             salaryMin = $('#salary-min').val();
             salaryMax = $('#salary-max').val();
 
-            let isHaveSingle = $('input').is('[type="radio"]');
-            let isHaveMulti = $('input').is('[type="checkbox"]');
-            let isHaveClientInputAnswers = $('textarea').is('[data-question-id]');
-
-            //if (salaryMin == ''|| (description == '' && subCategoryId == 0) ||
-            //    (isHaveSingle && answerIds.length == 0) || (isHaveMulti && answerIds.length == 0) ||
-            //    (isHaveClientInputAnswers && clientInputAnswers.some(m => m.Answer == ''))) {
-            //    alert('Enter required fields');
-            //    return;
-            //}
+            if ((salaryMin == '' || parseInt(salaryMin) <= 0 || (salaryMax != '' && parseInt(salaryMax) <= parseInt(salaryMin))) || 
+                (description == null || description.trim() == '') || subCategoryId == 0 ||
+                serviceId == 0 || (answerIds.length == 0 && answerIds.length == 0 &&
+                    clientInputAnswers.filter(m => m.Answer != '').length == 0) &&
+                    meetingPoints.length == 0) {
+                alert('Enter the form correctly');
+                return;
+            }
 
             await fetch( '@Url.Action("Create", "Order")',
                 {
@@ -158,7 +156,7 @@
         });
 
 
-        
+
         //create.cshtml
         async function categoriesLoaded() {
             let categoryId = $('#categories option:selected').first().val();
