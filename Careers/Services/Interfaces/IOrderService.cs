@@ -9,6 +9,7 @@ namespace Careers.Services.Interfaces
         Task<Order> InsertAsync(Order order);
         Task<Order> UpdateAsync(Order order);
         Task<bool> DeleteAsync(Order order);
+        Task<Order> ChangeIsActiveOrderAsync(int orderId, bool isActive);
 
         Task<OrderResponse> InsertResponseAsync(OrderResponse response);
         Task<OrderResponse> UpdateResponseAsync(OrderResponse response);

@@ -12,6 +12,7 @@ namespace Careers.ViewModels.Order
         public int Id { get; set; }
         public DateTime Created { get; set; }
         public OrderStateTypeEnum State { get; set; }
+        public bool IsActive { get; set; }
         public int PriceMin { get; set; }
         public int? PriceMax { get; set; }
         public Measurement Measurement { get; set; }
@@ -29,6 +30,7 @@ namespace Careers.ViewModels.Order
             Id = order.Id;
             Created = order.Created;
             State = order.State;
+            IsActive = order.IsActive;
             PriceMin = order.PriceMin;
             PriceMax = order.PriceMax;
             Measurement = order.Measurement;

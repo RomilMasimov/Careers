@@ -37,6 +37,13 @@ namespace Careers.Services
             return await context.SaveChangesAsync() > 0;
         }
 
+        public async Task<Order> ChangeIsActiveOrderAsync(int orderId, bool isActive)
+        {
+            var order = await context.Orders.FindAsync(orderId);
+            order.IsActive = isActive;
+            return await UpdateAsync(order);
+        }
+
         public async Task<IEnumerable<Order>> FindAllByClientAsync(int clientId)
         {
             return await context.Orders.Where(m => m.ClientId == clientId).ToListAsync();

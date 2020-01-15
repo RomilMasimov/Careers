@@ -112,10 +112,17 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="jp_listing_right_bar_btn_wrapper">
+                            <div class="jp_listing_right_bar_btn_wrapper mt-5">
+                                <div class="mb-3 d-flex align-items-center justify-content-between">
+                                    <strong>Получать отклики</strong>
+                                    <label class="switch">
+                                        <input id="isActive" type="checkbox" @(Model.IsActive ? "checked" : "")>
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
                                 <div class="jp_listing_right_bar_btn">
-                                    <ul>
-                                        <li>
+                                    <ul class="mt-0">
+                                        <li class="mt-0">
                                             <a asp-action="Edit"
                                                asp-controller="Order"
                                                asp-area=""
@@ -133,3 +140,19 @@
         </div>
     </div>
 </div>
+
+
+@section Scripts {
+    <script>
+        $('#isActive').change(async function () {
+            let input = $(this);
+            let isActive = input.prop("checked");
+            let result = await (await fetch(`@Url.Action("ChangeIsActiveOrder", "Order")?id=@Model.Id&isActive=${input.prop("checked")}`)).json();
+            if (!result) {
+                setTimeout(function () {
+                    input.attr("checked", !isActive);
+                }, 500);
+            }
+        });
+    </script>
+}

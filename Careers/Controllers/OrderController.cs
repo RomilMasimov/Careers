@@ -262,6 +262,22 @@ namespace Careers.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> ChangeIsActiveOrder(int id, bool isActive)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var client = await _clientService.FindAsync(userId, true);
+            if (client.Orders.Any(m => m.Id == id))
+            {
+                var order = await _orderService.ChangeIsActiveOrderAsync(id, isActive);
+                if (order != null)
+                {
+                    return Json(true);
+                }
+            }
+            return Json(false);
+        }
+
+
         [HttpGet]
         public async Task<IActionResult> AddReview(int id)
         {
