@@ -151,10 +151,35 @@ namespace Careers.Services
         {
             context.UpdateManyToMany(
                    context.AnswerOrders.Where(x => x.OrderId == orderId),
-                   answers.Select(x => new AnswerOrder { OrderId = orderId,  AnswerId = x }),
+                   answers.Select(x => new AnswerOrder { OrderId = orderId, AnswerId = x }),
                    x => x.AnswerId);
 
-            return  await context.SaveChangesAsync() > 0;
+            return await context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<IEnumerable<Order>> FindAllForSpecialistAsync(string specialistAppUserId)
+        {
+            var specialist = await context.Specialists
+                                .Include(m => m.SpecialistServices)
+                                .Include(m => m.WhereCanGoList)
+                                .Include(m => m.WhereCanMeetList)
+                                .FirstOrDefaultAsync(m => m.AppUserId == specialistAppUserId);
+
+            var specialistMeetingPointsIds = specialist.WhereCanGoList.Select(y => y.WhereCanGoId).ToList();
+            specialistMeetingPointsIds.AddRange(specialist.WhereCanMeetList.Select(y => y.WhereCanMeetId));
+
+            var query = context.Orders.Where(m => m.IsActive == true && m.State == OrderStateTypeEnum.InSearchOfSpec && m.OrderMeetingPoints.Any(op => specialistMeetingPointsIds.Any(smp => smp == op.MeetingPointId)));
+            if (specialist.SpecialistServices.Any())
+            {
+                query = query.Where(m => specialist.SpecialistServices.Select(x => x.ServiceId).Any(x => x == m.ServiceId));
+                var orders = await query
+                    .Include(m => m.Service)
+                    .Include(m => m.Client)
+                    .ToListAsync();
+                orders = orders.Where(m => specialist.SpecialistServices.Any(specServ => specServ.MeasurementId == m.MeasurementId &&
+                                                                                    specServ.PriceMin >= m.PriceMin && specServ.PriceMax >= m.PriceMax)).ToList();
+            }
+            return new List<Order>();
         }
     }
 }

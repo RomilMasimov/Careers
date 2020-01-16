@@ -31,7 +31,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var orders = await _orderService.FindAllAsync();
+            var orders = await _orderService.FindAllForSpecialistAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
             var isRu = CultureInfo.CurrentCulture.Name == "ru-RU";
             var model = orders.Select(m => new OrderViewModel
