@@ -30,24 +30,47 @@
 
 <div class="jp_cp_profile_main_wrapper">
     <div class="container">
-        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <div class="message-lists">
+                <form action="#" class="message-search">
+                    <input type="text" placeholder="Search Friend......">
+                    <button><i class="fa fa-search"></i></button>
+                </form>
+                <a href="#" class="message-single">
+                    <div class="thumb">
+                        <img src="images/content/rc1.png" class="img-fluid" alt="">
+                    </div>
+                    <div class="body">
+                        <h6 class="username">Laural K.</h6>
+                        <span class="send-time">12 min</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 mt-md-0 mt-3">
             <div class="jp_listing_left_sidebar_wrapper">
-                <div class="jp_job_des">
-                    <h2>Job Description</h2>
-                    <p>
-                        @Model.Description
-                    </p>
-                </div>
-                <div class="jp_job_res">
-                    <h2>@(isRu ? "Места встречи" : "Görüş yerləri")</h2>
-                    <p>
-                        <span>@Model.MeetingPoint?.First().Description</span>
-                        @foreach (var point in Model.MeetingPoint.Skip(1))
-                        {
-                            <span>, @point.Description</span>
-                        }
-                    </p>
-                </div>
+                @if (!string.IsNullOrWhiteSpace(Model.Description))
+                {
+                    <div class="jp_job_des">
+                        <h2>Job Description</h2>
+                        <p>
+                            @Model.Description
+                        </p>
+                    </div>
+                }
+                @if (Model.MeetingPoint.Any())
+                {
+                    <div class="jp_job_res">
+                        <h2>@(isRu ? "Места встречи" : "Görüş yerləri")</h2>
+                        <p>
+                            <span>@Model.MeetingPoint?.First().Description</span>
+                            @foreach (var point in Model.MeetingPoint.Skip(1))
+                            {
+                                <span>, @point.Description</span>
+                            }
+                        </p>
+                    </div>
+                }
                 @foreach (var answerOrder in Model.AnswerOrders.Select(m => m.Answer).GroupBy(m => m.Question))
                 {
                     <div class="jp_job_res">
