@@ -166,6 +166,13 @@ namespace Careers.Controllers
                 return Json("error data");
             }
 
+            if (model.SalaryMax != null &&
+                int.Parse(model.SalaryMax) < int.Parse(model.SalaryMin))
+            {
+                return Json("error data");
+            }
+
+
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var client = await _clientService.FindAsync(userId);
             var order = await _orderService.FindDetailedAsync(int.Parse(model.Id));

@@ -186,7 +186,7 @@
             description = $('#description').val();
             measurmentId = $('#measurments').val();
             salaryMin = $('#salary-min').val();
-            salaryMax = $('#salary-max').val();
+            salaryMax = $('#salary-max').val() == '' ? null : $('#salary-max').val();
 
             let isHaveSingle = $('input').is('[type="radio"]');
             let isHaveMulti = $('input').is('[type="checkbox"]');
