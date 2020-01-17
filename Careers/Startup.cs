@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
 using System;
+using Careers.SignalR;
 
 namespace Careers
 {
@@ -51,6 +52,7 @@ namespace Careers
             {
                 options.UseSqlServer(Configuration.GetConnectionString("Default"));
             });
+
             //services
             services.AddTransient<LocationService>();
             services.AddTransient<SenderService>();
@@ -71,6 +73,8 @@ namespace Careers
                 .AddRazorRuntimeCompilation()
                 .AddViewLocalization()
                 .AddDataAnnotationsLocalization();
+            
+            services.AddSignalR();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -117,6 +121,8 @@ namespace Careers
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapHub<MyHub>("/hub");
             });
         }
     }

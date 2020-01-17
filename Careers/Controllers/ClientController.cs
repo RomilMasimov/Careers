@@ -113,7 +113,10 @@ namespace Careers.Controllers
             return View(input);
         }
 
-
+        public IActionResult Chat()
+        {
+            return View();
+        }
 
     }
 }
