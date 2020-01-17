@@ -32,12 +32,12 @@
     <div id="app" class="container">
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <div class="message-lists border">
-                <a href="#" class="message-single">
+                <a href="#" id="orderButton" class="message-single">
                     @*<div class="thumb">
                             <img src="~/media/specialistProfile/1709f23f-4cdb-41cd-b747-d7d7328f40cd.jpg" class="img-fluid" alt="">
                         </div>*@
                     <div class="body">
-                        <h6 class="username">Job Overview</h6>
+                        <h6 class="username">Order Overview</h6>
                         @*<span class="send-time">12 min</span>*@
                     </div>
                 </a>
@@ -50,9 +50,9 @@
                         </label>
                     </div>
                 </div>
-                <a href="#" class="message-single">
+                <a href="#" id="chatButton" class="message-single">
                     <div class="thumb">
-                        <img src="~/media/specialistProfile/1709f23f-4cdb-41cd-b747-d7d7328f40cd.jpg" class="img-fluid" alt="">
+                        <img src="~/media/specialistProfile/1709f23f-4cdb-41cd-b747-d7d7328f40cd.jpg" error-src="" class="img-fluid" alt="">
                     </div>
                     <div class="body">
                         <h6 class="username">Laural K.</h6>
@@ -61,7 +61,7 @@
                 </a>
                 <a href="#" class="message-single">
                     <div class="thumb">
-                        <img src="~/media/specialistProfile/1709f23f-4cdb-41cd-b747-d7d7328f40cd.jpg" class="img-fluid" alt="">
+                        <img src="~/media/specialistProfile/1709f23f-4cdb-41cd-b747-d7d7328f40cd.jpg" error-src="" class="img-fluid" alt="">
                     </div>
                     <div class="body">
                         <h6 class="username">Laural K.</h6>
@@ -70,7 +70,7 @@
                 </a>
                 <a href="#" class="message-single">
                     <div class="thumb">
-                        <img src="~/media/specialistProfile/1709f23f-4cdb-41cd-b747-d7d7328f40cd.jpg" class="img-fluid" alt="">
+                        <img src="~/media/specialistProfile/1709f23f-4cdb-41cd-b747-d7d7328f40cd.jpg" error-src="" class="img-fluid" alt="">
                     </div>
                     <div class="body">
                         <h6 class="username">Laural K.</h6>
@@ -79,7 +79,7 @@
                 </a>
                 <a href="#" class="message-single">
                     <div class="thumb">
-                        <img src="~/media/specialistProfile/1709f23f-4cdb-41cd-b747-d7d7328f40cd.jpg" class="img-fluid" alt="">
+                        <img src="~/media/specialistProfile/1709f23f-4cdb-41cd-b747-d7d7328f40cd.jpg" error-src="" class="img-fluid" alt="">
                     </div>
                     <div class="body">
                         <h6 class="username">Laural K.</h6>
@@ -88,7 +88,7 @@
                 </a>
                 <a href="#" class="message-single">
                     <div class="thumb">
-                        <img src="~/media/specialistProfile/1709f23f-4cdb-41cd-b747-d7d7328f40cd.jpg" class="img-fluid" alt="">
+                        <img src="~/media/specialistProfile/1709f23f-4cdb-41cd-b747-d7d7328f40cd.jpg" error-src="" class="img-fluid" alt="">
                     </div>
                     <div class="body">
                         <h6 class="username">Laural K.</h6>
@@ -97,7 +97,7 @@
                 </a>
                 <a href="#" class="message-single">
                     <div class="thumb">
-                        <img src="~/media/specialistProfile/1709f23f-4cdb-41cd-b747-d7d7328f40cd.jpg" class="img-fluid" alt="">
+                        <img src="~/media/specialistProfile/1709f23f-4cdb-41cd-b747-d7d7328f40cd.jpg" error-src="" class="img-fluid" alt="">
                     </div>
                     <div class="body">
                         <h6 class="username">Laural K.</h6>
@@ -106,7 +106,7 @@
                 </a>
                 <a href="#" class="message-single">
                     <div class="thumb">
-                        <img src="~/media/specialistProfile/1709f23f-4cdb-41cd-b747-d7d7328f40cd.jpg" class="img-fluid" alt="">
+                        <img src="~/media/specialistProfile/1709f23f-4cdb-41cd-b747-d7d7328f40cd.jpg" error-src="" class="img-fluid" alt="">
                     </div>
                     <div class="body">
                         <h6 class="username">Laural K.</h6>
@@ -116,7 +116,7 @@
             </div>
         </div>
         <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 mt-md-0 mt-3">
-            <div id="jobOverview" class="jp_rightside_job_categories_wrapper jp_rightside_listing_single_wrapper">
+            <div id="orderContainer" class="jp_rightside_job_categories_wrapper jp_rightside_listing_single_wrapper">
                 <div class="jp_rightside_job_categories_heading">
                     <h4>Job Overview</h4>
                 </div>
@@ -226,6 +226,84 @@
                     </div>
                 </div>
             </div>
+            
+            <div id="chatContainer" style="display: none"  class="message-box">
+                <div class="message-box-header">
+
+                    <h5>carlos</h5>
+                    <div class="navbar navbar-expand-sm drop">
+
+                        <!-- Links -->
+                        <ul class="navbar-nav">
+
+                            <!-- Dropdown -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbardrop1" data-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#"><i class="fa fa-link"></i>&nbsp;&nbsp;Copy this link</a>
+                                    <a class="dropdown-item" href="#"><i class="fa fa-tag"></i>&nbsp;&nbsp;Report</a>
+                                    <a class="dropdown-item" href="#"><i class="fa fa-flag"></i>&nbsp;&nbsp;Hide</a>
+
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <ul class="dashboard-conversation">
+                    <li class="conversation in">
+                        <div class="avater">
+                            <img src="images/content/rc3.png" class="img-fluid" alt="">
+                        </div>
+                        <div class="message"><span>This is Photoshop's version  of Lom Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollici's version  of Lom Ipsum. Proin gravida nibh vel velit auctor aliquet. tudin, lorem quis </span></div>
+                        <span class="send-time">2.32 am</span>
+                    </li>
+                    <li class="conversation out">
+                        <div class="avater">
+                            <img src="images/content/rc1.png" class="img-fluid" error-src="" alt="">
+                        </div>
+                        <div class="message"><span>This is Photoshop's version  of Lom Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollici's version  of Lom Ipsum. Proin gravida nibh vel velit auctor aliquet. tudin, lorem quis </span></div>
+                        <span class="send-time">2.32 am</span>
+                    </li>
+                    <li class="conversation in">
+                        <div class="avater">
+                            <img src="images/content/rc3.png" error-src="" class="img-fluid" alt="">
+                        </div>
+                        <div class="message"><span>This is Photoshop's version  of Lom Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollici's version  of Lom Ipsum. Proin gravida nibh vel velit auctor aliquet. tudin, lorem quis </span></div>
+                        <span class="send-time">2.34 am</span>
+                    </li>
+                    <li class="conversation out">
+                        <div class="avater">
+                            <img src="images/content/rc1.png" class="img-fluid" error-src="" alt="">
+                        </div>
+                        <div class="message"><span>This is Photoshop's version  of Lom Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollici's version  of Lom Ipsum. Proin gravida nibh vel velit auctor aliquet. tudin, lorem quis </span></div>
+                        <span class="send-time">2.34 am</span>
+                    </li>
+                    <li class="conversation in">
+                        <div class="avater">
+                            <img src="images/content/rc3.png" class="img-fluid" alt="">
+                        </div>
+                        <div class="message"><span>This is Photoshop's version  of Lom Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollici's version  of Lom Ipsum. Proin gravida nibh vel velit auctor aliquet. tudin, lorem quis </span></div>
+                        <span class="send-time">2.34 am</span>
+                    </li>
+
+                </ul>
+                <div class="conversation-write-wrap">
+                    <form action="#">
+                        <textarea placeholder="Type a message"></textarea>
+                        <label class="send-file">
+                            <input type="file"><i class="fa fa-image"></i>
+                        </label>
+                        <label class="send-image">
+                            <input type="file"><i class="fa fa-file-image-o"></i>
+                        </label>
+
+                        <button class="send-message"><i class="fa fa-location-arrow"></i></button>
+                    </form>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
@@ -233,15 +311,32 @@
 
 @section Scripts {
     <script>
-        $('#isActive').change(async function () {
+        $('#isActive').change(async function() {
             let input = $(this);
             let isActive = input.prop("checked");
-            let result = await (await fetch(`@Url.Action("ChangeIsActiveOrder", "Order")?id=@Model.Id&isActive=${input.prop("checked")}`)).json();
+            let result = await(await fetch(`@Url.Action("ChangeIsActiveOrder", "Order")?id=@Model.Id&isActive=${
+                input.prop("checked")}`)).json();
             if (!result) {
-                setTimeout(function () {
-                    input.attr("checked", !isActive);
-                }, 500);
+                setTimeout(function() {
+                        input.attr("checked", !isActive);
+                    },
+                    500);
             }
         });
+
+
+        $('#orderButton').click(function(e) {
+            e.preventDefault();
+            $('#orderContainer').show();
+            
+        });
+
+        $('#chatButton').click(function(e) {
+            e.preventDefault();
+            $('#orderContainer').hide();
+            $('#chatContainer').show();
+        });
+
+
     </script>
 }
