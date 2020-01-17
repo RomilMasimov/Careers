@@ -40,6 +40,7 @@ namespace Careers.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> LogIn(LoginViewModel model, string returnUrl = null)
         {
             if (ModelState.IsValid)
@@ -107,6 +108,7 @@ namespace Careers.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> SignUp(RegistrationViewModel regViewModel)
         {
             if (!regViewModel.AgreedWithTerms)
@@ -218,6 +220,7 @@ namespace Careers.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel Input)
         {
             if (ModelState.IsValid)
@@ -259,6 +262,7 @@ namespace Careers.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> ResetPassword(ResetPasswordViewModel Input)
         {
             if (!ModelState.IsValid)
