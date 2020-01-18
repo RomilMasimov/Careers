@@ -20,7 +20,7 @@ namespace Careers.ViewModels.Order
         public IEnumerable<MeetingPoint> MeetingPoint { get; set; }
         public IEnumerable<AnswerOrder> AnswerOrders { get; set; }
         public IEnumerable<ClientAnswer> ClientAnswers { get; set; }
-        public ICollection<Specialist> Specialists { get; set; }
+        public ICollection<UserSpecialistMessage> Messages { get; set; }
 
         public Models.Service Service { get; set; }
         public string SpecialistFullName { get; set; }
@@ -28,7 +28,7 @@ namespace Careers.ViewModels.Order
 
         public OrderAndChatViewModel(Models.Order order)
         {
-            Specialists = order.UserSpecialistMessages.Select(x => x.Specialist).ToList();
+            Messages = order.UserSpecialistMessages.ToList();
             Id = order.Id;
             Created = order.Created;
             State = order.State;
