@@ -96,9 +96,37 @@ namespace Careers.Services
                     Messages = await GetMessagesAsync(item.Id)
                 });
             }
-          
+
             return !dialogs.Any() ? null : dialogs;
         }
+
+        public async Task<Dialog> GetDialogAsync(int messageLogId, bool specOrClient)
+        {
+            UserSpecialistMessage userSpecialistMessage = null;
+
+            if (specOrClient)
+            {
+                userSpecialistMessage = await _context.UserSpecialistMessages
+                    .Include(x => x.Specialist)
+                    .FirstOrDefaultAsync(x => x.Id == messageLogId);
+            }
+            else
+            {
+                userSpecialistMessage = await _context.UserSpecialistMessages
+                   .Include(x => x.Client)
+                   .FirstOrDefaultAsync(x => x.Id == messageLogId);
+            }
+
+            if (userSpecialistMessage == null) return null;
+
+            return new Dialog
+            {
+                UserSpecialistMessage = userSpecialistMessage,
+                Messages = await GetMessagesAsync(userSpecialistMessage.Id)
+            };
+        }
+
+
     }
 }
 
