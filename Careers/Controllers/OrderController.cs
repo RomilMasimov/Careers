@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Careers.Models;
 using Careers.Models.Enums;
+using Careers.Models.Extra;
 using Careers.Services.Interfaces;
 using Careers.ViewModels.Order;
 using Microsoft.AspNetCore.Authorization;
@@ -24,11 +25,15 @@ namespace Careers.Controllers
         private readonly IAnswerService _answerService;
         private readonly IReviewService _reviewService;
 
-        public OrderController(IOrderService orderService, IQuestionService questionService,
+        private readonly IMessageService _messageService;
+
+        public OrderController(IOrderService orderService, IQuestionService questionService, IMessageService messageService,
             IClientService clientService, ICategoryService categoryService, IAnswerService answerService, IReviewService reviewService)
         {
+
             _orderService = orderService;
             _questionService = questionService;
+            _messageService = messageService;
             _clientService = clientService;
             _categoryService = categoryService;
             _answerService = answerService;
@@ -71,6 +76,15 @@ namespace Careers.Controllers
             var model = new OrderAndChatViewModel(order);
             return View(model);
         }
+
+
+        public async Task<IActionResult> GetConversationAsync(int messageLogId)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var messages = await _messageService.GetMessagesAsync(messageLogId);
+            return PartialView("_ConversationPartial", new MessagesAndCurrentUser(userId, messages));
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody]CreatedOrderViewModel model)

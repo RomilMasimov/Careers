@@ -4,7 +4,7 @@ using Careers.Models;
 
 namespace Careers.Services.Interfaces
 {
-    interface IMessageService
+    public interface IMessageService
     {
         Task WriteDialogAsync(UserSpecialistMessage uSMessage, Message message);
         Task<IEnumerable<Message>> GetMessagesAsync(int messageLogId);

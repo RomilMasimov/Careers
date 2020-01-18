@@ -1,0 +1,76 @@
+﻿@model Careers.Models.Extra.MessagesAndCurrentUser
+
+
+<div class="message-box-header">
+
+    <h5>carlos</h5>
+    <div class="navbar navbar-expand-sm drop">
+
+        <!-- Links -->
+        <ul class="navbar-nav">
+
+            <!-- Dropdown -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop1" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-ellipsis-h"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#"><i class="fa fa-link"></i>&nbsp;&nbsp;Copy this link</a>
+                    <a class="dropdown-item" href="#"><i class="fa fa-tag"></i>&nbsp;&nbsp;Report</a>
+                    <a class="dropdown-item" href="#"><i class="fa fa-flag"></i>&nbsp;&nbsp;Hide</a>
+
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<ul class="dashboard-conversation">
+
+    @foreach (var message in Model.Messages)
+    {
+        <li class="conversation @Model.UserId==@message.Author? in : out">
+            <div class="avater">
+                <img src="@message.AuthorImagePath" error-src="" class="img-fluid" alt="">
+            </div>
+            <div class="message">
+                <span>@message.Text</span>
+
+                <div class="row">
+                    @foreach (var path in message.ImagePaths)
+                    {
+                        <div data-image class="col-lg-3 col-md-4 col-sm-6 px-1 mb-2 review-sm-image">
+                            <a href="@path">
+                                <img src="@path">
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+            <span class="send-time">@message.DateTime.ToShortTimeString()</span>
+        </li>
+    }
+
+</ul>
+
+@section Scripts {
+    <script src="~/lib/magnific-popup/js/jquery.magnific-popup.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("[data-image]").magnificPopup({
+                delegate: 'a',
+                type: 'image',
+                gallery: {
+                    enabled: true,
+                    navigateByImgClick: true,
+                    preload: [0, 1]
+                },
+                zoom: {
+                    enabled: true,
+                    duration: 300,
+                    easing: 'ease-in-out',
+                }
+            });
+        });
+    </script>
+}
