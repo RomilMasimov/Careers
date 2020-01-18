@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Careers.ViewModels.Order
 {
-    public class OrderDetailsViewModel
+    public class OrderAndChatViewModel
     {
         public int Id { get; set; }
         public DateTime Created { get; set; }
@@ -20,13 +20,15 @@ namespace Careers.ViewModels.Order
         public IEnumerable<MeetingPoint> MeetingPoint { get; set; }
         public IEnumerable<AnswerOrder> AnswerOrders { get; set; }
         public IEnumerable<ClientAnswer> ClientAnswers { get; set; }
+        public ICollection<Specialist> Specialists { get; set; }
 
         public Models.Service Service { get; set; }
         public string SpecialistFullName { get; set; }
         public int? SpecialistId { get; set; }
 
-        public OrderDetailsViewModel(Models.Order order)
+        public OrderAndChatViewModel(Models.Order order)
         {
+            Specialists = order.UserSpecialistMessages.Select(x => x.Specialist).ToList();
             Id = order.Id;
             Created = order.Created;
             State = order.State;

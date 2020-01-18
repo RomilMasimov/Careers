@@ -68,7 +68,7 @@ namespace Careers.Controllers
             if (order == null)
                 return RedirectToAction("Error", "Home", new { code = 404, message = "Order not found.", returnController = "Order", returnAction = "Index" });
 
-            var model = new OrderDetailsViewModel(order);
+            var model = new OrderAndChatViewModel(order);
             return View(model);
         }
 
