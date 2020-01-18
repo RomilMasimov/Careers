@@ -97,6 +97,8 @@ namespace Careers.Services
                 .Include(x => x.OrderMeetingPoints)
                 .ThenInclude(m => m.MeetingPoint)
                 .Include(o => o.Measurement)
+                .Include(m => m.UserSpecialistMessages)
+                .ThenInclude(m => m.Specialist)
                 .Include(m => m.AnswerOrders)
                 .ThenInclude(m => m.Answer)
                 .ThenInclude(m => m.Question)

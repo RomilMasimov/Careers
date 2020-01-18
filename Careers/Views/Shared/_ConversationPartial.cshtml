@@ -1,9 +1,19 @@
 ﻿@model Careers.Models.Extra.MessagesAndCurrentUser
 
-
+@{
+    var spec = Model.Dialog.UserSpecialistMessage.Specialist;
+    var client = Model.Dialog.UserSpecialistMessage.Client;
+}
 <div class="message-box-header">
 
-    <h5>carlos</h5>
+    @if (Model.UserId == spec.AppUserId)
+    {
+        <h5>@spec.Name @spec.Surname</h5>
+    }
+    else
+    {
+        <h5>@client.Name @client.Surname</h5>
+    }
     <div class="navbar navbar-expand-sm drop">
 
         <!-- Links -->
@@ -27,11 +37,12 @@
 
 <ul class="dashboard-conversation">
 
-    @foreach (var message in Model.Messages)
+    @foreach (var message in Model.Dialog.Messages)
     {
-        <li class="conversation @Model.UserId==@message.Author? in : out">
+        <li class="conversation @(Model.UserId==message.Author? "in" : "out")">
             <div class="avater">
-                <img src="@message.AuthorImagePath" error-src="" class="img-fluid" alt="">
+                <img src="@(message.Author==spec.AppUserId? spec.ImageUrl:client.ImageUrl)"
+                     error-src="" class="img-fluid" alt="">
             </div>
             <div class="message">
                 <span>@message.Text</span>

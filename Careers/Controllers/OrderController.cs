@@ -78,11 +78,12 @@ namespace Careers.Controllers
         }
 
 
-        public async Task<IActionResult> GetConversationAsync(int messageLogId)
+        public async Task<IActionResult> GetConversation(int id) //messageLogId
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var messages = await _messageService.GetMessagesAsync(messageLogId);
-            return PartialView("_ConversationPartial", new MessagesAndCurrentUser(userId, messages));
+            var dialog = await _messageService.GetDialogAsync(id);
+            if (dialog == null) return Content("NotFound");
+            return PartialView("_ConversationPartial", new MessagesAndCurrentUser(userId, dialog));
         }
 
 

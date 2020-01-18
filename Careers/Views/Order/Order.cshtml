@@ -50,69 +50,32 @@
                         </label>
                     </div>
                 </div>
-                <a href="#" id="chatButton" class="message-single">
-                    <div class="thumb">
-                        <img src="~/media/specialistProfile/1709f23f-4cdb-41cd-b747-d7d7328f40cd.jpg" error-src="" class="img-fluid" alt="">
-                    </div>
-                    <div class="body">
-                        <h6 class="username">Laural K.</h6>
-                        <span class="send-time">12 min</span>
-                    </div>
-                </a>
-                <a href="#" class="message-single">
-                    <div class="thumb">
-                        <img src="~/media/specialistProfile/1709f23f-4cdb-41cd-b747-d7d7328f40cd.jpg" error-src="" class="img-fluid" alt="">
-                    </div>
-                    <div class="body">
-                        <h6 class="username">Laural K.</h6>
-                        <span class="send-time">12 min</span>
-                    </div>
-                </a>
-                <a href="#" class="message-single">
-                    <div class="thumb">
-                        <img src="~/media/specialistProfile/1709f23f-4cdb-41cd-b747-d7d7328f40cd.jpg" error-src="" class="img-fluid" alt="">
-                    </div>
-                    <div class="body">
-                        <h6 class="username">Laural K.</h6>
-                        <span class="send-time">12 min</span>
-                    </div>
-                </a>
-                <a href="#" class="message-single">
-                    <div class="thumb">
-                        <img src="~/media/specialistProfile/1709f23f-4cdb-41cd-b747-d7d7328f40cd.jpg" error-src="" class="img-fluid" alt="">
-                    </div>
-                    <div class="body">
-                        <h6 class="username">Laural K.</h6>
-                        <span class="send-time">12 min</span>
-                    </div>
-                </a>
-                <a href="#" class="message-single">
-                    <div class="thumb">
-                        <img src="~/media/specialistProfile/1709f23f-4cdb-41cd-b747-d7d7328f40cd.jpg" error-src="" class="img-fluid" alt="">
-                    </div>
-                    <div class="body">
-                        <h6 class="username">Laural K.</h6>
-                        <span class="send-time">12 min</span>
-                    </div>
-                </a>
-                <a href="#" class="message-single">
-                    <div class="thumb">
-                        <img src="~/media/specialistProfile/1709f23f-4cdb-41cd-b747-d7d7328f40cd.jpg" error-src="" class="img-fluid" alt="">
-                    </div>
-                    <div class="body">
-                        <h6 class="username">Laural K.</h6>
-                        <span class="send-time">12 min</span>
-                    </div>
-                </a>
-                <a href="#" class="message-single">
-                    <div class="thumb">
-                        <img src="~/media/specialistProfile/1709f23f-4cdb-41cd-b747-d7d7328f40cd.jpg" error-src="" class="img-fluid" alt="">
-                    </div>
-                    <div class="body">
-                        <h6 class="username">Laural K.</h6>
-                        <span class="send-time">12 min</span>
-                    </div>
-                </a>
+                <div id="chats" style="height: 75vh;  overflow-y: scroll;">
+                    @foreach (var message in Model.Messages)
+                    {
+                        <a href="#" data-chatId="@message.Id" id="chatButton" class="message-single">
+                            <div class="thumb">
+                                <img src="~/media/specialistProfile/1709f23f-4cdb-41cd-b747-d7d7328f40cd.jpg" error-src="" class="img-fluid" alt="">
+                            </div>
+                            <div class="body">
+                                <h6 class="username">@message.Specialist.Name @message.Specialist.Surname</h6>
+                                <span class="send-time">@message.Specialist.LastVisit.ToShortTimeString()</span>
+                            </div>
+                        </a>
+                    }
+                    @for (int i = 0; i < 14; i++)
+                    {
+                        <a href="#" data-chatId="23" id="chatButton" class="message-single">
+                            <div class="thumb">
+                                <img src="~/media/specialistProfile/1709f23f-4cdb-41cd-b747-d7d7328f40cd.jpg" error-src="" class="img-fluid" alt="">
+                            </div>
+                            <div class="body">
+                                <h6 class="username">test</h6>
+                                <span class="send-time">23</span>
+                            </div>
+                        </a>
+                    }
+                </div>
             </div>
         </div>
         <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 mt-md-0 mt-3">
@@ -218,10 +181,12 @@
                     </div>
                 </div>
             </div>
-            
-            <div id="chatContainer" style="display: none"  class="message-box">
-           
-                
+
+            <div id="chatContainer" style="display: none;" class="message-box">
+
+                <div id="messages" style="height: 75vh;  overflow-y: scroll;">
+
+                </div>
 
                 <div class="conversation-write-wrap">
                     <form action="#">
@@ -258,17 +223,27 @@
             }
         });
 
-
         $('#orderButton').click(function(e) {
             e.preventDefault();
             $('#orderContainer').show();
+            $('#chatContainer').hide();
 
         });
 
-        $('#chatButton').click(function(e) {
+        $('#chats').on( 'click', '[data-chatId]', async function(e) {
             e.preventDefault();
-            $('#orderContainer').hide();
-            $('#chatContainer').show();
+            let chatId = $(this).data('chatid');
+            let html = await (await fetch(`@Url.Action("GetConversation")/${chatId}`)).text();
+            if (html == 'NotFound') {
+                e.preventDefault();
+                $('#orderContainer').show();
+                $('#chatContainer').hide();
+            } else {
+                $('#messages').html('');
+                $('#messages').prepend(html);
+                $('#orderContainer').hide();
+                $('#chatContainer').show();
+            }
         });
 
 

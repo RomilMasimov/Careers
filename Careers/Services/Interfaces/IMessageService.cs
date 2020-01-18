@@ -10,7 +10,7 @@ namespace Careers.Services.Interfaces
         Task<IEnumerable<Message>> GetMessagesAsync(int messageLogId);
         Task<IEnumerable<Message>> GetMessagesAsync(int clientId, int specialistId, int orderId);
         Task<IEnumerable<Dialog>> GetDialogListAsync(int clientId, int specialistId);
-        Task<Dialog> GetDialogAsync(int messageLogId, bool specOrClient);
+        Task<Dialog> GetDialogAsync(int messageLogId);
         
     }
 }

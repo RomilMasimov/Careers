@@ -100,23 +100,13 @@ namespace Careers.Services
             return !dialogs.Any() ? null : dialogs;
         }
 
-        public async Task<Dialog> GetDialogAsync(int messageLogId, bool specOrClient)
+        public async Task<Dialog> GetDialogAsync(int messageLogId)
         {
-            UserSpecialistMessage userSpecialistMessage = null;
-
-            if (specOrClient)
-            {
-                userSpecialistMessage = await _context.UserSpecialistMessages
+            var userSpecialistMessage=  await _context.UserSpecialistMessages
                     .Include(x => x.Specialist)
+                    .Include(x=>x.Client)
                     .FirstOrDefaultAsync(x => x.Id == messageLogId);
-            }
-            else
-            {
-                userSpecialistMessage = await _context.UserSpecialistMessages
-                   .Include(x => x.Client)
-                   .FirstOrDefaultAsync(x => x.Id == messageLogId);
-            }
-
+           
             if (userSpecialistMessage == null) return null;
 
             return new Dialog
