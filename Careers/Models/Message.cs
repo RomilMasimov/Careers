@@ -16,6 +16,7 @@ namespace Careers.Models
         public Message()
         {
             ImagePaths = new List<string>();
+            DateTime = DateTime.Now;
         }
 
     }

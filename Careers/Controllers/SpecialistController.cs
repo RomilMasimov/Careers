@@ -256,7 +256,12 @@ namespace Careers.Controllers
                 SpecialistId = specialistId,
                 OrderId = orderId
             };
-            await _messageService.WriteDialogAsync(dialog, null);
+            await _messageService.WriteDialogAsync(dialog, new Message
+            {
+                Author = userId,
+                Text = $"{client.Name} {client.Surname} предлагает вам сотрудничество!"
+            });
+
             return Content(Url.ActionLink("Order", "Order", new { id = orderId }));
         }
 
