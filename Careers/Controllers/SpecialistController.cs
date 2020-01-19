@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Careers.Models;
 using Careers.Services;
@@ -14,21 +15,27 @@ namespace Careers.Controllers
     public class SpecialistController : Controller
     {
         private readonly ISpecialistService _specialistService;
+        private readonly IClientService _clientService;
+        private readonly IOrderService _orderService;
         private readonly LanguageService _languageService;
         private readonly LocationService _locationService;
         private readonly ICategoryService _categoryService;
+        private readonly IMessageService _messageService;
 
-        public SpecialistController(ISpecialistService specialistService, LanguageService languageService,
-            LocationService locationService, ICategoryService categoryService)
+        public SpecialistController(ISpecialistService specialistService, IClientService clientService, IOrderService orderService, LanguageService languageService,
+            LocationService locationService, ICategoryService categoryService, IMessageService messageService)
         {
             _specialistService = specialistService;
+            _clientService = clientService;
+            _orderService = orderService;
             _languageService = languageService;
             _locationService = locationService;
             _categoryService = categoryService;
+            _messageService = messageService;
         }
 
-    
-        public async Task<IActionResult> ListOfSpecialists(ListOfSpecialistsViewModel model, int cityId=0, int subCategoryId = 0, int serviceId = 0)
+
+        public async Task<IActionResult> ListOfSpecialists(ListOfSpecialistsViewModel model, int cityId = 0, int subCategoryId = 0, int serviceId = 0)
         {
             var cities = await _locationService.GetAllCitiesAsync();
             var languages = await _languageService.GetAllAsync();
@@ -56,7 +63,7 @@ namespace Careers.Controllers
                 }
 
                 model.Filter.CityIds = model.CitiesFilter.Where(x => x.Selected).Select(x => x.Id).ToList();
-                model.Filter.SubCategoryIds = model.SubCategoriesFilter?.Where(x => x.Selected).Select(x => x.Id).ToList()?? new List<int>();
+                model.Filter.SubCategoryIds = model.SubCategoriesFilter?.Where(x => x.Selected).Select(x => x.Id).ToList() ?? new List<int>();
                 model.Filter.ServiceIds = model.ServicesFilter.Where(x => x.Selected).Select(x => x.Id).ToList();
                 model.Filter.LanguageIds = model.LanguagesFilter.Where(x => x.Selected).Select(x => x.Id).ToList();
 
@@ -203,14 +210,14 @@ namespace Careers.Controllers
             }
 
             model.Filter = new SpecialistFilter();
-            
+
             var city = model.CitiesFilter.FirstOrDefault(x => x.Id == cityId);
             if (city != null)
             {
                 city.Selected = true;
                 model.Filter.CityIds.Add(cityId);
             }
-            
+
             model.Specialists = await _specialistService.GetByFilterAsync(model.Filter);
 
             return View(model);
@@ -225,6 +232,32 @@ namespace Careers.Controllers
 
             var model = new SpecialistViewModel(specialist);
             return View(model);
+        }
+
+        public async Task<ActionResult> ContactWithSpecialist(int id) // specialistId
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var client = await _clientService.FindAsync(userId, true);
+            var ordersForSpecialist = await _orderService.FindAllForSpecialistByClientAsync(id, client.Id);
+            var orderCount = ordersForSpecialist.Count();
+            if (orderCount == 0) return PartialView("_CreateOrderModalPartial");
+            else if (orderCount == 1) return PartialView("_RedirectToOrderModalPartial", ordersForSpecialist.First());
+            else return PartialView("_ChooseOrderModalPartial", ordersForSpecialist);
+        }
+
+        public async Task<ActionResult> CreateDialog(int orderId, int specialistId)
+        {
+            //TODO create dialog
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var client = await _clientService.FindAsync(userId, true);
+            var dialog = new UserSpecialistMessage
+            {
+                ClientId = client.Id,
+                SpecialistId = specialistId,
+                OrderId = orderId
+            };
+            await _messageService.WriteDialogAsync(dialog, null);
+            return Content(Url.ActionLink("Order", "Order", new { id = orderId }));
         }
 
         public IActionResult Chat()

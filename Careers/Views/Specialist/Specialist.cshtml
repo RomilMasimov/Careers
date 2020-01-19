@@ -32,11 +32,12 @@
                     <div class="jp_cp_left_pro_wallpaper">
                         <img src="~/@Model.ImagePath" error-src="" alt="profile">
                     </div>
-                    <div class="jp_cp_rd_wrapper">
-                        <ul>
-                            <li><a href="#"><i class="fa fa-mail-forward"></i> &nbsp;Contact candidate</a></li>
-                        </ul>
-                    </div>
+                    <button id="contactbtn" type="button" class="jp_btn_default w-100 mt-5"> &nbsp;Contact candidate</button>
+                    @*<div class="jp_cp_rd_wrapper">
+                            <ul>
+                                <li><a id="" href="#"><i class="fa fa-mail-forward"></i> &nbsp;Contact candidate</a></li>
+                            </ul>
+                        </div>*@
                 </div>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 mt-md-0 mt-5">
@@ -350,14 +351,14 @@
                 }
             </div>
 
-            @if (Model.Reviews.Count > 0)
+            @if (Model.Reviews.Any())
             {
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="review-section">
                         <div class="section_heading3">
                             <h2>Reviews</h2>
                         </div>
-                        @foreach (var item in @Model.Reviews)
+                        @foreach (var item in Model.Reviews)
                         {
                             <div class="row my-4">
                                 <div class="col-lg-3 col-md-4 col-xs-4 review-part-left">
@@ -416,6 +417,29 @@
 </div>
 <!-- client rivew wrapper end -->
 
+<div class="modal fade" id="modal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+            </div>
+            <div id="modalBody">
+                <div class="modal-body">
+                    <div class="d-flex justify-content-center">
+                        <div class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="jp_btn_default" data-dismiss="modal">Close</button>
+                    <button id="selectBtn" type="button" class="jp_btn_default">Select</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
     <script src="~/lib/lightslider/js/lightslider.min.js"></script>
     <script src="~/lib/magnific-popup/js/jquery.magnific-popup.min.js"></script>
@@ -455,6 +479,26 @@
                     duration: 300,
                     easing: 'ease-in-out',
                 }
+            });
+
+            $("#contactbtn").click(async function () {
+                let modal = $("#modal");
+                modal.modal("show");
+                let result = await(await fetch('@Url.Action("ContactWithSpecialist")/@Model.Id')).text();
+                $("#modalBody").html(result);
+
+                $("#modalBody").on("click", "input[data-orderid]", function () {
+                    let selectBtn = $("#selectBtn");
+                    let orderId = $(this).data("orderid");
+                    selectBtn.attr("data-orderid", orderId);
+                    selectBtn.attr("disabled", false);
+                });
+
+                $("#modalBody").on("click", "button[data-orderid]", async function () {
+                    let orderId = $(this).data("orderid");
+                    let redirectUrl = await (await fetch(`@Url.Action("CreateDialog")?orderId=${orderId}&specialistId=@Model.Id`)).text();
+                    console.log(redirectUrl);
+                });
             });
         });
     </script>

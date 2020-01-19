@@ -1,0 +1,20 @@
+﻿@using System.Globalization
+@model IEnumerable<Order>
+@{
+    var isRu = CultureInfo.CurrentCulture.Name == "ru-RU";
+}
+
+<div class="modal-body">
+    <p class="header">Choose what order you want to contact a specialist.</p>
+    @foreach (var order in Model)
+    {
+        <div class="d-flex align-items-center justify-content-between">
+            <label><input data-orderid="@order.Id" type="radio" name="order"> @(isRu ? order.Service.DescriptionRU : order.Service.DescriptionAZ)</label>
+            <i>@order.Created.ToString()</i>
+        </div>
+    }
+</div>
+<div class="modal-footer">
+    <button type="button" class="jp_btn_default" data-dismiss="modal">Close</button>
+    <button id="selectBtn" type="button" class="jp_btn_default" disabled>Select</button>
+</div>

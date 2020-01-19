@@ -252,29 +252,12 @@ main {
 
 .cross {
     position: absolute;
-    top: 6px !important;
-    right: 14px !important;
+    top: 3px !important;
+    right: 8px !important;
     left: auto !important;
     cursor: pointer;
-}
-
-.close:before, .close:after {
-    position: absolute;
-    top: -2px !important;
-    right: 0 !important;
-    left: auto !important;
-    content: ' ';
-    height: 25px;
-    width: 3px;
-    background-color: white;
-}
-
-.close:before {
-    transform: rotate(45deg);
-}
-
-.close:after {
-    transform: rotate(-45deg);
+    font-size: 30px;
+    color:white;
 }
 
 .reviwe-stars {

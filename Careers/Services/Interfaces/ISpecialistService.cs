@@ -43,6 +43,7 @@ namespace Careers.Services.Interfaces
         Task<List<Specialist>> GetByFilterAsync(SpecialistFilter filter);
 
         Task<IEnumerable<Service>> FindAllServiceBySpecilalist(int specialistId);
+        Task<IEnumerable<Models.SpecialistService>> FindAllSpecialistServicesBySpecilalist(int specialistId);
         Task<bool> UpdateSubCategoties(int specialistId, int[] subCategoriesId);
         Task<bool> UpdateServices(int specialistId, int[] servicesId);
 

@@ -8,6 +8,7 @@ namespace Careers.ViewModels.Spec
 {
     public class SpecialistViewModel
     {
+        public int Id { get; set; }
         public string ImagePath { get; set; }
         public string Surname { get; set; }
         public string Name { get; set; }
@@ -40,7 +41,7 @@ namespace Careers.ViewModels.Spec
 
         public SpecialistViewModel(Specialist specialist)
         {
-
+            Id = specialist.Id;
             ImagePath = specialist.ImageUrl;
             Surname = specialist.Surname;
             Name = specialist.Name;
@@ -67,6 +68,7 @@ namespace Careers.ViewModels.Spec
                 Reviews = new List<Review>();
                 foreach (var order in specialist.Orders)
                 {
+                    if (order.Review == null) continue;
                     Reviews.Add(order.Review);
                 }
             }

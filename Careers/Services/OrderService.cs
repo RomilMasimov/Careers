@@ -180,6 +180,33 @@ namespace Careers.Services
                     .ToListAsync();
                 orders = orders.Where(m => specialist.SpecialistServices.Any(specServ => specServ.MeasurementId == m.MeasurementId &&
                                                                                     specServ.PriceMin >= m.PriceMin && specServ.PriceMax >= m.PriceMax)).ToList();
+                return orders;
+            }
+            return new List<Order>();
+        }
+
+        public async Task<IEnumerable<Order>> FindAllForSpecialistByClientAsync(int specialistId, int clientId)
+        {
+            var specialist = await context.Specialists
+                                .Include(m => m.SpecialistServices)
+                                .Include(m => m.WhereCanGoList)
+                                .Include(m => m.WhereCanMeetList)
+                                .FirstOrDefaultAsync(m => m.Id == specialistId);
+
+            var specialistMeetingPointsIds = specialist.WhereCanGoList.Select(y => y.WhereCanGoId).ToList();
+            specialistMeetingPointsIds.AddRange(specialist.WhereCanMeetList.Select(y => y.WhereCanMeetId));
+
+            // TODO return m.IsActive == true
+            var query = context.Orders.Where(m => m.IsActive == true && m.State == OrderStateTypeEnum.InSearchOfSpec && m.ClientId == clientId && m.OrderMeetingPoints.Any(op => specialistMeetingPointsIds.Any(smp => smp == op.MeetingPointId)));
+            if (specialist.SpecialistServices.Any())
+            {
+                query = query.Where(m => specialist.SpecialistServices.Select(x => x.ServiceId).Any(x => x == m.ServiceId));
+                var orders = await query
+                    .Include(m => m.Service)
+                    .ToListAsync();
+                orders = orders.Where(m => specialist.SpecialistServices.Any(specServ => specServ.MeasurementId == m.MeasurementId &&
+                                                                                    specServ.PriceMin >= m.PriceMin && specServ.PriceMax >= m.PriceMax)).ToList();
+                return orders;
             }
             return new List<Order>();
         }

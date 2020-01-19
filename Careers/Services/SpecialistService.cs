@@ -377,6 +377,11 @@ namespace Careers.Services
             return await context.SpecialistServices.Where(m => m.SpecialistId == specialistId).Include(m => m.Service).Select(m => m.Service).ToListAsync();
         }
 
+        public async Task<IEnumerable<Models.SpecialistService>> FindAllSpecialistServicesBySpecilalist(int specialistId)
+        {
+            return await context.SpecialistServices.Where(m => m.SpecialistId == specialistId).ToListAsync();
+        }
+
         public Task<bool> UpdateServices(int specialistId, int[] servicesId)
         {
             //context.UpdateManyToMany(

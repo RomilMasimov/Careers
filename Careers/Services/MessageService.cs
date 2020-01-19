@@ -20,7 +20,7 @@ namespace Careers.Services
             _context = context;
         }
 
-        public async Task WriteDialogAsync(UserSpecialistMessage uSMessage, Message message)
+        public async Task WriteDialogAsync(UserSpecialistMessage uSMessage, Message message = null)
         {
             if (uSMessage.Id != 0)
             {
@@ -28,20 +28,20 @@ namespace Careers.Services
                 {
                     await using FileStream fs = new FileStream(uSMessage.LogFilePath, FileMode.Append, FileAccess.Write);
                     await using StreamWriter sw = new StreamWriter(fs);
-                    await sw.WriteLineAsync(JsonSerializer.Serialize(message));
+                    if (message != null) await sw.WriteLineAsync(JsonSerializer.Serialize(message));
                     return;
                 }
             }
 
             {
-                var path = Environment.CurrentDirectory + @"\MessagesLog\" + $"{new Guid()}.txt";
+                var path = Environment.CurrentDirectory + @"\MessagesLog\" + $"{Guid.NewGuid().ToString()}.txt";
                 uSMessage.LogFilePath = path;
                 await _context.UserSpecialistMessages.AddAsync(uSMessage);
                 await _context.SaveChangesAsync();
 
                 await using FileStream fs = new FileStream(path, FileMode.Append, FileAccess.Write);
                 await using StreamWriter sw = new StreamWriter(fs);
-                await sw.WriteLineAsync(JsonSerializer.Serialize(message));
+                if (message != null) await sw.WriteLineAsync(JsonSerializer.Serialize(message));
             }
         }
 
@@ -102,11 +102,11 @@ namespace Careers.Services
 
         public async Task<Dialog> GetDialogAsync(int messageLogId)
         {
-            var userSpecialistMessage=  await _context.UserSpecialistMessages
+            var userSpecialistMessage = await _context.UserSpecialistMessages
                     .Include(x => x.Specialist)
-                    .Include(x=>x.Client)
+                    .Include(x => x.Client)
                     .FirstOrDefaultAsync(x => x.Id == messageLogId);
-           
+
             if (userSpecialistMessage == null) return null;
 
             return new Dialog
