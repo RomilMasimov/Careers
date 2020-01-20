@@ -338,3 +338,10 @@ a.disabled {
     pointer-events: none;
     cursor: default;
 }
+
+div.image-container {
+    height: 100px;
+    width:100%;
+    margin-top: 10px;
+    background-color:dimgrey;
+}

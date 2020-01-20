@@ -76,7 +76,7 @@ namespace Careers
             
             services.AddSignalR(options=> {
                 options.EnableDetailedErrors = true;
-                options.KeepAliveInterval = TimeSpan.FromMinutes(120);
+                
             });
         }
 

@@ -182,9 +182,9 @@
                         <label class="send-image">
                             <input type="file"><i class="fa fa-file-image-o"></i>
                         </label>
-
                         <button type="button" id="btnSendMessage" class="send-message"><i class="fa fa-location-arrow"></i></button>
                     </form>
+                    <div class="image-container"></div>
                 </div>
             </div>
 
@@ -204,8 +204,7 @@
           const hubConnection = new signalR.HubConnectionBuilder()
               .withUrl("/hub")
               .withAutomaticReconnect().build();
-        //hubConnection.serverTimeoutInMilliseconds = 900* 900;
-
+        hubConnection.serverTimeoutInMilliseconds = 100000;
 
         $('#isActive').change(async function() {
             let input = $(this);
@@ -246,20 +245,38 @@
             }
         });
 
+        //upload image in sending message
+        function upload(file) {
 
-        //signalr
-        hubConnection.on('Notify', function (message) {
+            let data = new FormData();
+            data.append('file', file);
 
-            // добавляет элемент для диагностического сообщения
-            let notifyElem = document.createElement("b");
-            notifyElem.appendChild(document.createTextNode(message));
-            let elem = document.createElement("p");
-            elem.appendChild(notifyElem);
-            var firstElem = document.getElementById("chatroom").firstChild;
-            document.getElementById("chatroom").insertBefore(elem, firstElem);
+            fetch('@Url.Action("GetImage","Order")', { 
+                method: 'POST',
+                body: data 
+            }).then(
+                response => response.json() // if the response is a JSON object
+            ).then( //image path
+                success => {
+                    console.log(success);
+                } 
+            ).catch(
+                error => console.error(error) 
+            );
+        };
+
+
+        //file selected
+        $(function () {
+            $("input:file").change(function () {
+                let fileName = $(this).val();
+                if (fileName.length > 1) {
+                    upload($("input:file")[0].files[0]);
+                }
+            });
         });
 
-
+        //signalr
         hubConnection.on("ReceiveMessage", function (message) {
             let elem = document.createElement("p");
             elem.appendChild(document.createTextNode(message));
@@ -267,6 +284,7 @@
             document.getElementById("chatroom").insertBefore(elem, firstElem);
         });
 
+        //send message
         $("#btnSendMessage").on("click",async function (e) {
             let message = $("#text").val();
             let chatId = $('#messages').data('chat-id');
@@ -277,7 +295,7 @@
             $('.dashboard-conversation').append(html);
         });
 
-
+        //start
          hubConnection.start().then(function () {
             console.log("connected");
         });

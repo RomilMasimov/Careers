@@ -4,12 +4,14 @@ using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Careers.Helpers;
 using Careers.Models;
 using Careers.Models.Enums;
 using Careers.Models.Extra;
 using Careers.Services.Interfaces;
 using Careers.ViewModels.Order;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -392,6 +394,12 @@ namespace Careers.Controllers
             };
 
             return PartialView("_MessagePartial", msg);
+        }
+
+        public async Task<IActionResult> GetImage(IFormFile file)
+        {
+          var imagePath= await FileUploadHelper.UploadAsync(file, ImageOwnerEnum.Client);
+            return Json(imagePath);
         }
 
     }
