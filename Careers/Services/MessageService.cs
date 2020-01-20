@@ -21,7 +21,7 @@ namespace Careers.Services
         }
 
         public async Task WriteDialogAsync(UserSpecialistMessage uSMessage, Message message = null)
-        {
+        {  
             if (uSMessage.Id != 0)
             {
                 if (uSMessage.LogFilePath != null)

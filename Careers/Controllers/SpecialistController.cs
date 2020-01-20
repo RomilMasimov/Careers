@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Careers.Models;
 using Careers.Services;
 using Careers.Services.Interfaces;
+using Careers.ViewModels.Partial;
 using Careers.ViewModels.Spec;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -241,8 +242,10 @@ namespace Careers.Controllers
             var ordersForSpecialist = await _orderService.FindAllForSpecialistByClientAsync(id, client.Id);
             var orderCount = ordersForSpecialist.Count();
             if (orderCount == 0) return PartialView("_CreateOrderModalPartial");
-            else if (orderCount == 1) return PartialView("_RedirectToOrderModalPartial", ordersForSpecialist.First());
-            else return PartialView("_ChooseOrderModalPartial", ordersForSpecialist);
+            else if (orderCount == 1) return PartialView("_RedirectToOrderModalPartial", 
+                new ChatWithSpecViewModel(ordersForSpecialist.FirstOrDefault().Id, id));
+            
+            return PartialView("_ChooseOrderModalPartial", ordersForSpecialist);
         }
 
         public async Task<ActionResult> CreateDialog(int orderId, int specialistId)
@@ -261,8 +264,7 @@ namespace Careers.Controllers
                 Author = userId,
                 Text = $"{client.Name} {client.Surname} предлагает вам сотрудничество!"
             });
-
-            return Content(Url.ActionLink("Order", "Order", new { id = orderId }));
+            return RedirectToAction("Order", "Order", new { id = orderId });
         }
 
         public IActionResult Chat()

@@ -482,8 +482,7 @@
             });
 
             $("#contactbtn").click(async function () {
-                let modal = $("#modal");
-                modal.modal("show");
+                 $("#modal").modal("show");
                 let result = await(await fetch('@Url.Action("ContactWithSpecialist")/@Model.Id')).text();
                 $("#modalBody").html(result);
 
@@ -494,11 +493,6 @@
                     selectBtn.attr("disabled", false);
                 });
 
-                $("#modalBody").on("click", "button[data-orderid]", async function () {
-                    let orderId = $(this).data("orderid");
-                    let redirectUrl = await (await fetch(`@Url.Action("CreateDialog")?orderId=${orderId}&specialistId=@Model.Id`)).text();
-                    console.log(redirectUrl);
-                });
             });
         });
     </script>
