@@ -205,13 +205,12 @@ namespace Careers.Services
                     .Select(x => x.ServiceId)
                     .Any(x => x == m.ServiceId));
 
-               var orders = await orderQuery
-                    .Include(m => m.Service)
+               var orders = (await orderQuery
+                    .Include(m => m.Service).ToListAsync())
+
                     .Where(m => specialist.SpecialistServices
-                    .Any(specServ => specServ.MeasurementId == m.MeasurementId &&
-                         specServ.PriceMin >= m.PriceMin &&
-                         specServ.PriceMax >= m.PriceMax))
-                    .ToListAsync();
+                    .Any(specServ => specServ.ServiceId == m.ServiceId ))
+                    .ToList();
 
                 return orders;
             }
