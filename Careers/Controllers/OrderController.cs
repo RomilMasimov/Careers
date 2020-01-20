@@ -377,5 +377,22 @@ namespace Careers.Controllers
             var questions = await _questionService.FindAllAsync(subCategoryId, serviceId);
             return PartialView("_QuestionsPartial", questions);
         }
+
+
+        public IActionResult RenderMessage(string message)
+        {
+            Request.Cookies.TryGetValue("profileImage", out string image);
+
+            var msg = new Message
+            {
+                Author = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                Text = message,
+                AuthorImagePath = image??"",
+                ImagePaths = new List<string>()
+            };
+
+            return PartialView("_MessagePartial", msg);
+        }
+
     }
 }

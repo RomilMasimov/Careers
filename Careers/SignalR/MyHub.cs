@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Careers.Models;
 using Careers.Models.Identity;
+using Careers.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR;
@@ -10,17 +13,23 @@ namespace Careers.SignalR
     [Authorize]
     public class MyHub : Hub
     {
-        private readonly UserManager<AppUser> _userManager;
+        private readonly IMessageService messageService;
 
-        public MyHub(UserManager<AppUser> userManager)
+        public MyHub(IMessageService messageService)
         {
-            _userManager = userManager;
+            this.messageService = messageService;
         }
 
-        public async Task Send(string userEmail, string message)
+        public async Task Send(int usMessageId,string userId, string message)
         {
-            var user = await _userManager.FindByEmailAsync(userEmail);
-            await this.Clients.User(user.Id).SendAsync("ReceiveMessage", message);
+            await this.Clients.User(userId).SendAsync("ReceiveMessage", message);
+            var currentUserId = Context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            await messageService.WriteDialogAsync(usMessageId, new Message
+            {
+                Author = currentUserId,
+                Text = message
+            });
         }
 
         public string GetConnectionId()

@@ -74,7 +74,10 @@ namespace Careers
                 .AddViewLocalization()
                 .AddDataAnnotationsLocalization();
             
-            services.AddSignalR();
+            services.AddSignalR(options=> {
+                options.EnableDetailedErrors = true;
+                options.KeepAliveInterval = TimeSpan.FromMinutes(120);
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

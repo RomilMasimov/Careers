@@ -53,9 +53,9 @@
                 <div id="chats" style="height: 75vh;  overflow-y: scroll;">
                     @foreach (var message in Model.Messages)
                     {
-                        <a href="#" data-chatId="@message.Id" id="chatButton" class="message-single">
+                        <a href="#" data-chatId="@message.Id" data-spec-id="@message.Specialist.AppUserId" id="chatButton" class="message-single">
                             <div class="thumb">
-                                <img src="~/media/specialistProfile/1709f23f-4cdb-41cd-b747-d7d7328f40cd.jpg" error-src="" class="img-fluid" alt="">
+                                <img src="@message.Specialist.ImageUrl" error-src="" class="img-fluid" alt="Profile image">
                             </div>
                             <div class="body">
                                 <h6 class="username">@message.Specialist.Name @message.Specialist.Surname</h6>
@@ -177,16 +177,13 @@
                 </div>
 
                 <div class="conversation-write-wrap">
-                    <form action="#">
-                        <textarea placeholder="Type a message"></textarea>
-                        <label class="send-file">
-                            <input type="file"><i class="fa fa-image"></i>
-                        </label>
+                    <form>
+                        <textarea id="text" placeholder="Type a message"></textarea>
                         <label class="send-image">
                             <input type="file"><i class="fa fa-file-image-o"></i>
                         </label>
 
-                        <button class="send-message"><i class="fa fa-location-arrow"></i></button>
+                        <button type="button" id="btnSendMessage" class="send-message"><i class="fa fa-location-arrow"></i></button>
                     </form>
                 </div>
             </div>
@@ -197,7 +194,19 @@
 
 
 @section Scripts {
+
+    <script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
+
     <script>
+
+        //timeout need fix
+
+          const hubConnection = new signalR.HubConnectionBuilder()
+              .withUrl("/hub")
+              .withAutomaticReconnect().build();
+        //hubConnection.serverTimeoutInMilliseconds = 900* 900;
+
+
         $('#isActive').change(async function() {
             let input = $(this);
             let isActive = input.prop("checked");
@@ -206,8 +215,7 @@
             if (!result) {
                 setTimeout(function() {
                         input.attr("checked", !isActive);
-                    },
-                    500);
+                },500);
             }
         });
 
@@ -221,12 +229,16 @@
         $('#chats').on( 'click', '[data-chatId]', async function(e) {
             e.preventDefault();
             let chatId = $(this).data('chatid');
+            let specId = $(this).data('spec-id');
+
             let html = await (await fetch(`@Url.Action("GetConversation")/${chatId}`)).text();
             if (html == 'NotFound') {
                 e.preventDefault();
                 $('#orderContainer').show();
                 $('#chatContainer').hide();
             } else {
+                $('#messages').data('spec-id', specId);
+                $('#messages').data('chat-id', chatId);
                 $('#messages').html('');
                 $('#messages').prepend(html);
                 $('#orderContainer').hide();
@@ -234,6 +246,41 @@
             }
         });
 
+
+        //signalr
+        hubConnection.on('Notify', function (message) {
+
+            // добавляет элемент для диагностического сообщения
+            let notifyElem = document.createElement("b");
+            notifyElem.appendChild(document.createTextNode(message));
+            let elem = document.createElement("p");
+            elem.appendChild(notifyElem);
+            var firstElem = document.getElementById("chatroom").firstChild;
+            document.getElementById("chatroom").insertBefore(elem, firstElem);
+        });
+
+
+        hubConnection.on("ReceiveMessage", function (message) {
+            let elem = document.createElement("p");
+            elem.appendChild(document.createTextNode(message));
+            let firstElem = document.getElementById("chatroom").firstChild;
+            document.getElementById("chatroom").insertBefore(elem, firstElem);
+        });
+
+        $("#btnSendMessage").on("click",async function (e) {
+            let message = $("#text").val();
+            let chatId = $('#messages').data('chat-id');
+            let userId = $('#messages').data('spec-id');
+
+            hubConnection.invoke("Send", chatId, userId, message);
+            let html =await (await fetch(`@Url.Action("RenderMessage")?message=${message}`)).text();
+            $('.dashboard-conversation').append(html);
+        });
+
+
+         hubConnection.start().then(function () {
+            console.log("connected");
+        });
 
     </script>
 }

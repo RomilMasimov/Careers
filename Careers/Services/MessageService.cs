@@ -21,7 +21,7 @@ namespace Careers.Services
         }
 
         public async Task WriteDialogAsync(UserSpecialistMessage uSMessage, Message message = null)
-        {  
+        {
             if (uSMessage.Id != 0)
             {
                 if (uSMessage.LogFilePath != null)
@@ -44,6 +44,17 @@ namespace Careers.Services
                 if (message != null) await sw.WriteLineAsync(JsonSerializer.Serialize(message));
             }
         }
+
+        public async Task WriteDialogAsync(int usMessageId, Message message)
+        {
+            var usMessage = await _context.UserSpecialistMessages
+                .FirstOrDefaultAsync(x => x.Id == usMessageId);
+
+            await using FileStream fs = new FileStream(usMessage.LogFilePath, FileMode.Append, FileAccess.Write);
+            await using StreamWriter sw = new StreamWriter(fs);
+            await sw.WriteLineAsync(JsonSerializer.Serialize(message));
+        }
+
 
         private async Task<IEnumerable<Message>> messageBodyAsync(UserSpecialistMessage result)
         {
