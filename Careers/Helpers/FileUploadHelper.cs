@@ -15,6 +15,7 @@ namespace Careers.Helpers
 
             const string specialistProfile = "media/specialistProfile";
             const string clientProfile = "media/clientProfile";
+            const string image = "media/images";
             var selectedPath = "";
 
             switch (type)
@@ -27,13 +28,17 @@ namespace Careers.Helpers
                     selectedPath = specialistProfile;
                     break;
 
+                case ImageOwnerEnum.Image:
+                    selectedPath = image;
+                    break;
+
                 default: throw new Exception("File was not uploaded!");
             }
 
             var filename = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
             await using var fs = new FileStream($"wwwroot/{selectedPath}/{filename}", FileMode.Create);
             await file.CopyToAsync(fs);
-            return $"{selectedPath}/{filename}";
+            return $"/{selectedPath}/{filename}";
         }
 
         public static bool Delete(string path)

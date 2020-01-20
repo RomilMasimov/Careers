@@ -398,7 +398,7 @@ namespace Careers.Controllers
 
         public async Task<IActionResult> GetImage(IFormFile file)
         {
-          var imagePath= await FileUploadHelper.UploadAsync(file, ImageOwnerEnum.Client);
+          var imagePath= await FileUploadHelper.UploadAsync(file, ImageOwnerEnum.Image);
             return Json(imagePath);
         }
 

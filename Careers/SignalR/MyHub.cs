@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Careers.Models;
@@ -20,7 +22,7 @@ namespace Careers.SignalR
             this.messageService = messageService;
         }
 
-        public async Task Send(int usMessageId,string userId, string message)
+        public async Task Send(int usMessageId,string userId,IEnumerable<string> imgPathes, string message)
         {
             await this.Clients.User(userId).SendAsync("ReceiveMessage", message);
             var currentUserId = Context.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -28,7 +30,8 @@ namespace Careers.SignalR
             await messageService.WriteDialogAsync(usMessageId, new Message
             {
                 Author = currentUserId,
-                Text = message
+                Text = message,
+                ImagePaths=imgPathes
             });
         }
 

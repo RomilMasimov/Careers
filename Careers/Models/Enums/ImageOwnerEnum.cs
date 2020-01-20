@@ -3,6 +3,7 @@
     public enum ImageOwnerEnum
     {
         Client,
-        Specialist
+        Specialist,
+        Image
     }
 }

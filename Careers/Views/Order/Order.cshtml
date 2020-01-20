@@ -256,9 +256,11 @@
                 body: data 
             }).then(
                 response => response.json() // if the response is a JSON object
-            ).then( //image path
-                success => {
-                    console.log(success);
+            ).then(
+                path => {// нужно создать див в котором будет картинка и крестик,по нажатию на крестик див с картинкой удаляется
+                    let img = document.createElement("img");
+                    $(".image-container").append(img);
+                    $(".image-container > :last").attr("src", path);
                 } 
             ).catch(
                 error => console.error(error) 
@@ -289,8 +291,22 @@
             let message = $("#text").val();
             let chatId = $('#messages').data('chat-id');
             let userId = $('#messages').data('spec-id');
+            let imgPathes = [];
 
-            hubConnection.invoke("Send", chatId, userId, message);
+            $(".image-container img").each(function () {
+                let part1 = '/meadia/';
+                let part2 = this.src.split("/media/")[1];
+                imgPathes.push(part1 + part2);
+            });
+
+            //let data = {
+            //    chatId,
+            //    userId,
+            //    message,
+            //    imgPathes
+            //};
+
+            hubConnection.invoke("Send", chatId, userId, imgPathes, message);
             let html =await (await fetch(`@Url.Action("RenderMessage")?message=${message}`)).text();
             $('.dashboard-conversation').append(html);
         });
