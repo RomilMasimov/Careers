@@ -8,7 +8,7 @@
     @* <button data-orderid="@Model.Id" type="button" class="jp_btn_default">Order</button>*@
     <a class="jp_btn_default"
        href="@Html.Raw(Url.Action("CreateDialog", "Specialist", new { orderId = Model.OrderId, specialistId = Model.SpecialistId }))">
-        Create order
+        Order
     </a>
 
 </div>

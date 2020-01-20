@@ -489,10 +489,9 @@
                 $("#modalBody").on("click", "input[data-orderid]", function () {
                     let selectBtn = $("#selectBtn");
                     let orderId = $(this).data("orderid");
-                    selectBtn.attr("data-orderid", orderId);
-                    selectBtn.attr("disabled", false);
+                    selectBtn.attr("href", `@Url.Action("CreateDialog")?orderId=${orderId}&specialistId=@Model.Id`)
+                    selectBtn.removeClass("disabled");
                 });
-
             });
         });
     </script>
