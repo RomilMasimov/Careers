@@ -10,6 +10,7 @@ using Careers.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR;
+using NUglify.Helpers;
 
 namespace Careers.SignalR
 {
@@ -25,6 +26,8 @@ namespace Careers.SignalR
 
         public async Task Send(int usMessageId,string userId,IEnumerable<string> imgPathes, string message)
         {
+            if (imgPathes?.Count() == 0 && message.IsNullOrWhiteSpace()) return;
+
             await this.Clients.User(userId).SendAsync("ReceiveMessage", message);
             var currentUserId = Context.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
