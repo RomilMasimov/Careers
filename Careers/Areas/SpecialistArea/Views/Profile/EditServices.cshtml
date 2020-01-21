@@ -1,0 +1,51 @@
+﻿@using System.Globalization
+@model IEnumerable<EditServiceViewModel>
+@{
+    ViewData["Title"] = "Edit services";
+    var isRu = CultureInfo.CurrentCulture.Name == "ru-RU";
+}
+
+<div class="jp_tittle_main_wrapper">
+    <div class="jp_tittle_img_overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="jp_tittle_heading_wrapper">
+                    <div class="jp_tittle_heading">
+                        <h2>Edit services</h2>
+                    </div>
+                    <div class="jp_tittle_breadcrumb_main_wrapper">
+                        <div class="jp_tittle_breadcrumb_wrapper">
+                            <ul>
+                                <li><a asp-area="SpecialistArea" asp-controller="Profile" asp-action="Index">Profile</a> <i class="fa fa-angle-right"></i></li>
+                                <li>Edit services</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="jp_adp_main_section_wrapper">
+    <div class="container">
+        <div class="row">
+            <ul class="list-group list-group-flush col-12">
+                @foreach (var viewModel in Model)
+                {
+                    <li class="list-group-item">
+                        <div class="h-100 d-flex align-items-center justify-content-between">
+                            <p class="m-0">@(isRu ? viewModel.Service.DescriptionRU : viewModel.Service.DescriptionAZ)</p>
+                            @if (viewModel.SpecialistService != null)
+                            {
+                                <span>@viewModel.SpecialistService.PriceMin @(viewModel.SpecialistService.PriceMax.HasValue ? $" - {viewModel.SpecialistService?.PriceMax}" : "") AZN / @(isRu ? viewModel.SpecialistService.Measurement.TextRU : viewModel.SpecialistService.Measurement.TextAZ)</span>
+                            }
+                            <a asp-area="SpecialistArea" asp-controller="Profile" asp-action="EditService" asp-route-serviceId="@viewModel.Service.Id" class="jp_btn_default">@SharedLocalizer["edit"]</a>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

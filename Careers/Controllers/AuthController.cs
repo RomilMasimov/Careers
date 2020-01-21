@@ -71,7 +71,7 @@ namespace Careers.Controllers
         {
             if (User.IsInRole("specialist"))
             {
-                return RedirectToAction("Index","Profile",new {area="Specialist"});
+                return RedirectToAction("Index","Profile",new {area= "SpecialistArea" });
             }
 
             if (User.IsInRole("client"))
