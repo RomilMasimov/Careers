@@ -1,7 +1,5 @@
 ﻿@inject IViewLocalizer Localizer
-@{
-    var image = "";
-}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -239,7 +237,7 @@
                                         </li>
                                         <li>
                                             <div class="my-image">
-                                                <img src="@(Context.Request.Cookies.TryGetValue("profileImage", out image)? image: "")" error-src="" alt="">
+                                                <img src="@(Context.Request.Cookies.TryGetValue("profileImage", out string image)? image: "")" error-src="" alt="">
                                             </div>
                                         </li>
                                     </ul>

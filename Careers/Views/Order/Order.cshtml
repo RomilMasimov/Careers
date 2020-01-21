@@ -226,27 +226,25 @@
 
         });
 
-        $('#chats').on('click',
-            '[data-chatId]',
-            async function(e) {
-                e.preventDefault();
-                let chatId = $(this).data('chatid');
-                let specId = $(this).data('spec-id');
+        $('#chats').on('click', '[data-chatId]', async function(e) {
+            e.preventDefault();
+            let chatId = $(this).data('chatid');
+            let specId = $(this).data('spec-id');
 
-                let html = await (await fetch(`@Url.Action("GetConversation")/${chatId}`)).text();
-                if (html == 'NotFound') {
-                    e.preventDefault();
-                    $('#orderContainer').show();
-                    $('#chatContainer').hide();
-                } else {
-                    $('#messages').data('spec-id', specId);
-                    $('#messages').data('chat-id', chatId);
-                    $('#messages').html('');
-                    $('#messages').prepend(html);
-                    $('#orderContainer').hide();
-                    $('#chatContainer').show();
-                }
-            });
+            let html = await (await fetch(`@Url.Action("GetConversation")/${chatId}`)).text();
+            if (html == 'NotFound') {
+                e.preventDefault();
+                $('#orderContainer').show();
+                $('#chatContainer').hide();
+            } else {
+                $('#messages').data('spec-id', specId);
+                $('#messages').data('chat-id', chatId);
+                $('#messages').html('');
+                $('#messages').prepend(html);
+                $('#orderContainer').hide();
+                $('#chatContainer').show();
+            }
+        });
 
         //upload image in sending message
         function upload(file) {
@@ -293,48 +291,48 @@
 
 
         //send message
-        $("#btnSendMessage").on("click",
-            async function(e) {
-                let message = $("#text").val();
-                let chatId = $('#messages').data('chat-id');
-                let userId = $('#messages').data('spec-id');
-                let imgPathes = [];
+        $("#btnSendMessage").on("click",async function(e) {
+            let message = $("#text").val();
+            let chatId = $('#messages').data('chat-id');
+            let userId = $('#messages').data('spec-id');
+            let imgPathes = [];
 
-                $(".image-container img").each(function() {
-                    let part1 = '/images/';
-                    let part2 = this.src.split("/images/")[1];
-                    imgPathes.push(part1 + part2);
-                    console.log(part1 + part2);
-                });
+            $(".image-container img").each(  function() {
+                let part1 = '/images/';
+                let part2 = this.src.split("/images/")[1];
+                imgPathes.push(part1 + part2);
+            });
 
-                //let data = {
-                //    chatId,
-                //    userId,
-                //    message,
-                //    imgPathes
-                //};
-                hubConnection.invoke("Send", chatId, userId, imgPathes, message);
+            //let data = {
+            //    chatId,
+            //    userId,
+            //    message,
+            //    imgPathes
+            //};
 
-                let data = new FormData();
-                data.append('message', message);
-                data.append('imagesJson', JSON.stringify(imgPathes).toString());
+            hubConnection.invoke("Send", chatId, userId, imgPathes, message);
 
-                let html = '';
-               await fetch('@Url.Action("RenderMessage", "Order")',
-                    {
-                        method: 'POST',
-                        body: data
-                    }).then(
-                    response => response.json()
-                ).then(
-                    path => { html = path.text(); }
-                ).catch(
-                    error => console.error(error)
+            let data = new FormData();
+            data.append('message', message);
+            data.append('imagesJson', JSON.stringify(imgPathes).toString());
+
+            let html = '';
+            await fetch('@Url.Action("RenderMessage", "Order")',
+                {
+                    method: 'POST',
+                    body: data
+                }).then(
+                async  response => {
+                    let htmlResponse = await response.text();
+                    html = htmlResponse;
+                }).catch(
+                error => console.error(error)
                 );
 
-                $(".image-container")[0].innerHTML = '';
-                $('.dashboard-conversation').append(html);
-            });
+            $("#text").val('');
+            $(".image-container")[0].innerHTML = '';
+            $('.dashboard-conversation').append(html);
+        });
 
         //start
         hubConnection.start().then(function() {

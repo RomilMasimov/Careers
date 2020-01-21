@@ -378,7 +378,7 @@ namespace Careers.Controllers
         {
             var images = JsonSerializer.Deserialize<string[]>(imagesJson);
             Request.Cookies.TryGetValue("profileImage", out string image);
-
+            
             var msg = new Message
             {
                 Author = User.FindFirstValue(ClaimTypes.NameIdentifier),
