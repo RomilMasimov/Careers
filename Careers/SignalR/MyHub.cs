@@ -17,25 +17,25 @@ namespace Careers.SignalR
     [Authorize]
     public class MyHub : Hub
     {
-        private readonly IMessageService messageService;
+        private readonly IMessageService _messageService;
 
         public MyHub(IMessageService messageService)
         {
-            this.messageService = messageService;
+            this._messageService = messageService;
         }
 
-        public async Task Send(int usMessageId,string userId,IEnumerable<string> imgPathes, string message)
+        public async Task Send(int usMessageId, string userId, IEnumerable<string> imgPathes, string message)
         {
             if (imgPathes?.Count() == 0 && message.IsNullOrWhiteSpace()) return;
 
             await this.Clients.User(userId).SendAsync("ReceiveMessage", message);
             var currentUserId = Context.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            await messageService.WriteDialogAsync(usMessageId, new Message
+            await _messageService.WriteDialogAsync(usMessageId, new Message
             {
                 Author = currentUserId,
-                Text = message,
-                ImagePaths=imgPathes?.ToList()?? new List<string>()
+                Text = message ?? "",
+                ImagePaths = imgPathes?.ToList() ?? new List<string>()
             });
         }
 

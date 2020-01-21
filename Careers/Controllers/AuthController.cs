@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Diagnostics;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -11,6 +12,7 @@ using Careers.ViewModels.Auth;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
+using NUglify.Helpers;
 
 namespace Careers.Controllers
 {
@@ -55,16 +57,29 @@ namespace Careers.Controllers
 
                 if (result.Succeeded)
                 {
-                    if (returnUrl == null) return RedirectToAction("Index", "Home");
-
-                    var roles = HttpContext.User.FindAll(ClaimTypes.Role);
-                    if (roles.Any(m => m.Value == "specialist")) return RedirectToAction("Index", "Order", new { area = "Specialist" });
-                    return RedirectToAction("Index", "Home");
+                    if (!returnUrl.IsNullOrWhiteSpace()) return Redirect(returnUrl);
+                    return RedirectToAction("RedirectionAfterSignIn");
                 }
 
                 ModelState.AddModelError(string.Empty, "Invalid login attempt.");
             }
             return View(model);
+        }
+
+
+        public IActionResult RedirectionAfterSignIn()
+        {
+            if (User.IsInRole("specialist"))
+            {
+                return RedirectToAction("Index","Profile",new {area="Specialist"});
+            }
+
+            if (User.IsInRole("client"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return RedirectToAction("Index", "Home");
         }
 
         public async Task<IActionResult> SignOut()
