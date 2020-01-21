@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using NUglify.Helpers;
 
 namespace Careers.Controllers
 {
@@ -377,6 +378,8 @@ namespace Careers.Controllers
         public IActionResult RenderMessage(string message, string imagesJson)
         {
             var images = JsonSerializer.Deserialize<string[]>(imagesJson);
+            if (message.IsNullOrWhiteSpace() && images.Length == 0) return Content("");
+
             Request.Cookies.TryGetValue("profileImage", out string image);
             
             var msg = new Message
