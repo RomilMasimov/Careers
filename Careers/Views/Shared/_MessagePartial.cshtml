@@ -7,12 +7,12 @@
     <div class="message">
         <span>@Model.Text</span>
 
-        <div class="row">
+        <div class="row mt-1 px-2">
             @foreach (var path in Model.ImagePaths)
             {
                 <div data-image class="col-lg-3 col-md-4 col-sm-6 px-1 mb-2 review-sm-image">
                     <a href="@path">
-                        <img src="@path" alt="image content">
+                        <img src="@path" alt="image">
                     </a>
                 </div>
             }

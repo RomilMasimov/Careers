@@ -50,7 +50,7 @@
                         </label>
                     </div>
                 </div>
-                <div id="chats" style="height: 75vh;  overflow-y: scroll;">
+                <div id="chats" style="height: 75vh;  overflow-y: auto;">
                     @foreach (var message in Model.Messages)
                     {
                         <a href="#" data-chatId="@message.Id" data-spec-id="@message.Specialist.AppUserId" id="chatButton" class="message-single">
@@ -348,6 +348,8 @@
                 $(".image-container").hide();
                 $("#text").val('');
                 $('.dashboard-conversation').append(html);
+                let conversation = $(".dashboard-conversation");
+                conversation.scrollTop(conversation[0].scrollHeight - conversation[0].clientHeight);
             });
 
         //start
