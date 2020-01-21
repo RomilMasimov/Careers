@@ -172,10 +172,11 @@
 
             <div id="chatContainer" style="display: none;" class="message-box">
 
-                <div id="messages" style="height: 75vh;  overflow-y: scroll;">
+                <div id="messages">
 
                 </div>
 
+                <div class="image-container row"></div>
                 <div class="conversation-write-wrap">
                     <form>
                         <textarea id="text" placeholder="Type a message"></textarea>
@@ -184,7 +185,6 @@
                         </label>
                         <button type="button" id="btnSendMessage" class="send-message"><i class="fa fa-location-arrow"></i></button>
                     </form>
-                    <div class="image-container"></div>
                 </div>
             </div>
 
@@ -196,7 +196,6 @@
 @section Scripts {
 
     <script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
-
     <script>
 
         //timeout need fix
@@ -231,20 +230,24 @@
             let chatId = $(this).data('chatid');
             let specId = $(this).data('spec-id');
 
-            let html = await (await fetch(`@Url.Action("GetConversation")/${chatId}`)).text();
-            if (html == 'NotFound') {
-                e.preventDefault();
-                $('#orderContainer').show();
-                $('#chatContainer').hide();
-            } else {
-                $('#messages').data('spec-id', specId);
-                $('#messages').data('chat-id', chatId);
-                $('#messages').html('');
-                $('#messages').prepend(html);
-                $('#orderContainer').hide();
-                $('#chatContainer').show();
-            }
-        });
+                let html = await (await fetch(`@Url.Action("GetConversation")/${chatId}`)).text();
+                if (html == 'NotFound') {
+                    e.preventDefault();
+                    $('#orderContainer').show();
+                    $('#chatContainer').hide();
+                } else {
+                    $('#messages').data('spec-id', specId);
+                    $('#messages').data('chat-id', chatId);
+                    $('#messages').html('');
+                    $('#messages').prepend(html);
+                    $('#orderContainer').hide();
+                    $('#chatContainer').show();
+
+                    // Scroll conversation to bottom
+                    let conversation = $(".dashboard-conversation");
+                    conversation.scrollTop(conversation[0].scrollHeight - conversation[0].clientHeight);
+                }
+            });
 
         //upload image in sending message
         function upload(file) {
@@ -260,15 +263,26 @@
                 response => response.json() // if the response is a JSON object
             ).then(
                 path => { // нужно создать див в котором будет картинка и крестик,по нажатию на крестик див с картинкой удаляется
-                    let img = document.createElement("img");
+                    let img = `<div class="col-md-4 col-6 pr-0 h-100 mt-1 review-image">
+                            <img src="${path}">
+                            <button data-delete type="button"></button>
+                            <span data-delete class="cross">&times;</span>
+                         </div>`;
                     $(".image-container").append(img);
-                    $(".image-container > :last").attr("src", path);
+                    //$(".image-container > :last").attr("src", path);
                 }
             ).catch(
                 error => console.error(error)
             );
         };
 
+        // Обработчик нажатия на кнопку удаления картинки
+        $(".image-container").on("click", "[data-delete]", function () {
+            $(this).offsetParent().remove();
+            if($(".image-container").children().length == 0) {
+                $(".image-container").hide();
+            }
+        });
 
         //file selected
         $(function() {
@@ -276,6 +290,7 @@
                 let fileName = $(this).val();
                 if (fileName.length > 1) {
                     upload($("input:file")[0].files[0]);
+                    $(".image-container").show();
                 }
             });
         });
@@ -329,15 +344,15 @@
                 error => console.error(error)
                 );
 
-            $("#text").val('');
-            $(".image-container")[0].innerHTML = '';
-            $('.dashboard-conversation').append(html);
-        });
+                $(".image-container")[0].innerHTML = '';
+                $(".image-container").hide();
+                $("#text").val('');
+                $('.dashboard-conversation').append(html);
+            });
 
         //start
         hubConnection.start().then(function() {
             console.log("connected");
         });
-
     </script>
 }

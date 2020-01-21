@@ -8572,18 +8572,19 @@ board-conversation .conversation .message.file-send {
    outline: none;
    border: 1px solid #eaeaea;
    padding-left:15px;
-   width: calc(100% - 204px);
+   width: calc(100% - 85px);
    resize: none; 
 }
 .conversation-write-wrap form .emoji {
    color: #23c0e9;
 }
 .conversation-write-wrap form .send-message {
-   border: 0;
-   padding:0;
-   background:transparent;
-   color: #23c0e9;
-   cursor: pointer;
+	border: 0;
+	padding-top: .25rem;
+	padding:0;
+	background: transparent;
+	color: #23c0e9;
+	cursor: pointer;
 }
 .send-file,
 .send-image {
@@ -8657,7 +8658,7 @@ board-conversation .conversation .message.file-send {
 .send-image{
  position: absolute;
     top: 11px;
-    right: 75px;
+    right: 45px;
 }
 
 @-webkit-keyframes pulse {
