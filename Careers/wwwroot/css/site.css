@@ -137,7 +137,7 @@ main {
     }
 
 #profilebutton {
-    font-size: 20px;
+    font-size: 15px;
 }
 
 .my-notification-radibuttons {
@@ -360,8 +360,8 @@ div.image-container {
     margin: 2px;
 }*/
 
-.service-name:hover {
-    color: #23C0E9;
-    transition: 200ms;
-    cursor: default;
+.service-name a:hover {
+    background-color: #23C0E9;
+    color: white;
+    transition: 300ms;
 }

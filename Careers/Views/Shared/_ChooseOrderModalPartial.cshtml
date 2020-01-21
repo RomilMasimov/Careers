@@ -6,15 +6,26 @@
 
 <div class="modal-body">
     <p class="header">Choose what order you want to contact a specialist.</p>
-    @foreach (var order in Model)
-    {
-        <div class="d-flex align-items-center justify-content-between">
-            <label><input data-orderid="@order.Id" type="radio" name="order"> @(isRu ? order.Service.DescriptionRU : order.Service.DescriptionAZ)</label>
-            <i>@order.Created.ToString()</i>
-        </div>
-    }
-</div>
-<div class="modal-footer">
-    <button type="button" class="jp_btn_default" data-dismiss="modal">Close</button>
-    <a id="selectBtn" href="#" class="jp_btn_default disabled">Select</a>
+    @*@foreach (var order in Model)
+        {
+            <div class="d-flex align-items-center justify-content-between">
+                <label><input data-orderid="@order.Id" type="radio" name="order"> @(isRu ? order.Service.DescriptionRU : order.Service.DescriptionAZ)</label>
+                <i>@order.Created.ToString()</i>
+            </div>
+            <select  asp-items="@(new SelectList(Model, "Id", "Id"))">
+            </select>
+        }*@
+    <div class="jp_adp_form_wrapper mb-3">
+        <select id="orderid">
+            <option>Choose order</option>
+            @foreach (var order in Model)
+            {
+                <option value="@order.Id">Order №@order.Id</option>
+            }
+        </select>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="jp_btn_default" data-dismiss="modal">Close</button>
+        <a href="#" id="selectBtn" class="jp_btn_default">Select</a>
+    </div>
 </div>

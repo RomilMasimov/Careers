@@ -134,8 +134,8 @@ namespace Careers.Services
         public async Task<Service> FindServiceAsync(string name)
         {
             return await context.Services.FirstOrDefaultAsync(x =>
-                x.DescriptionRU.ToUpper()== name.ToUpper() ||
-                x.DescriptionAZ.ToUpper()== name.ToUpper());
+                x.DescriptionRU.ToUpper() == name.ToUpper() ||
+                x.DescriptionAZ.ToUpper() == name.ToUpper());
         }
 
         public async Task<IEnumerable<Service>> GetServicesAsync(int subCategoryId)
@@ -191,6 +191,18 @@ namespace Careers.Services
         public async Task<SubCategory> GetSubCategoryAsync(int subCategoryId)
         {
             return await context.SubCategories.FirstOrDefaultAsync(x => x.Id == subCategoryId);
+        }
+
+        public async Task<bool> RemoveFromSpecialistAsync(int specialistId, int serviceId)
+        {
+            var service = await context.SpecialistServices.FirstOrDefaultAsync(m => m.SpecialistId == specialistId && m.ServiceId == serviceId);
+            if (service != null)
+            {
+                context.SpecialistServices.Remove(service);
+                var raws = await context.SaveChangesAsync();
+                return raws > 0;
+            }
+            return false;
         }
     }
 }

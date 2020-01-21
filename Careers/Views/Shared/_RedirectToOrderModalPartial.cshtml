@@ -5,20 +5,18 @@
 </div>
 <div class="modal-footer">
     <button type="button" class="jp_btn_default" data-dismiss="modal">Close</button>
-    @* <button data-orderid="@Model.Id" type="button" class="jp_btn_default">Order</button>*@
     <a class="jp_btn_default"
        href="@Html.Raw(Url.Action("CreateDialog", "Specialist", new { orderId = Model.OrderId, specialistId = Model.SpecialistId }))">
         Order
     </a>
-
 </div>
 
 
 
 @*<a asp-controller="Specialist"
-   asp-action="CreateDialog"
-   asp-route-orderId="@Model."
-   asp-route-specialistId="@Model.SpecialistId"
-   class="jp_btn_default">
-    Create order
-</a>*@
+       asp-action="CreateDialog"
+       asp-route-orderId="@Model."
+       asp-route-specialistId="@Model.SpecialistId"
+       class="jp_btn_default">
+        Create order
+    </a>*@

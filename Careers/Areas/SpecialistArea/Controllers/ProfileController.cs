@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -599,13 +600,22 @@ namespace Careers.Areas.SpecialistArea.Controllers
             return RedirectToAction("Index");
         }
 
+        public async Task<IActionResult> RemoveServiceAsync(int id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var specialist = await _specialistService.FindByUserAsync(userId);
+
+            var result = await _categoryService.RemoveFromSpecialistAsync(specialist.Id, id);
+            if(!result) { }//logger will be here
+            return RedirectToAction("EditServices");
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditService(EditSpecialistServiceViewModel model)  // Add a ViewModel
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var specialist = await _specialistService.FindByUserAsync(userId);
-            setImageUrl(specialist);
             if (ModelState.IsValid &&
                 await _categoryService.FindServiceAsync(model.ServiceId) != null)
             {

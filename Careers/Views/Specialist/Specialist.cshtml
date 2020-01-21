@@ -486,11 +486,10 @@
                 let result = await(await fetch('@Url.Action("ContactWithSpecialist")/@Model.Id')).text();
                 $("#modalBody").html(result);
 
-                $("#modalBody").on("click", "input[data-orderid]", function () {
-                    let selectBtn = $("#selectBtn");
-                    let orderId = $(this).data("orderid");
-                    selectBtn.attr("href", `@Url.Action("CreateDialog")?orderId=${orderId}&specialistId=@Model.Id`)
-                    selectBtn.removeClass("disabled");
+                $("#modalBody").on("change", "#orderid", function () {
+                    let orderId = $(this).val();
+                    console.log(orderId);
+                    $("#selectBtn").attr("href", `@Url.Action("CreateDialog")?orderId=${orderId}&specialistId=@Model.Id`);
                 });
             });
         });
