@@ -78,7 +78,7 @@
                                             @if ((Model.Educations == null && Model.Experiences == null) ||
                                   (Model.Educations?.Count() == 0 && Model.Experiences?.Count() == 0))
                                             {
-                                                <a asp-area="Specialist" asp-controller="Profile" asp-action="EducationsAndExperience">Add</a>
+                                                <a asp-area="Specialist" asp-controller="Profile" asp-action="EducationsAndExperience" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add</a>
                                                 <br>
                                                 <span class="text-muted">
                                                     Tell us about your education, experience and
@@ -88,7 +88,7 @@
                                             }
                                             else
                                             {
-                                                <a asp-area="Specialist" asp-controller="Profile" asp-action="EducationsAndExperience">Edit</a>
+                                        <a asp-area="Specialist" asp-controller="Profile" asp-action="EducationsAndExperience" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> Edit</a>
                                                 <br>
                                                 @if (Model.Educations?.Count() > 0)
                                                 {
@@ -127,7 +127,7 @@
                                         <p>
                                             @if (string.IsNullOrWhiteSpace(Model.About))
                                             {
-                                                <a asp-area="Specialist" asp-controller="Profile" asp-action="EditAbout">Add</a>
+                                                <a asp-area="Specialist" asp-controller="Profile" asp-action="EditAbout" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add</a>
                                                 <br>
                                                 <span class="text-muted">
                                                     Tell us more about yourself so that customers know
@@ -138,7 +138,7 @@
                                             }
                                             else
                                             {
-                                                <a asp-area="Specialist" asp-controller="Profile" asp-action="EditAbout">Edit</a>
+                                                <a asp-area="Specialist" asp-controller="Profile" asp-action="EditAbout" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> Edit</a>
                                                 <br>
                                                 <span>
                                                     @Model.About
@@ -163,7 +163,7 @@
                                     </div>
                                     <div class="col-10">
                                         <p>
-                                            <a asp-area="Specialist" asp-controller="Profile" asp-action="EditWhereCanMeet">Edit</a>
+                                            <a asp-area="Specialist" asp-controller="Profile" asp-action="EditWhereCanMeet" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> Edit</a>
                                             @foreach (var point in Model.WhereCanMeetList)
                                             {
                                                 <br>
@@ -180,7 +180,7 @@
                                     </div>
                                     <div class="col-10">
                                         <p>
-                                            <a asp-area="Specialist" asp-controller="Profile" asp-action="EditWhereCanGo">Edit</a>
+                                            <a asp-area="Specialist" asp-controller="Profile" asp-action="EditWhereCanGo" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> Edit</a>
                                             @foreach (var point in Model.WhereCanGoList)
                                             {
                                                 <br>
@@ -197,7 +197,7 @@
                                     </div>
                                     <div class="col-10">
                                         <p>
-                                            <a asp-area="Specialist" asp-controller="Profile" asp-action="EditCity">Edit</a>
+                                            <a asp-area="Specialist" asp-controller="Profile" asp-action="EditCity" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> Edit</a>
                                             <br>
                                             <span>@Model.City.Name</span>
                                         </p>
@@ -214,7 +214,7 @@
                                         <h5 class="header">Specialties</h5>
                                     </div>
                                     <div class="col-10">
-                                        <a asp-area="Specialist" asp-controller="Profile" asp-action="EditSubCategories">Add or remove</a>
+                                        <a asp-area="Specialist" asp-controller="Profile" asp-action="EditSubCategories" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> Add or remove</a>
                                         <br>
                                         @foreach (var category in Model.SpecialistSubCategories.GroupBy(m => m.SubCategory.Category))
                                         {
@@ -222,8 +222,7 @@
                                             <h5 class="header">@category.Key.DescriptionRU</h5>
                                             @foreach (var subCategory in category)
                                             {
-                                                @subCategory.SubCategory.DescriptionRU <a asp-area="Specialist" asp-controller="Profile" asp-action="EditServices" asp-route-subCategoryId="@subCategory.SubCategoryId">Services and prices</a>
-                                                <br>
+                                                <p class="service-name">@subCategory.SubCategory.DescriptionRU <a asp-area="Specialist" asp-controller="Profile" asp-action="EditServices" asp-route-subCategoryId="@subCategory.SubCategoryId" class="btn btn-sm btn-light">Services and prices</a></p>
                                             }
                                         }
                                     </div>

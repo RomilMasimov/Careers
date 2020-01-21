@@ -359,3 +359,9 @@ div.image-container {
     height: 100px;
     margin: 2px;
 }*/
+
+.service-name:hover {
+    color: #23C0E9;
+    transition: 200ms;
+    cursor: default;
+}
