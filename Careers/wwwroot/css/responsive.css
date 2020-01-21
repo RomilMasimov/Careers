@@ -234,9 +234,9 @@
 	.mainmenu{
 		right:0;
 	}
-	.hidden-menu-bar .mainmenu, .float_left{
+	/*.hidden-menu-bar .mainmenu, .float_left{
 		float:none;
-	}
+	}*/
 	.gc_logo{
 		float:none;
 		display:inline-block;

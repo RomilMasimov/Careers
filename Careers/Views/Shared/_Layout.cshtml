@@ -50,7 +50,7 @@
         <div class="gc_main_menu_wrapper" style="background-color:#0e1427d4">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 hidden-xs hidden-sm full_width">
+                    <div class="col-lg-2 col-md-1 col-sm-12 col-xs-12 hidden-xs hidden-sm">
                         <div class="gc_header_wrapper">
                             <div class="gc_logo">
                                 <a asp-controller="Home" asp-action="Index">
@@ -59,7 +59,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-7 col-md-8 col-sm-12 col-xs-12 center_responsive">
+                    <div class="col-lg-6 col-md-7 col-sm-12 col-xs-12 center_responsive">
                         <div class="header-area hidden-menu-bar stick" id="sticker">
                             <!-- mainmenu start -->
                             <div class="mainmenu">
@@ -212,15 +212,14 @@
                         </div>
                     </div>
                     <!-- mobile menu area end -->
-                    <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 hidden-sm hidden-xs">
+                    <div class="col-md-4 col-sm-12 col-xs-12 hidden-sm hidden-xs">
                         @if (User.Identity.IsAuthenticated)
                         {
                             <div class=" header-area hidden-menu-bar stick">
                                 <div class="mainmenu my-mainmenu">
                                     <ul>
-                                        <li style="color: aliceblue">Welcome,</li>
                                         <li class="has-mega gc_main_navigation">
-                                            <a id="profilebutton" class="gc_main_navigation">
+                                            <a id="profilebutton" class="gc_main_navigation pr-0">
                                                 @User.Identity.Name &nbsp;<i class="fa fa-angle-down"></i>
                                             </a>
                                             <!-- mega menu start -->
