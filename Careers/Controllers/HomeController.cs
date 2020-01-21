@@ -42,7 +42,6 @@ namespace Careers.Controllers
             //_initializer.Services();
             //_initializer.QuestionAndAnswers();
             //await _initializer.ClientsAndSpecialistsAsync();
-    
 
             var reviews = await _reviewService.GetBestLastReviewsAsync(5);
 
