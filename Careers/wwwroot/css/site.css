@@ -342,7 +342,7 @@ a.disabled {
 div.image-container {
     height: 120px;
     margin-bottom: 10px;
-    padding-top: 10px;
+    /*padding-top: .25rem;*/
     position: absolute;
     bottom: 50px;
     left: 14px;

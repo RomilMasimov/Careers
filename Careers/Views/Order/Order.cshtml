@@ -176,7 +176,7 @@
 
                 </div>
 
-                <div class="image-container row"></div>
+                <div class="image-container row py-2"></div>
                 <div class="conversation-write-wrap">
                     <form>
                         <textarea id="text" placeholder="Type a message"></textarea>
@@ -265,8 +265,8 @@
                 response => response.json() // if the response is a JSON object
             ).then(
                 path => { // нужно создать див в котором будет картинка и крестик,по нажатию на крестик див с картинкой удаляется
-                    let img = `<div class="col-md-4 col-6 pr-0 h-100 mt-1 review-image">
-                            <img src="${path}">
+                    let img = `<div class="col-md-4 col-6 pr-0 h-100 review-image">
+                            <img src="${path}" class="pb-1">
                             <button data-delete type="button"></button>
                             <span data-delete class="cross">&times;</span>
                          </div>`;
