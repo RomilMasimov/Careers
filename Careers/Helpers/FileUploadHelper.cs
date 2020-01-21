@@ -13,9 +13,9 @@ namespace Careers.Helpers
         {
             if (file == null) throw new Exception("File was not uploaded!");
 
-            const string specialistProfile = "media/specialistProfile";
-            const string clientProfile = "media/clientProfile";
-            const string image = "media/images";
+            const string specialistProfile = "images/specialistProfile";
+            const string clientProfile = "images/clientProfile";
+            const string image = "images/photos";
             var selectedPath = "";
 
             switch (type)

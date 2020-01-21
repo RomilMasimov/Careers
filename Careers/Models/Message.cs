@@ -11,7 +11,7 @@ namespace Careers.Models
         public string AuthorImagePath { get; set; }
         public string Text { get; set; }
         public DateTime DateTime { get; set; }
-        public IEnumerable<string> ImagePaths { get; set; }
+        public List<string> ImagePaths { get; set; }
 
         public Message()
         {

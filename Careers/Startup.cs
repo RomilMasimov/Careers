@@ -13,7 +13,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
 using System;
+using System.IO;
 using Careers.SignalR;
+using Microsoft.Extensions.FileProviders;
 
 namespace Careers
 {
@@ -101,6 +103,8 @@ namespace Careers
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+          
 
             app.UseRequestLocalization(options =>
             {

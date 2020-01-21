@@ -201,9 +201,9 @@
 
         //timeout need fix
 
-          const hubConnection = new signalR.HubConnectionBuilder()
-              .withUrl("/hub")
-              .withAutomaticReconnect().build();
+        const hubConnection = new signalR.HubConnectionBuilder()
+            .withUrl("/hub")
+            .withAutomaticReconnect().build();
         hubConnection.serverTimeoutInMilliseconds = 100000;
 
         $('#isActive').change(async function() {
@@ -214,7 +214,8 @@
             if (!result) {
                 setTimeout(function() {
                         input.attr("checked", !isActive);
-                },500);
+                    },
+                    500);
             }
         });
 
@@ -225,25 +226,27 @@
 
         });
 
-        $('#chats').on( 'click', '[data-chatId]', async function(e) {
-            e.preventDefault();
-            let chatId = $(this).data('chatid');
-            let specId = $(this).data('spec-id');
-
-            let html = await (await fetch(`@Url.Action("GetConversation")/${chatId}`)).text();
-            if (html == 'NotFound') {
+        $('#chats').on('click',
+            '[data-chatId]',
+            async function(e) {
                 e.preventDefault();
-                $('#orderContainer').show();
-                $('#chatContainer').hide();
-            } else {
-                $('#messages').data('spec-id', specId);
-                $('#messages').data('chat-id', chatId);
-                $('#messages').html('');
-                $('#messages').prepend(html);
-                $('#orderContainer').hide();
-                $('#chatContainer').show();
-            }
-        });
+                let chatId = $(this).data('chatid');
+                let specId = $(this).data('spec-id');
+
+                let html = await (await fetch(`@Url.Action("GetConversation")/${chatId}`)).text();
+                if (html == 'NotFound') {
+                    e.preventDefault();
+                    $('#orderContainer').show();
+                    $('#chatContainer').hide();
+                } else {
+                    $('#messages').data('spec-id', specId);
+                    $('#messages').data('chat-id', chatId);
+                    $('#messages').html('');
+                    $('#messages').prepend(html);
+                    $('#orderContainer').hide();
+                    $('#chatContainer').show();
+                }
+            });
 
         //upload image in sending message
         function upload(file) {
@@ -251,26 +254,27 @@
             let data = new FormData();
             data.append('file', file);
 
-            fetch('@Url.Action("GetImage","Order")', { 
-                method: 'POST',
-                body: data 
-            }).then(
+            fetch('@Url.Action("GetImage", "Order")',
+                {
+                    method: 'POST',
+                    body: data
+                }).then(
                 response => response.json() // if the response is a JSON object
             ).then(
-                path => {// нужно создать див в котором будет картинка и крестик,по нажатию на крестик див с картинкой удаляется
+                path => { // нужно создать див в котором будет картинка и крестик,по нажатию на крестик див с картинкой удаляется
                     let img = document.createElement("img");
                     $(".image-container").append(img);
                     $(".image-container > :last").attr("src", path);
-                } 
+                }
             ).catch(
-                error => console.error(error) 
+                error => console.error(error)
             );
         };
 
 
         //file selected
-        $(function () {
-            $("input:file").change(function () {
+        $(function() {
+            $("input:file").change(function() {
                 let fileName = $(this).val();
                 if (fileName.length > 1) {
                     upload($("input:file")[0].files[0]);
@@ -279,40 +283,61 @@
         });
 
         //signalr
-        hubConnection.on("ReceiveMessage", function (message) {
-            let elem = document.createElement("p");
-            elem.appendChild(document.createTextNode(message));
-            let firstElem = document.getElementById("chatroom").firstChild;
-            document.getElementById("chatroom").insertBefore(elem, firstElem);
-        });
+        //hubConnection.on("ReceiveMessage",
+        //    function(message) {
+        //        let elem = document.createElement("p");
+        //        elem.appendChild(document.createTextNode(message));
+        //        let firstElem = document.getElementById("chatroom").firstChild;
+        //        document.getElementById("chatroom").insertBefore(elem, firstElem);
+        //    });
+
 
         //send message
-        $("#btnSendMessage").on("click",async function (e) {
-            let message = $("#text").val();
-            let chatId = $('#messages').data('chat-id');
-            let userId = $('#messages').data('spec-id');
-            let imgPathes = [];
+        $("#btnSendMessage").on("click",
+            async function(e) {
+                let message = $("#text").val();
+                let chatId = $('#messages').data('chat-id');
+                let userId = $('#messages').data('spec-id');
+                let imgPathes = [];
 
-            $(".image-container img").each(function () {
-                let part1 = '/meadia/';
-                let part2 = this.src.split("/media/")[1];
-                imgPathes.push(part1 + part2);
+                $(".image-container img").each(function() {
+                    let part1 = '/images/';
+                    let part2 = this.src.split("/images/")[1];
+                    imgPathes.push(part1 + part2);
+                    console.log(part1 + part2);
+                });
+
+                //let data = {
+                //    chatId,
+                //    userId,
+                //    message,
+                //    imgPathes
+                //};
+                hubConnection.invoke("Send", chatId, userId, imgPathes, message);
+
+                let data = new FormData();
+                data.append('message', message);
+                data.append('imagesJson', JSON.stringify(imgPathes).toString());
+
+                let html = '';
+               await fetch('@Url.Action("RenderMessage", "Order")',
+                    {
+                        method: 'POST',
+                        body: data
+                    }).then(
+                    response => response.json()
+                ).then(
+                    path => { html = path.text(); }
+                ).catch(
+                    error => console.error(error)
+                );
+
+                $(".image-container")[0].innerHTML = '';
+                $('.dashboard-conversation').append(html);
             });
 
-            //let data = {
-            //    chatId,
-            //    userId,
-            //    message,
-            //    imgPathes
-            //};
-
-            hubConnection.invoke("Send", chatId, userId, imgPathes, message);
-            let html =await (await fetch(`@Url.Action("RenderMessage")?message=${message}`)).text();
-            $('.dashboard-conversation').append(html);
-        });
-
         //start
-         hubConnection.start().then(function () {
+        hubConnection.start().then(function() {
             console.log("connected");
         });
 

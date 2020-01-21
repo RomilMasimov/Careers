@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Careers.Helpers;
 using Careers.Models;
@@ -11,6 +12,7 @@ using Careers.Models.Extra;
 using Careers.Services.Interfaces;
 using Careers.ViewModels.Order;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -26,13 +28,11 @@ namespace Careers.Controllers
         private readonly ICategoryService _categoryService;
         private readonly IAnswerService _answerService;
         private readonly IReviewService _reviewService;
-
         private readonly IMessageService _messageService;
 
         public OrderController(IOrderService orderService, IQuestionService questionService, IMessageService messageService,
             IClientService clientService, ICategoryService categoryService, IAnswerService answerService, IReviewService reviewService)
         {
-
             _orderService = orderService;
             _questionService = questionService;
             _messageService = messageService;
@@ -79,15 +79,14 @@ namespace Careers.Controllers
             return View(model);
         }
 
-
         public async Task<IActionResult> GetConversation(int id) //messageLogId
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var dialog = await _messageService.GetDialogAsync(id);
             if (dialog == null) return Content("NotFound");
+
             return PartialView("_ConversationPartial", new MessagesAndCurrentUser(userId, dialog));
         }
-
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody]CreatedOrderViewModel model)
@@ -95,7 +94,7 @@ namespace Careers.Controllers
             if ((model.ServiceId == "0" &&
                 model.Description == "" &&
                 model.ClientAnswers.Count(x => x.Answer == "") == 0 &&
-                model.AnswerIds.Count() == 0) ||
+                model.AnswerIds.Count == 0) ||
                 model.SalaryMin == "")
             {
                 return Json("error data");
@@ -114,15 +113,13 @@ namespace Careers.Controllers
                 Description = model.Description
             };
 
-            if (model.SalaryMin != null &&
-                model.SalaryMin != "" &&
+            if (!string.IsNullOrEmpty(model.SalaryMin) &&
                 int.TryParse(model.SalaryMin, out var min))
                 order.PriceMin = min;
             else order.PriceMin = 0;
 
 
-            if (model.SalaryMax != null &&
-                model.SalaryMax != "" &&
+            if (!string.IsNullOrEmpty(model.SalaryMax) &&
                 int.TryParse(model.SalaryMax, out var max))
                 order.PriceMax = max;
 
@@ -174,10 +171,10 @@ namespace Careers.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit([FromBody]EditedOrderViewModel model)
         {
-            if ((model.ServiceId == "0" &&
+            if (model.ServiceId == "0" &&
                 model.Description == "" &&
                 model.ClientAnswers.Count(x => x.Answer == "") == 0 &&
-                model.AnswerIds.Count() == 0) ||
+                !model.AnswerIds.Any() ||
                 model.SalaryMin == "")
             {
                 return Json("error data");
@@ -198,15 +195,13 @@ namespace Careers.Controllers
             order.ServiceId = int.Parse(model.ServiceId);
             order.Description = model.Description;
 
-            if (model.SalaryMin != null &&
-                model.SalaryMin != "" &&
+            if (!string.IsNullOrEmpty(model.SalaryMin) &&
                 int.TryParse(model.SalaryMin, out var min))
                 order.PriceMin = min;
             else order.PriceMin = 0;
 
 
-            if (model.SalaryMax != null &&
-                model.SalaryMax != "" &&
+            if (!string.IsNullOrEmpty(model.SalaryMax) &&
                 int.TryParse(model.SalaryMax, out var max))
                 order.PriceMax = max;
             else order.PriceMax = 0;
@@ -301,7 +296,6 @@ namespace Careers.Controllers
             return Json(false);
         }
 
-
         [HttpGet]
         public async Task<IActionResult> AddReview(int id)
         {
@@ -380,17 +374,17 @@ namespace Careers.Controllers
             return PartialView("_QuestionsPartial", questions);
         }
 
-
-        public IActionResult RenderMessage(string message)
+        public IActionResult RenderMessage(string message, string imagesJson)
         {
+            var images = JsonSerializer.Deserialize<string[]>(imagesJson);
             Request.Cookies.TryGetValue("profileImage", out string image);
 
             var msg = new Message
             {
                 Author = User.FindFirstValue(ClaimTypes.NameIdentifier),
                 Text = message,
-                AuthorImagePath = image??"",
-                ImagePaths = new List<string>()
+                AuthorImagePath = image ?? "",
+                ImagePaths = images.ToList()
             };
 
             return PartialView("_MessagePartial", msg);
@@ -398,7 +392,7 @@ namespace Careers.Controllers
 
         public async Task<IActionResult> GetImage(IFormFile file)
         {
-          var imagePath= await FileUploadHelper.UploadAsync(file, ImageOwnerEnum.Image);
+            var imagePath = await FileUploadHelper.UploadAsync(file, ImageOwnerEnum.Image);
             return Json(imagePath);
         }
 

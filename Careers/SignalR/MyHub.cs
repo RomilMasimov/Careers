@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Careers.Models;
@@ -31,7 +32,7 @@ namespace Careers.SignalR
             {
                 Author = currentUserId,
                 Text = message,
-                ImagePaths=imgPathes
+                ImagePaths=imgPathes.ToList()
             });
         }
 
