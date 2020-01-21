@@ -35,7 +35,7 @@ namespace Careers.SignalR
             {
                 Author = currentUserId,
                 Text = message,
-                ImagePaths=imgPathes?.ToList()
+                ImagePaths=imgPathes?.ToList()?? new List<string>()
             });
         }
 
