@@ -35,7 +35,7 @@
     </div>
 </div>
 
-<ul class="dashboard-conversation">
+<ul class="dashboard-conversation"  style="height: 75vh;  overflow-y: scroll;">
 
     @foreach (var message in Model.Dialog.Messages)
     {
@@ -47,7 +47,7 @@
             <div class="message">
                 <span>@message.Text</span>
 
-                <div class="row">
+                <div class="row mt-1 px-2">
                     @foreach (var path in message.ImagePaths)
                     {
                         <div data-image class="col-lg-3 col-md-4 col-sm-6 px-1 mb-2 review-sm-image">
