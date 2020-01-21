@@ -12,7 +12,6 @@ using Careers.Models.Extra;
 using Careers.Services.Interfaces;
 using Careers.ViewModels.Order;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;

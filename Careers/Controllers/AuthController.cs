@@ -67,15 +67,19 @@ namespace Careers.Controllers
         }
 
 
-        public IActionResult RedirectionAfterSignIn()
+        public async Task<IActionResult> RedirectionAfterSignIn()
         {
             if (User.IsInRole("specialist"))
             {
-                return RedirectToAction("Index","Profile",new {area= "SpecialistArea" });
+                var specialist = await _specialistService.FindByUserAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                Response.Cookies.Append("profileImage", specialist.ImageUrl ?? "");
+                return RedirectToAction("Index", "Profile", new { area = "SpecialistArea" });
             }
 
             if (User.IsInRole("client"))
             {
+                var client = await _clientService.FindAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                Response.Cookies.Append("profileImage", client.ImageUrl ?? "");
                 return RedirectToAction("Index", "Home");
             }
 
