@@ -98,7 +98,7 @@
                                 <div class="jp_listing_list_icon_cont_wrapper">
                                     <ul>
                                         <li>Date Posted:</li>
-                                        <li>@Model.Created.ToString()</li>
+                                        <li>@Model.Created.ToShortDateString()</li>
                                     </ul>
                                 </div>
                             </div>
@@ -117,7 +117,15 @@
                             <div class="jp_listing_right_bar_btn_wrapper">
                                 <div class="jp_listing_right_bar_btn">
                                     <ul>
-                                        <li><a href="#"><i class="fa fa-plus-circle"></i> &nbsp;@Localizer["response"]</a></li>
+                                        <li>
+                                            <a asp-area="SpecialistArea"
+                                               asp-controller="Order"
+                                               asp-action="Conversation"
+                                               asp-route-id="Id">
+                                                <i class="fa fa-plus-circle"></i>
+                                                &nbsp;@Localizer["response"]
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>

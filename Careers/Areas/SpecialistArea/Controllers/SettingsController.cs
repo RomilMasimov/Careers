@@ -29,7 +29,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
         public async Task<IActionResult> Index()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var specialist = await _specialistService.FindByUserAsync(userId);
+            var specialist = await _specialistService.FindAsync(userId);
             setImageUrl(specialist);
             return View(specialist);
         }
@@ -56,7 +56,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
         public async Task<IActionResult> EditContacts()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var specialist = await _specialistService.FindByUserAsync(userId);
+            var specialist = await _specialistService.FindAsync(userId,true);
 
             var model = new ContactsViewModel()
             {
@@ -76,7 +76,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
         public async Task<IActionResult> EditContacts(ContactsViewModel model)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var specialist = await _specialistService.FindByUserAsync(userId);
+            var specialist = await _specialistService.FindAsync(userId,true);
             if (ModelState.IsValid)
             {
                 specialist.Name = model.Name;
@@ -99,7 +99,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
         public async Task<IActionResult> EditAdditionally()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var specialist = await _specialistService.FindByUserAsync(userId);
+            var specialist = await _specialistService.FindAsync(userId);
 
             var model = new EditAdditionallyViewModel()
             {
@@ -115,7 +115,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
         public async Task<IActionResult> EditAdditionally(EditAdditionallyViewModel model)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var specialist = await _specialistService.FindByUserAsync(userId);
+            var specialist = await _specialistService.FindAsync(userId);
             if (ModelState.IsValid)
             {
                 specialist.DateOfBirth = model.Birthday;

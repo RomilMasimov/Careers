@@ -64,7 +64,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
         public async Task<IActionResult> MyOrders()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var specialist = await _specialistService.FindByUserAsync(userId);
+            var specialist = await _specialistService.FindAsync(userId);
             var orders = await _orderService.FindAllBySpecialistAsync(specialist.Id);
 
             var isRu = CultureInfo.CurrentCulture.Name == "ru-RU";
@@ -87,7 +87,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
         public async Task<IActionResult> MyResponces()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var specialist = await _specialistService.FindByUserAsync(userId);
+            var specialist = await _specialistService.FindAsync(userId);
             var orders = await _orderService.FindAllResponseBySpecialistAsync(specialist.Id);
             setImageUrl(specialist);
             return View(orders);
@@ -101,5 +101,17 @@ namespace Careers.Areas.SpecialistArea.Controllers
             ViewData["ImageUrl"] = path;
             return path;
         }
+
+
+        public IActionResult Conversation(int id)
+        {
+
+
+
+
+            return View();
+        }
+
+
     }
 }

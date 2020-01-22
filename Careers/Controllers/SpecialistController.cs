@@ -240,17 +240,21 @@ namespace Careers.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var client = await _clientService.FindAsync(userId, true);
             var ordersForSpecialist = await _orderService.FindAllForSpecialistByClientAsync(id, client.Id);
-            var orderCount = ordersForSpecialist.Count();
-            if (orderCount == 0) return PartialView("_CreateOrderModalPartial");
-            else if (orderCount == 1) return PartialView("_RedirectToOrderModalPartial", 
-                new ChatWithSpecViewModel(ordersForSpecialist.FirstOrDefault().Id, id));
-            
-            return PartialView("_ChooseOrderModalPartial", ordersForSpecialist);
+
+            switch (ordersForSpecialist.Count())
+            {
+                case 0:
+                    return PartialView("_CreateOrderModalPartial");
+                case 1:
+                    return PartialView("_RedirectToOrderModalPartial", 
+                        new ChatWithSpecViewModel(ordersForSpecialist.FirstOrDefault().Id, id));
+                default:
+                    return PartialView("_ChooseOrderModalPartial", ordersForSpecialist);
+            }
         }
 
         public async Task<ActionResult> CreateDialog(int orderId, int specialistId)
         {
-            //TODO create dialog
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var client = await _clientService.FindAsync(userId, true);
             var dialog = new UserSpecialistMessage

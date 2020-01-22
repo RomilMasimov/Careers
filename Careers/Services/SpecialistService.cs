@@ -124,6 +124,26 @@ namespace Careers.Services
             return await context.Specialists.FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public async Task<Specialist> FindAsync(string userId, bool detailed = false)
+        {
+            if(!detailed)
+            return await context.Specialists.FirstOrDefaultAsync(x => x.AppUserId==userId);
+
+            return await context.Specialists
+                .Include(m => m.AppUser)
+                .Include(m => m.City)
+                .Include(m => m.WhereCanGoList)
+                .ThenInclude(m => m.WhereCanGo)
+                .Include(m => m.WhereCanMeetList)
+                .ThenInclude(m => m.WhereCanMeet)
+                .Include(m => m.SpecialistSubCategories)
+                .ThenInclude(m => m.SubCategory)
+                .ThenInclude(m => m.Category)
+                .Include(m => m.SpecialistServices)
+                .ThenInclude(m => m.Measurement)
+                .FirstOrDefaultAsync(x => x.AppUserId == userId);
+        }
+
         public async Task<Specialist> FindDetailedAsync(int id)
         {
             return await context.Specialists
@@ -152,29 +172,10 @@ namespace Careers.Services
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<Specialist> FindByUserAsync(string userId)
-        {
-            return await context.Specialists
-                            .Include(m => m.AppUser)
-                            .Include(m => m.City)
-                            .Include(m => m.WhereCanGoList)
-                            .ThenInclude(m => m.WhereCanGo)
-                            .Include(m => m.WhereCanMeetList)
-                            .ThenInclude(m => m.WhereCanMeet)
-                            .Include(m => m.SpecialistSubCategories)
-                            .ThenInclude(m => m.SubCategory)
-                            .ThenInclude(m => m.Category)
-                            .Include(m => m.SpecialistServices)
-                            .ThenInclude(m => m.Measurement)
-                            .FirstOrDefaultAsync(x => x.AppUserId == userId);
-        }
-
         public Task<IEnumerable<Specialist>> FindAllAsync(Order order)
         {
             throw new NotImplementedException();
         }
-
-
 
         public async Task<bool> UpdatePasport(int specialistId, IFormFile image)
         {
