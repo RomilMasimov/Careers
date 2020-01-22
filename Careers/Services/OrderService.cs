@@ -51,13 +51,16 @@ namespace Careers.Services
 
         public async Task<IEnumerable<Order>> FindAllBySpecialistAsync(int specialistId)
         {
-            return await context.UserSpecialistMessages
+            var orderIds = await context.UserSpecialistMessages
                 .Where(x => x.SpecialistId == specialistId)
-                .Select(x => x.Order)
-                .Include(m => m.Service)
-                .Include(m => m.Client)
-                .Include(m => m.Specialist)
+                .Select(x => x.Order.Id)
                 .ToListAsync();
+
+            return context.Orders
+                .Include(x => x.Specialist)
+                .Include(x => x.Client)
+                .Include(x => x.Service)
+                .Where(x => orderIds.Contains(x.Id));
         }
 
         public async Task<bool> AddMeetingPoints(IEnumerable<OrderMeetingPoint> orderMeetingPoints)

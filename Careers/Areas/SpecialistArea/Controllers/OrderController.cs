@@ -74,6 +74,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
             var model = orders.Select(m => new OrderViewModel
             {
                 Id = m.Id,
+                IsMyOrder = true,
                 State = m.State,
                 Created = m.Created,
                 ServiceDescription = isRu ? m.Service.DescriptionRU : m.Service.DescriptionAZ,
