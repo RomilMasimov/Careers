@@ -37,7 +37,7 @@
 
 <div class="jp_cp_profile_main_wrapper">
     <div class="container">
-        <div id="chatContainer" class="message-box">
+        <div id="chatContainer" class="message-box"  style="position: relative">
             <div class="message-box-header">
 
                 @if (Model.UserId == spec.AppUserId)
@@ -97,7 +97,7 @@
                 }
 
             </ul>
-            <div class="image-container row py-2"></div>
+            <div class="image-container row py-2" style="right: 15px"></div>
             <div class="conversation-write-wrap">
                 <form>
                     <textarea id="text" placeholder="Type a message"></textarea>
@@ -116,6 +116,9 @@
     <script src="~/lib/magnific-popup/js/jquery.magnific-popup.min.js"></script>
     
     <script type="text/javascript">
+
+        let conversation = $(".dashboard-conversation");
+            conversation.scrollTop(conversation[0].scrollHeight - conversation[0].clientHeight);
 
         const hubConnection = new signalR.HubConnectionBuilder()
             .withUrl("/hub")
@@ -157,6 +160,7 @@
                             <button data-delete type="button"></button>
                             <span data-delete class="cross">&times;</span>
                          </div>`;
+                    console.log($(".image-container"));
                     $(".image-container").append(img);
                     //$(".image-container > :last").attr("src", path);
                 }
