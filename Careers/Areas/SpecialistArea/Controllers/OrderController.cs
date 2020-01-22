@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Careers.Areas.SpecialistArea.ViewModels.Order;
 using Careers.Models;
+using Careers.Models.Extra;
 using Careers.Models.Identity;
 using Careers.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -19,12 +20,14 @@ namespace Careers.Areas.SpecialistArea.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly ISpecialistService _specialistService;
         private readonly IOrderService _orderService;
+        private readonly IMessageService _messageService;
 
-        public OrderController(UserManager<AppUser> userManager, ISpecialistService specialistService, IOrderService orderService)
+        public OrderController(UserManager<AppUser> userManager, ISpecialistService specialistService, IOrderService orderService, IMessageService messageService)
         {
-            this._userManager = userManager;
-            this._specialistService = specialistService;
-            this._orderService = orderService;
+            _userManager = userManager;
+            _specialistService = specialistService;
+            _orderService = orderService;
+            _messageService = messageService;
         }
 
         public async Task<IActionResult> Index()
@@ -78,28 +81,24 @@ namespace Careers.Areas.SpecialistArea.Controllers
                 ClientImage = m.Client.ImageUrl,
                 ClientFullName = $"{m.Client.Name} {m.Client.Surname}",
             });
-
-            setImageUrl(specialist);
             return View(model);
         }
-
 
         public async Task<IActionResult> MyResponces()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var specialist = await _specialistService.FindByUserAsync(userId);
             var orders = await _orderService.FindAllResponseBySpecialistAsync(specialist.Id);
-            setImageUrl(specialist);
             return View(orders);
         }
 
-        private string setImageUrl(Specialist specialist)
+        public async Task<IActionResult> Conversation(int id) //orderId
         {
-            string path = specialist.ImageUrl;
-            if (string.IsNullOrWhiteSpace(specialist.ImageUrl))
-                path = "N/A";
-            ViewData["ImageUrl"] = path;
-            return path;
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var dialog = await _messageService.GetDialogAsync(id);
+            if (dialog == null) return Content("NotFound");
+
+            return await Task.FromResult(View("Conversation", new MessagesAndCurrentUser(userId, dialog)));
         }
     }
 }
