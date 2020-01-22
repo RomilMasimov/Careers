@@ -79,7 +79,7 @@ namespace Careers.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> GetConversation(int id) //messageLogId
+        public async Task<IActionResult> GetConversation(int id) //OrderId
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var dialog = await _messageService.GetDialogAsync(id);
