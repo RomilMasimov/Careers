@@ -187,8 +187,8 @@
         //send message
         $("#btnSendMessage").on("click",async function(e) {
             let message = $("#text").val();
-            let chatId = $('#messages').data('chat-id');
-            let userId = $('#messages').data('spec-id');
+            let chatId = '@Model.Dialog.UserSpecialistMessage.Id';
+            let userId = '@Model.Dialog.UserSpecialistMessage.Specialist.AppUserId';
             let imgPathes = [];
 
             $(".image-container img").each(  function() {
