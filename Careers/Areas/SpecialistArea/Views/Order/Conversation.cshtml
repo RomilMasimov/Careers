@@ -37,7 +37,7 @@
 
 <div class="jp_cp_profile_main_wrapper">
     <div class="container">
-        <div id="chatContainer" class="message-box"  style="position: relative">
+        <div id="chatContainer" class="message-box" style="position: relative">
             <div class="message-box-header">
 
                 @if (Model.UserId == spec.AppUserId)
@@ -114,7 +114,7 @@
 @section Scripts {
     <script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
     <script src="~/lib/magnific-popup/js/jquery.magnific-popup.min.js"></script>
-    
+
     <script type="text/javascript">
 
         let conversation = $(".dashboard-conversation");
@@ -162,7 +162,6 @@
                          </div>`;
                     console.log($(".image-container"));
                     $(".image-container").append(img);
-                    //$(".image-container > :last").attr("src", path);
                 }
             ).catch(
                 error => console.error(error)
@@ -186,6 +185,12 @@
                     $(".image-container").show();
                 }
             });
+        });
+
+        //Receive message
+        hubConnection.on("ReceiveMessage", function (data) {
+            console.log(data);
+            console.dir(data);
         });
 
         //send message

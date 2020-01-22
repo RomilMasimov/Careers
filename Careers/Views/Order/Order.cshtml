@@ -262,7 +262,7 @@
                 }).then(
                 response => response.json() // if the response is a JSON object
             ).then(
-                path => { // нужно создать див в котором будет картинка и крестик,по нажатию на крестик див с картинкой удаляется
+                path => {
                     let img = `<div class="col-md-4 col-6 pr-0 h-100 review-image">
                             <img src="${path}" class="pb-1">
                             <button data-delete type="button"></button>
@@ -294,6 +294,14 @@
                 }
             });
         });
+
+          //Receive message
+        hubConnection.on("ReceiveMessage", function (data) {
+            console.log('data');
+            console.log(data);
+            console.dir(data);
+        });
+
 
         //send message
         $("#btnSendMessage").on("click",async function(e) {

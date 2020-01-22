@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Careers.Models;
-using Careers.Models.Identity;
 using Careers.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR;
 using NUglify.Helpers;
 
@@ -27,16 +24,17 @@ namespace Careers.SignalR
         public async Task Send(int usMessageId, string userId, IEnumerable<string> imgPathes, string message)
         {
             if (imgPathes?.Count() == 0 && message.IsNullOrWhiteSpace()) return;
-
-            await this.Clients.User(userId).SendAsync("ReceiveMessage", message);
+            
             var currentUserId = Context.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            await _messageService.WriteDialogAsync(usMessageId, new Message
+            var msg = new Message
             {
                 Author = currentUserId,
                 Text = message ?? "",
                 ImagePaths = imgPathes?.ToList() ?? new List<string>()
-            });
+            };
+
+            await this.Clients.User(userId).SendAsync("ReceiveMessage", msg);
+            await _messageService.WriteDialogAsync(usMessageId,msg );
         }
 
         public string GetConnectionId()

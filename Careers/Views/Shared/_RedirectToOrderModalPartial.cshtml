@@ -1,12 +1,12 @@
 ﻿@model Careers.ViewModels.Partial.ChatWithSpecViewModel
 
 <div class="modal-body">
-    <p class="header">You have a order for this specialist.</p>
+    <p class="header">You have an order for this specialist.</p>
 </div>
 <div class="modal-footer">
     <button type="button" class="jp_btn_default" data-dismiss="modal">Close</button>
     <a class="jp_btn_default"
-       href="@Html.Raw(Url.Action("CreateDialog", "Specialist", new { orderId = Model.OrderId, specialistId = Model.SpecialistId }))">
+       href="@Html.Raw(Url.Action("CreateDialog", "Specialist", new {area="", orderId = Model.OrderId, specialistId = Model.SpecialistId }))">
         Order
     </a>
 </div>

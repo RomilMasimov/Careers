@@ -268,7 +268,7 @@ namespace Careers.Controllers
                 Author = userId,
                 Text = $"{client.Name} {client.Surname} предлагает вам сотрудничество!"
             });
-            return RedirectToAction("Conversation", "Order", new { area = "SpecialistArea", id = orderId });
+            return RedirectToAction("Order", "Order", new { id = orderId });
         }
 
         public IActionResult Chat()

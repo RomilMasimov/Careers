@@ -125,7 +125,7 @@ namespace Careers.Services
             return new Dialog
             {
                 UserSpecialistMessage = userSpecialistMessage,
-                Messages = await GetMessagesAsync(userSpecialistMessage.Id)
+                Messages = await messageBodyAsync(userSpecialistMessage)
             };
         }
 
