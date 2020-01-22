@@ -56,7 +56,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var specialist = await _specialistService.FindByUserAsync(userId);
             var path = setImageUrl(specialist);
-            return View(path as object);
+            return View(model:path);
         }
 
         [HttpPost]
@@ -69,7 +69,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
             if (!result) TempData["Status"] = "Portrait did not upload";
             else TempData["Status"] = "Portrait sent successfully";
             var path = setImageUrl(specialist);
-            return View(path as object);
+            return View(model: path);
         }
 
         [HttpPost]
@@ -654,6 +654,11 @@ namespace Careers.Areas.SpecialistArea.Controllers
         }
 
         public IActionResult Balance()
+        {
+            return View();
+        }
+
+        public IActionResult Conversation()
         {
             return View();
         }
