@@ -62,7 +62,6 @@ namespace Careers.Areas.SpecialistArea.Controllers
             return RedirectToAction("Conversation", "Order", new { area = "SpecialistArea", orderId });
         }
 
-
         public async Task<IActionResult> Responses()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);

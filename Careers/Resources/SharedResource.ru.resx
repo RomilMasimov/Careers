@@ -169,7 +169,7 @@
     <value>Создать заказ</value>
   </data>
   <data name="noorderstext" xml:space="preserve">
-    <value>У вас нет заказов</value>
+    <value>Вы не откликнулись ни на один заказ</value>
   </data>
   <data name="save" xml:space="preserve">
     <value>Сохранить</value>

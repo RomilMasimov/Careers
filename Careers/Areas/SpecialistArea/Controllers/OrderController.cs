@@ -64,18 +64,6 @@ namespace Careers.Areas.SpecialistArea.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var myOrder = await _specialistService.HaveIThisOrder(userId, id);
-
-            if (!myOrder)
-                return RedirectToAction("Error", "Home", new
-                {
-                    area = "",
-                    code = 404,
-                    message = "Order not found.",
-                    returnArea = "SpecialistArea",
-                    returnController = "Order",
-                    returnAction = "Index"
-                });
-
             var order = await _orderService.FindDetailedAsync(id);
 
             if (order == null)
@@ -118,13 +106,11 @@ namespace Careers.Areas.SpecialistArea.Controllers
 
         public async Task<IActionResult> Conversation(int orderId)
         {
-            //var order=await _orderService.FindAsync(orderId);
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var specialist = await _specialistService.FindAsync(userId);
 
             var dialog = await _messageService.GetDialogAsync(specialist.Id, orderId);
             if (dialog == null) return Content("NotFound");
-            //var userId = dialog.UserSpecialistMessage.Specialist.AppUserId;
             return View("Conversation", new MessagesAndCurrentUser(userId, dialog));
         }
 

@@ -187,7 +187,7 @@
         //send message
         $("#btnSendMessage").on("click",async function(e) {
             let message = $("#text").val();
-            let chatId = '@Model.Dialog.UserSpecialistMessage.Id';
+            let chatId = parseInt( '@Model.Dialog.UserSpecialistMessage.Id');
             let userId = '@Model.Dialog.UserSpecialistMessage.Specialist.AppUserId';
             let imgPathes = [];
 
@@ -204,7 +204,7 @@
             data.append('imagesJson', JSON.stringify(imgPathes).toString());
 
             let html = '';
-            await fetch('@Url.Action("RenderMessage", "Order")',
+            await fetch('@Url.Action("RenderMessage", "Order",new{area="SpecialistArea"})',
                 {
                     method: 'POST',
                     body: data
@@ -228,5 +228,6 @@
         hubConnection.start().then(function() {
             console.log("connected");
         });
+
     </script>
 }
