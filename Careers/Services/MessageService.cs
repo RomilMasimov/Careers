@@ -20,7 +20,7 @@ namespace Careers.Services
             _context = context;
         }
 
-        public async Task WriteDialogAsync(UserSpecialistMessage uSMessage, Message message = null)
+        public async Task<int> WriteDialogAsync(UserSpecialistMessage uSMessage, Message message = null)
         {
             if (uSMessage.Id != 0)
             {
@@ -29,7 +29,7 @@ namespace Careers.Services
                     await using FileStream fs = new FileStream(uSMessage.LogFilePath, FileMode.Append, FileAccess.Write);
                     await using StreamWriter sw = new StreamWriter(fs);
                     if (message != null) await sw.WriteLineAsync(JsonSerializer.Serialize(message));
-                    return;
+                    return 0;
                 }
             }
 
@@ -43,12 +43,14 @@ namespace Careers.Services
                 await using StreamWriter sw = new StreamWriter(fs);
                 if (message != null) await sw.WriteLineAsync(JsonSerializer.Serialize(message));
             }
+
+            return uSMessage.Id;
         }
 
         public async Task WriteDialogAsync(int usMessageId, Message message)
         {
             var usMessage = await _context.UserSpecialistMessages
-                .FirstOrDefaultAsync(x => x.Id == usMessageId);
+                .SingleOrDefaultAsync(x => x.Id == usMessageId);
 
             await using FileStream fs = new FileStream(usMessage.LogFilePath, FileMode.Append, FileAccess.Write);
             await using StreamWriter sw = new StreamWriter(fs);
@@ -77,7 +79,7 @@ namespace Careers.Services
         public async Task<IEnumerable<Message>> GetMessagesAsync(int messageLogId)
         {
             var result = await _context.UserSpecialistMessages
-                    .FirstOrDefaultAsync(x => x.Id == messageLogId);
+                    .SingleOrDefaultAsync(x => x.Id == messageLogId);
 
             return await messageBodyAsync(result);
         }
@@ -85,9 +87,9 @@ namespace Careers.Services
         public async Task<IEnumerable<Message>> GetMessagesAsync(int clientId, int specialistId, int orderId)
         {
             var result = await _context.UserSpecialistMessages
-                .FirstOrDefaultAsync(x => x.OrderId == orderId
-                                          && x.ClientId == clientId
-                                          && x.SpecialistId == specialistId);
+                .SingleOrDefaultAsync(x => x.OrderId == orderId
+                                           && x.ClientId == clientId
+                                           && x.SpecialistId == specialistId);
 
             return await messageBodyAsync(result);
         }
@@ -116,7 +118,24 @@ namespace Careers.Services
             var userSpecialistMessage = await _context.UserSpecialistMessages
                     .Include(x => x.Specialist)
                     .Include(x => x.Client)
-                    .FirstOrDefaultAsync(x => x.Id == messageLogId);
+                    .SingleOrDefaultAsync(x => x.Id == messageLogId);
+
+            if (userSpecialistMessage == null) return null;
+
+            return new Dialog
+            {
+                UserSpecialistMessage = userSpecialistMessage,
+                Messages = await GetMessagesAsync(userSpecialistMessage.Id)
+            };
+        }
+
+        public async Task<Dialog> GetDialogAsync(int specialistId, int orderId)
+        {
+            var userSpecialistMessage = await _context.UserSpecialistMessages
+                .Include(x => x.Specialist)
+                .Include(x => x.Client)
+                .SingleOrDefaultAsync(x => x.SpecialistId == specialistId &&
+                                           x.OrderId == orderId);
 
             if (userSpecialistMessage == null) return null;
 

@@ -174,4 +174,8 @@
   <data name="edit" xml:space="preserve">
     <value>Duzelis et</value>
   </data>
+  <data name="response" xml:space="preserve">
+    <value>Response</value>
+    <comment>response</comment>
+  </data>
 </root>

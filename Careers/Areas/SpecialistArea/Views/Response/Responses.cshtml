@@ -1,33 +1,33 @@
-﻿@model IEnumerable<OrderResponse>
+﻿@model IEnumerable<Order>
 
 <div class="py-3">
     <partial name="_MyOrdersTabNavigation" />
 </div>
 
-@foreach (var response in Model)
+@foreach (var order in Model)
 {
     <div class="list-group">
         <a href="#" class="list-group-item list-group-item-action">
             <div class="row">
                 <div class="col-md-6">
-                    <h5 class="text-muted">@response.Order.Service.DescriptionRU</h5>
-                    @foreach (var answerOrder in response.Order.AnswerOrders)
+                    <h5 class="text-muted">@order.Service.DescriptionRU</h5>
+                    @foreach (var answerOrder in order.AnswerOrders)
                     {
                         <p>@answerOrder.Answer.Question.TextRU: @answerOrder.Answer.TextRU</p>
                     }
                 </div>
                 <div class="col-md-4">
-                    <p>@response.Order.Client.Name @response.Order.Client.Surname</p>
+                    <p>@order.Client.Name @order.Client.Surname</p>
                     <p>
-                        @foreach (var point in response.Order.OrderMeetingPoints)
+                        @foreach (var point in order.OrderMeetingPoints)
                         {
                             <span>point.MeetingPoint.Description </span>
                         }
                     </p>
                 </div>
                 <div class="col-md-2">
-                    <p>Client price: @response.Order.PriceMax</p>
-                    <p>My price: @response.PriceMin - @response.PriceMax</p>
+                    <p>Client price: @order.PriceMax</p>
+                    <p>My price: @order.PriceMin - @order.PriceMax</p>
                 </div>
             </div>
         </a>

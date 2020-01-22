@@ -42,12 +42,12 @@ namespace Careers.Services
 
         public async Task<MeetingPoint> FindAsync(int id)
         {
-            return await context.MeetingPoints.FirstOrDefaultAsync(x => x.Id == id);
+            return await context.MeetingPoints.SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<MeetingPoint> FindAsync(string description)
         {
-            return await context.MeetingPoints.FirstOrDefaultAsync(x => x.Description == description);
+            return await context.MeetingPoints.SingleOrDefaultAsync(x => x.Description == description);
         }
 
         public async Task<IEnumerable<MeetingPoint>> GetAllAsync()

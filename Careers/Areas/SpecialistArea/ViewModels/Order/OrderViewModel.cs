@@ -1,13 +1,11 @@
 ﻿using Careers.Models.Enums;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Careers.Areas.SpecialistArea.ViewModels.Order
 {
     public class OrderViewModel
     {
+        public bool IsMyOrder { get; set; }
         public int Id { get; set; }
         public DateTime Created { get; set; }
         public OrderStateTypeEnum State { get; set; }

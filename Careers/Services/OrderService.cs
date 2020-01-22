@@ -51,7 +51,9 @@ namespace Careers.Services
 
         public async Task<IEnumerable<Order>> FindAllBySpecialistAsync(int specialistId)
         {
-            return await context.Orders.Where(m => m.SpecialistId == specialistId)
+            return await context.UserSpecialistMessages
+                .Where(x => x.SpecialistId == specialistId)
+                .Select(x => x.Order)
                 .Include(m => m.Service)
                 .Include(m => m.Client)
                 .Include(m => m.Specialist)
@@ -74,21 +76,14 @@ namespace Careers.Services
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<OrderResponse>> FindAllResponseBySpecialistAsync(int specialistId)
-        {
-            return await context.OrderResponses.Where(m => m.SpecialistId == specialistId)
-                .Include(m => m.Order)
-                .ThenInclude(m => m.AnswerOrders)
-                .Include(m => m.Order.Client)
-                .ToListAsync();
-        }
+
 
         public async Task<Order> FindAsync(int id, bool responses = false)
         {
             if (!responses) return await context.Orders.FindAsync(id);
 
             return await context.Orders.Include(x => x.OrderResponses)
-                .ThenInclude(x => x.Specialist).FirstOrDefaultAsync(x => x.Id == id);
+                .ThenInclude(x => x.Specialist).SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<Order> FindDetailedAsync(int id)
@@ -107,7 +102,7 @@ namespace Careers.Services
                 .Include(m => m.Service)
                 .Include(m => m.Specialist)
                 .Include(m => m.Client)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .SingleOrDefaultAsync(m => m.Id == id);
         }
 
         public async Task<Order> InsertAsync(Order order)
@@ -165,15 +160,17 @@ namespace Careers.Services
                                 .Include(m => m.SpecialistServices)
                                 .Include(m => m.WhereCanGoList)
                                 .Include(m => m.WhereCanMeetList)
-                                .FirstOrDefaultAsync(m => m.AppUserId == specialistAppUserId);
+                                .SingleOrDefaultAsync(m => m.AppUserId == specialistAppUserId);
 
             var canMeetListIds = specialist.WhereCanMeetList.Select(y => y.WhereCanMeetId).ToList();
             var canGoListIds = specialist.WhereCanGoList.Select(y => y.WhereCanGoId).ToList();
 
-            var query = context.Orders.Where(m => m.IsActive &&
-                                                  (m.State != OrderStateTypeEnum.Canceled &&
-                                                   m.State != OrderStateTypeEnum.Finished &&
-                                                   m.State != OrderStateTypeEnum.InProcess));
+            var query = context.Orders
+                .Where(m => m.IsActive &&
+                           (m.State != OrderStateTypeEnum.Canceled &&
+                            m.State != OrderStateTypeEnum.Finished &&
+                            m.State != OrderStateTypeEnum.InProcess));
+
             if (canMeetListIds.Any())
             {
                 query = query.Where(x => x.OrderMeetingPoints
@@ -190,21 +187,21 @@ namespace Careers.Services
 
             if (!specialist.SpecialistServices.Any()) return await query.ToListAsync();
 
-                query = query.Where(m => specialist.SpecialistServices
-                    .Select(x => x.ServiceId)
-                    .Any(x => x == m.ServiceId));
+            query = query.Where(m => specialist.SpecialistServices
+                .Select(x => x.ServiceId)
+                .Any(x => x == m.ServiceId));
 
-               return await query
-                    .Include(m => m.Service)
-                    .Include(m => m.Client)
-                    .ToListAsync();
+            return await query
+                 .Include(m => m.Service)
+                 .Include(m => m.Client)
+                 .ToListAsync();
         }
 
         public async Task<IEnumerable<Order>> FindAllForSpecialistByClientAsync(int specialistId, int clientId)
         {
             var specialist = await context.Specialists
                                 .Include(m => m.SpecialistServices)
-                                .FirstOrDefaultAsync(m => m.Id == specialistId);
+                                .SingleOrDefaultAsync(m => m.Id == specialistId);
 
             var specialistMeetingPointsIds = specialist.WhereCanGoList.Select(y => y.WhereCanGoId).ToList();
             specialistMeetingPointsIds.AddRange(specialist.WhereCanMeetList.Select(y => y.WhereCanMeetId));

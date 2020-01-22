@@ -246,7 +246,7 @@ namespace Careers.Controllers
                 case 0:
                     return PartialView("_CreateOrderModalPartial");
                 case 1:
-                    return PartialView("_RedirectToOrderModalPartial", 
+                    return PartialView("_RedirectToOrderModalPartial",
                         new ChatWithSpecViewModel(ordersForSpecialist.FirstOrDefault().Id, id));
                 default:
                     return PartialView("_ChooseOrderModalPartial", ordersForSpecialist);
@@ -268,7 +268,7 @@ namespace Careers.Controllers
                 Author = userId,
                 Text = $"{client.Name} {client.Surname} предлагает вам сотрудничество!"
             });
-            return RedirectToAction("Order", "Order", new { id = orderId });
+            return RedirectToAction("Conversation", "Order", new { area = "SpecialistArea", id = orderId });
         }
 
         public IActionResult Chat()

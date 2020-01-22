@@ -7,9 +7,9 @@ namespace Careers.Models.Extra
         public string UserId { get; set; }
         public Dialog Dialog { get; set; }
         public MessagesAndCurrentUser() { }
-        public MessagesAndCurrentUser(string id, Dialog dialog)
+        public MessagesAndCurrentUser(string userId, Dialog dialog)
         {
-            UserId = id;
+            UserId = userId;
             Dialog = dialog;
         }
 

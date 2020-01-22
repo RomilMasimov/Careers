@@ -174,4 +174,8 @@
   <data name="save" xml:space="preserve">
     <value>Сохранить</value>
   </data>
+  <data name="response" xml:space="preserve">
+    <value>Откликнуться</value>
+    <comment>response</comment>
+  </data>
 </root>

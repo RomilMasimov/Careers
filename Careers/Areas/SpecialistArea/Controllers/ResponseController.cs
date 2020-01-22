@@ -2,10 +2,13 @@
 using System.Threading.Tasks;
 using Careers.Models;
 using Careers.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Careers.Areas.SpecialistArea.Controllers
 {
+    [Area("SpecialistArea")]
+    [Authorize(Roles = "admin,specialist")]
     public class ResponseController : Controller
     {
         private readonly ISpecialistService _specialistService;
@@ -33,28 +36,36 @@ namespace Careers.Areas.SpecialistArea.Controllers
             return View();
         }
 
-
         public async Task<ActionResult> CreateResponse(int orderId)
         {
             var order = await _orderService.FindAsync(orderId);
-
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var specialsit = await _specialistService.FindAsync(userId);
+            var specialist = await _specialistService.FindAsync(userId);
 
             var dialog = new UserSpecialistMessage
             {
                 ClientId = order.ClientId,
-                SpecialistId = specialsit.Id,
+                SpecialistId = specialist.Id,
                 OrderId = orderId
             };
+
             await _messageService.WriteDialogAsync(dialog, new Message
             {
                 Author = userId,
-                Text = $"{specialsit.Name} {specialsit.Surname} предлагает вам сотрудничество!"
+                Text = $"{specialist.Name} {specialist.Surname} предлагает вам сотрудничество!"
             });
-            return RedirectToAction("Order", "Order", new { id = orderId });
+
+            return RedirectToAction("Conversation", "Order", new { area = "SpecialistArea", orderId });
         }
 
+
+        public async Task<IActionResult> Responses()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var specialist = await _specialistService.FindAsync(userId);
+            var orders = await _orderService.FindAllBySpecialistAsync(specialist.Id);
+            return View(orders);
+        }
 
     }
 }

@@ -11,7 +11,7 @@
                         </div>
                         <div class="col-8 jp_job_post_right_cont">
                             <h4>@Model.ServiceDescription</h4>
-                            <a asp-area="SpecialistArea" asp-controller="Order" asp-action="Order" asp-route-id="@Model.Id">Детали заказа</a>
+                            <a asp-area="SpecialistArea" asp-controller="Order" asp-action="Order" asp-route-myOrder="719" asp-route-id="@Model.Id">Детали заказа</a>
                             <p>@Model.Created.ToShortDateString()</p>
                         </div>
                     </div>
@@ -30,7 +30,27 @@
                     }
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 mt-sm-0 mt-5 d-flex justify-content-center align-items-center">
-                    <a asp-area="SpecialistArea" asp-controller="Order" asp-action="Conversation" asp-route-id="@Model.Id" class="jp_btn_default">Chat</a>
+
+                    @if (Model.IsMyOrder)
+                    {
+                        <a asp-area="SpecialistArea"
+                           asp-controller="Order"
+                           asp-action="Conversation"
+                           asp-route-orderId="@Model.Id"
+                           class="jp_btn_default">
+                            Chat
+                        </a>
+                    }
+                    else
+                    {
+                        <a asp-area="SpecialistArea"
+                           asp-controller="Response"
+                           asp-action="CreateResponse"
+                           asp-route-orderId="@Model.Id"
+                           class="jp_btn_default">
+                            @SharedLocalizer["response"]
+                        </a>
+                    }
                 </div>
             </div>
         </div>

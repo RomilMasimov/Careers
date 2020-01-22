@@ -3,7 +3,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Careers.Areas.SpecialistArea.ViewModels.Order;
-using Careers.Models;
 using Careers.Models.Extra;
 using Careers.Models.Identity;
 using Careers.Services.Interfaces;
@@ -32,6 +31,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
 
         public async Task<IActionResult> Index()
         {
+            var specialist = await _specialistService.FindAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var orders = await _orderService.FindAllForSpecialistAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
             var isRu = CultureInfo.CurrentCulture.Name == "ru-RU";
@@ -53,14 +53,14 @@ namespace Careers.Areas.SpecialistArea.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Order(int id)
+        public async Task<IActionResult> Order(int id,bool myOrder=false)
         {
             var order = await _orderService.FindDetailedAsync(id);
 
             if (order == null)
                 return RedirectToAction("Error", "Home", new { area = "", code = 404, message = "Order not found.", returnArea = "SpecialistArea", returnController = "Order", returnAction = "Index" });
 
-            var model = new OrderDetailsViewModel(order);
+            var model = new OrderDetailsViewModel(order,myOrder);
             return View(model);
         }
 
@@ -84,33 +84,22 @@ namespace Careers.Areas.SpecialistArea.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> MyResponces()
-        {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var specialist = await _specialistService.FindAsync(userId);
-            var orders = await _orderService.FindAllResponseBySpecialistAsync(specialist.Id);
-            return View(orders);
-        }
+     
 
-        public async Task<IActionResult> Conversation(int id) //orderId
+        public async Task<IActionResult> Conversation(int orderId)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var dialog = await _messageService.GetDialogAsync(id);
+
+           //var order=await _orderService.FindAsync(orderId);
+           var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+           var specialist = await _specialistService.FindAsync(userId);
+
+            var dialog = await _messageService.GetDialogAsync(specialist.Id, orderId);
             if (dialog == null) return Content("NotFound");
-
-            return await Task.FromResult(View("Conversation", new MessagesAndCurrentUser(userId, dialog)));
+            //var userId = dialog.UserSpecialistMessage.Specialist.AppUserId;
+            return View("Conversation", new MessagesAndCurrentUser(userId, dialog));
         }
 
-
-        public IActionResult Conversation(int id)
-        {
-
-
-
-
-            return View();
-        }
-
+        
 
     }
 }

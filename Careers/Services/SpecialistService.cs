@@ -121,13 +121,12 @@ namespace Careers.Services
 
         public async Task<Specialist> FindAsync(int id)
         {
-            return await context.Specialists.FirstOrDefaultAsync(x => x.Id == id);
+            return await context.Specialists.SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<Specialist> FindAsync(string userId, bool detailed = false)
         {
-            if(!detailed)
-            return await context.Specialists.FirstOrDefaultAsync(x => x.AppUserId==userId);
+            if(!detailed) return await context.Specialists.SingleOrDefaultAsync(x => x.AppUserId==userId);
 
             return await context.Specialists
                 .Include(m => m.AppUser)
@@ -141,7 +140,7 @@ namespace Careers.Services
                 .ThenInclude(m => m.Category)
                 .Include(m => m.SpecialistServices)
                 .ThenInclude(m => m.Measurement)
-                .FirstOrDefaultAsync(x => x.AppUserId == userId);
+                .SingleOrDefaultAsync(x => x.AppUserId == userId);
         }
 
         public async Task<Specialist> FindDetailedAsync(int id)
@@ -169,7 +168,7 @@ namespace Careers.Services
                 .ThenInclude(x => x.WhereCanGo)
                 .Include(x => x.WhereCanMeetList)
                 .ThenInclude(x => x.WhereCanMeet)
-                .FirstOrDefaultAsync(x => x.Id == id);
+                .SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public Task<IEnumerable<Specialist>> FindAllAsync(Order order)

@@ -39,7 +39,7 @@ namespace Careers.Services
 
         public async Task<IEnumerable<City>> GetAllCitiesAsync(string country = "azerbaijan")
         {
-            var selectedCountry = await _context.Countries.FirstOrDefaultAsync(x => x.Name.ToLower() == country.ToLower());
+            var selectedCountry = await _context.Countries.SingleOrDefaultAsync(x => x.Name.ToLower() == country.ToLower());
             if (selectedCountry == null) return null;
             return await _context.Cities.Where(x => x.CountryId == selectedCountry.Id).ToListAsync();
         }

@@ -118,13 +118,26 @@
                                 <div class="jp_listing_right_bar_btn">
                                     <ul>
                                         <li>
-                                            <a asp-area="SpecialistArea"
-                                               asp-controller="Order"
-                                               asp-action="Conversation"
-                                               asp-route-id="Id">
-                                                <i class="fa fa-plus-circle"></i>
-                                                &nbsp;@Localizer["response"]
-                                            </a>
+                                            @if (Model.IsMyOrder)
+                                            {
+                                                <a asp-area="SpecialistArea"
+                                                   asp-controller="Order"
+                                                   asp-action="Conversation"
+                                                   asp-route-orderId="@Model.Id"
+                                                   class="jp_btn_default">
+                                                    Chat
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a asp-area="SpecialistArea"
+                                                   asp-controller="Response"
+                                                   asp-action="CreateResponse"
+                                                   asp-route-orderId="@Model.Id"
+                                                   class="jp_btn_default">
+                                                    @SharedLocalizer["response"]
+                                                </a>
+                                            }
                                         </li>
                                     </ul>
                                 </div>
