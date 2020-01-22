@@ -126,7 +126,7 @@ namespace Careers.Services
 
         public async Task<Specialist> FindAsync(string userId, bool detailed = false)
         {
-            if(!detailed) return await context.Specialists.SingleOrDefaultAsync(x => x.AppUserId==userId);
+            if (!detailed) return await context.Specialists.SingleOrDefaultAsync(x => x.AppUserId == userId);
 
             return await context.Specialists
                 .Include(m => m.AppUser)
@@ -399,6 +399,17 @@ namespace Careers.Services
                 subCategoriesId.Select(x => new SpecialistSubCategory { SpecialistId = specialistId, SubCategoryId = x }),
                 x => x.SubCategoryId);
             return await context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<bool> HaveIThisOrder(string userid, int id)
+        {
+            var count = await context.Specialists
+                .Include(x => x.UserSpecialistMessages)
+                .Where(x => x.AppUserId == userid && 
+                x.UserSpecialistMessages
+                .Any(y => y.OrderId == id))
+                .CountAsync();
+            return count > 0;
         }
     }
 }

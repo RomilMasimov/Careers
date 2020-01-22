@@ -53,8 +53,15 @@ namespace Careers.Areas.SpecialistArea.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Order(int id,bool myOrder=false)
+        public async Task<IActionResult> Order(int id)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var myOrder = await _specialistService.HaveIThisOrder(userId, id);
+
+            if (!myOrder)
+                return RedirectToAction("Error", "Home", new { area = "", code = 404, message = "Order not found.", returnArea = "SpecialistArea", returnController = "Order", returnAction = "Index" });
+
             var order = await _orderService.FindDetailedAsync(id);
 
             if (order == null)
@@ -89,7 +96,6 @@ namespace Careers.Areas.SpecialistArea.Controllers
 
         public async Task<IActionResult> Conversation(int orderId)
         {
-
            //var order=await _orderService.FindAsync(orderId);
            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
            var specialist = await _specialistService.FindAsync(userId);

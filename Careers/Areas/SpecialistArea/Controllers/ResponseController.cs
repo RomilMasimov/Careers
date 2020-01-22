@@ -1,5 +1,9 @@
-﻿using System.Security.Claims;
+﻿using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Careers.Areas.SpecialistArea.ViewModels.Order;
 using Careers.Models;
 using Careers.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -64,7 +68,23 @@ namespace Careers.Areas.SpecialistArea.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var specialist = await _specialistService.FindAsync(userId);
             var orders = await _orderService.FindAllBySpecialistAsync(specialist.Id);
-            return View(orders);
+            if(orders != null)
+            {
+                var isRu = CultureInfo.CurrentCulture.Name == "ru-RU";
+                var viewModels = orders.Select(m => new OrderViewModel
+                {
+                    IsMyOrder = true,
+                    Id = m.Id,
+                    State = m.State,
+                    Created = m.Created,
+                    ServiceDescription = isRu ? m.Service.DescriptionRU : m.Service.DescriptionAZ,
+                    ClientId = m.ClientId,
+                    ClientImage = m.Client.ImageUrl,
+                    ClientFullName = $"{m.Client.Name} {m.Client.Surname}",
+                });
+                return View(viewModels);
+            }
+            return View(null);
         }
 
     }

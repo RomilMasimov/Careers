@@ -49,6 +49,7 @@ namespace Careers.Services.Interfaces
 
         Task<Specialist> FindAsync(int id);
         Task<Specialist> FindAsync(string userId,bool detailed=false);
+        Task<bool> HaveIThisOrder(string userid, int id);
         Task<Specialist> FindDetailedAsync(int id);
         //need to check
         Task<IEnumerable<Specialist>> FindAllAsync(Order order);

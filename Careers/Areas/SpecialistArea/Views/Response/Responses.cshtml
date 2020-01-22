@@ -1,36 +1,46 @@
-﻿@model IEnumerable<Order>
+﻿@model IEnumerable<OrderViewModel>
 
-<div class="py-3">
-    <partial name="_MyOrdersTabNavigation" />
-</div>
-
-@foreach (var order in Model)
-{
-    <div class="list-group">
-        <a href="#" class="list-group-item list-group-item-action">
-            <div class="row">
-                <div class="col-md-6">
-                    <h5 class="text-muted">@order.Service.DescriptionRU</h5>
-                    @foreach (var answerOrder in order.AnswerOrders)
-                    {
-                        <p>@answerOrder.Answer.Question.TextRU: @answerOrder.Answer.TextRU</p>
-                    }
-                </div>
-                <div class="col-md-4">
-                    <p>@order.Client.Name @order.Client.Surname</p>
-                    <p>
-                        @foreach (var point in order.OrderMeetingPoints)
-                        {
-                            <span>point.MeetingPoint.Description </span>
-                        }
-                    </p>
-                </div>
-                <div class="col-md-2">
-                    <p>Client price: @order.PriceMax</p>
-                    <p>My price: @order.PriceMin - @order.PriceMax</p>
+<div class="jp_tittle_main_wrapper">
+    <div class="jp_tittle_img_overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="jp_tittle_heading_wrapper">
+                    <div class="jp_tittle_heading">
+                        <h2>My responses</h2>
+                    </div>
                 </div>
             </div>
-        </a>
+        </div>
     </div>
-}
+</div>
 
+<div class="jp_adp_main_section_wrapper">
+    <div class="container">
+        <partial name="_MyOrdersTabNavigation" />
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="tab-content">
+                    <div id="list" class="tab-pane fade active in">
+                        <div class="row">
+                            @if (Model.Any())
+                            {
+                                @foreach (var order in Model)
+                                {
+                                    <partial name="_OrderPartial" model="order" />
+                                }
+                            }
+                            else
+                            {
+                                <div class="w-100 mt-5 d-flex flex-column align-items-center justify-content-center">
+                                    <h2 class="header">@SharedLocalizer["noorderstext"]</h2>
+                                    <a asp-area="" asp-controller="Order" asp-action="Create" class="jp_btn_default mt-3">@SharedLocalizer["createorder"]</a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
