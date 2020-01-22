@@ -1,14 +1,20 @@
 ﻿using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Careers.Areas.SpecialistArea.ViewModels.Order;
+using Careers.Helpers;
+using Careers.Models;
+using Careers.Models.Enums;
 using Careers.Models.Extra;
 using Careers.Models.Identity;
 using Careers.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using NUglify.Helpers;
 
 namespace Careers.Areas.SpecialistArea.Controllers
 {
@@ -60,14 +66,30 @@ namespace Careers.Areas.SpecialistArea.Controllers
             var myOrder = await _specialistService.HaveIThisOrder(userId, id);
 
             if (!myOrder)
-                return RedirectToAction("Error", "Home", new { area = "", code = 404, message = "Order not found.", returnArea = "SpecialistArea", returnController = "Order", returnAction = "Index" });
+                return RedirectToAction("Error", "Home", new
+                {
+                    area = "",
+                    code = 404,
+                    message = "Order not found.",
+                    returnArea = "SpecialistArea",
+                    returnController = "Order",
+                    returnAction = "Index"
+                });
 
             var order = await _orderService.FindDetailedAsync(id);
 
             if (order == null)
-                return RedirectToAction("Error", "Home", new { area = "", code = 404, message = "Order not found.", returnArea = "SpecialistArea", returnController = "Order", returnAction = "Index" });
+                return RedirectToAction("Error", "Home", new
+                {
+                    area = "",
+                    code = 404,
+                    message = "Order not found.",
+                    returnArea = "SpecialistArea",
+                    returnController = "Order",
+                    returnAction = "Index"
+                });
 
-            var model = new OrderDetailsViewModel(order,myOrder);
+            var model = new OrderDetailsViewModel(order, myOrder);
             return View(model);
         }
 
@@ -92,13 +114,13 @@ namespace Careers.Areas.SpecialistArea.Controllers
             return View(model);
         }
 
-     
+
 
         public async Task<IActionResult> Conversation(int orderId)
         {
-           //var order=await _orderService.FindAsync(orderId);
-           var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-           var specialist = await _specialistService.FindAsync(userId);
+            //var order=await _orderService.FindAsync(orderId);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var specialist = await _specialistService.FindAsync(userId);
 
             var dialog = await _messageService.GetDialogAsync(specialist.Id, orderId);
             if (dialog == null) return Content("NotFound");
@@ -106,7 +128,29 @@ namespace Careers.Areas.SpecialistArea.Controllers
             return View("Conversation", new MessagesAndCurrentUser(userId, dialog));
         }
 
-        
+        public async Task<IActionResult> GetImage(IFormFile file)
+        {
+            var imagePath = await FileUploadHelper.UploadAsync(file, ImageOwnerEnum.Image);
+            return Json(imagePath);
+        }
+
+        public IActionResult RenderMessage(string message, string imagesJson)
+        {
+            var images = JsonSerializer.Deserialize<string[]>(imagesJson);
+            if (message.IsNullOrWhiteSpace() && images.Length == 0) return Content("");
+
+            Request.Cookies.TryGetValue("profileImage", out string image);
+
+            var msg = new Message
+            {
+                Author = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                Text = message,
+                AuthorImagePath = image ?? "",
+                ImagePaths = images.ToList()
+            };
+
+            return PartialView("_MessagePartial", msg);
+        }
 
     }
 }

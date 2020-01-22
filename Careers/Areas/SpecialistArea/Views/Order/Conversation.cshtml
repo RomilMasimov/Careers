@@ -112,8 +112,16 @@
 </div>
 
 @section Scripts {
+    <script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
     <script src="~/lib/magnific-popup/js/jquery.magnific-popup.min.js"></script>
+    
     <script type="text/javascript">
+
+        const hubConnection = new signalR.HubConnectionBuilder()
+            .withUrl("/hub")
+            .withAutomaticReconnect().build();
+        hubConnection.serverTimeoutInMilliseconds = 100000;
+
         $(document).ready(function () {
             $("[data-images]").magnificPopup({
                 delegate: 'a',
@@ -143,7 +151,7 @@
                 }).then(
                 response => response.json() // if the response is a JSON object
             ).then(
-                path => { // нужно создать див в котором будет картинка и крестик,по нажатию на крестик див с картинкой удаляется
+                path => {
                     let img = `<div class="col-md-4 col-6 pr-0 h-100 review-image">
                             <img src="${path}" class="pb-1">
                             <button data-delete type="button"></button>
@@ -176,16 +184,6 @@
             });
         });
 
-        //signalr
-        //hubConnection.on("ReceiveMessage",
-        //    function(message) {
-        //        let elem = document.createElement("p");
-        //        elem.appendChild(document.createTextNode(message));
-        //        let firstElem = document.getElementById("chatroom").firstChild;
-        //        document.getElementById("chatroom").insertBefore(elem, firstElem);
-        //    });
-
-
         //send message
         $("#btnSendMessage").on("click",async function(e) {
             let message = $("#text").val();
@@ -198,13 +196,6 @@
                 let part2 = this.src.split("/images/")[1];
                 imgPathes.push(part1 + part2);
             });
-
-            //let data = {
-            //    chatId,
-            //    userId,
-            //    message,
-            //    imgPathes
-            //};
 
             hubConnection.invoke("Send", chatId, userId, imgPathes, message);
 
@@ -223,15 +214,15 @@
                     html = htmlResponse;
                 }).catch(
                 error => console.error(error)
-                );
+            );
 
-                $(".image-container")[0].innerHTML = '';
-                $(".image-container").hide();
-                $("#text").val('');
-                $('.dashboard-conversation').append(html);
-                let conversation = $(".dashboard-conversation");
-                conversation.scrollTop(conversation[0].scrollHeight - conversation[0].clientHeight);
-            });
+            $(".image-container")[0].innerHTML = '';
+            $(".image-container").hide();
+            $("#text").val('');
+            $('.dashboard-conversation').append(html);
+            let conversation = $(".dashboard-conversation");
+            conversation.scrollTop(conversation[0].scrollHeight - conversation[0].clientHeight);
+        });
 
         //start
         hubConnection.start().then(function() {

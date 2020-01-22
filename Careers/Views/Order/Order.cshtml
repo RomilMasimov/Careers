@@ -295,16 +295,6 @@
             });
         });
 
-        //signalr
-        //hubConnection.on("ReceiveMessage",
-        //    function(message) {
-        //        let elem = document.createElement("p");
-        //        elem.appendChild(document.createTextNode(message));
-        //        let firstElem = document.getElementById("chatroom").firstChild;
-        //        document.getElementById("chatroom").insertBefore(elem, firstElem);
-        //    });
-
-
         //send message
         $("#btnSendMessage").on("click",async function(e) {
             let message = $("#text").val();
@@ -317,13 +307,6 @@
                 let part2 = this.src.split("/images/")[1];
                 imgPathes.push(part1 + part2);
             });
-
-            //let data = {
-            //    chatId,
-            //    userId,
-            //    message,
-            //    imgPathes
-            //};
 
             hubConnection.invoke("Send", chatId, userId, imgPathes, message);
 
