@@ -56,10 +56,6 @@ namespace Careers.Areas.SpecialistArea.Controllers
             return View(model);
         }
 
-        public IActionResult ByFilters(object filters) // Add a ViewModel
-        {
-            return View();
-        }
 
         public async Task<IActionResult> Order(int id)
         {

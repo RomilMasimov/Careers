@@ -165,29 +165,30 @@ namespace Careers.Services
                                 .Include(m => m.WhereCanMeetList)
                                 .SingleOrDefaultAsync(m => m.AppUserId == specialistAppUserId);
 
-            //var canMeetListIds = specialist.WhereCanMeetList.Select(y => y.WhereCanMeetId).ToList();
-            //var canGoListIds = specialist.WhereCanGoList.Select(y => y.WhereCanGoId).ToList();
+            var canMeetListIds = specialist.WhereCanMeetList.Select(y => y.WhereCanMeetId).ToList();
+            var canGoListIds = specialist.WhereCanGoList.Select(y => y.WhereCanGoId).ToList();
 
             var query = context.Orders
                 .Where(m => m.IsActive && 
-                            m.State != OrderStateTypeEnum.Canceled && 
-                            m.State != OrderStateTypeEnum.Finished && 
-                            m.State != OrderStateTypeEnum.InProcess &&
-                            m.ClientId==specialist.CityId);
-            //need fix
-            //if (canMeetListIds.Any())
-            //{
-            //    query = query.Where(x => x.OrderMeetingPoints
-            //        .Any(o => canMeetListIds
-            //            .Any(y => y == o.MeetingPointId)));
-            //}
+                            m.State != OrderStateTypeEnum.Canceled &&
+                            m.State != OrderStateTypeEnum.Finished &&
+                            m.State != OrderStateTypeEnum.InProcess);
 
-            //if (canGoListIds.Any())
-            //{
-            //    query = query.Where(x => x.OrderMeetingPoints
-            //        .Any(o => canGoListIds
-            //            .Any(y => y == o.MeetingPointId)));
-            //}
+            if (canMeetListIds.Any())
+            {
+                query = query.Where(x => x.OrderMeetingPoints.Count == 0 ||
+                                         x.OrderMeetingPoints
+                                              .Any(o => canMeetListIds
+                                                  .Any(y => y == o.MeetingPointId)));
+            }
+
+            if (canGoListIds.Any())
+            {
+                query = query.Where(x => x.OrderMeetingPoints.Count == 0 ||
+                                         x.OrderMeetingPoints
+                                             .Any(o => canGoListIds
+                                                 .Any(y => y == o.MeetingPointId)));
+            }
 
             if (!specialist.SpecialistServices.Any()) return await query.ToListAsync();
 
@@ -199,7 +200,8 @@ namespace Careers.Services
                  .Include(m => m.Service)
                  .Include(m => m.Client)
                  .ToListAsync();
-            #region
+
+            #region old version
             //var specialist = await context.Specialists
             //                    .Include(m => m.SpecialistServices)
             //                    .Include(m => m.WhereCanGoList)
