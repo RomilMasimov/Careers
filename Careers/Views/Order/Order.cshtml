@@ -1,4 +1,5 @@
 ﻿@using System.Globalization
+@using System.Security.Claims
 
 @model OrderAndChatViewModel
 @{
@@ -305,7 +306,7 @@
             data.append('AuthorImagePath', msg.authorImagePath);
             data.append('Text', msg.text);
             data.append('DateTime', msg.dateTime);
-            data.append('ImagePaths', msg.imagePaths);
+            data.append('images',JSON.stringify( msg.imagePaths));
 
             let html = '';
 
@@ -321,9 +322,6 @@
                 error => console.error(error)
                 );
 
-            $(".image-container")[0].innerHTML = '';
-            $(".image-container").hide();
-            $("#text").val('');
             $('.dashboard-conversation').append(html);
             let conversation = $(".dashboard-conversation");
             conversation.scrollTop(conversation[0].scrollHeight - conversation[0].clientHeight);
@@ -336,6 +334,7 @@
             let ReceiverId = $('#messages').data('spec-id');
             let ImgPaths = [];
             let AuthorImageUrl = '@Model.AuthorImageUrl';
+            let Author = '@User.FindFirstValue(ClaimTypes.NameIdentifier)';
 
 
             $(".image-container img").each(  function() {
@@ -355,9 +354,11 @@
             hubConnection.invoke("Send", message);
             //hubConnection.invoke("Send", chatId, userId, imgPathes, message);
 
-            @*let data = new FormData();
-            data.append('message', message);
-            data.append('imagesJson', JSON.stringify(imgPathes).toString());
+            let data = new FormData();
+            data.append('AuthorImagePath', AuthorImageUrl);
+            data.append('Text', Message);
+            data.append('images', JSON.stringify(ImgPaths));
+            data.append('Author',Author);
 
             let html = '';
             await fetch('@Url.Action("RenderMessage", "Order")',
@@ -377,7 +378,7 @@
                 $("#text").val('');
                 $('.dashboard-conversation').append(html);
                 let conversation = $(".dashboard-conversation");
-                conversation.scrollTop(conversation[0].scrollHeight - conversation[0].clientHeight);*@
+                conversation.scrollTop(conversation[0].scrollHeight - conversation[0].clientHeight);
             });
 
         //start

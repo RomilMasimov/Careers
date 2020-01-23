@@ -375,25 +375,11 @@ namespace Careers.Controllers
             return PartialView("_QuestionsPartial", questions);
         }
 
-        public IActionResult RenderMessage(Message msg)
+        public IActionResult RenderMessage(Message msg, string images)
         {
+            if (images != null) msg.ImagePaths = JsonSerializer.Deserialize<List<string>>(images);
             if (msg.Text.IsNullOrWhiteSpace() && !msg.ImagePaths.Any()) return Content("");
             return PartialView("_MessagePartial", msg);
-
-            //var images = JsonSerializer.Deserialize<string[]>(imagesJson);
-            //if (message.IsNullOrWhiteSpace() && images.Length == 0) return Content("");
-
-            //Request.Cookies.TryGetValue("profileImage", out string image);
-
-            //var msg = new Message
-            //{
-            //    Author = User.FindFirstValue(ClaimTypes.NameIdentifier),
-            //    Text = message,
-            //    AuthorImagePath = image ?? "",
-            //    ImagePaths = images.ToList()
-            //};
-
-            //return PartialView("_MessagePartial", msg);
         }
 
         public async Task<IActionResult> GetImage(IFormFile file)

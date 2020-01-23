@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Text.Json;
@@ -118,25 +119,11 @@ namespace Careers.Areas.SpecialistArea.Controllers
             return Json(imagePath);
         }
 
-        //public IActionResult RenderMessage(string message, string imagesJson)
-        public IActionResult RenderMessage(Message msg)
+        public IActionResult RenderMessage(Message msg,string images)
         {
-            if(msg.Text.IsNullOrWhiteSpace() && !msg.ImagePaths.Any()) return Content("");
+            if(images!=null) msg.ImagePaths = JsonSerializer.Deserialize<List<string>>(images);
+            if (msg.Text.IsNullOrWhiteSpace() && !msg.ImagePaths.Any() ) return Content("");
             return PartialView("_MessagePartial", msg);
-            //var images = JsonSerializer.Deserialize<string[]>(imagesJson);
-            //if (message.IsNullOrWhiteSpace() && images.Length == 0) return Content("");
-
-            //Request.Cookies.TryGetValue("profileImage", out string image);
-
-            //var msg = new Message
-            //{
-            //    Author = User.FindFirstValue(ClaimTypes.NameIdentifier),
-            //    Text = message,
-            //    AuthorImagePath = image ?? "",
-            //    ImagePaths = images.ToList()
-            //};
-
-            //return PartialView("_MessagePartial", msg);
         }
 
     }
