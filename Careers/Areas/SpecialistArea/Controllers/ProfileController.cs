@@ -43,7 +43,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
         public async Task<IActionResult> Index()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var specialist = await _specialistService.FindAsync(userId,true);
+            var specialist = await _specialistService.FindAsync(userId, true);
             specialist.Educations = await _specialistService.FindEducationsBySpecialist(specialist.Id);
             specialist.Experiences = await _specialistService.FindExperiencesBySpecialist(specialist.Id);
             setImageUrl(specialist);
@@ -56,7 +56,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var specialist = await _specialistService.FindAsync(userId);
             var path = setImageUrl(specialist);
-            return View(model:path);
+            return View(model: path);
         }
 
         [HttpPost]
@@ -435,7 +435,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
         public async Task<IActionResult> EditWhereCanGo()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var specialist = await _specialistService.FindAsync(userId,true);
+            var specialist = await _specialistService.FindAsync(userId, true);
 
             var meetingPoints = await _meetingPointService.GetAllByCityAsync(specialist.CityId);
             var selectedMeetingPoints = specialist.WhereCanGoList.Select(m => m.WhereCanGo);
@@ -520,7 +520,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
         public async Task<IActionResult> EditSubCategories()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var specialist = await _specialistService.FindAsync(userId,true);
+            var specialist = await _specialistService.FindAsync(userId, true);
             var selectedSubCategories = specialist.SpecialistSubCategories.Select(m => m.SubCategory);
             var allCategories = await _categoryService.GetAllCategories(true);
 
@@ -556,7 +556,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
         public async Task<IActionResult> EditServices(int subCategoryId)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var specialist = await _specialistService.FindAsync(userId,true);
+            var specialist = await _specialistService.FindAsync(userId, true);
             if (!specialist.SpecialistSubCategories.Any(m => m.SubCategoryId == subCategoryId))
                 return RedirectToAction("Index");
 
@@ -578,7 +578,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
         public async Task<IActionResult> EditService(int serviceId)  // Add a ViewModel
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var specialist = await _specialistService.FindAsync(userId,true);
+            var specialist = await _specialistService.FindAsync(userId, true);
             var service = await _categoryService.FindServiceAsync(serviceId);
             if (service != null && specialist.SpecialistSubCategories.Any(m => m.SubCategoryId == service.SubCategoryId))
             {
@@ -606,7 +606,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
             var specialist = await _specialistService.FindAsync(userId);
 
             var result = await _categoryService.RemoveFromSpecialistAsync(specialist.Id, id);
-            if(!result) { }//logger will be here
+            if (!result) { }//logger will be here
             return RedirectToAction("EditServices");
         }
 
@@ -615,7 +615,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
         public async Task<IActionResult> EditService(EditSpecialistServiceViewModel model)  // Add a ViewModel
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var specialist = await _specialistService.FindAsync(userId,true);
+            var specialist = await _specialistService.FindAsync(userId, true);
             if (ModelState.IsValid &&
                 await _categoryService.FindServiceAsync(model.ServiceId) != null)
             {
@@ -656,6 +656,16 @@ namespace Careers.Areas.SpecialistArea.Controllers
         public IActionResult Balance()
         {
             return View();
+        }
+
+        public async Task<IActionResult> AddBalance()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var specialist = await _specialistService.FindAsync(userId);
+
+            specialist.Balance += 5;
+            await _specialistService.UpdateAsync(specialist);
+            return View("Balance", specialist.Balance);
         }
 
         public IActionResult Conversation(int id)
