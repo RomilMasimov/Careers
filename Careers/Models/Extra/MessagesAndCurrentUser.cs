@@ -4,6 +4,7 @@ namespace Careers.Models.Extra
 {
     public class MessagesAndCurrentUser
     {
+        public string AuthorImageUrl { get; set; }
         public string UserId { get; set; }
         public Dialog Dialog { get; set; }
         public MessagesAndCurrentUser() { }

@@ -102,8 +102,6 @@ namespace Careers.Areas.SpecialistArea.Controllers
             return View(model);
         }
 
-
-
         public async Task<IActionResult> Conversation(int orderId)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -120,22 +118,25 @@ namespace Careers.Areas.SpecialistArea.Controllers
             return Json(imagePath);
         }
 
-        public IActionResult RenderMessage(string message, string imagesJson)
+        //public IActionResult RenderMessage(string message, string imagesJson)
+        public IActionResult RenderMessage(Message msg)
         {
-            var images = JsonSerializer.Deserialize<string[]>(imagesJson);
-            if (message.IsNullOrWhiteSpace() && images.Length == 0) return Content("");
-
-            Request.Cookies.TryGetValue("profileImage", out string image);
-
-            var msg = new Message
-            {
-                Author = User.FindFirstValue(ClaimTypes.NameIdentifier),
-                Text = message,
-                AuthorImagePath = image ?? "",
-                ImagePaths = images.ToList()
-            };
-
+            if(msg.Text.IsNullOrWhiteSpace() && !msg.ImagePaths.Any()) return Content("");
             return PartialView("_MessagePartial", msg);
+            //var images = JsonSerializer.Deserialize<string[]>(imagesJson);
+            //if (message.IsNullOrWhiteSpace() && images.Length == 0) return Content("");
+
+            //Request.Cookies.TryGetValue("profileImage", out string image);
+
+            //var msg = new Message
+            //{
+            //    Author = User.FindFirstValue(ClaimTypes.NameIdentifier),
+            //    Text = message,
+            //    AuthorImagePath = image ?? "",
+            //    ImagePaths = images.ToList()
+            //};
+
+            //return PartialView("_MessagePartial", msg);
         }
 
     }

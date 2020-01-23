@@ -188,27 +188,65 @@
         });
 
         //Receive message
-        hubConnection.on("ReceiveMessage", function (data) {
-            console.log(data);
-            console.dir(data);
+        hubConnection.on("ReceiveMessage",async function (msg) {
+
+            let data = new FormData();
+            data.append('IsRead', msg.isRead);
+            data.append('Author', msg.author);
+            data.append('AuthorImagePath', msg.authorImagePath);
+            data.append('Text', msg.text);
+            data.append('DateTime', msg.dateTime);
+            data.append('ImagePaths', msg.imagePaths);
+
+            let html = '';
+
+            await fetch('@Url.Action("RenderMessage", "Order",new{area="SpecialistArea"})',
+                {
+                    method: 'POST',
+                    body: data
+                }).then(
+                async  response => {
+                    let htmlResponse = await response.text();
+                    html = htmlResponse;
+                }).catch(
+                error => console.error(error)
+                );
+
+            $(".image-container")[0].innerHTML = '';
+            $(".image-container").hide();
+            $("#text").val('');
+            $('.dashboard-conversation').append(html);
+            let conversation = $(".dashboard-conversation");
+            conversation.scrollTop(conversation[0].scrollHeight - conversation[0].clientHeight);
         });
 
         //send message
         $("#btnSendMessage").on("click",async function(e) {
-            let message = $("#text").val();
-            let chatId = parseInt( '@Model.Dialog.UserSpecialistMessage.Id');
-            let userId = '@Model.Dialog.UserSpecialistMessage.Specialist.AppUserId';
-            let imgPathes = [];
+            let Message = $("#text").val();
+            let DialogId = parseInt( '@Model.Dialog.UserSpecialistMessage.Id');
+            let ReceiverId = '@Model.Dialog.UserSpecialistMessage.Specialist.AppUserId';
+            let ImgPaths = [];
+            let AuthorImageUrl = '@Model.AuthorImageUrl';
+
 
             $(".image-container img").each(  function() {
                 let part1 = '/images/';
                 let part2 = this.src.split("/images/")[1];
-                imgPathes.push(part1 + part2);
+                ImgPaths.push(part1 + part2);
             });
 
-            hubConnection.invoke("Send", chatId, userId, imgPathes, message);
+            let message = {
+                Message,
+                DialogId,
+                ReceiverId,
+                ImgPaths,
+                AuthorImageUrl
+            };
 
-            let data = new FormData();
+            hubConnection.invoke("Send", message);
+            //hubConnection.invoke("Send", chatId, userId, imgPathes, message);
+
+            @*let data = new FormData();
             data.append('message', message);
             data.append('imagesJson', JSON.stringify(imgPathes).toString());
 
@@ -230,7 +268,7 @@
             $("#text").val('');
             $('.dashboard-conversation').append(html);
             let conversation = $(".dashboard-conversation");
-            conversation.scrollTop(conversation[0].scrollHeight - conversation[0].clientHeight);
+            conversation.scrollTop(conversation[0].scrollHeight - conversation[0].clientHeight);*@
         });
 
         //start

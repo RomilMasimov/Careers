@@ -21,13 +21,14 @@ namespace Careers.ViewModels.Order
         public IEnumerable<AnswerOrder> AnswerOrders { get; set; }
         public IEnumerable<ClientAnswer> ClientAnswers { get; set; }
         public ICollection<UserSpecialistMessage> Messages { get; set; }
-
+        public string AuthorImageUrl { get; set; }
         public Models.Service Service { get; set; }
         public string SpecialistFullName { get; set; }
         public int? SpecialistId { get; set; }
 
-        public OrderAndChatViewModel(Models.Order order)
+        public OrderAndChatViewModel(Models.Order order,string ownerProfileImageUrl)
         {
+            AuthorImageUrl = ownerProfileImageUrl;
             Messages = order.UserSpecialistMessages.ToList();
             Id = order.Id;
             Created = order.Created;
