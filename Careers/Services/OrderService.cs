@@ -174,19 +174,19 @@ namespace Careers.Services
                             m.State != OrderStateTypeEnum.Finished &&
                             m.State != OrderStateTypeEnum.InProcess));
 
-            if (canMeetListIds.Any())
-            {
-                query = query.Where(x => x.OrderMeetingPoints
-                    .Any(o => canMeetListIds
-                        .Any(y => y == o.MeetingPointId)));
-            }
+            //if (canMeetListIds.Any())
+            //{
+            //    query = query.Where(x => x.OrderMeetingPoints
+            //        .Any(o => canMeetListIds
+            //            .Any(y => y == o.MeetingPointId)));
+            //}
 
-            if (canGoListIds.Any())
-            {
-                query = query.Where(x => x.OrderMeetingPoints
-                    .Any(o => canGoListIds
-                        .Any(y => y == o.MeetingPointId)));
-            }
+            //if (canGoListIds.Any())
+            //{
+            //    query = query.Where(x => x.OrderMeetingPoints
+            //        .Any(o => canGoListIds
+            //            .Any(y => y == o.MeetingPointId)));
+            //}
 
             if (!specialist.SpecialistServices.Any()) return await query.ToListAsync();
 
@@ -198,6 +198,30 @@ namespace Careers.Services
                  .Include(m => m.Service)
                  .Include(m => m.Client)
                  .ToListAsync();
+            #region
+            //var specialist = await context.Specialists
+            //                    .Include(m => m.SpecialistServices)
+            //                    .Include(m => m.WhereCanGoList)
+            //                    .Include(m => m.WhereCanMeetList)
+            //                    .FirstOrDefaultAsync(m => m.AppUserId == specialistAppUserId);
+
+            //var specialistMeetingPointsIds = specialist.WhereCanGoList.Select(y => y.WhereCanGoId).ToList();
+            //specialistMeetingPointsIds.AddRange(specialist.WhereCanMeetList.Select(y => y.WhereCanMeetId));
+
+            //var query = context.Orders.Where(m => m.IsActive == true && m.State == OrderStateTypeEnum.InSearchOfSpec && m.OrderMeetingPoints.Any(op => specialistMeetingPointsIds.Any(smp => smp == op.MeetingPointId)));
+            //if (specialist.SpecialistServices.Any())
+            //{
+            //    query = query.Where(m => specialist.SpecialistServices.Select(x => x.ServiceId).Any(x => x == m.ServiceId));
+            //    var orders = await query
+            //        .Include(m => m.Service)
+            //        .Include(m => m.Client)
+            //        .ToListAsync();
+            //    orders = orders.Where(m => specialist.SpecialistServices.Any(specServ => specServ.MeasurementId == m.MeasurementId &&
+            //                specServ.PriceMin >= m.PriceMin && specServ.PriceMax >= m.PriceMax)).ToList();
+            //    return orders; 
+            //}
+            //return new List<Order>();
+            #endregion
         }
 
         public async Task<IEnumerable<Order>> FindAllForSpecialistByClientAsync(int specialistId, int clientId)

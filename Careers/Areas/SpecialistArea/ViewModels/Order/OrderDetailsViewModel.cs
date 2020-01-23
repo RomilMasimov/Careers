@@ -8,6 +8,7 @@ namespace Careers.Areas.SpecialistArea.ViewModels.Order
     public class OrderDetailsViewModel
     {
         public bool IsMyOrder { get; set; }
+        public bool IsEnoughMoneyOnBalance { get; set; }
         public int Id { get; set; }
         public DateTime Created { get; set; }
         public OrderStateTypeEnum State { get; set; }
@@ -25,9 +26,10 @@ namespace Careers.Areas.SpecialistArea.ViewModels.Order
 
         public OrderDetailsViewModel() { }
 
-        public OrderDetailsViewModel(Models.Order order, bool myOrder)
+        public OrderDetailsViewModel(Models.Order order, bool myOrder, bool isEnoughMoneyOnBalance)
         {
             IsMyOrder = myOrder;
+            IsEnoughMoneyOnBalance = isEnoughMoneyOnBalance;
             Id = order.Id;
             Created = order.Created;
             State = order.State;

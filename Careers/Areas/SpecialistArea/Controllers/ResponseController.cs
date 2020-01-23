@@ -46,6 +46,12 @@ namespace Careers.Areas.SpecialistArea.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var specialist = await _specialistService.FindAsync(userId);
 
+            if (specialist.Balance > 1)
+            {
+                specialist.Balance -= 2;
+                await _specialistService.UpdateAsync(specialist);
+            }
+
             var dialog = new UserSpecialistMessage
             {
                 ClientId = order.ClientId,
