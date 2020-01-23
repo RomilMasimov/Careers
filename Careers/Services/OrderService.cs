@@ -51,16 +51,28 @@ namespace Careers.Services
 
         public async Task<IEnumerable<Order>> FindAllBySpecialistAsync(int specialistId)
         {
+            return await context.Orders
+                .Include(x => x.Specialist)
+                .Include(x => x.Client)
+                .Include(x => x.Service)
+                .Where(x => x.SpecialistId==specialistId).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Order>> FindAllResponsesAsync(int specialistId)
+        {
             var orderIds = await context.UserSpecialistMessages
                 .Where(x => x.SpecialistId == specialistId)
                 .Select(x => x.Order.Id)
                 .ToListAsync();
 
-            return context.Orders
+            return await context.Orders
                 .Include(x => x.Specialist)
                 .Include(x => x.Client)
                 .Include(x => x.Service)
-                .Where(x => orderIds.Contains(x.Id));
+                .Where(x => orderIds.Contains(x.Id)&&
+                x.State!= OrderStateTypeEnum.Finished &&
+                x.State!= OrderStateTypeEnum.InProcess)
+                .ToListAsync();
         }
 
         public async Task<bool> AddMeetingPoints(IEnumerable<OrderMeetingPoint> orderMeetingPoints)
@@ -173,6 +185,8 @@ namespace Careers.Services
                             m.State != OrderStateTypeEnum.Canceled &&
                             m.State != OrderStateTypeEnum.Finished &&
                             m.State != OrderStateTypeEnum.InProcess);
+
+            query = query.Where(x => !context.UserSpecialistMessages.Any(y => y.OrderId == x.Id)); 
 
             if (canMeetListIds.Any())
             {
