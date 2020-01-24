@@ -217,8 +217,9 @@
             conversation.scrollTop(conversation[0].scrollHeight - conversation[0].clientHeight);
         });
 
-        //send message
-        $("#btnSendMessage").on("click",async function(e) {
+
+
+        async function sendMessage() {
             let Message = $("#text").val();
             let DialogId = parseInt( '@Model.Dialog.UserSpecialistMessage.Id');
             let ReceiverId = '@Model.Dialog.UserSpecialistMessage.Client.AppUserId';
@@ -269,7 +270,18 @@
             $('.dashboard-conversation').append(html);
             let conversation = $(".dashboard-conversation");
             conversation.scrollTop(conversation[0].scrollHeight - conversation[0].clientHeight);
+        }
+
+        //send message
+        $('#text').keydown(async function (e) {
+
+            if (e.ctrlKey && e.keyCode == 13) {
+
+               await sendMessage();
+            }
         });
+
+        $("#btnSendMessage").on("click",sendMessage);
 
         //start
         hubConnection.start().then(function() {

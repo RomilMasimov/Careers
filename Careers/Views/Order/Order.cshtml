@@ -327,50 +327,50 @@
             conversation.scrollTop(conversation[0].scrollHeight - conversation[0].clientHeight);
         });
 
-        //send message
-        $("#btnSendMessage").on("click",async function(e) {
-            let Message = $("#text").val();
-            let DialogId = $('#messages').data('chat-id');
-            let ReceiverId = $('#messages').data('spec-id');
-            let ImgPaths = [];
-            let AuthorImageUrl = '@Model.AuthorImageUrl';
-            let Author = '@User.FindFirstValue(ClaimTypes.NameIdentifier)';
 
 
-            $(".image-container img").each(  function() {
-                let part1 = '/images/';
-                let part2 = this.src.split("/images/")[1];
-                ImgPaths.push(part1 + part2);
-            });
+        async function sendMessage() {
+                let Message = $("#text").val();
+                let DialogId = $('#messages').data('chat-id');
+                let ReceiverId = $('#messages').data('spec-id');
+                let ImgPaths = [];
+                let AuthorImageUrl = '@Model.AuthorImageUrl';
+                let Author = '@User.FindFirstValue(ClaimTypes.NameIdentifier)';
 
-            let message = {
-                Message,
-                DialogId,
-                ReceiverId,
-                ImgPaths,
-                AuthorImageUrl
-            };
 
-            hubConnection.invoke("Send", message);
-            //hubConnection.invoke("Send", chatId, userId, imgPathes, message);
+                $(".image-container img").each(  function() {
+                    let part1 = '/images/';
+                    let part2 = this.src.split("/images/")[1];
+                    ImgPaths.push(part1 + part2);
+                });
 
-            let data = new FormData();
-            data.append('AuthorImagePath', AuthorImageUrl);
-            data.append('Text', Message);
-            data.append('images', JSON.stringify(ImgPaths));
-            data.append('Author',Author);
+                let message = {
+                    Message,
+                    DialogId,
+                    ReceiverId,
+                    ImgPaths,
+                    AuthorImageUrl
+                };
 
-            let html = '';
-            await fetch('@Url.Action("RenderMessage", "Order")',
-                {
-                    method: 'POST',
-                    body: data
-                }).then(
-                async  response => {
-                    let htmlResponse = await response.text();
-                    html = htmlResponse;
-                }).catch(
-                error => console.error(error)
+                hubConnection.invoke("Send", message);
+
+                let data = new FormData();
+                data.append('AuthorImagePath', AuthorImageUrl);
+                data.append('Text', Message);
+                data.append('images', JSON.stringify(ImgPaths));
+                data.append('Author',Author);
+
+                let html = '';
+                await fetch('@Url.Action("RenderMessage", "Order")',
+                    {
+                        method: 'POST',
+                        body: data
+                    }).then(
+                    async  response => {
+                        let htmlResponse = await response.text();
+                        html = htmlResponse;
+                    }).catch(
+                    error => console.error(error)
                 );
 
                 $(".image-container")[0].innerHTML = '';
@@ -379,7 +379,21 @@
                 $('.dashboard-conversation').append(html);
                 let conversation = $(".dashboard-conversation");
                 conversation.scrollTop(conversation[0].scrollHeight - conversation[0].clientHeight);
-            });
+        }
+
+
+        //send message
+
+        $('#text').keydown(async function (e) {
+
+            if (e.ctrlKey && e.keyCode == 13) {
+
+                await sendMessage();
+            }
+        });
+
+        $("#btnSendMessage").on("click",sendMessage);
+
 
         //start
         hubConnection.start().then(function() {
