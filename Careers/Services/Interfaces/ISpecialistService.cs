@@ -47,8 +47,10 @@ namespace Careers.Services.Interfaces
         Task<bool> UpdateSubCategoties(int specialistId, int[] subCategoriesId);
         Task<bool> UpdateServices(int specialistId, int[] servicesId);
 
-        Task<Specialist> FindAsync(int id);
+        Task<Specialist> FindWithUserAsync(int id);
+        Task<Specialist> FindWithUserAsync(string userId);
         Task<Specialist> FindAsync(string userId,bool detailed=false);
+        Task<Specialist> FindAsync(int id,bool detailed=false);
         Task<bool> HaveIThisOrder(string userid, int id);
         Task<Specialist> FindDetailedAsync(int id);
         //need to check

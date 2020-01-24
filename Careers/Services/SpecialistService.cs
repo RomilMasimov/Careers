@@ -119,9 +119,14 @@ namespace Careers.Services
             return result.Skip((filter.Page - 1) * 20).Take(20).ToList();
         }
 
-        public async Task<Specialist> FindAsync(int id)
+        public async Task<Specialist> FindWithUserAsync(int id)
         {
-            return await context.Specialists.SingleOrDefaultAsync(x => x.Id == id);
+            return await context.Specialists.Include(x=>x.AppUser).SingleOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<Specialist> FindWithUserAsync(string userId)
+        {
+            return await context.Specialists.Include(x => x.AppUser).SingleOrDefaultAsync(x => x.AppUserId == userId);
         }
 
         public async Task<Specialist> FindAsync(string userId, bool detailed = false)
@@ -141,6 +146,25 @@ namespace Careers.Services
                 .Include(m => m.SpecialistServices)
                 .ThenInclude(m => m.Measurement)
                 .SingleOrDefaultAsync(x => x.AppUserId == userId);
+        }
+
+        public async Task<Specialist> FindAsync(int id, bool detailed = false)
+        {
+            if (!detailed) return await context.Specialists.SingleOrDefaultAsync(x => x.Id == id);
+
+            return await context.Specialists
+                .Include(m => m.AppUser)
+                .Include(m => m.City)
+                .Include(m => m.WhereCanGoList)
+                .ThenInclude(m => m.WhereCanGo)
+                .Include(m => m.WhereCanMeetList)
+                .ThenInclude(m => m.WhereCanMeet)
+                .Include(m => m.SpecialistSubCategories)
+                .ThenInclude(m => m.SubCategory)
+                .ThenInclude(m => m.Category)
+                .Include(m => m.SpecialistServices)
+                .ThenInclude(m => m.Measurement)
+                .SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<Specialist> FindDetailedAsync(int id)
