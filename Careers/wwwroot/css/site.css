@@ -365,3 +365,8 @@ div.image-container {
     color: white;
     transition: 300ms;
 }
+
+.no-orders h1 {
+    width: 100%;
+    text-align: center;
+}

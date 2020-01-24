@@ -7,10 +7,16 @@
                 <div class="tab-content">
                     <div id="list" class="tab-pane fade active in">
                         <div class="row">
-
-                            @foreach (var order in Model)
+                            @if (!Model.Any())
                             {
-                                <partial name="_OrderPartial" model="order" />
+                                <h1 class="no-orders">No orders for you found</h1>
+                            }
+                            else
+                            {
+                                @foreach (var order in Model)
+                                {
+                                    <partial name="_OrderPartial" model="order" />
+                                }
                             }
 
                         </div>

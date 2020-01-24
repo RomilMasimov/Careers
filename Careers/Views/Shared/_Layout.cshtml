@@ -219,15 +219,15 @@
                                             <ul class="cd-secondary-dropdown is-hidden">
                                                 @if (User.IsInRole("client"))
                                                 {
-                                                    <li class="parent"><a asp-controller="Client" asp-action="Index">Profile</a></li>
-                                                    <li class="parent"><a asp-controller="Order" asp-action="Index">Orders</a></li>
+                                                    <li class="parent"><a asp-controller="Client" asp-action="Index">@SharedLocalizer["profile"]</a></li>
+                                                    <li class="parent"><a asp-controller="Order" asp-action="Index">@SharedLocalizer["orders"]</a></li>
                                                 }
                                                 else if (User.IsInRole("specialist"))
                                                 {
-                                                    <li class="parent"><a asp-area="SpecialistArea" asp-controller="Order" asp-action="Index">Orders</a></li>
-                                                    <li class="parent"><a asp-area="SpecialistArea" asp-controller="Order" asp-action="MyOrders">My orders</a></li>
-                                                    <li class="parent"><a asp-area="SpecialistArea" asp-controller="Profile" asp-action="Index">Profile</a></li>
-                                                    <li class="parent"><a asp-area="SpecialistArea" asp-controller="Settings" asp-action="Index">Settings</a></li>
+                                                    <li class="parent"><a asp-area="SpecialistArea" asp-controller="Order" asp-action="Index">@SharedLocalizer["orders"]</a></li>
+                                                    <li class="parent"><a asp-area="SpecialistArea" asp-controller="Order" asp-action="MyOrders">My orders @SharedLocalizer["myOrders"]</a></li>
+                                                    <li class="parent"><a asp-area="SpecialistArea" asp-controller="Profile" asp-action="Index">Profile @SharedLocalizer["profile"]</a></li>
+                                                    <li class="parent"><a asp-area="SpecialistArea" asp-controller="Settings" asp-action="Index">Settings @SharedLocalizer["settings"]</a></li>
                                                 }
                                                 <li class="parent"><a asp-area="" asp-controller="Auth" asp-action="SignOut">Sign out</a></li>
                                             </ul>
