@@ -51,6 +51,7 @@ namespace Careers.Services.Interfaces
         Task<Specialist> FindWithUserAsync(string userId);
         Task<Specialist> FindAsync(string userId,bool detailed=false);
         Task<Specialist> FindAsync(int id,bool detailed=false);
+        Task<Specialist> FindWithMeetingPointsAsync(string userId);
         Task<bool> HaveIThisOrder(string userid, int id);
         Task<Specialist> FindDetailedAsync(int id);
         //need to check

@@ -129,6 +129,15 @@ namespace Careers.Services
             return await context.Specialists.Include(x => x.AppUser).SingleOrDefaultAsync(x => x.AppUserId == userId);
         }
 
+        public async Task<Specialist> FindWithMeetingPointsAsync(string userId)
+        {
+            return await context.Specialists
+                .Include(x => x.WhereCanGoList)
+                .Include(x=>x.WhereCanMeetList)
+                .SingleOrDefaultAsync(x => x.AppUserId == userId);
+        }
+
+
         public async Task<Specialist> FindAsync(string userId, bool detailed = false)
         {
             if (!detailed) return await context.Specialists.SingleOrDefaultAsync(x => x.AppUserId == userId);
@@ -435,5 +444,8 @@ namespace Careers.Services
                 .CountAsync();
             return count > 0;
         }
+
+
+
     }
 }

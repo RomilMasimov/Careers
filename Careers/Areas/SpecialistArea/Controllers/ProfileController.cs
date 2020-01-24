@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Careers.Areas.SpecialistArea.ViewModels;
+using Careers.Helpers;
 using Careers.Models;
 using Careers.Models.Identity;
 using Careers.Services;
@@ -47,7 +48,6 @@ namespace Careers.Areas.SpecialistArea.Controllers
             var specialist = await _specialistService.FindAsync(userId, true);
             specialist.Educations = await _specialistService.FindEducationsBySpecialist(specialist.Id);
             specialist.Experiences = await _specialistService.FindExperiencesBySpecialist(specialist.Id);
-            setImageUrl(specialist);
             return View(specialist);
         }
 
@@ -56,8 +56,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var specialist = await _specialistService.FindAsync(userId);
-            var path = setImageUrl(specialist);
-            return View(model: path);
+            return View(model: specialist.ImageUrl);
         }
 
         [HttpPost]
@@ -66,23 +65,40 @@ namespace Careers.Areas.SpecialistArea.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var specialist = await _specialistService.FindAsync(userId);
-            var result = await _specialistService.UpdateImage(specialist.Id, Image);
-            if (!result) TempData["Status"] = "Portrait did not upload";
+            if (Image != null)
+            {
+                specialist.ImageUrl = await FileUploadHelper.UploadAsync(Image, Models.Enums.ImageOwnerEnum.Specialist);
+                Response.Cookies.Append("profileImage", specialist.ImageUrl);
+            }
+
+            await _specialistService.UpdateAsync(specialist);
+
+            if (!specialist.ImageUrl.IsNullOrWhiteSpace())
+            {
+                TempData["Status"] = "Portrait did not upload";
+            }
             else TempData["Status"] = "Portrait sent successfully";
-            var path = setImageUrl(specialist);
-            return View(model: path);
+
+            return View(model: specialist.ImageUrl);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeletePortrait()
         {
+
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var specialist = await _specialistService.FindAsync(userId);
-            var result = await _specialistService.DeleteImage(specialist.Id);
+            FileUploadHelper.Delete(specialist.ImageUrl);
+            specialist.ImageUrl = "";
             Response.Cookies.Append("profileImage", "");
-            if (!result) TempData["Status"] = "Portrait did not delete";
-            else TempData["Status"] = "Portrait delete successfully";
+            await _specialistService.UpdateAsync(specialist);
+
+            if (!specialist.ImageUrl.IsNullOrWhiteSpace())
+            {
+                TempData["Status"] = "Photo did not upload";
+            }
+            else TempData["Status"] = "Photo sent successfully";
             return View("UploadPortrait");
         }
 
@@ -92,7 +108,6 @@ namespace Careers.Areas.SpecialistArea.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var specialist = await _specialistService.FindAsync(userId);
             var works = await _specialistService.FindAllWorks(specialist.Id);
-            setImageUrl(specialist);
             return View(works);
         }
 
@@ -101,7 +116,6 @@ namespace Careers.Areas.SpecialistArea.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var specialist = await _specialistService.FindAsync(userId);
-            setImageUrl(specialist);
             return View();
         }
 
@@ -111,7 +125,6 @@ namespace Careers.Areas.SpecialistArea.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var specialist = await _specialistService.FindAsync(userId);
-            setImageUrl(specialist);
             if (ModelState.IsValid)
             {
                 var result = await _specialistService.AddWork(specialist.Id, workViewModel.Image, workViewModel.Description);
@@ -136,7 +149,6 @@ namespace Careers.Areas.SpecialistArea.Controllers
                 return RedirectToAction("Works");
 
             var model = new EditWorkViewModel { Id = work.Id, ImagePath = work.ImagePath, Description = work.Description };
-            setImageUrl(specialist);
             return View(model);
         }
 
@@ -146,7 +158,6 @@ namespace Careers.Areas.SpecialistArea.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var specialist = await _specialistService.FindAsync(userId);
-            setImageUrl(specialist);
             if (ModelState.IsValid)
             {
                 var work = await _specialistService.EditWork(workViewModel.Id, workViewModel.Description);
@@ -173,7 +184,6 @@ namespace Careers.Areas.SpecialistArea.Controllers
             var result = await _specialistService.DeleteWork(id);
             if (!result) TempData["Status"] = "File did not delete";
             else TempData["Status"] = "File delete successfully";
-            setImageUrl(specialist);
             return RedirectToAction("Works");
         }
 
@@ -199,7 +209,6 @@ namespace Careers.Areas.SpecialistArea.Controllers
             model.Educations = await _specialistService.FindEducationsBySpecialist(specialist.Id);
             model.Experiences = await _specialistService.FindExperiencesBySpecialist(specialist.Id);
 
-            setImageUrl(specialist);
             return View(model);
         }
 
@@ -208,7 +217,6 @@ namespace Careers.Areas.SpecialistArea.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var specialist = await _specialistService.FindAsync(userId);
-            setImageUrl(specialist);
             return View();
         }
 
@@ -235,7 +243,6 @@ namespace Careers.Areas.SpecialistArea.Controllers
                     return RedirectToAction("EducationsAndExperience");
                 }
             }
-            setImageUrl(specialist);
             return View(model);
         }
 
@@ -257,7 +264,6 @@ namespace Careers.Areas.SpecialistArea.Controllers
                 EndDate = education.EndDate,
                 SpecialistId = education.SpecialistId
             };
-            setImageUrl(specialist);
             return View(model);
         }
 
@@ -285,7 +291,6 @@ namespace Careers.Areas.SpecialistArea.Controllers
                     return RedirectToAction("EducationsAndExperience");
                 }
             }
-            setImageUrl(specialist);
             return View(model);
         }
 
@@ -311,7 +316,6 @@ namespace Careers.Areas.SpecialistArea.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var specialist = await _specialistService.FindAsync(userId);
-            setImageUrl(specialist);
             return View();
         }
 
@@ -338,7 +342,6 @@ namespace Careers.Areas.SpecialistArea.Controllers
                     return RedirectToAction("EducationsAndExperience");
                 }
             }
-            setImageUrl(specialist);
             return View(model);
         }
 
@@ -359,7 +362,6 @@ namespace Careers.Areas.SpecialistArea.Controllers
                 EndDate = experience.EndDate,
                 SpecialistId = experience.SpecialistId
             };
-            setImageUrl(specialist);
             return View(model);
         }
 
@@ -387,7 +389,6 @@ namespace Careers.Areas.SpecialistArea.Controllers
                     return RedirectToAction("EducationsAndExperience");
                 }
             }
-            setImageUrl(specialist);
             return View(model);
         }
 
@@ -413,7 +414,6 @@ namespace Careers.Areas.SpecialistArea.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var specialist = await _specialistService.FindAsync(userId);
-            setImageUrl(specialist);
             var model = new EditAboutViewModel { Text = specialist.About };
             return View(model);
         }
@@ -424,7 +424,6 @@ namespace Careers.Areas.SpecialistArea.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var specialist = await _specialistService.FindAsync(userId);
-            setImageUrl(specialist);
             if (ModelState.IsValid)
             {
                 var result = await _specialistService.UpdateAbotAsync(specialist.Id, model.Text);
@@ -442,7 +441,6 @@ namespace Careers.Areas.SpecialistArea.Controllers
             var meetingPoints = await _meetingPointService.GetAllByCityAsync(specialist.CityId);
             var selectedMeetingPoints = specialist.WhereCanGoList.Select(m => m.WhereCanGo);
             ViewBag.Points = new MultiSelectList(meetingPoints, "Id", "Description", selectedMeetingPoints.Select(m => m.Id));
-            setImageUrl(specialist);
             return View();
         }
 
@@ -451,9 +449,8 @@ namespace Careers.Areas.SpecialistArea.Controllers
         public async Task<IActionResult> EditWhereCanGo(int[] points)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var specialist = await _specialistService.FindAsync(userId);
+            var specialist = await _specialistService.FindWithMeetingPointsAsync(userId);
             var result = await _specialistService.UpdateWhereCanGo(specialist.Id, points);
-            setImageUrl(specialist);
             if (result)
             {
                 TempData["Status"] = "Where can go was edited";
@@ -466,12 +463,11 @@ namespace Careers.Areas.SpecialistArea.Controllers
         public async Task<IActionResult> EditWhereCanMeet()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var specialist = await _specialistService.FindAsync(userId);
+            var specialist = await _specialistService.FindWithMeetingPointsAsync(userId);
 
             var meetingPoints = await _meetingPointService.GetAllByCityAsync(specialist.CityId);
             var selectedMeetingPoints = specialist.WhereCanMeetList.Select(m => m.WhereCanMeet);
             ViewBag.Points = new MultiSelectList(meetingPoints, "Id", "Description", selectedMeetingPoints.Select(m => m.Id));
-            setImageUrl(specialist);
             return View();
         }
 
@@ -480,7 +476,6 @@ namespace Careers.Areas.SpecialistArea.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var specialist = await _specialistService.FindAsync(userId);
-            setImageUrl(specialist);
             var result = await _specialistService.UpdateWhereCanMeet(specialist.Id, points);
             if (result)
             {
@@ -497,7 +492,6 @@ namespace Careers.Areas.SpecialistArea.Controllers
             var specialist = await _specialistService.FindAsync(userId);
             var allCities = await _locationService.GetAllCitiesAsync();
             ViewBag.Cities = new SelectList(allCities, "Id", "Name", specialist.CityId);
-            setImageUrl(specialist);
             return View();
         }
 
@@ -514,7 +508,6 @@ namespace Careers.Areas.SpecialistArea.Controllers
             }
             var allCities = await _locationService.GetAllCitiesAsync();
             ViewBag.Cities = new SelectList(allCities, "Id", "Name", specialist.CityId);
-            setImageUrl(specialist);
             return View();
         }
 
@@ -534,7 +527,6 @@ namespace Careers.Areas.SpecialistArea.Controllers
                 selectCategoryViewModel.SelectSubCategory = category.SubCategories.Select(m => new SelectSubCategoryViewModel() { Selected = selectedSubCategories.Contains(m), SubCategory = m }).ToList();
                 selectCategoriesViewModel.Add(selectCategoryViewModel);
             }
-            setImageUrl(specialist);
             return View(selectCategoriesViewModel);
         }
 
@@ -545,7 +537,6 @@ namespace Careers.Areas.SpecialistArea.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var specialist = await _specialistService.FindAsync(userId);
             var result = await _specialistService.UpdateSubCategoties(specialist.Id, subCategoriesId);
-            setImageUrl(specialist);
             if (result)
             {
                 TempData["Status"] = "Subcategories was edited";
@@ -572,7 +563,6 @@ namespace Careers.Areas.SpecialistArea.Controllers
                 serviceViewModel.SpecialistService = specialistServices.FirstOrDefault(m => m.ServiceId == service.Id);
                 servicesViewModel.Add(serviceViewModel);
             }
-            setImageUrl(specialist);
             return View(servicesViewModel.ToArray());
         }
 
@@ -596,7 +586,6 @@ namespace Careers.Areas.SpecialistArea.Controllers
                     MeasurementId = specialistService == null ? 0 : specialistService.MeasurementId
                 };
                 ViewBag.Measurements = new SelectList(await _categoryService.FindAllMeasurements(), "Id", "TextRU");
-                setImageUrl(specialist);
                 return View(viewModel);
             }
             return RedirectToAction("Index");
@@ -646,14 +635,6 @@ namespace Careers.Areas.SpecialistArea.Controllers
             return View(model);
         }
 
-        private string setImageUrl(Specialist specialist)
-        {
-            var path = specialist.ImageUrl;
-            if (string.IsNullOrWhiteSpace(specialist.ImageUrl)) path = "N/A";
-            Response.Cookies.Append("profileImage", path ?? "");
-            ViewData["ImageUrl"] = path;
-            return path;
-        }
 
         public IActionResult Balance()
         {
