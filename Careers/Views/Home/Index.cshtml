@@ -48,12 +48,12 @@
                         <div class="jp_banner_main_jobs">
                             <ul>
                                 <li><i class="fa fa-tags"></i> Trending Keywords :</li>
-                                <li><a href="#">ui designer,</a></li>
-                                <li><a href="#">developer,</a></li>
-                                <li><a href="#">senior</a></li>
-                                <li><a href="#">it company,</a></li>
-                                <li><a href="#">design,</a></li>
-                                <li><a href="#">call center</a></li>
+                                <li>ui designer,
+                                <li>developer,</li>
+                                <li>senior</li>
+                                <li>it company,</li>
+                                <li>design,</li>
+                                <li>call center</li>
                             </ul>
                         </div>
                     </div>
@@ -69,7 +69,7 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="jp_popu_cate_heading_wrapper">
-                    <h4>Popular Categories</h4>
+                    <h4>@SharedLocalizer["popularCategories"]</h4>
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -82,7 +82,7 @@
                                    asp-action="Index"
                                    asp-route-categoryName="репетиторы">@SharedLocalizer["teachers"]</a>
                             </h3>
-                            <p>(240 jobs)</p>
+                            @*<p>(240 jobs)</p>*@
                         </div>
                     </div>
                 </div>
@@ -97,7 +97,7 @@
                                    asp-action="Index"
                                    asp-route-categoryName="ит-фрилансеры">@SharedLocalizer["it"]</a>
                             </h3>
-                            <p>(504 jobs)</p>
+                            @*<p>(504 jobs)</p>*@
                         </div>
                     </div>
                 </div>
@@ -112,7 +112,7 @@
                                    asp-action="Index"
                                    asp-route-categoryName="бухгалтеры и юристы">@SharedLocalizer["accounting"]</a>
                             </h3>
-                            <p>(2250 jobs)</p>
+                            @*<p>(2250 jobs)</p>*@
                         </div>
                     </div>
                 </div>
@@ -127,7 +127,7 @@
                                    asp-action="Index"
                                    asp-route-categoryName="врачи">@SharedLocalizer["doctors"]</a>
                             </h3>
-                            <p>(202 jobs)</p>
+                            @*<p>(202 jobs)</p>*@
                         </div>
                     </div>
                 </div>
@@ -142,7 +142,7 @@
                                    asp-action="Index"
                                    asp-route-categoryName="мастера по ремонту">@SharedLocalizer["masters"]</a>
                             </h3>
-                            <p>(1457 jobs)</p>
+                            @*<p>(1457 jobs)</p>*@
                         </div>
                     </div>
                 </div>
@@ -157,7 +157,7 @@
                                    asp-action="Index"
                                    asp-route-categoryName="мастера красоты">@SharedLocalizer["beauty"]</a>
                             </h3>
-                            <p>(2142 jobs)</p>
+                            @*<p>(2142 jobs)</p>*@
                         </div>
                     </div>
                 </div>
@@ -172,7 +172,7 @@
                                    asp-action="Index"
                                    asp-route-categoryName="домашний персонал">@SharedLocalizer["homeStaff"]</a>
                             </h3>
-                            <p>(2342 jobs)</p>
+                            @*<p>(2342 jobs)</p>*@
                         </div>
                     </div>
                 </div>
@@ -187,7 +187,7 @@
                                    asp-action="Index"
                                    asp-route-categoryName="разные">@SharedLocalizer["other"]</a>
                             </h3>
-                            <p>(2000+ jobs)</p>
+                            @*<p>(2000+ jobs)</p>*@
                         </div>
                     </div>
                 </div>
@@ -201,7 +201,7 @@
     <div class="jp_regis_left_side_box_wrapper">
         <div class="jp_regis_left_side_box">
             <img src="images/content/regis_icon.png" alt="icon" />
-            <h4>I’m an employee</h4>
+            <h4>@SharedLocalizer["iAmEmpolee"]</h4>
             <p>Signed in companies are able to post new<br> job offers, searching for candidate...</p>
             <ul>
                 <li><a asp-controller="Auth" asp-action="SignUp"><i class="fa fa-plus-circle"></i> &nbsp;REGISTER AS EMPLOYEE</a></li>
@@ -212,7 +212,7 @@
         <div class="jp_regis_right_img_overlay"></div>
         <div class="jp_regis_right_side_box">
             <img src="images/content/regis_icon2.png" alt="icon" />
-            <h4>I’m client</h4>
+            <h4>@SharedLocalizer["iAmClient"]</h4>
             <p>Signed in companies are able to post new<br> job offers, searching for candidate...</p>
             <ul>
                 <li><a asp-controller="Auth" asp-action="SignUp"><i class="fa fa-plus-circle"></i> &nbsp;REGISTER AS CLIENT</a></li>

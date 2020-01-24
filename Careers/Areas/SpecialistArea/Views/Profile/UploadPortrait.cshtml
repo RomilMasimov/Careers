@@ -34,9 +34,11 @@
 
             @if (TempData.ContainsKey("Status"))
             {
-                <div class="alert alert-info col-12" role="alert">
-                    @TempData["Status"]
-                </div>
+        <div class="alert alert-info col-12" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+            @TempData["Status"]
+        </div>
             }
             <div class="jp_adp_choose_resume">
                 <form asp-area="SpecialistArea" asp-controller="Profile" asp-action="UploadPortrait" method="post" enctype="multipart/form-data" class="custom-input">
