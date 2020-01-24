@@ -102,7 +102,7 @@
             <div class="image-container row py-2" style="right: 15px"></div>
             <div class="conversation-write-wrap">
                 <form>
-                    <textarea id="text" placeholder="Type a message"></textarea>
+                    <textarea onkeyup="textAreaAdjust(this)" style="overflow:hidden" id="text" placeholder="Type a message"></textarea>
                     <label class="send-image">
                         <input type="file"><i class="fa fa-file-image-o"></i>
                     </label>
