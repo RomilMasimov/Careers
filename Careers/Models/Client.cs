@@ -6,6 +6,10 @@ namespace Careers.Models
 {
     public class Client
     {
+        public Client()
+        {
+            ImageUrl = "";
+        }
         public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }

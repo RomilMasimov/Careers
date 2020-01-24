@@ -21,7 +21,7 @@
                     {
                         <div class="row">
                             <div class="col-4">
-                                <img src="~/@Model.ClientImage" error-src="" class="w-100 img-rounded">
+                                <img src="@Model.ClientImage" error-src="" class="w-100 img-rounded">
                             </div>
                             <div class="col-8 jp_job_post_right_cont">
                                 <h4>@Model.ClientFullName</h4>
@@ -43,13 +43,25 @@
                     }
                     else
                     {
-                        <a asp-area="SpecialistArea"
-                           asp-controller="Response"
-                           asp-action="CreateResponse"
-                           asp-route-orderId="@Model.Id"
-                           class="jp_btn_default">
-                            @SharedLocalizer["response"]
-                        </a>
+                        if (Model.IsEnoughMoneyOnBalance)
+                        {
+                            <a asp-area="SpecialistArea"
+                               asp-controller="Response"
+                               asp-action="CreateResponse"
+                               asp-route-orderId="@Model.Id"
+                               class="jp_btn_default">
+                                @SharedLocalizer["response"]
+                            </a>
+                        }
+                        else
+                        {
+                            <button type="button"
+                                    data-toggle="modal"
+                                    data-target="#replenishBalance"
+                                    class="jp_btn_default">
+                                @SharedLocalizer["response"]
+                            </button>
+                        }
                     }
                 </div>
             </div>

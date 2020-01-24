@@ -71,7 +71,7 @@ namespace Careers.Controllers
             {
                 var specialist = await _specialistService.FindAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
                 Response.Cookies.Append("profileImage", specialist.ImageUrl ?? "");
-                return RedirectToAction("Index", "Profile", new { area = "SpecialistArea" });
+                return RedirectToAction("Index", "Order", new { area = "SpecialistArea" });
             }
 
             if (User.IsInRole("client"))

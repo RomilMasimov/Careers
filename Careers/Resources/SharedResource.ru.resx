@@ -178,4 +178,47 @@
     <value>Откликнуться</value>
     <comment>response</comment>
   </data>
+  <data name="home" xml:space="preserve">
+    <value>Главная</value>
+    <comment>home</comment>
+  </data>
+  <data name="specialists" xml:space="preserve">
+    <value>Специалисты</value>
+  </data>
+  <data name="contact" xml:space="preserve">
+    <value>Контакты</value>
+    <comment>contact</comment>
+  </data>
+  <data name="about" xml:space="preserve">
+    <value>О Нас</value>
+    <comment>about</comment>
+  </data>
+  <data name="popularCategories" xml:space="preserve">
+    <value>Популярные категории</value>
+    <comment>popularCategories</comment>
+  </data>
+  <data name="iAmEmpolee" xml:space="preserve">
+    <value>Я специалист</value>
+    <comment>Я специалист</comment>
+  </data>
+  <data name="iAmClient" xml:space="preserve">
+    <value>Я клиент</value>
+    <comment>iAmClient</comment>
+  </data>
+  <data name="orders" xml:space="preserve">
+    <value>заказы</value>
+    <comment>orders</comment>
+  </data>
+  <data name="myOrders" xml:space="preserve">
+    <value>Мои заказы</value>
+    <comment>myorders</comment>
+  </data>
+  <data name="profile" xml:space="preserve">
+    <value>Профиль</value>
+    <comment>profile</comment>
+  </data>
+  <data name="settings" xml:space="preserve">
+    <value>Настройки</value>
+    <comment>settings</comment>
+  </data>
 </root>

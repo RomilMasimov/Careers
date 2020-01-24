@@ -64,28 +64,19 @@
 
                                 <ul class="float_left">
                                     <li class="has-mega gc_main_navigation">
-                                        <a asp-controller="Home" asp-action="Index" class="gc_main_navigation">Home</a>
-                                    </li>
-
-                                    <li class="has-mega gc_main_navigation">
-                                        <a href="#" class="gc_main_navigation">Job</a>
+                                        <a asp-controller="Home" asp-action="Index" asp-area="" class="gc_main_navigation">@SharedLocalizer["home"]</a>
                                     </li>
 
                                     <li class="parent gc_main_navigation">
-                                        <a asp-controller="Specialist" asp-action="ListOfSpecialists" class="gc_main_navigation">candidates</a>
+                                        <a asp-controller="Specialist" asp-action="ListOfSpecialists" asp-area="" class="gc_main_navigation">@SharedLocalizer["specialists"]</a>
                                     </li>
 
                                     <li class="has-mega gc_main_navigation">
-                                        <a href="#" class="gc_main_navigation">Pages</a>
-                                    </li>
-
-                                    <li class="has-mega gc_main_navigation">
-                                        <a href="#" class="gc_main_navigation">Blog</a>
+                                        <a asp-area="" asp-controller="Home" asp-action="Contact" class="gc_main_navigation">@SharedLocalizer["contact"]</a>
                                     </li>
 
                                     <li class="gc_main_navigation parent">
-                                        <a href="contact.html"
-                                           class="gc_main_navigation">Contact</a>
+                                        <a  asp-area="" asp-controller="Home" asp-action="About" class="gc_main_navigation">@SharedLocalizer["about"]</a>
                                     </li>
 
                                     <li>
@@ -96,118 +87,122 @@
                             </div>
                             <!-- mainmenu end -->
                             <!-- mobile menu area start -->
-                            <header class="mobail_menu">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-xs-6 col-sm-6">
-                                            <div class="gc_logo">
-                                                <a href="index.html">
-                                                    <img src="~/images/header/logo.png" alt="Logo"
-                                                         title="Grace Church">
-                                                </a>
+                            <div>
+                                @*
+                                <header class="mobail_menu">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-xs-6 col-sm-6">
+                                                <div class="gc_logo">
+                                                    <a href="index.html">
+                                                        <img src="~/images/header/logo.png" alt="Logo"
+                                                             title="Grace Church">
+                                                    </a>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-xs-6 col-sm-6">
-                                            <div class="cd-dropdown-wrapper">
-                                                <a class="house_toggle" href="#0">
-                                                    <i class="fas fa-bars" style="font-size: 35px"></i>
-                                                </a>
-                                                <nav class="cd-dropdown">
-                                                    <h2><a href="#">Job<span>Pro</span></a></h2>
-                                                    <a href="#0" class="cd-close">Close</a>
-                                                    <ul class="cd-dropdown-content">
+                                            <div class="col-xs-6 col-sm-6">
+                                                <div class="cd-dropdown-wrapper">
+                                                    <a class="house_toggle" href="#0">
+                                                        <i class="fas fa-bars" style="font-size: 35px"></i>
+                                                    </a>
+                                                    <nav class="cd-dropdown">
+                                                        <h2><a href="#">Job<span>Pro</span></a></h2>
+                                                        <a href="#0" class="cd-close">Close</a>
+                                                        <ul class="cd-dropdown-content">
 
-                                                        <li class="">
-                                                            <a href="#">Home</a>
-                                                        </li>
-
-                                                        <li class="">
-                                                            <a href="#">Listing</a>
-                                                        </li>
-
-                                                        <li class="">
-                                                            <a href="#">candidates</a>
-                                                        </li>
-
-                                                        <li class="has-children">
-                                                            <a href="#">Pages</a>
-
-                                                            <ul class="cd-secondary-dropdown is-hidden">
-                                                                <li class="go-back"><a href="#0">Menu</a></li>
-                                                                <li><a href="about.html">About-Us</a></li>
-                                                                <li><a href="404_error.html">404</a></li>
-                                                                <li><a href="add_postin.html">Add-Posting</a></li>
-                                                                <li><a href="login.html">Login</a></li>
-                                                                <li><a href="register.html">Register</a></li>
-                                                                <li><a href="pricing.html">Pricing</a></li>
-                                                                <!-- .has-children -->
-
-                                                            </ul>
-                                                            <!-- .cd-secondary-dropdown -->
-                                                        </li>
-                                                        <!-- .has-children -->
-                                                        <li class="has-children">
-                                                            <a href="#">Blog</a>
-
-                                                            <ul class="cd-secondary-dropdown is-hidden">
-                                                                <li class="go-back"><a href="#0">Menu</a></li>
-                                                                <li>
-                                                                    <a href="blog_left.html">Blog-Left</a>
-                                                                </li>
-                                                                <!-- .has-children -->
-
-                                                                <li>
-                                                                    <a href="blog_right.html">Blog-Right</a>
-                                                                </li>
-                                                                <!-- .has-children -->
-
-                                                                <li>
-                                                                    <a href="blog_single_left.html">Blog-Single-Left</a>
-                                                                </li>
-                                                                <!-- .has-children -->
-
-                                                                <li>
-                                                                    <a href="blog_single_right.html">Blog-Single-Left</a>
-                                                                </li>
-                                                                <!-- .has-children -->
-
-                                                            </ul>
-                                                            <!-- .cd-secondary-dropdown -->
-                                                        </li>
-                                                        <!-- .has-children -->
-                                                        <li>
-                                                            <a href="contact.html">Contact</a>
-                                                        </li>
-                                                        @if (User.Identity.IsAuthenticated)
-                                                        {
-                                                            <li>@User.Identity.Name</li>
-                                                        }
-                                                        else
-                                                        {
-                                                            <li>
-                                                                <a asp-controller="Auth" asp-action="SignUp"><i class="fa fa-user"></i>&nbsp; SIGN UP</a>
+                                                            <li class="">
+                                                                <a href="#">Home</a>
                                                             </li>
-                                                            <li>
-                                                                <a asp-controller="Auth" asp-action="LogIn"><i class="fa fa-user"></i>&nbsp; LOGIN</a>
+
+                                                            <li class="">
+                                                                <a href="#">Listing</a>
                                                             </li>
-                                                        }
+
+                                                            <li class="">
+                                                                <a href="#">candidates</a>
+                                                            </li>
+
+                                                            <li class="has-children">
+                                                                <a href="#">Pages</a>
+
+                                                                <ul class="cd-secondary-dropdown is-hidden">
+                                                                    <li class="go-back"><a href="#0">Menu</a></li>
+                                                                    <li><a href="about.html">About-Us</a></li>
+                                                                    <li><a href="404_error.html">404</a></li>
+                                                                    <li><a href="add_postin.html">Add-Posting</a></li>
+                                                                    <li><a href="login.html">Login</a></li>
+                                                                    <li><a href="register.html">Register</a></li>
+                                                                    <li><a href="pricing.html">Pricing</a></li>
+                                                                    <!-- .has-children -->
+
+                                                                </ul>
+                                                                <!-- .cd-secondary-dropdown -->
+                                                            </li>
+                                                            <!-- .has-children -->
+                                                            <li class="has-children">
+                                                                <a href="#">Blog</a>
+
+                                                                <ul class="cd-secondary-dropdown is-hidden">
+                                                                    <li class="go-back"><a href="#0">Menu</a></li>
+                                                                    <li>
+                                                                        <a href="blog_left.html">Blog-Left</a>
+                                                                    </li>
+                                                                    <!-- .has-children -->
+
+                                                                    <li>
+                                                                        <a href="blog_right.html">Blog-Right</a>
+                                                                    </li>
+                                                                    <!-- .has-children -->
+
+                                                                    <li>
+                                                                        <a href="blog_single_left.html">Blog-Single-Left</a>
+                                                                    </li>
+                                                                    <!-- .has-children -->
+
+                                                                    <li>
+                                                                        <a href="blog_single_right.html">Blog-Single-Left</a>
+                                                                    </li>
+                                                                    <!-- .has-children -->
+
+                                                                </ul>
+                                                                <!-- .cd-secondary-dropdown -->
+                                                            </li>
+                                                            <!-- .has-children -->
+                                                            <li>
+                                                                <a href="contact.html">Contact</a>
+                                                            </li>
+                                                            @if (User.Identity.IsAuthenticated)
+                                                            {
+                                                                <li>@User.Identity.Name</li>
+                                                            }
+                                                            else
+                                                            {
+                                                                <li>
+                                                                    <a asp-controller="Auth" asp-action="SignUp"><i class="fa fa-user"></i>&nbsp; SIGN UP</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a asp-controller="Auth" asp-action="LogIn"><i class="fa fa-user"></i>&nbsp; LOGIN</a>
+                                                                </li>
+                                                            }
 
 
-                                                    </ul>
-                                                    <!-- .cd-dropdown-content -->
+                                                        </ul>
+                                                        <!-- .cd-dropdown-content -->
 
 
 
-                                                </nav>
-                                                <!-- .cd-dropdown -->
+                                                    </nav>
+                                                    <!-- .cd-dropdown -->
 
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- .cd-dropdown-wrapper -->
-                            </header>
-                        </div>
+                                    <!-- .cd-dropdown-wrapper -->
+                                </header>
+                                *@
+                            </div>
+                            </div>
                     </div>
                     <!-- mobile menu area end -->
                     <div class="col-md-4 col-sm-12 col-xs-12 hidden-sm hidden-xs">
@@ -224,15 +219,15 @@
                                             <ul class="cd-secondary-dropdown is-hidden">
                                                 @if (User.IsInRole("client"))
                                                 {
-                                                    <li class="parent"><a asp-controller="Client" asp-action="Index">Profile</a></li>
-                                                    <li class="parent"><a asp-controller="Order" asp-action="Index">Orders</a></li>
+                                                    <li class="parent"><a asp-controller="Client" asp-action="Index">@SharedLocalizer["profile"]</a></li>
+                                                    <li class="parent"><a asp-controller="Order" asp-action="Index">@SharedLocalizer["orders"]</a></li>
                                                 }
                                                 else if (User.IsInRole("specialist"))
                                                 {
-                                                    <li class="parent"><a asp-area="SpecialistArea" asp-controller="Order" asp-action="Index">Orders</a></li>
-                                                    <li class="parent"><a asp-area="SpecialistArea" asp-controller="Order" asp-action="MyOrders">My orders</a></li>
-                                                    <li class="parent"><a asp-area="SpecialistArea" asp-controller="Profile" asp-action="Index">Profile</a></li>
-                                                    <li class="parent"><a asp-area="SpecialistArea" asp-controller="Settings" asp-action="Index">Settings</a></li>
+                                                    <li class="parent"><a asp-area="SpecialistArea" asp-controller="Order" asp-action="Index">@SharedLocalizer["orders"]</a></li>
+                                                    <li class="parent"><a asp-area="SpecialistArea" asp-controller="Order" asp-action="MyOrders">@SharedLocalizer["myOrders"]</a></li>
+                                                    <li class="parent"><a asp-area="SpecialistArea" asp-controller="Profile" asp-action="Index">@SharedLocalizer["profile"]</a></li>
+                                                    <li class="parent"><a asp-area="SpecialistArea" asp-controller="Settings" asp-action="Index">@SharedLocalizer["settings"]</a></li>
                                                 }
                                                 <li class="parent"><a asp-area="" asp-controller="Auth" asp-action="SignOut">Sign out</a></li>
                                             </ul>
@@ -252,10 +247,10 @@
                                 <ul>
 
                                     <li>
-                                        <a asp-controller="Auth" asp-action="SignUp"><i class="fa fa-user"></i>&nbsp; SIGN UP</a>
+                                        <a asp-controller="Auth" asp-action="SignUp" asp-area=""><i class="fa fa-user"></i>&nbsp; SIGN UP</a>
                                     </li>
                                     <li>
-                                        <a asp-controller="Auth" asp-action="LogIn"><i class="fa fa-sign-in"></i>&nbsp; LOGIN</a>
+                                        <a asp-controller="Auth" asp-action="LogIn" asp-area=""><i class="fa fa-sign-in"></i>&nbsp; LOGIN</a>
                                     </li>
                                 </ul>
 

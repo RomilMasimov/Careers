@@ -45,6 +45,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
             var model = orders.Select(m => new OrderViewModel
             {
                 Id = m.Id,
+                IsEnoughMoneyOnBalance = specialist.Balance > 1,
                 State = m.State,
                 Created = m.Created,
                 ServiceDescription = isRu ? m.Service.DescriptionRU : m.Service.DescriptionAZ,
@@ -55,15 +56,11 @@ namespace Careers.Areas.SpecialistArea.Controllers
             return View(model);
         }
 
-        public IActionResult ByFilters(object filters) // Add a ViewModel
-        {
-            return View();
-        }
 
         public async Task<IActionResult> Order(int id)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
+            var specialist = await _specialistService.FindAsync(userId);
             var myOrder = await _specialistService.HaveIThisOrder(userId, id);
             var order = await _orderService.FindDetailedAsync(id);
 
@@ -78,7 +75,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
                     returnAction = "Index"
                 });
 
-            var model = new OrderDetailsViewModel(order, myOrder);
+            var model = new OrderDetailsViewModel(order, myOrder, specialist.Balance >= 1);
             return View(model);
         }
 

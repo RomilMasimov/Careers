@@ -42,9 +42,19 @@ namespace Careers.Areas.SpecialistArea.Controllers
 
         public async Task<ActionResult> CreateResponse(int orderId)
         {
-            var order = await _orderService.FindAsync(orderId);
+
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var myOrder = await _specialistService.HaveIThisOrder(userId, orderId);
+            if (myOrder) return RedirectToAction("MyOrders", "Order", new { area = "SpecialistArea" });
+
+            var order = await _orderService.FindAsync(orderId);
             var specialist = await _specialistService.FindAsync(userId);
+
+            if (specialist.Balance > 1)
+            {
+                specialist.Balance -= 1;
+                await _specialistService.UpdateAsync(specialist);
+            }
 
             var dialog = new UserSpecialistMessage
             {
@@ -66,8 +76,8 @@ namespace Careers.Areas.SpecialistArea.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var specialist = await _specialistService.FindAsync(userId);
-            var orders = await _orderService.FindAllBySpecialistAsync(specialist.Id);
-            if(orders != null)
+            var orders = await _orderService.FindAllResponsesAsync(specialist.Id);
+            if (orders != null)
             {
                 var isRu = CultureInfo.CurrentCulture.Name == "ru-RU";
                 var viewModels = orders.Select(m => new OrderViewModel
