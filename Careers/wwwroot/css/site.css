@@ -374,3 +374,9 @@ h1.no-orders {
 li.keyword {
     color: white;
 }
+textarea.message-text {
+    width: 100%;
+    background: transparent;
+    border: 0;
+    height: 100%
+}
