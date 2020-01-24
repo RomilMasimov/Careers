@@ -340,18 +340,13 @@ a.disabled {
 }
 
 div.image-container {
-    height: 120px;
-    margin-bottom: 10px;
-    /*padding-top: .25rem;*/
-    position: absolute;
-    bottom: 50px;
-    left: 14px;
+    height: 145px;
     right: 30px;
     overflow-y: auto;
     display: none;
-    /*box-shadow: 0 -3px 4px rgba(0,0,0,.1);*/
-    padding: 0px 25px 0px 25px;
-    background-color: white;
+    padding: 0px 25px 25px 25px;
+    margin: 0;
+    margin-bottom: 10px;
 }
 
 /*.image-container img {
@@ -359,9 +354,14 @@ div.image-container {
     height: 100px;
     margin: 2px;
 }*/
-
-.service-name a:hover {
+    .service-name a:hover {
     background-color: #23C0E9;
     color: white;
     transition: 300ms;
+}
+.conversation-write-wrap .fa-location-arrow {
+    font-size: 32px;
+}
+.conversation-write-wrap .fa-file-image-o {
+    font-size: 23px;
 }

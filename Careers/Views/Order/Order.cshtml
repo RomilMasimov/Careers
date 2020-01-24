@@ -172,13 +172,11 @@
                 </div>
             </div>
 
-            <div id="chatContainer" style="display: none;" class="message-box">
-
+            <div id="chatContainer" style="position: relative" class="message-box">
                 <div id="messages">
 
                 </div>
 
-                <div class="image-container row py-2"></div>
                 <div class="conversation-write-wrap">
                     <form>
                         <textarea id="text" placeholder="Type a message"></textarea>
@@ -224,7 +222,6 @@
             e.preventDefault();
             $('#orderContainer').show();
             $('#chatContainer').hide();
-
         });
 
         $('#chats').on('click', '[data-chatId]', async function(e) {
@@ -279,9 +276,11 @@
         };
 
         // Обработчик нажатия на кнопку удаления картинки
-        $(".image-container").on("click", "[data-delete]", function () {
+        $("#messages").on("click", "[data-delete]", function () {
             $(this).offsetParent().remove();
+            console.log('delete image');
             if($(".image-container").children().length == 0) {
+                $(".dashboard-conversation").height("49%");
                 $(".image-container").hide();
             }
         });
@@ -293,6 +292,7 @@
                 if (fileName.length > 1) {
                     upload($("input:file")[0].files[0]);
                     $(".image-container").show();
+                    $(".dashboard-conversation").height("calc(100% - 145px)");
                 }
             });
         });
@@ -376,6 +376,7 @@
                 $(".image-container")[0].innerHTML = '';
                 $(".image-container").hide();
                 $("#text").val('');
+                $(".dashboard-conversation").height("49%");
                 $('.dashboard-conversation').append(html);
                 let conversation = $(".dashboard-conversation");
                 conversation.scrollTop(conversation[0].scrollHeight - conversation[0].clientHeight);
