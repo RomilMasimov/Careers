@@ -278,11 +278,11 @@ a.disabled {
     height: 34px;
 }
 
-.switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
 
 .slider {
     position: absolute;
@@ -296,17 +296,17 @@ a.disabled {
     transition: .4s;
 }
 
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
-}
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
 
 input:checked + .slider {
     background-color: #2196F3;
@@ -326,9 +326,9 @@ input:checked + .slider:before {
     border-radius: 34px;
 }
 
-.slider.round:before {
-    border-radius: 50%;
-}
+    .slider.round:before {
+        border-radius: 50%;
+    }
 
 .jp_job_des_large_font_size {
     font-size: 24px;
@@ -366,7 +366,11 @@ div.image-container {
     transition: 300ms;
 }
 
-.no-orders h1 {
+h1.no-orders {
     width: 100%;
     text-align: center;
+}
+
+li.keyword {
+    color: white;
 }
