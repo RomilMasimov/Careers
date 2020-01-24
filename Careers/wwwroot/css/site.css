@@ -377,6 +377,16 @@ li.keyword {
     padding: 0;
     color: white;
 }
+.conversation pre {
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+.conversation.in pre {
+    color: white;
+}
+.conversation.out pre {
+    color: black;
+}
 .conversation-write-wrap .fa-location-arrow {
     font-size: 23px;
 }
