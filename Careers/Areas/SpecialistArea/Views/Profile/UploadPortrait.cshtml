@@ -48,7 +48,7 @@
             @if (!string.IsNullOrWhiteSpace(Model) && Model != "N/A")
             {
                 <div class="w-100">
-                    <img class="img-fluid img-rounded my-2" width="250" height="200" src="~/@Model" />
+                    <img class="img-fluid img-rounded my-2" width="250" height="200" src="@Model" />
                     <form asp-area="SpecialistArea" asp-controller="Profile" asp-action="DeletePortrait" method="post" class="mt-1">
                         <button class="jp_btn_default" width="250">Delete</button>
                     </form>

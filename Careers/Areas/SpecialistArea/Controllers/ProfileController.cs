@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using NUglify.Helpers;
 
 namespace Careers.Areas.SpecialistArea.Controllers
 {
@@ -79,6 +80,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var specialist = await _specialistService.FindAsync(userId);
             var result = await _specialistService.DeleteImage(specialist.Id);
+            Response.Cookies.Append("profileImage", "");
             if (!result) TempData["Status"] = "Portrait did not delete";
             else TempData["Status"] = "Portrait delete successfully";
             return View("UploadPortrait");
@@ -646,9 +648,9 @@ namespace Careers.Areas.SpecialistArea.Controllers
 
         private string setImageUrl(Specialist specialist)
         {
-            string path = specialist.ImageUrl;
-            if (string.IsNullOrWhiteSpace(specialist.ImageUrl))
-                path = "N/A";
+            var path = specialist.ImageUrl;
+            if (string.IsNullOrWhiteSpace(specialist.ImageUrl)) path = "N/A";
+            Response.Cookies.Append("profileImage", path ?? "");
             ViewData["ImageUrl"] = path;
             return path;
         }

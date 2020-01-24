@@ -54,7 +54,7 @@
                                 <div class="col-xl-3 col-lg-4 col-sm-6 col-12 p-1">
                                     <a asp-area="SpecialistArea" asp-controller="Profile" asp-action="EditWork" asp-route-id="@work.Id">
                                         <p>@work.Description</p>
-                                        <img style="max-width: 20vw;" class="img-rounded w-100" src="~/@work.ImagePath" alt="" />
+                                        <img style="max-width: 20vw;" class="img-rounded w-100" src="@work.ImagePath" alt="" />
                                     </a>
                                 </div>
                             }
