@@ -365,3 +365,18 @@ div.image-container {
     color: white;
     transition: 300ms;
 }
+
+h1.no-orders {
+    width: 100%;
+    text-align: center;
+}
+
+li.keyword {
+    color: white;
+}
+textarea.message-text {
+    width: 100%;
+    background: transparent;
+    border: 0;
+    height: 300px;
+}
