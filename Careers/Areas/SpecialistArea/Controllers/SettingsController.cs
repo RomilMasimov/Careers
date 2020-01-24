@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Threading.Tasks;
 using Careers.Areas.SpecialistArea.ViewModels;
 using Careers.Models;
@@ -29,7 +26,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
         public async Task<IActionResult> Index()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var specialist = await _specialistService.FindAsync(userId);
+            var specialist = await _specialistService.FindWithUserAsync(userId);
             setImageUrl(specialist);
             return View(specialist);
         }
@@ -56,7 +53,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
         public async Task<IActionResult> EditContacts()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var specialist = await _specialistService.FindAsync(userId,true);
+            var specialist = await _specialistService.FindAsync(userId, true);
 
             var model = new ContactsViewModel()
             {
@@ -76,7 +73,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
         public async Task<IActionResult> EditContacts(ContactsViewModel model)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var specialist = await _specialistService.FindAsync(userId,true);
+            var specialist = await _specialistService.FindAsync(userId, true);
             if (ModelState.IsValid)
             {
                 specialist.Name = model.Name;

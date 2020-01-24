@@ -14,7 +14,7 @@ namespace Careers.Services
         {
             var mail = new MailMessage { Subject = subject, Body = message ,IsBodyHtml = true};
             mail.To.Add(email);
-            mail.From = new MailAddress("sayrus719.noreply@gmail.com","I AM YOUR DADDY");
+            mail.From = new MailAddress("sayrus719.noreply@gmail.com","Careers.com");
 
             var smtpServer = new SmtpClient("smtp.gmail.com", 587)
             {

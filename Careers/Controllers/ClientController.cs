@@ -46,7 +46,6 @@ namespace Careers.Controllers
             input.Messages = new List<string>();
             if (input.OldPhoneNumber != input.PhoneNumber)
             {
-                
                 var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, input.PhoneNumber);
 
                 var callbackUrl = Url.Action(
@@ -108,8 +107,10 @@ namespace Careers.Controllers
 
             var client = await _clientService.FindAsync(user.Id);
             await _clientService.UpdateAsync(input.GetClient(client));
-
+            input.ImageUrl = client.ImageUrl ?? "";
+            Response.Cookies.Append("profileImage", input.ImageUrl ?? "");
             input.Messages.Add("Changes saved");
+
             return View(input);
         }
 

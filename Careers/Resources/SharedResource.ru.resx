@@ -205,4 +205,20 @@
     <value>Я клиент</value>
     <comment>iAmClient</comment>
   </data>
+  <data name="orders" xml:space="preserve">
+    <value>заказы</value>
+    <comment>orders</comment>
+  </data>
+  <data name="myOrders" xml:space="preserve">
+    <value>Мои заказы</value>
+    <comment>myorders</comment>
+  </data>
+  <data name="profile" xml:space="preserve">
+    <value>Профиль</value>
+    <comment>profile</comment>
+  </data>
+  <data name="settings" xml:space="preserve">
+    <value>Настройки</value>
+    <comment>settings</comment>
+  </data>
 </root>

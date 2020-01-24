@@ -72,39 +72,38 @@
 
             <div style="height: 75vh;">
 
-                <ul class="dashboard-conversation" style="height: 100%;  overflow-y: scroll;">
+                @foreach (var message in Model.Dialog.Messages)
+                {
+                    <partial name="_MessagePartial" model="message"/>
+                    @*<li class="conversation @(Model.UserId==message.Author? "in" : "out")">
+                        <div class="avater">
+                            <img src="@(message.Author==spec.AppUserId? spec.ImageUrl:client.ImageUrl)"
+                                 error-src="" class="img-fluid" alt="">
+                        </div>
+                        <div class="message">
+                            <span>@message.Text</span>
 
-                    @foreach (var message in Model.Dialog.Messages)
-                    {
-                        <li class="conversation @(Model.UserId==message.Author? "in" : "out")">
-                            <div class="avater">
-                                <img src="@(message.Author==spec.AppUserId? spec.ImageUrl:client.ImageUrl)"
-                                     error-src="" class="img-fluid" alt="">
+                            <div data-images class="row mt-1 px-2">
+                                @foreach (var path in message.ImagePaths)
+                                {
+                                    <div class="col-lg-3 col-md-4 col-sm-6 px-1 mb-2 review-sm-image">
+                                        <a href="@path">
+                                            <img src="@path" alt="image">
+                                        </a>
+                                    </div>
+                                }
                             </div>
-                            <div class="message">
-                                <span>@message.Text</span>
-
-                                <div data-images class="row mt-1 px-2">
-                                    @foreach (var path in message.ImagePaths)
-                                    {
-                                        <div class="col-lg-3 col-md-4 col-sm-6 px-1 mb-2 review-sm-image">
-                                            <a href="@path">
-                                                <img src="@path" alt="image">
-                                            </a>
-                                        </div>
-                                    }
-                                </div>
-                            </div>
-                            <span class="send-time">@message.DateTime.ToShortTimeString()</span>
-                        </li>
-                    }
+                        </div>
+                        <span class="send-time">@message.DateTime.ToShortTimeString()</span>
+                    </li>*@
+                }
 
                 </ul>
                 <div class="image-container row py-2" style="right: 15px"></div>
             </div>
             <div class="conversation-write-wrap">
                 <form>
-                    <textarea id="text" placeholder="Type a message"></textarea>
+                    <textarea onkeyup="textAreaAdjust(this)" style="overflow:hidden" id="text" placeholder="Type a message"></textarea>
                     <label class="send-image">
                         <input type="file"><i class="fa fa-file-image-o"></i>
                     </label>
@@ -222,8 +221,9 @@
             conversation.scrollTop(conversation[0].scrollHeight - conversation[0].clientHeight);
         });
 
-        //send message
-        $("#btnSendMessage").on("click",async function(e) {
+
+
+        async function sendMessage() {
             let Message = $("#text").val();
             let DialogId = parseInt( '@Model.Dialog.UserSpecialistMessage.Id');
             let ReceiverId = '@Model.Dialog.UserSpecialistMessage.Client.AppUserId';
@@ -275,7 +275,18 @@
             $('.dashboard-conversation').append(html);
             let conversation = $(".dashboard-conversation");
             conversation.scrollTop(conversation[0].scrollHeight - conversation[0].clientHeight);
+        }
+
+        //send message
+        $('#text').keydown(async function (e) {
+
+            if (e.ctrlKey && e.keyCode == 13) {
+
+               await sendMessage();
+            }
         });
+
+        $("#btnSendMessage").on("click",sendMessage);
 
         //start
         hubConnection.start().then(function() {

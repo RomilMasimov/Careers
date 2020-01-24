@@ -48,6 +48,7 @@ namespace Careers.Models
 
         public Specialist()
         {
+            ImageUrl = "";
             this.LanguageSpecialists = new List<LanguageSpecialist>();
             this.SpecialistWorks = new List<SpecialistWork>();
             this.Educations = new List<Education>();
