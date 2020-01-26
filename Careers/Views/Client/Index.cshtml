@@ -17,7 +17,7 @@
     <div class="row my-2 mt-5">
         <form method="post" asp-controller="Client" asp-action="Index" enctype="multipart/form-data">
             <div class="col-lg-4 order-lg-1 text-center">
-                <img src="@Model.ImageUrl" error-src="" class="mx-auto w-75 img-circle d-block" id="test" alt="avatar">
+                <img src="@Model.ImageUrl" error-src="" class="mx-auto w-75 img-circle d-block" id="image-id" alt="avatar">
                 <h6 id="file-name" class="mt-2">Upload a different photo</h6>
                 <label class="custom-file">
                     <input type="file" name="Image" id="Image" class="custom-file-input">
@@ -100,7 +100,7 @@
                 <div class="form-group row">
                     <label class="col-lg-3 col-form-label form-control-label" asp-for="OldPassword"></label>
                     <div class="col-lg-9">
-                        <input class="form-control cleaner"  asp-for="OldPassword" type="password" value="P@ssword123">
+                        <input class="form-control cleaner" asp-for="OldPassword" type="password" value="P@ssword123">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -132,7 +132,28 @@
     <partial name="_ValidationScriptsPartial" />
     <script>
 
+         function upload(file) {
+
+            let data = new FormData();
+            data.append('file', file);
+
+            fetch('@Url.Action("GetImage", "Order")',
+                {
+                    method: 'POST',
+                    body: data
+                }).then(
+                response => response.json() // if the response is a JSON object
+            ).then(
+                path => {
+                    $('#image-id').attr('src', path);
+                }
+            ).catch(
+                error => console.error(error)
+            );
+        };
+
         $("#Image").change(function () {
+            upload($("input:file")[0].files[0]);
             if (this.value.length > 55) {
                 document.getElementById("file-name").innerText = this.value.substr(this.value.length - 54);
             } else {

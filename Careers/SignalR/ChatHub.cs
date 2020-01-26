@@ -13,11 +13,11 @@ using NUglify.Helpers;
 namespace Careers.SignalR
 {
     [Authorize]
-    public class MyHub : Hub
+    public class ChatHub : Hub
     {
         private readonly IMessageService _messageService;
 
-        public MyHub(IMessageService messageService)
+        public ChatHub(IMessageService messageService)
         {
             this._messageService = messageService;
         }

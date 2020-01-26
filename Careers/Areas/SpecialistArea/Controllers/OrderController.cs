@@ -116,11 +116,18 @@ namespace Careers.Areas.SpecialistArea.Controllers
             return Json(imagePath);
         }
 
-        public IActionResult RenderMessage(Message msg,string images)
+        public IActionResult RenderMessage(Message msg, string images)
         {
-            if(images!=null) msg.ImagePaths = JsonSerializer.Deserialize<List<string>>(images);
-            if (msg.Text.IsNullOrWhiteSpace() && !msg.ImagePaths.Any() ) return Content("");
+            if (images != null) msg.ImagePaths = JsonSerializer.Deserialize<List<string>>(images);
+            if (msg.Text.IsNullOrWhiteSpace() && !msg.ImagePaths.Any()) return Content("");
             return PartialView("_MessagePartial", msg);
+        }
+
+        public async Task<IActionResult> CheckNewOrderAsync(int id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var answer = await _specialistService.IsOrderForMeAsync(id, userId);
+            return Json(answer);
         }
 
     }

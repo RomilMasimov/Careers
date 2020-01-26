@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Careers.Models;
 using Careers.Services;
 using Careers.Services.Interfaces;
+using Careers.SignalR;
 using Careers.ViewModels.Home;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace Careers.Controllers
 {
@@ -42,6 +45,8 @@ namespace Careers.Controllers
             //_initializer.Services();
             //_initializer.QuestionAndAnswers();
             //await _initializer.ClientsAndSpecialistsAsync();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
 
             var reviews = await _reviewService.GetBestLastReviewsAsync(5);
 

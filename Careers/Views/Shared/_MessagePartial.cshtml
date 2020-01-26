@@ -4,10 +4,12 @@
 
 <li class="conversation @(Model.Author== @User.FindFirstValue(ClaimTypes.NameIdentifier)?"in":"out")">
     <div class="avater">
-        <img src="@Model.AuthorImagePath" error-src="" class="img-fluid" alt="">
+        <img src="@(Model.AuthorImagePath ?? "")" error-src="" class="img-fluid" alt="">
     </div>
     <div class="message">
-        <textarea  class="message-text">@Model.Text</textarea>
+<pre class="message-text">
+@Model.Text
+</pre>
 
         <div class="row mt-1 px-2">
             @foreach (var path in Model.ImagePaths)

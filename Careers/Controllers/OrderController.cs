@@ -10,11 +10,13 @@ using Careers.Models;
 using Careers.Models.Enums;
 using Careers.Models.Extra;
 using Careers.Services.Interfaces;
+using Careers.SignalR;
 using Careers.ViewModels.Order;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.SignalR;
 using NUglify.Helpers;
 
 namespace Careers.Controllers
@@ -29,13 +31,21 @@ namespace Careers.Controllers
         private readonly IAnswerService _answerService;
         private readonly IReviewService _reviewService;
         private readonly IMessageService _messageService;
+        private readonly IHubContext<NotificationHub> _hubContext;
 
-        public OrderController(IOrderService orderService, IQuestionService questionService, IMessageService messageService,
-            IClientService clientService, ICategoryService categoryService, IAnswerService answerService, IReviewService reviewService)
+        public OrderController(IOrderService orderService,
+            IQuestionService questionService,
+            IMessageService messageService,
+            IHubContext<NotificationHub> hubContext,
+            IClientService clientService,
+            ICategoryService categoryService,
+            IAnswerService answerService,
+            IReviewService reviewService)
         {
             _orderService = orderService;
             _questionService = questionService;
             _messageService = messageService;
+            _hubContext = hubContext;
             _clientService = clientService;
             _categoryService = categoryService;
             _answerService = answerService;
@@ -150,6 +160,8 @@ namespace Careers.Controllers
                 await _answerService.AddAnswersToOrders(model.AnswerIds.Select(int.Parse).ToArray(), order.Id);
             }
 
+            await _hubContext.Clients.All.SendAsync("NewOrder", order.Id);
+
             return Json(order.Id);
         }
 
@@ -241,6 +253,7 @@ namespace Careers.Controllers
             }
 
             await _orderService.UpdateAsync(order);
+            await _hubContext.Clients.All.SendAsync("NewOrder", order.Id);
 
             return Json(order.Id);
         }
