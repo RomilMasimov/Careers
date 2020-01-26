@@ -176,10 +176,7 @@
                 <div id="messages">
 
                 </div>
-
-                <partial name="_SendFormPartial" />
             </div>
-
         </div>
     </div>
 </div>
@@ -196,6 +193,10 @@
             .withUrl("/hubs/chat")
             .withAutomaticReconnect().build();
         hubConnection.serverTimeoutInMilliseconds = 100000;
+
+        hubConnection.start().then(function() {
+                console.log("connected");
+            });
 
         $('#isActive').change(async function() {
             let input = $(this);
@@ -216,32 +217,31 @@
             $('#chatContainer').hide();
         });
 
-        $('#chats').on('click', '[data-chatId]', async function(e) {
+        $('#chats').on('click', '[data-chatId]', async function (e) {
             e.preventDefault();
             let chatId = $(this).data('chatid');
             let specId = $(this).data('spec-id');
 
-                let html = await (await fetch(`@Url.Action("GetConversation")/${chatId}`)).text();
-                if (html == 'NotFound') {
-                    e.preventDefault();
-                    $('#orderContainer').show();
-                    $('#chatContainer').hide();
-                } else {
-                    $('#messages').data('spec-id', specId);
-                    $('#messages').data('chat-id', chatId);
-                    $('#messages').html('');
-                    $('#messages').prepend(html);
-                    $('#orderContainer').hide();
-                    $('#chatContainer').show();
+            let html = await (await fetch(`@Url.Action("GetConversation")/${chatId}`)).text();
+            if (html == 'NotFound') {
+                e.preventDefault();
+                $('#orderContainer').show();
+                $('#chatContainer').hide();
+            } else {
+                $('#messages').data('spec-id', specId);
+                $('#messages').data('chat-id', chatId);
+                $('#messages').html('');
+                $('#messages').prepend(html);
+                $('#orderContainer').hide();
+                $('#chatContainer').show();
 
-                    // Scroll conversation to bottom
-                    let conversation = $(".dashboard-conversation");
-                    conversation.scrollTop(conversation[0].scrollHeight - conversation[0].clientHeight);
-                }
-            });
+                // Scroll conversation to bottom
+                let conversation = $(".dashboard-conversation");
+                conversation.scrollTop(conversation[0].scrollHeight - conversation[0].clientHeight);
+            }
 
-        //upload image in sending message
-        function upload(file) {
+            //upload image in sending message
+            function upload(file) {
 
             let data = new FormData();
             data.append('file', file);
@@ -267,92 +267,41 @@
             );
         };
 
-        // Обработчик нажатия на кнопку удаления картинки
-        $("#messages").on("click", "[data-delete]", function () {
-            $(this).offsetParent().remove();
-            console.log('delete image');
-            if($(".image-container").children().length == 0) {
-                $(".dashboard-conversation").height("49%");
-                $(".image-container").hide();
-            }
-        });
-
-        //file selected
-        $(function() {
-            $("input:file").change(function() {
-                let fileName = $(this).val();
-                if (fileName.length > 1) {
-                    upload($("input:file")[0].files[0]);
-                    $(".image-container").show();
-                    $(".dashboard-conversation").height("calc(100% - 145px)");
+            // Обработчик нажатия на кнопку удаления картинки
+            $("#messages").on("click", "[data-delete]", function () {
+                $(this).offsetParent().remove();
+                console.log('delete image');
+                if($(".image-container").children().length == 0) {
+                    $(".dashboard-conversation").height("49%");
+                    $(".image-container").hide();
                 }
             });
-        });
 
-        //Receive message
-        hubConnection.on("ReceiveMessage",async function (msg) {
-
-            let data = new FormData();
-            data.append('IsRead', msg.isRead);
-            data.append('Author', msg.author);
-            data.append('AuthorImagePath', msg.authorImagePath);
-            data.append('Text', msg.text);
-            data.append('DateTime', msg.dateTime);
-            data.append('images',JSON.stringify( msg.imagePaths));
-
-            let html = '';
-
-            await fetch('@Url.Action("RenderMessage", "Order")',
-                {
-                    method: 'POST',
-                    body: data
-                }).then(
-                async  response => {
-                    let htmlResponse = await response.text();
-                    html = htmlResponse;
-                }).catch(
-                error => console.error(error)
-                );
-
-            $('.dashboard-conversation').append(html);
-            let conversation = $(".dashboard-conversation");
-            conversation.scrollTop(conversation[0].scrollHeight - conversation[0].clientHeight);
-        });
-
-
-
-        async function sendMessage() {
-                let Message = $("#text").val();
-                let DialogId = $('#messages').data('chat-id');
-                let ReceiverId = $('#messages').data('spec-id');
-                let ImgPaths = [];
-                let AuthorImageUrl = '@Model.AuthorImageUrl';
-                let Author = '@User.FindFirstValue(ClaimTypes.NameIdentifier)';
-
-
-                $(".image-container img").each(  function() {
-                    let part1 = '/images/';
-                    let part2 = this.src.split("/images/")[1];
-                    ImgPaths.push(part1 + part2);
+            //file selected
+            $(function() {
+                $("input:file").change(function() {
+                    let fileName = $(this).val();
+                    if (fileName.length > 1) {
+                        upload($("input:file")[0].files[0]);
+                        $(".image-container").show();
+                        $(".dashboard-conversation").height("calc(100% - 145px)");
+                    }
                 });
+            });
 
-                let message = {
-                    Message,
-                    DialogId,
-                    ReceiverId,
-                    ImgPaths,
-                    AuthorImageUrl
-                };
-
-                hubConnection.invoke("Send", message);
+            //Receive message
+            hubConnection.on("ReceiveMessage",async function (msg) {
 
                 let data = new FormData();
-                data.append('AuthorImagePath', AuthorImageUrl);
-                data.append('Text', Message);
-                data.append('images', JSON.stringify(ImgPaths));
-                data.append('Author',Author);
+                data.append('IsRead', msg.isRead);
+                data.append('Author', msg.author);
+                data.append('AuthorImagePath', msg.authorImagePath);
+                data.append('Text', msg.text);
+                data.append('DateTime', msg.dateTime);
+                data.append('images',JSON.stringify( msg.imagePaths));
 
                 let html = '';
+
                 await fetch('@Url.Action("RenderMessage", "Order")',
                     {
                         method: 'POST',
@@ -363,34 +312,81 @@
                         html = htmlResponse;
                     }).catch(
                     error => console.error(error)
-                );
+                    );
 
-                $(".image-container")[0].innerHTML = '';
-                $(".image-container").hide();
-                $("#text").val('');
-                $(".dashboard-conversation").height("49%");
                 $('.dashboard-conversation').append(html);
                 let conversation = $(".dashboard-conversation");
                 conversation.scrollTop(conversation[0].scrollHeight - conversation[0].clientHeight);
-        }
+            });
 
 
-        //send message
 
-        $('#text').keydown(async function (e) {
+            async function sendMessage() {
+                    let Message = $("#text").val();
+                    let DialogId = $('#messages').data('chat-id');
+                    let ReceiverId = $('#messages').data('spec-id');
+                    let ImgPaths = [];
+                    let AuthorImageUrl = '@Model.AuthorImageUrl';
+                    let Author = '@User.FindFirstValue(ClaimTypes.NameIdentifier)';
 
-            if (e.ctrlKey && e.keyCode == 13) {
 
-                await sendMessage();
+                    $(".image-container img").each(  function() {
+                        let part1 = '/images/';
+                        let part2 = this.src.split("/images/")[1];
+                        ImgPaths.push(part1 + part2);
+                    });
+
+                    let message = {
+                        Message,
+                        DialogId,
+                        ReceiverId,
+                        ImgPaths,
+                        AuthorImageUrl
+                    };
+
+                    hubConnection.invoke("Send", message);
+
+                    let data = new FormData();
+                    data.append('AuthorImagePath', AuthorImageUrl);
+                    data.append('Text', Message);
+                    data.append('images', JSON.stringify(ImgPaths));
+                    data.append('Author',Author);
+
+                    let html = '';
+                    await fetch('@Url.Action("RenderMessage", "Order")',
+                        {
+                            method: 'POST',
+                            body: data
+                        }).then(
+                        async  response => {
+                            let htmlResponse = await response.text();
+                            html = htmlResponse;
+                        }).catch(
+                        error => console.error(error)
+                    );
+
+                    $(".image-container")[0].innerHTML = '';
+                    $(".image-container").hide();
+                    $("#text").val('');
+                    $(".dashboard-conversation").height("49%");
+                    $('.dashboard-conversation').append(html);
+                    let conversation = $(".dashboard-conversation");
+                    conversation.scrollTop(conversation[0].scrollHeight - conversation[0].clientHeight);
             }
+
+
+            //send message
+
+            $('#text').keydown(async function (e) {
+
+                if (e.ctrlKey && e.keyCode == 13) {
+
+                    await sendMessage();
+                }
+            });
+
+            $("#btnSendMessage").on("click",sendMessage);
         });
 
-        $("#btnSendMessage").on("click",sendMessage);
-
-
-        //start
-        hubConnection.start().then(function() {
-            console.log("connected");
-        });
     </script>
 }
