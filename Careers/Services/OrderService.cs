@@ -177,8 +177,8 @@ namespace Careers.Services
                                 .Include(m => m.WhereCanMeetList)
                                 .SingleOrDefaultAsync(m => m.AppUserId == specialistAppUserId);
 
-            var canMeetListIds = specialist.WhereCanMeetList.Select(y => y.WhereCanMeetId).ToList();
-            var canGoListIds = specialist.WhereCanGoList.Select(y => y.WhereCanGoId).ToList();
+            var pointids = new List<int>(specialist.WhereCanMeetList.Select(y => y.WhereCanMeetId));
+            pointids.AddRange(specialist.WhereCanGoList.Select(y => y.WhereCanGoId));
 
             var query = context.Orders
                 .Where(m => m.IsActive &&
@@ -188,20 +188,13 @@ namespace Careers.Services
 
             query = query.Where(x => !context.UserSpecialistMessages.Any(y => y.OrderId == x.Id));
 
-            if (canMeetListIds.Any())
-            {
-                query = query.Where(x => x.OrderMeetingPoints.Count == 0 ||
-                                         x.OrderMeetingPoints
-                                              .Any(o => canMeetListIds
-                                                  .Any(y => y == o.MeetingPointId)));
-            }
 
-            if (canGoListIds.Any())
+            if (pointids.Any())
             {
                 query = query.Where(x => x.OrderMeetingPoints.Count == 0 ||
                                          x.OrderMeetingPoints
-                                             .Any(o => canGoListIds
-                                                 .Any(y => y == o.MeetingPointId)));
+                                              .Any(o => pointids
+                                                  .Any(y => y == o.MeetingPointId)));
             }
 
             if (!specialist.SpecialistServices.Any()) return await query.ToListAsync();
@@ -285,32 +278,21 @@ namespace Careers.Services
                                 .Include(m => m.OrderMeetingPoints)
                                 .SingleOrDefaultAsync(m => m.Id == orderId);
 
-            var canMeetListIds = specialist.WhereCanMeetList.Select(y => y.WhereCanMeetId).ToList();
-            var canGoListIds = specialist.WhereCanGoList.Select(y => y.WhereCanGoId).ToList();
+            var pointids = new List<int>(specialist.WhereCanMeetList.Select(y => y.WhereCanMeetId));
+            pointids.AddRange(specialist.WhereCanGoList.Select(y => y.WhereCanGoId));
 
             if (!(order.IsActive &&
                   order.State != OrderStateTypeEnum.Canceled &&
                   order.State != OrderStateTypeEnum.Finished &&
                   order.State != OrderStateTypeEnum.InProcess)) return false;
 
-            var flag = false;
-            if (canMeetListIds.Any())
+            if (pointids.Any())
             {
-                if (order.OrderMeetingPoints.Count == 0 ||
-                    order.OrderMeetingPoints
-                         .Any(o => canMeetListIds
-                                    .Any(y => y == o.MeetingPointId))) flag = true;
+                if (!(order.OrderMeetingPoints.Count == 0 ||
+                        order.OrderMeetingPoints
+                             .Any(o => pointids
+                                .Any(y => y == o.MeetingPointId)))) return false;
             }
-
-            if (canGoListIds.Any() && !flag)
-            {
-                if (order.OrderMeetingPoints.Count == 0 ||
-                   order.OrderMeetingPoints
-                        .Any(o => canGoListIds
-                                   .Any(y => y == o.MeetingPointId))) flag = true;
-            }
-
-            if (!flag) return false;
 
             if (!specialist.SpecialistServices.Any()) return true;
 

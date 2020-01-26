@@ -2,6 +2,9 @@
 
 <div class="jp_adp_main_section_wrapper">
     <div class="container">
+        <div class="d-flex justify-content-center w-100">
+            <a id="newOrderBtn" asp-area="SpecialistArea" asp-controller="Order" asp-action="Index" class="jp_btn_default" style="display: none;">New orders</a>
+        </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="tab-content">
@@ -29,24 +32,30 @@
 
 <partial name="_EditBalanceModalPartial" />
 
-@section Scripts{
+@section Scripts
+{
+    <script src="~/lib/signalr/dist/signalr.min.js"></script>
     <script>
         let newOrderCounter = 0;
-        //button hide изначально
 
-      const hubConnection = new signalR.HubConnectionBuilder()
-            .withUrl("/hubs/notification")
+        const hubConnection = new signalR.HubConnectionBuilder()
+            .withUrl("/hubs/notifications")
             .withAutomaticReconnect().build();
         hubConnection.serverTimeoutInMilliseconds = 100000;
 
         hubConnection.on("NewOrder", async function (id) {
+            let response = await fetch('@Url.Action("CheckNewOrder","Order",new{area="SpecialistArea" })/' + id);
+            let result = await response.json();
 
-            let result = await fetch('@Url.Action("CheckNewOrder","Order",new{area="SpecialistArea" })/' + id);
-
-            Console.log(result);
             if (result == true) {
+                //console.log("true");
+
                 newOrderCounter = newOrderCounter + 1;
-                //button .show ну или типо того
+                $('#newOrderBtn').text(`New orders: ${newOrderCounter}`);
+                $('#newOrderBtn').show();
+            }
+            else if (result == false) {
+                //console.log("false");
             }
         });
 
