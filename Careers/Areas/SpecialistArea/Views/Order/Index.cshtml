@@ -27,4 +27,32 @@
     </div>
 </div>
 
-<partial name="_ReplenishBalanceModalPartial" />
+<partial name="_EditBalanceModalPartial" />
+
+@section Scripts{
+    <script>
+        let newOrderCounter = 0;
+        //button hide изначально
+
+      const hubConnection = new signalR.HubConnectionBuilder()
+            .withUrl("/hubs/notification")
+            .withAutomaticReconnect().build();
+        hubConnection.serverTimeoutInMilliseconds = 100000;
+
+        hubConnection.on("NewOrder", async function (id) {
+
+            let result = await fetch('@Url.Action("CheckNewOrder","Order",new{area="SpecialistArea" })/' + id);
+
+            Console.log(result);
+            if (result == true) {
+                newOrderCounter = newOrderCounter + 1;
+                //button .show ну или типо того
+            }
+        });
+
+         hubConnection.start().then(function() {
+            console.log("connected");
+        });
+
+    </script>
+}

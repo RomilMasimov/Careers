@@ -95,7 +95,7 @@
             conversation.scrollTop(conversation[0].scrollHeight - conversation[0].clientHeight);
 
         const hubConnection = new signalR.HubConnectionBuilder()
-            .withUrl("/hub")
+            .withUrl("/hubs/chat")
             .withAutomaticReconnect().build();
         hubConnection.serverTimeoutInMilliseconds = 100000;
 

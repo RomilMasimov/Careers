@@ -13,7 +13,7 @@ namespace Careers.Services.Interfaces
         Task<Specialist> UpdateAsync(Specialist specialist);
         Task<Specialist> UpdateAbotAsync(int specialistId, string about);
         Task<bool> DeleteAsync(Specialist specialist);
-
+        Task<IEnumerable<string>> GetAllAppUserIdsAsync();
         Task<bool> UpdateCity(int specialistId, int cityId);
         Task<bool> UpdateWhereCanGo(int specialistId, int[] pointsId);
         Task<bool> UpdateWhereCanMeet(int specialistId, int[] pointsId);
@@ -57,6 +57,7 @@ namespace Careers.Services.Interfaces
         //need to check
         Task<IEnumerable<Specialist>> FindAllAsync(Order order);
         Task<IEnumerable<Specialist>> GetBestByCategoryAsync(int count);
+        Task<bool> IsOrderForMeAsync(int orderid,string appUserId);
     }
 
 }
