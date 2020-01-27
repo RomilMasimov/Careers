@@ -51,7 +51,7 @@
                     <div class="col-lg-2 col-md-1 col-sm-12 col-xs-12 hidden-xs hidden-sm">
                         <div class="gc_header_wrapper">
                             <div class="gc_logo">
-                                <a asp-controller="Home" asp-action="Index">
+                                <a asp-area="" asp-controller="Home" asp-action="Index">
                                     <img src="~/images/header/logo.png" alt="Logo" title="Careers" class="img-responsive">
                                 </a>
                             </div>
@@ -502,15 +502,16 @@
             hubConnection.serverTimeoutInMilliseconds = 100000;
 
             hubConnection.on('NewMsgCame', function (data) {
+
                 $("#notificationBell i").css('color', '#23c0e9');
 
                 let url = '#';
 
                 if (data.role == 'client') {
-                    url = `@Url.Action("ReceiveDialogId","Order",new{area=""})/${data.dialogId}`;
+                    url = `@Url.Action("ReceiveDialogId","Order",new{area="SpecialistArea"})/${data.dialogId}`;
                 }
                 if (data.role == 'specialist') {
-                    url = `@Url.Action("ReceiveDialogId","Order",new{area="SpecialistArea"})/${data.dialogId}`;
+                    url = `@Url.Action("ReceiveDialogId","Order",new{area=""})/${data.dialogId}`;
                 }
 
                 $('#notifications .list-group').prepend(`<a href="${url}" class="list-group-item list-group-item-action"><i class="far fa-envelope"></i> <p>${data.text}</p></a>`);

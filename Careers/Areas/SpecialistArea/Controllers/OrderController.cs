@@ -104,7 +104,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
         {
             var dialog = await _messageService.GetDialogAsync(id);
             await _messageService.MarkAsRead(id, dialog.UserSpecialistMessage.SpecialistId);
-            return RedirectToAction("Conversation",dialog.UserSpecialistMessage.OrderId);
+            return RedirectToAction("Conversation",new { orderid= dialog.UserSpecialistMessage.OrderId });
         }
 
         public async Task<IActionResult> Conversation(int orderId)

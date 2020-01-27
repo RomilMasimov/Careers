@@ -43,7 +43,7 @@ namespace Careers.SignalR
                 AuthorImagePath = message.AuthorImageUrl,
                 ImagePaths = message.ImgPaths?.ToList() ?? new List<string>()
             };
-            if (_onlineUsers.Contains(currentUserId))
+            if (_onlineUsers.Contains(message.ReceiverId))
                 await this.Clients.User(message.ReceiverId).SendAsync("ReceiveMessage", msg);
             else
             {
@@ -57,7 +57,7 @@ namespace Careers.SignalR
                 }
                 else if (Context.User.IsInRole("specialist"))
                 {
-                    role = "client";
+                    role = "specialist";
                     var specialist = await _specialistService.FindAsync(currentUserId);
                     fullName = specialist.Name + " " + specialist.Surname;
                 }
