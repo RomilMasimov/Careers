@@ -14,8 +14,11 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.IO;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 using Careers.SignalR;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.WebEncoders;
 
 namespace Careers
 {
@@ -81,6 +84,10 @@ namespace Careers
             services.AddSignalR(options=> {
                 options.EnableDetailedErrors = true;
                 
+            });
+            services.Configure<WebEncoderOptions>(options =>
+            {
+                options.TextEncoderSettings = new TextEncoderSettings(UnicodeRanges.All);
             });
         }
 
