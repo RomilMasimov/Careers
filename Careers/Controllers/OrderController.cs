@@ -77,7 +77,6 @@ namespace Careers.Controllers
         public async Task<IActionResult> ReceiveDialogId(int id)
         {
             var dialog = await _messageService.GetDialogAsync(id);
-            await _messageService.MarkAsRead(id, dialog.UserSpecialistMessage.ClientId);
             return RedirectToAction("Order","Order", new { id = dialog.UserSpecialistMessage.OrderId });
         }
 
@@ -102,6 +101,7 @@ namespace Careers.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var dialog = await _messageService.GetDialogAsync(id);
             if (dialog == null) return Content("NotFound");
+            await _messageService.MarkAsRead(dialog.UserSpecialistMessage.Id, userId);
 
             return PartialView("_ConversationPartial", new MessagesAndCurrentUser(userId, dialog));
         }

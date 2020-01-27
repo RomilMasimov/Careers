@@ -501,8 +501,19 @@
                 .withAutomaticReconnect().build();
             hubConnection.serverTimeoutInMilliseconds = 100000;
 
-            hubConnection.on('NewMsgCame', function (data) {
 
+
+            hubConnection.on('UploadNotifications', function (data) {
+                for (let notifi of data) {
+                    addNotification(notifi);
+                }
+            });
+
+            hubConnection.on('NewMsgCame', function (data) {
+                addNotification(data)
+            });
+
+            function addNotification(data) {
                 $("#notificationBell i").css('color', '#23c0e9');
 
                 let url = '#';
@@ -515,18 +526,16 @@
                 }
 
                 $('#notifications .list-group').prepend(`<a href="${url}" class="list-group-item list-group-item-action"><i class="far fa-envelope"></i> <p>${data.text}</p></a>`);
-            });
+            }
 
             //при переходе по ссылке ту что кникнули сперва удаляем из контейнера
 
-            $('#notifications').on('click',
-                'a',
-                function () {
-                    let elem = $(this);
-                    let redirectUrl = elem.href();
-                    document.location = redirectUrl;
-                    elem.remove();
-                });
+            //$('#notifications').on('click',
+            //    'a',
+            //    function () {
+            //        let elem = $(this);
+            //        elem.remove();
+            //    });
 
 
             hubConnection.start().then(function () {

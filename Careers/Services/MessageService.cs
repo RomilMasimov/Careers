@@ -57,26 +57,26 @@ namespace Careers.Services
             await sw.WriteLineAsync(JsonSerializer.Serialize(message));
         }
 
-        public async Task<bool> MarkAsRead(int id, int userId)
+        public async Task<bool> MarkAsRead(int id, string userId)
         {
             var dialog = await _context.UserSpecialistMessages
                 .SingleOrDefaultAsync(x => x.Id == id);
 
             if (dialog == null) return false;
 
-            if (dialog.ClientId == userId) dialog.ClientRead = true;
-            if (dialog.SpecialistId == userId) dialog.SpecialistRead = true;
+            if (dialog.Client.AppUserId == userId) dialog.ClientRead = true;
+            if (dialog.Specialist.AppUserId == userId) dialog.SpecialistRead = true;
             _context.UserSpecialistMessages.Update(dialog);
             var rows = await _context.SaveChangesAsync();
             return rows > 0;
         }
 
-        public async Task<List<UserSpecialistMessage>> GetUnreadDialogsAsync(string userid,string role)
+        public async Task<List<UserSpecialistMessage>> GetUnreadDialogsAsync(string userid, string role)
         {
             switch (role)
             {
                 case "client":
-                    return  await _context.UserSpecialistMessages.Include(x => x.Specialist)
+                    return await _context.UserSpecialistMessages.Include(x => x.Specialist)
                         .Where(x => x.Client.AppUserId == userid && x.ClientRead != true).ToListAsync();
                 case "specialist":
                     return await _context.UserSpecialistMessages.Include(x => x.Client)

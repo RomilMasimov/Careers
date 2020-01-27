@@ -7,12 +7,10 @@ using System.Threading.Tasks;
 using Careers.Models;
 using Careers.Services;
 using Careers.Services.Interfaces;
-using Careers.SignalR;
 using Careers.ViewModels.Home;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
 
 namespace Careers.Controllers
 {
@@ -20,17 +18,15 @@ namespace Careers.Controllers
     {
         private readonly ISpecialistService _specialistService;
         private readonly IReviewService _reviewService;
-        private readonly IMessageService _mesaService;
         private readonly IMeetingPointService _meetingPointService;
         private readonly ICategoryService _categoryService;
         private readonly Initializer _initializer;
 
-        public HomeController(ISpecialistService specialistService, IReviewService reviewService, IMessageService mesaService,
+        public HomeController(ISpecialistService specialistService, IReviewService reviewService,
             IMeetingPointService meetingPointService, ICategoryService categoryService, Initializer initializer)
         {
             _specialistService = specialistService;
             _reviewService = reviewService;
-            _mesaService = mesaService;
             _meetingPointService = meetingPointService;
             _categoryService = categoryService;
             _initializer = initializer;
@@ -47,12 +43,6 @@ namespace Careers.Controllers
             //_initializer.Services();
             //_initializer.QuestionAndAnswers();
             //await _initializer.ClientsAndSpecialistsAsync();
-
-
-            //загружать уведомления котоыре 
-
-
-
             var reviews = await _reviewService.GetBestLastReviewsAsync(5);
 
             var specialists = await _specialistService.GetBestByCategoryAsync(6);
@@ -62,23 +52,6 @@ namespace Careers.Controllers
                 Specialists = specialists
             };
             if (!User.Identity.IsAuthenticated) return View(viewModel);
-
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            List<UserSpecialistMessage> unreadDialogs;
-            if (User.IsInRole("client"))
-            {
-                unreadDialogs = await _mesaService.GetUnreadDialogsAsync(userId, "client");
-            }
-            else if (User.IsInRole("specialist"))
-            {
-                 unreadDialogs = await _mesaService.GetUnreadDialogsAsync(userId, "specialist");
-            }
-
-            //
-
-
-            ViewData["Notifications"] = "";
-
             return View(viewModel);
         }
 

@@ -103,17 +103,18 @@ namespace Careers.Areas.SpecialistArea.Controllers
         public async Task<IActionResult> ReceiveDialogId(int id)
         {
             var dialog = await _messageService.GetDialogAsync(id);
-            await _messageService.MarkAsRead(id, dialog.UserSpecialistMessage.SpecialistId);
             return RedirectToAction("Conversation",new { orderid= dialog.UserSpecialistMessage.OrderId });
         }
 
         public async Task<IActionResult> Conversation(int orderId)
         {
+
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var specialist = await _specialistService.FindAsync(userId);
 
             var dialog = await _messageService.GetDialogAsync(specialist.Id, orderId);
             if (dialog == null) return Content("NotFound");
+            await _messageService.MarkAsRead(dialog.UserSpecialistMessage.Id, userId);
             return View("Conversation", new MessagesAndCurrentUser(userId, dialog));
         }
 
