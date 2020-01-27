@@ -20,15 +20,17 @@ namespace Careers.Controllers
     {
         private readonly ISpecialistService _specialistService;
         private readonly IReviewService _reviewService;
+        private readonly IMessageService _mesaService;
         private readonly IMeetingPointService _meetingPointService;
         private readonly ICategoryService _categoryService;
         private readonly Initializer _initializer;
 
-        public HomeController(ISpecialistService specialistService, IReviewService reviewService,
+        public HomeController(ISpecialistService specialistService, IReviewService reviewService, IMessageService mesaService,
             IMeetingPointService meetingPointService, ICategoryService categoryService, Initializer initializer)
         {
             _specialistService = specialistService;
             _reviewService = reviewService;
+            _mesaService = mesaService;
             _meetingPointService = meetingPointService;
             _categoryService = categoryService;
             _initializer = initializer;
@@ -50,7 +52,7 @@ namespace Careers.Controllers
             //загружать уведомления котоыре 
 
 
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             var reviews = await _reviewService.GetBestLastReviewsAsync(5);
 
             var specialists = await _specialistService.GetBestByCategoryAsync(6);
@@ -59,9 +61,26 @@ namespace Careers.Controllers
                 Reviews = reviews,
                 Specialists = specialists
             };
+            if (!User.Identity.IsAuthenticated) return View(viewModel);
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            List<UserSpecialistMessage> unreadDialogs;
+            if (User.IsInRole("client"))
+            {
+                unreadDialogs = await _mesaService.GetUnreadDialogsAsync(userId, "client");
+            }
+            else if (User.IsInRole("specialist"))
+            {
+                 unreadDialogs = await _mesaService.GetUnreadDialogsAsync(userId, "specialist");
+            }
+
+            //
+
+
+            ViewData["Notifications"] = "";
 
             return View(viewModel);
-         }
+        }
 
         [HttpGet]
         public async Task<IActionResult> ServicesAndSubCategoriesAutocomplete(string term)

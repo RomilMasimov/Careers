@@ -64,7 +64,7 @@ namespace Careers.SignalR
                 }
 
                 var text = $"From {fullName} {msg.DateTime.ToShortTimeString()}";
-                await _hubContext.Clients.User(message.ReceiverId).SendAsync("NewMsgCame", new{dialogId=message.DialogId,text,role});
+                await _hubContext.Clients.User(message.ReceiverId).SendAsync("NewMsgCame", new { dialogId = message.DialogId, text, role });
             }
 
             await _messageService.WriteDialogAsync(message.DialogId, msg);

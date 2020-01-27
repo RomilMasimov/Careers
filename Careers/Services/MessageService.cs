@@ -71,6 +71,21 @@ namespace Careers.Services
             return rows > 0;
         }
 
+        public async Task<List<UserSpecialistMessage>> GetUnreadDialogsAsync(string userid,string role)
+        {
+            switch (role)
+            {
+                case "client":
+                    return  await _context.UserSpecialistMessages.Include(x => x.Specialist)
+                        .Where(x => x.Client.AppUserId == userid && x.ClientRead != true).ToListAsync();
+                case "specialist":
+                    return await _context.UserSpecialistMessages.Include(x => x.Client)
+                        .Where(x => x.Specialist.AppUserId == userid && x.SpecialistRead != true).ToListAsync();
+                default:
+                    return new List<UserSpecialistMessage>();
+            }
+        }
+
 
         private async Task<IEnumerable<Message>> messageBodyAsync(UserSpecialistMessage result)
         {
