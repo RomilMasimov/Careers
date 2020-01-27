@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿@*<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -17,7 +17,7 @@
             <ul class="navbar-nav w-100 d-flex justify-content-end">
                 <li class="nav-item">
                     <a asp-area="SpecialistArea" asp-controller="Profile" asp-action="Index" class="w-100 h-100">
-                        <img src="@ViewData["ImageUrl"]" error-src="" alt="img"
+                        <img src="@(Context.Request.Cookies.TryGetValue("profileImage", out string image)? image: "")" error-src="" alt="img"
                              width="45" height="45" class="img-fluid rounded">
                     </a>
                 </li>
@@ -67,4 +67,4 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     @RenderSection("Scripts", false)
 </body>
-</html>
+</html>*@

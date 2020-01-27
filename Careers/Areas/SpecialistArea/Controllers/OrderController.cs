@@ -100,13 +100,21 @@ namespace Careers.Areas.SpecialistArea.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> ReceiveDialogId(int id)
+        {
+            var dialog = await _messageService.GetDialogAsync(id);
+            return RedirectToAction("Conversation",new { orderid= dialog.UserSpecialistMessage.OrderId });
+        }
+
         public async Task<IActionResult> Conversation(int orderId)
         {
+
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var specialist = await _specialistService.FindAsync(userId);
 
             var dialog = await _messageService.GetDialogAsync(specialist.Id, orderId);
             if (dialog == null) return Content("NotFound");
+            await _messageService.MarkAsRead(dialog.UserSpecialistMessage.Id, userId);
             return View("Conversation", new MessagesAndCurrentUser(userId, dialog));
         }
 
@@ -116,12 +124,21 @@ namespace Careers.Areas.SpecialistArea.Controllers
             return Json(imagePath);
         }
 
-        public IActionResult RenderMessage(Message msg,string images)
+        public IActionResult RenderMessage(Message msg, string images)
         {
-            if(images!=null) msg.ImagePaths = JsonSerializer.Deserialize<List<string>>(images);
-            if (msg.Text.IsNullOrWhiteSpace() && !msg.ImagePaths.Any() ) return Content("");
+            if (images != null) msg.ImagePaths = JsonSerializer.Deserialize<List<string>>(images);
+            if (msg.Text.IsNullOrWhiteSpace() && !msg.ImagePaths.Any()) return Content("");
             return PartialView("_MessagePartial", msg);
         }
+
+        public async Task<IActionResult> CheckNewOrderAsync(int id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var answer = await _specialistService.IsOrderForMeAsync(id, userId);
+            return Json(answer);
+        }
+
+
 
     }
 }

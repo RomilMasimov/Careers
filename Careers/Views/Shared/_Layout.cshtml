@@ -51,7 +51,7 @@
                     <div class="col-lg-2 col-md-1 col-sm-12 col-xs-12 hidden-xs hidden-sm">
                         <div class="gc_header_wrapper">
                             <div class="gc_logo">
-                                <a asp-controller="Home" asp-action="Index">
+                                <a asp-area="" asp-controller="Home" asp-action="Index">
                                     <img src="~/images/header/logo.png" alt="Logo" title="Careers" class="img-responsive">
                                 </a>
                             </div>
@@ -76,7 +76,7 @@
                                     </li>
 
                                     <li class="gc_main_navigation parent">
-                                        <a  asp-area="" asp-controller="Home" asp-action="About" class="gc_main_navigation">@SharedLocalizer["about"]</a>
+                                        <a asp-area="" asp-controller="Home" asp-action="About" class="gc_main_navigation">@SharedLocalizer["about"]</a>
                                     </li>
 
                                     <li>
@@ -89,120 +89,120 @@
                             <!-- mobile menu area start -->
                             <div>
                                 @*
-                                <header class="mobail_menu">
-                                    <div class="container-fluid">
-                                        <div class="row">
-                                            <div class="col-xs-6 col-sm-6">
-                                                <div class="gc_logo">
-                                                    <a href="index.html">
-                                                        <img src="~/images/header/logo.png" alt="Logo"
-                                                             title="Grace Church">
-                                                    </a>
+                                    <header class="mobail_menu">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-xs-6 col-sm-6">
+                                                    <div class="gc_logo">
+                                                        <a href="index.html">
+                                                            <img src="~/images/header/logo.png" alt="Logo"
+                                                                 title="Grace Church">
+                                                        </a>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-xs-6 col-sm-6">
-                                                <div class="cd-dropdown-wrapper">
-                                                    <a class="house_toggle" href="#0">
-                                                        <i class="fas fa-bars" style="font-size: 35px"></i>
-                                                    </a>
-                                                    <nav class="cd-dropdown">
-                                                        <h2><a href="#">Job<span>Pro</span></a></h2>
-                                                        <a href="#0" class="cd-close">Close</a>
-                                                        <ul class="cd-dropdown-content">
+                                                <div class="col-xs-6 col-sm-6">
+                                                    <div class="cd-dropdown-wrapper">
+                                                        <a class="house_toggle" href="#0">
+                                                            <i class="fas fa-bars" style="font-size: 35px"></i>
+                                                        </a>
+                                                        <nav class="cd-dropdown">
+                                                            <h2><a href="#">Job<span>Pro</span></a></h2>
+                                                            <a href="#0" class="cd-close">Close</a>
+                                                            <ul class="cd-dropdown-content">
 
-                                                            <li class="">
-                                                                <a href="#">Home</a>
-                                                            </li>
-
-                                                            <li class="">
-                                                                <a href="#">Listing</a>
-                                                            </li>
-
-                                                            <li class="">
-                                                                <a href="#">candidates</a>
-                                                            </li>
-
-                                                            <li class="has-children">
-                                                                <a href="#">Pages</a>
-
-                                                                <ul class="cd-secondary-dropdown is-hidden">
-                                                                    <li class="go-back"><a href="#0">Menu</a></li>
-                                                                    <li><a href="about.html">About-Us</a></li>
-                                                                    <li><a href="404_error.html">404</a></li>
-                                                                    <li><a href="add_postin.html">Add-Posting</a></li>
-                                                                    <li><a href="login.html">Login</a></li>
-                                                                    <li><a href="register.html">Register</a></li>
-                                                                    <li><a href="pricing.html">Pricing</a></li>
-                                                                    <!-- .has-children -->
-
-                                                                </ul>
-                                                                <!-- .cd-secondary-dropdown -->
-                                                            </li>
-                                                            <!-- .has-children -->
-                                                            <li class="has-children">
-                                                                <a href="#">Blog</a>
-
-                                                                <ul class="cd-secondary-dropdown is-hidden">
-                                                                    <li class="go-back"><a href="#0">Menu</a></li>
-                                                                    <li>
-                                                                        <a href="blog_left.html">Blog-Left</a>
-                                                                    </li>
-                                                                    <!-- .has-children -->
-
-                                                                    <li>
-                                                                        <a href="blog_right.html">Blog-Right</a>
-                                                                    </li>
-                                                                    <!-- .has-children -->
-
-                                                                    <li>
-                                                                        <a href="blog_single_left.html">Blog-Single-Left</a>
-                                                                    </li>
-                                                                    <!-- .has-children -->
-
-                                                                    <li>
-                                                                        <a href="blog_single_right.html">Blog-Single-Left</a>
-                                                                    </li>
-                                                                    <!-- .has-children -->
-
-                                                                </ul>
-                                                                <!-- .cd-secondary-dropdown -->
-                                                            </li>
-                                                            <!-- .has-children -->
-                                                            <li>
-                                                                <a href="contact.html">Contact</a>
-                                                            </li>
-                                                            @if (User.Identity.IsAuthenticated)
-                                                            {
-                                                                <li>@User.Identity.Name</li>
-                                                            }
-                                                            else
-                                                            {
-                                                                <li>
-                                                                    <a asp-controller="Auth" asp-action="SignUp"><i class="fa fa-user"></i>&nbsp; SIGN UP</a>
+                                                                <li class="">
+                                                                    <a href="#">Home</a>
                                                                 </li>
-                                                                <li>
-                                                                    <a asp-controller="Auth" asp-action="LogIn"><i class="fa fa-user"></i>&nbsp; LOGIN</a>
+
+                                                                <li class="">
+                                                                    <a href="#">Listing</a>
                                                                 </li>
-                                                            }
+
+                                                                <li class="">
+                                                                    <a href="#">candidates</a>
+                                                                </li>
+
+                                                                <li class="has-children">
+                                                                    <a href="#">Pages</a>
+
+                                                                    <ul class="cd-secondary-dropdown is-hidden">
+                                                                        <li class="go-back"><a href="#0">Menu</a></li>
+                                                                        <li><a href="about.html">About-Us</a></li>
+                                                                        <li><a href="404_error.html">404</a></li>
+                                                                        <li><a href="add_postin.html">Add-Posting</a></li>
+                                                                        <li><a href="login.html">Login</a></li>
+                                                                        <li><a href="register.html">Register</a></li>
+                                                                        <li><a href="pricing.html">Pricing</a></li>
+                                                                        <!-- .has-children -->
+
+                                                                    </ul>
+                                                                    <!-- .cd-secondary-dropdown -->
+                                                                </li>
+                                                                <!-- .has-children -->
+                                                                <li class="has-children">
+                                                                    <a href="#">Blog</a>
+
+                                                                    <ul class="cd-secondary-dropdown is-hidden">
+                                                                        <li class="go-back"><a href="#0">Menu</a></li>
+                                                                        <li>
+                                                                            <a href="blog_left.html">Blog-Left</a>
+                                                                        </li>
+                                                                        <!-- .has-children -->
+
+                                                                        <li>
+                                                                            <a href="blog_right.html">Blog-Right</a>
+                                                                        </li>
+                                                                        <!-- .has-children -->
+
+                                                                        <li>
+                                                                            <a href="blog_single_left.html">Blog-Single-Left</a>
+                                                                        </li>
+                                                                        <!-- .has-children -->
+
+                                                                        <li>
+                                                                            <a href="blog_single_right.html">Blog-Single-Left</a>
+                                                                        </li>
+                                                                        <!-- .has-children -->
+
+                                                                    </ul>
+                                                                    <!-- .cd-secondary-dropdown -->
+                                                                </li>
+                                                                <!-- .has-children -->
+                                                                <li>
+                                                                    <a href="contact.html">Contact</a>
+                                                                </li>
+                                                                @if (User.Identity.IsAuthenticated)
+                                                                {
+                                                                    <li>@User.Identity.Name</li>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <li>
+                                                                        <a asp-controller="Auth" asp-action="SignUp"><i class="fa fa-user"></i>&nbsp; SIGN UP</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a asp-controller="Auth" asp-action="LogIn"><i class="fa fa-user"></i>&nbsp; LOGIN</a>
+                                                                    </li>
+                                                                }
 
 
-                                                        </ul>
-                                                        <!-- .cd-dropdown-content -->
+                                                            </ul>
+                                                            <!-- .cd-dropdown-content -->
 
 
 
-                                                    </nav>
-                                                    <!-- .cd-dropdown -->
+                                                        </nav>
+                                                        <!-- .cd-dropdown -->
 
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <!-- .cd-dropdown-wrapper -->
-                                </header>
+                                        <!-- .cd-dropdown-wrapper -->
+                                    </header>
                                 *@
                             </div>
-                            </div>
+                        </div>
                     </div>
                     <!-- mobile menu area end -->
                     <div class="col-md-4 col-sm-12 col-xs-12 hidden-sm hidden-xs">
@@ -235,6 +235,13 @@
                                         <li>
                                             <div class="my-image">
                                                 <img src="@(Context.Request.Cookies.TryGetValue("profileImage", out string image)? image: "")" error-src="" alt="">
+                                                @if (User.Identity.IsAuthenticated)
+                                                {
+                                                    <partial name="_NotificationPartial" />
+                                                }
+                                            </div>
+                                            <div id="notifications" class="notifications">
+                                                <div class="list-group"></div>
                                             </div>
                                         </li>
                                     </ul>
@@ -483,9 +490,70 @@
     <script src="~/js/modernizr.js"></script>
     <script src="~/js/custom_II.js"></script>
     @* from template end *@
-
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @RenderSection("Scripts", required: false)
+    <script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
 
+    <script>
+        if ($('#notificationBell')[0]) {
+
+            const hubConnection = new signalR.HubConnectionBuilder()
+                .withUrl("/hubs/messageNotification")
+                .withAutomaticReconnect().build();
+            hubConnection.serverTimeoutInMilliseconds = 100000;
+
+
+
+            hubConnection.on('UploadNotifications', function (data) {
+                for (let notifi of data) {
+                    addNotification(notifi);
+                }
+            });
+
+            hubConnection.on('NewMsgCame', function (data) {
+                addNotification(data)
+            });
+
+            function addNotification(data) {
+                $("#notificationBell i").css('color', '#23c0e9');
+
+                let url = '#';
+
+                if (data.role == 'client') {
+                    url = `@Url.Action("ReceiveDialogId","Order",new{area="SpecialistArea"})/${data.dialogId}`;
+                }
+                if (data.role == 'specialist') {
+                    url = `@Url.Action("ReceiveDialogId","Order",new{area=""})/${data.dialogId}`;
+                }
+
+                $('#notifications .list-group').prepend(`<a href="${url}" class="list-group-item list-group-item-action"><i class="far fa-envelope"></i> <p>${data.text}</p></a>`);
+            }
+
+            //при переходе по ссылке ту что кникнули сперва удаляем из контейнера
+
+            //$('#notifications').on('click',
+            //    'a',
+            //    function () {
+            //        let elem = $(this);
+            //        elem.remove();
+            //    });
+
+
+            hubConnection.start().then(function () {
+                console.log("message notification connected");
+            });
+
+            $("#notificationBell").click(function (e) {
+                $("#notificationBell i").css('color','white');
+
+                $("#notifications").show();
+            });
+            $("#notificationBell").blur(function (e) {
+                setTimeout(function () {
+                    $("#notifications").hide();
+                }, 400);
+            });
+        }
+    </script>
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

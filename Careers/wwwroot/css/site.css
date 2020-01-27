@@ -124,15 +124,18 @@ main {
 .my-image {
     position: absolute;
     height: 60px;
-    width: 60px;
+    width: 115px;
     right: -70px;
     top: -40px;
-    /*left: 20px;*/
+    left: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
 }
 
     .my-image img {
-        width: 100%;
-        height: 100%;
+        width: 60px;
+        height: 60px;
         object-fit: cover;
     }
 
@@ -278,11 +281,11 @@ a.disabled {
     height: 34px;
 }
 
-.switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
 
 .slider {
     position: absolute;
@@ -296,17 +299,17 @@ a.disabled {
     transition: .4s;
 }
 
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
-}
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
 
 input:checked + .slider {
     background-color: #2196F3;
@@ -326,9 +329,9 @@ input:checked + .slider:before {
     border-radius: 34px;
 }
 
-.slider.round:before {
-    border-radius: 50%;
-}
+    .slider.round:before {
+        border-radius: 50%;
+    }
 
 .jp_job_des_large_font_size {
     font-size: 24px;
@@ -340,18 +343,13 @@ a.disabled {
 }
 
 div.image-container {
-    height: 120px;
-    margin-bottom: 10px;
-    /*padding-top: .25rem;*/
-    position: absolute;
-    bottom: 50px;
-    left: 14px;
+    height: 145px;
     right: 30px;
     overflow-y: auto;
     display: none;
-    /*box-shadow: 0 -3px 4px rgba(0,0,0,.1);*/
-    padding: 0px 25px 0px 25px;
-    background-color: white;
+    padding: 0px 25px 25px 25px;
+    margin: 0;
+    margin-bottom: 10px;
 }
 
 /*.image-container img {
@@ -359,7 +357,6 @@ div.image-container {
     height: 100px;
     margin: 2px;
 }*/
-
 .service-name a:hover {
     background-color: #23C0E9;
     color: white;
@@ -375,9 +372,78 @@ li.keyword {
     color: white;
 }
 
-textarea.message-text {
+.message-text {
     width: 100%;
     background: transparent;
     border: 0;
-    height: 100%;
+    margin: 0;
+    padding: 0;
+    color: white;
+}
+
+.conversation pre {
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.conversation.in pre {
+    color: white;
+}
+
+.conversation.out pre {
+    color: black;
+}
+
+.conversation-write-wrap .fa-location-arrow {
+    font-size: 23px;
+}
+
+.conversation-write-wrap .fa-file-image-o {
+    font-size: 23px;
+}
+
+.notification-bell {
+    border: 0;
+    background: transparent;
+    color: white;
+    margin: 0;
+    padding: 0 !important;
+    margin-top: 13px;
+}
+
+    .notification-bell i {
+        font-size: 35px;
+    }
+
+.notifications {
+    display: none;
+    top: 40px;
+    left: -240px;
+    position: absolute;
+    width: 380px;
+}
+
+.notifications .list-group {
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+.notifications .list-group-item-action {
+    color: black !important;
+    padding: 8px !important;
+    min-height: 60px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.notifications .list-group-item-action i {
+    font-size: 30px;
+    color: red;
+}
+
+.notifications .list-group-item-action p {
+    margin: 0;
+    padding: 0;
 }

@@ -121,13 +121,22 @@ namespace Careers.Services
 
         public async Task<Specialist> FindWithUserAsync(int id)
         {
-            return await context.Specialists.Include(x=>x.AppUser).SingleOrDefaultAsync(x => x.Id == id);
+            return await context.Specialists.Include(x => x.AppUser).SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<Specialist> FindWithUserAsync(string userId)
         {
             return await context.Specialists.Include(x => x.AppUser).SingleOrDefaultAsync(x => x.AppUserId == userId);
         }
+
+        public async Task<Specialist> FindWithMeetingPointsAsync(string userId)
+        {
+            return await context.Specialists
+                .Include(x => x.WhereCanGoList)
+                .Include(x => x.WhereCanMeetList)
+                .SingleOrDefaultAsync(x => x.AppUserId == userId);
+        }
+
 
         public async Task<Specialist> FindAsync(string userId, bool detailed = false)
         {
@@ -429,11 +438,42 @@ namespace Careers.Services
         {
             var count = await context.Specialists
                 .Include(x => x.UserSpecialistMessages)
-                .Where(x => x.AppUserId == userid && 
+                .Where(x => x.AppUserId == userid &&
                 x.UserSpecialistMessages
                 .Any(y => y.OrderId == id))
                 .CountAsync();
             return count > 0;
+        }
+
+        public async Task<IEnumerable<string>> GetAllAppUserIdsAsync()
+        {
+            return await context.Specialists
+                .Select(x => x.AppUserId).ToListAsync();
+        }
+
+        public async Task<bool> IsOrderForMeAsync(int orderId, string appUserId)
+        {
+
+            var order = await context.Orders.Include(x => x.OrderMeetingPoints).SingleOrDefaultAsync(x => x.Id == orderId);
+
+            var specialist = await context.Specialists
+                               .Include(m => m.SpecialistServices)
+                               //.Include(m => m.WhereCanGoList)
+                               //.Include(m => m.WhereCanMeetList)
+                               .SingleOrDefaultAsync(m => m.AppUserId == appUserId);
+
+            //var canMeetListIds = specialist.WhereCanMeetList.Select(y => y.WhereCanMeetId).ToList();
+            //var canGoListIds = specialist.WhereCanGoList.Select(y => y.WhereCanGoId).ToList();
+
+            if (!specialist.SpecialistServices.Any()) return true;
+
+            if (specialist.SpecialistServices
+                 .Select(x => x.ServiceId)
+                 .Any(x => x == order.ServiceId))
+            {
+                return true;
+            }
+            else return false;
         }
     }
 }

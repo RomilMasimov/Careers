@@ -1,2 +1,8 @@
-﻿<a asp-area="SpecialistArea" asp-controller="Response" asp-action="Responses" class="btn btn btn-outline-primary btn-sm">My responses</a>
-<a asp-area="SpecialistArea" asp-controller="Order" asp-action="MyOrders" class="btn btn btn-outline-primary btn-sm">My orders</a>
+﻿<ul class="nav nav-tabs nav-fill mt-5 w-100">
+    <li is-active-route asp-controller="Response" asp-action="Responses" class="nav-item">
+        <a asp-area="SpecialistArea" asp-controller="Response" asp-action="Responses" class="nav-link">Responses</a>
+    </li>
+    <li is-active-route asp-controller="Order" asp-action="MyOrders" class="nav-item">
+        <a asp-area="SpecialistArea" asp-controller="Order" asp-action="MyOrders" class="nav-link">Orders</a>
+    </li>
+</ul>

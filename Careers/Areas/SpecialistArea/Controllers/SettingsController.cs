@@ -27,7 +27,6 @@ namespace Careers.Areas.SpecialistArea.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var specialist = await _specialistService.FindWithUserAsync(userId);
-            setImageUrl(specialist);
             return View(specialist);
         }
 
@@ -64,7 +63,6 @@ namespace Careers.Areas.SpecialistArea.Controllers
                 Email = specialist.AppUser.Email
             };
 
-            setImageUrl(specialist);
             return View(model);
         }
 
@@ -88,7 +86,6 @@ namespace Careers.Areas.SpecialistArea.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            setImageUrl(specialist);
             return View(model);
         }
 
@@ -103,7 +100,6 @@ namespace Careers.Areas.SpecialistArea.Controllers
                 Birthday = specialist.DateOfBirth
             };
 
-            setImageUrl(specialist);
             return View(model);
         }
 
@@ -123,17 +119,9 @@ namespace Careers.Areas.SpecialistArea.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            setImageUrl(specialist);
             return View(model);
         }
 
-        private string setImageUrl(Specialist specialist)
-        {
-            string path = specialist.ImageUrl;
-            if (string.IsNullOrWhiteSpace(specialist.ImageUrl))
-                path = "N/A";
-            ViewData["ImageUrl"] = path;
-            return path;
-        }
+       
     }
 }

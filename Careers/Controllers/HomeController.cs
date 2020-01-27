@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Careers.Models;
 using Careers.Services;
@@ -42,7 +43,6 @@ namespace Careers.Controllers
             //_initializer.Services();
             //_initializer.QuestionAndAnswers();
             //await _initializer.ClientsAndSpecialistsAsync();
-
             var reviews = await _reviewService.GetBestLastReviewsAsync(5);
 
             var specialists = await _specialistService.GetBestByCategoryAsync(6);
@@ -51,9 +51,9 @@ namespace Careers.Controllers
                 Reviews = reviews,
                 Specialists = specialists
             };
-
+            if (!User.Identity.IsAuthenticated) return View(viewModel);
             return View(viewModel);
-         }
+        }
 
         [HttpGet]
         public async Task<IActionResult> ServicesAndSubCategoriesAutocomplete(string term)

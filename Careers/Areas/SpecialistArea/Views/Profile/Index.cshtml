@@ -40,7 +40,7 @@
                         <div class="row">
                             <div class="col-sm-6 col-md-2">
                                 <div class="d-flex flex-column">
-                                    <img src="@ViewData["ImageUrl"]" error-src="" alt="image"
+                                    <img src="@Model.ImageUrl" error-src="" alt="image"
                                          class="img-fluid img-rounded w-100" />
                                     <a asp-area="SpecialistArea" 
                                        asp-controller="Profile" 
@@ -52,12 +52,11 @@
                             </div>
                             <div class="col-sm-6 col-md-10">
                                 <h4 class="header w-100">@Model.Name @Model.Surname</h4>
-                                <p class="w-100">
                                     <p class="my-1">Rating 3,8 <a href="#">detail</a></p>
                                     <p class="my-1">Balance @Model.Balance <a asp-area="SpecialistArea" asp-controller="Profile" asp-action="Balance">detail</a></p>
                                     <p class="my-1">Reviews <small class="text-muted">no reviews yet</small></p> 
-                                    <a href="#" class="btn btn-sm btn-primary my-1">Upload passport photo</a>
-                                </p>
+                                    @*<a href="#" class="btn btn-sm btn-primary my-1">Upload passport photo</a>*@
+                                
                             </div>
                         </div>
                         <!-- Specialist card end -->
