@@ -241,16 +241,7 @@
                                                 }
                                             </div>
                                             <div id="notifications" class="notifications">
-                                                <div class="list-group">
-                                                    <a href="#" class="list-group-item list-group-item-action"><i class="far fa-envelope"></i> <p>From imran veliyev 19:20</p></a>
-                                                    <a href="#" class="list-group-item list-group-item-action"><i class="far fa-envelope"></i> <p>From imran veliyev 19:20</p></a>
-                                                    <a href="#" class="list-group-item list-group-item-action"><i class="far fa-envelope"></i> <p>From imran veliyev 19:20</p></a>
-                                                    <a href="#" class="list-group-item list-group-item-action"><i class="far fa-envelope"></i> <p>From imran veliyev 19:20</p></a>
-                                                    <a href="#" class="list-group-item list-group-item-action"><i class="far fa-envelope"></i> <p>From imran veliyev 19:20</p></a>
-                                                    <a href="#" class="list-group-item list-group-item-action"><i class="far fa-envelope"></i> <p>From imran veliyev 19:20</p></a>
-                                                    <a href="#" class="list-group-item list-group-item-action"><i class="far fa-envelope"></i> <p>From imran veliyev 19:20</p></a>
-                                                    <a href="#" class="list-group-item list-group-item-action"><i class="far fa-envelope"></i> <p>From imran veliyev 19:20</p></a>
-                                                </div>
+                                                <div class="list-group"></div>
                                             </div>
                                         </li>
                                     </ul>
@@ -516,10 +507,10 @@
                 let url = '#';
 
                 if (data.role == 'client') {
-                    url = `@Url.Action("ReceiveDialogId","Order",new{area="SpecialistArea"})/${data.dialogId}`;
+                    url = `@Url.Action("ReceiveDialogId","Order",new{area=""})/${data.dialogId}`;
                 }
                 if (data.role == 'specialist') {
-                    url = `@Url.Action("ReceiveDialogId","Order",new{area=""})/${data.dialogId}`;
+                    url = `@Url.Action("ReceiveDialogId","Order",new{area="SpecialistArea"})/${data.dialogId}`;
                 }
 
                 $('#notifications .list-group').prepend(`<a href="${url}" class="list-group-item list-group-item-action"><i class="far fa-envelope"></i> <p>${data.text}</p></a>`);

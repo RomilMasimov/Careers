@@ -19,13 +19,12 @@ namespace Careers.SignalR
         private readonly ISpecialistService _specialistService;
         private readonly IClientService _clientService;
         private readonly IHubContext<MessageNotificationHub> _hubContext;
-        private List<string> onlineUsers;
+        private static List<string> _onlineUsers=new List<string>();
         public ChatHub(IMessageService messageService,
             ISpecialistService specialistService,
             IClientService clientService,
             IHubContext<MessageNotificationHub> hubContext)
         {
-            onlineUsers = new List<string>();
             this._messageService = messageService;
             _specialistService = specialistService;
             _clientService = clientService;
@@ -44,7 +43,7 @@ namespace Careers.SignalR
                 AuthorImagePath = message.AuthorImageUrl,
                 ImagePaths = message.ImgPaths?.ToList() ?? new List<string>()
             };
-            if (onlineUsers.Contains(currentUserId))
+            if (_onlineUsers.Contains(currentUserId))
                 await this.Clients.User(message.ReceiverId).SendAsync("ReceiveMessage", msg);
             else
             {
@@ -72,12 +71,12 @@ namespace Careers.SignalR
 
         public override async Task OnConnectedAsync()
         {
-            onlineUsers.Add(Context.User.FindFirstValue(ClaimTypes.NameIdentifier));
+            _onlineUsers.Add(Context.User.FindFirstValue(ClaimTypes.NameIdentifier));
             await base.OnConnectedAsync();
         }
         public override async Task OnDisconnectedAsync(Exception exception)
         {
-            onlineUsers.Remove(Context.User.FindFirstValue(ClaimTypes.NameIdentifier));
+            _onlineUsers.Remove(Context.User.FindFirstValue(ClaimTypes.NameIdentifier));
             await base.OnDisconnectedAsync(exception);
         }
     }

@@ -77,8 +77,8 @@ namespace Careers.Controllers
         public async Task<IActionResult> ReceiveDialogId(int id)
         {
             var dialog = await _messageService.GetDialogAsync(id);
-            await _messageService.MarkAsRead(id,dialog.UserSpecialistMessage.ClientId);
-            return RedirectToAction("Order", dialog.UserSpecialistMessage.OrderId);
+            await _messageService.MarkAsRead(id, dialog.UserSpecialistMessage.ClientId);
+            return RedirectToAction("Order","Order", new { id = dialog.UserSpecialistMessage.OrderId });
         }
 
         public async Task<IActionResult> Order(int id)
