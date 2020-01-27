@@ -235,9 +235,10 @@
                                         <li>
                                             <div class="my-image">
                                                 <img src="@(Context.Request.Cookies.TryGetValue("profileImage", out string image)? image: "")" error-src="" alt="">
-                                                <button type="button" id="notificationBell" class="notification-bell">
-                                                    <i class="fas fa-bell" aria-hidden="true"></i>
-                                                </button>
+                                                @if (User.Identity.IsAuthenticated)
+                                                {
+                                                    <partial name="_NotificationPartial" />
+                                                }
                                             </div>
                                             <div id="notifications" class="notifications">
                                                 <div class="list-group">
@@ -498,20 +499,60 @@
     <script src="~/js/modernizr.js"></script>
     <script src="~/js/custom_II.js"></script>
     @* from template end *@
-
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @RenderSection("Scripts", required: false)
+    <script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
 
     <script>
-        $("#notificationBell").click(function (e) {
-            $("#notifications").show();
-        });
-        $("#notificationBell").blur(function (e) {
-            setTimeout(function () {
-                $("#notifications").hide();
-            }, 400);
-        });
-    </script>
+        if ($('#notificationBell')[0]) {
 
+            const hubConnection = new signalR.HubConnectionBuilder()
+                .withUrl("/hubs/messageNotification")
+                .withAutomaticReconnect().build();
+            hubConnection.serverTimeoutInMilliseconds = 100000;
+
+            hubConnection.on('NewMsgCame', function (data) {
+                $("#notificationBell i").css('color', '#23c0e9');
+
+                let url = '#';
+
+                if (data.role == 'client') {
+                    url = `@Url.Action("ReceiveDialogId","Order",new{area="SpecialistArea"})/${data.dialogId}`;
+                }
+                if (data.role == 'specialist') {
+                    url = `@Url.Action("ReceiveDialogId","Order",new{area=""})/${data.dialogId}`;
+                }
+
+                $('#notifications .list-group').prepend(`<a href="${url}" class="list-group-item list-group-item-action"><i class="far fa-envelope"></i> <p>${data.text}</p></a>`);
+            });
+
+            //при переходе по ссылке ту что кникнули сперва удаляем из контейнера
+
+            $('#notifications').on('click',
+                'a',
+                function () {
+                    let elem = $(this);
+                    let redirectUrl = elem.href();
+                    document.location = redirectUrl;
+                    elem.remove();
+                });
+
+
+            hubConnection.start().then(function () {
+                console.log("message notification connected");
+            });
+
+            $("#notificationBell").click(function (e) {
+                $("#notificationBell i").css('color','white');
+
+                $("#notifications").show();
+            });
+            $("#notificationBell").blur(function (e) {
+                setTimeout(function () {
+                    $("#notifications").hide();
+                }, 400);
+            });
+        }
+    </script>
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

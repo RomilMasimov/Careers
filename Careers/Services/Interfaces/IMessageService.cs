@@ -13,5 +13,6 @@ namespace Careers.Services.Interfaces
         Task<Dialog> GetDialogAsync(int messageLogId);
         Task<Dialog> GetDialogAsync(int specialistId, int orderId);
         Task WriteDialogAsync(int usMessageId, Message message);
+        Task<bool> MarkAsRead(int id, int userId);
     }
 }

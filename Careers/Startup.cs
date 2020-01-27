@@ -70,6 +70,7 @@ namespace Careers
             services.AddTransient<ISpecialistService, SpecialistService>();
             services.AddTransient<IAnswerService, AnswerService>();
             services.AddScoped<NotificationHub>();
+            services.AddScoped<MessageNotificationHub>();
             services.AddScoped<Initializer>();
 
             services.AddMvc()
@@ -105,8 +106,6 @@ namespace Careers
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-          
-
             app.UseRequestLocalization(options =>
             {
                 options.SupportedCultures = cultures;
@@ -132,6 +131,7 @@ namespace Careers
 
                 endpoints.MapHub<ChatHub>("/hubs/chat");
                 endpoints.MapHub<NotificationHub>("/hubs/notifications");
+                endpoints.MapHub<MessageNotificationHub>("/hubs/messageNotification");
             });
         }
     }

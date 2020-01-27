@@ -100,6 +100,13 @@ namespace Careers.Areas.SpecialistArea.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> ReceiveDialogId(int id)
+        {
+            var dialog = await _messageService.GetDialogAsync(id);
+            await _messageService.MarkAsRead(id, dialog.UserSpecialistMessage.SpecialistId);
+            return RedirectToAction("Conversation",dialog.UserSpecialistMessage.OrderId);
+        }
+
         public async Task<IActionResult> Conversation(int orderId)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -129,6 +136,8 @@ namespace Careers.Areas.SpecialistArea.Controllers
             var answer = await _specialistService.IsOrderForMeAsync(id, userId);
             return Json(answer);
         }
+
+
 
     }
 }

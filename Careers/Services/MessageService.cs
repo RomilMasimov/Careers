@@ -57,6 +57,20 @@ namespace Careers.Services
             await sw.WriteLineAsync(JsonSerializer.Serialize(message));
         }
 
+        public async Task<bool> MarkAsRead(int id, int userId)
+        {
+            var dialog = await _context.UserSpecialistMessages
+                .SingleOrDefaultAsync(x => x.Id == id);
+
+            if (dialog == null) return false;
+
+            if (dialog.ClientId == userId) dialog.ClientRead = true;
+            if (dialog.SpecialistId == userId) dialog.SpecialistRead = true;
+            _context.UserSpecialistMessages.Update(dialog);
+            var rows = await _context.SaveChangesAsync();
+            return rows > 0;
+        }
+
 
         private async Task<IEnumerable<Message>> messageBodyAsync(UserSpecialistMessage result)
         {

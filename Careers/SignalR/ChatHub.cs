@@ -16,16 +16,26 @@ namespace Careers.SignalR
     public class ChatHub : Hub
     {
         private readonly IMessageService _messageService;
-
-        public ChatHub(IMessageService messageService)
+        private readonly ISpecialistService _specialistService;
+        private readonly IClientService _clientService;
+        private readonly IHubContext<MessageNotificationHub> _hubContext;
+        private List<string> onlineUsers;
+        public ChatHub(IMessageService messageService,
+            ISpecialistService specialistService,
+            IClientService clientService,
+            IHubContext<MessageNotificationHub> hubContext)
         {
+            onlineUsers = new List<string>();
             this._messageService = messageService;
+            _specialistService = specialistService;
+            _clientService = clientService;
+            _hubContext = hubContext;
         }
 
         public async Task Send(MessageDTO message)
         {
             if (message.ImgPaths?.Count() == 0 && message.Message.IsNullOrWhiteSpace()) return;
-            
+
             var currentUserId = Context.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var msg = new Message
             {
@@ -34,24 +44,40 @@ namespace Careers.SignalR
                 AuthorImagePath = message.AuthorImageUrl,
                 ImagePaths = message.ImgPaths?.ToList() ?? new List<string>()
             };
+            if (onlineUsers.Contains(currentUserId))
+                await this.Clients.User(message.ReceiverId).SendAsync("ReceiveMessage", msg);
+            else
+            {
+                var fullName = "";
+                var role = "";
+                if (Context.User.IsInRole("client"))
+                {
+                    role = "client";
+                    var client = await _clientService.FindAsync(currentUserId);
+                    fullName = client.Name + " " + client.Surname;
+                }
+                else if (Context.User.IsInRole("specialist"))
+                {
+                    role = "client";
+                    var specialist = await _specialistService.FindAsync(currentUserId);
+                    fullName = specialist.Name + " " + specialist.Surname;
+                }
 
-            await this.Clients.User(message.ReceiverId).SendAsync("ReceiveMessage", msg);
-            await _messageService.WriteDialogAsync(message.DialogId,msg );
-        }
+                var text = $"From {fullName} {msg.DateTime.ToShortTimeString()}";
+                await _hubContext.Clients.User(message.ReceiverId).SendAsync("NewMsgCame", new{dialogId=message.DialogId,text,role});
+            }
 
-        public string GetConnectionId()
-        {
-            return Context.UserIdentifier;
+            await _messageService.WriteDialogAsync(message.DialogId, msg);
         }
 
         public override async Task OnConnectedAsync()
         {
-            await Clients.All.SendAsync("Notify", $"{Context.User.Identity.Name} вошел в чат");
+            onlineUsers.Add(Context.User.FindFirstValue(ClaimTypes.NameIdentifier));
             await base.OnConnectedAsync();
         }
         public override async Task OnDisconnectedAsync(Exception exception)
         {
-            await Clients.All.SendAsync("Notify", $"{Context.User.Identity.Name} покинул в чат");
+            onlineUsers.Remove(Context.User.FindFirstValue(ClaimTypes.NameIdentifier));
             await base.OnDisconnectedAsync(exception);
         }
     }
