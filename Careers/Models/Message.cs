@@ -6,7 +6,6 @@ namespace Careers.Models
     //json for message and comment
     public class Message
     {
-        public bool IsRead { get; set; }
         public string Author { get; set; }
         public string AuthorImagePath { get; set; }
         public string Text { get; set; }
@@ -18,7 +17,5 @@ namespace Careers.Models
             ImagePaths = new List<string>();
             DateTime = DateTime.Now;
         }
-
     }
-
 }
