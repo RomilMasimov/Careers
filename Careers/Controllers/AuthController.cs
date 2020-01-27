@@ -228,7 +228,14 @@ namespace Careers.Controllers
             {
                 ModelState.AddModelError(string.Empty, error.Description);
             }
-            return View("SignUp");
+            var viewModel = new RegistrationViewModel
+            {
+                Specialist = new SpecialistRegistrationVm
+                {
+                    Cities = await _locationService.GetAllCitiesAsync()
+                }
+            };
+            return View("SignUp",viewModel);
         }
 
         public IActionResult ForgotPassword()

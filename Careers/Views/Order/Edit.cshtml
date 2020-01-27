@@ -56,7 +56,7 @@
 
 @section Scripts {
 
-    <script>
+    <script >
 
         $(document).ready(function () {
 
@@ -92,17 +92,17 @@
 
                             @foreach (var item in Model.ClientAnswers)
                             {
-                                @:one={Answer:'@item.Answer', QuestionId: '@item.QuestionId' }
+                                @:one = { Answer: '@Html.Raw(item.Answer)', QuestionId: '@item.QuestionId' };
                                 @:modelInputanswers.push(one);
                             }
 
                             $('#salary-min').val('@Model.SalaryMin');
                             $('#salary-max').val('@Model.SalaryMax');
-                            $('#description').val('@Model.Description');
+                            $('#description').val('@Html.Raw( Model.Description)');
                             $('#measurments option[value="@Model.MeasurmentId"]').attr('selected', 'selected');
 
                             if ($('input[data-question-id]').length) {
-                                $('input[data-question-id]').val('@Model.ClientLocation');
+                                $('input[data-question-id]').val('@Html.Raw(Model.ClientLocation)');
                             }
 
                             $('textarea[data-question-id]').each(function () {

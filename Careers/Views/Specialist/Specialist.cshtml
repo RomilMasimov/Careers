@@ -30,7 +30,7 @@
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                 <div class="jp_cp_left_side_wrapper">
                     <div class="jp_cp_left_pro_wallpaper">
-                        <img src="~/@Model.ImagePath" error-src="" alt="profile">
+                        <img src="@Model.ImagePath" error-src="" alt="profile">
                     </div>
                     <button id="contactbtn" type="button" class="jp_btn_default w-100 mt-5"> &nbsp;Contact candidate</button>
                     @*<div class="jp_cp_rd_wrapper">
@@ -232,7 +232,7 @@
                                         {
                                             <div class="w-100 d-flex align-items-center justify-content-between">
                                                 <p class="mt-0 pb-0">@service.Service.DescriptionRU</p>
-                                                <p class="mt-0 pb-0">@service.PriceMin @(service.PriceMax.HasValue ? $" - {service.PriceMax.Value}" : "") / @service.Measurement.TextRU</p>
+                                                <p class="mt-0 pb-0">@service.PriceMin @(service.PriceMax.HasValue ? $" - {service.PriceMax.Value}" : "") AZN / @service.Measurement.TextRU</p>
                                             </div>
                                         }
                                     </div>
