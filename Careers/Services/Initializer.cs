@@ -56,37 +56,37 @@ namespace Careers.Services
         public void CategorySubCategory()
         {
             if (context.SubCategories.Any()) return;
-            var repetitor = context.Categories.Add(new Category { DescriptionRU = "репетиторы", DescriptionAZ = "muəllimlər" });
-            var doctor = context.Categories.Add(new Category { DescriptionRU = "врачи", DescriptionAZ = "həkimlər" });
-            var repair = context.Categories.Add(new Category { DescriptionRU = "мастера по ремонту", DescriptionAZ = "ustalar" });
-            var coach = context.Categories.Add(new Category { DescriptionRU = "спортивные тренеры", DescriptionAZ = "idman müəllimlər" });
-            var it = context.Categories.Add(new Category { DescriptionRU = "ит-фрилансеры", DescriptionAZ = "it-frilanserər" });
-            var other = context.Categories.Add(new Category { DescriptionRU = "другое", DescriptionAZ = "basqa" });
+            var repetitor = context.Categories.Add(new Category { DescriptionRU = "репетиторы", DescriptionAZ = "Müəllimlər" });
+            var doctor = context.Categories.Add(new Category { DescriptionRU = "врачи", DescriptionAZ = "Həkimlər" });
+            var repair = context.Categories.Add(new Category { DescriptionRU = "мастера по ремонту", DescriptionAZ = "Ustalar" });
+            var coach = context.Categories.Add(new Category { DescriptionRU = "спортивные тренеры", DescriptionAZ = "İdman" });
+            var it = context.Categories.Add(new Category { DescriptionRU = "ит-фрилансеры", DescriptionAZ = "IT" });
+            var other = context.Categories.Add(new Category { DescriptionRU = "другое", DescriptionAZ = "Digər" });
 
-            context.SubCategories.Add(new SubCategory { Category = repetitor.Entity, DescriptionAZ = "inglis dili", DescriptionRU = "Английский язык" });
-            context.SubCategories.Add(new SubCategory { Category = repetitor.Entity, DescriptionAZ = "biologiya", DescriptionRU = "Биология" });
-            context.SubCategories.Add(new SubCategory { Category = repetitor.Entity, DescriptionAZ = "buqalteriya", DescriptionRU = "Бухгалтерский учёт" });
-            context.SubCategories.Add(new SubCategory { Category = repetitor.Entity, DescriptionAZ = "dizayn", DescriptionRU = "Дизайн" });
+            context.SubCategories.Add(new SubCategory { Category = repetitor.Entity, DescriptionAZ = "İnglis dili", DescriptionRU = "Английский язык" });
+            context.SubCategories.Add(new SubCategory { Category = repetitor.Entity, DescriptionAZ = "Biologiya", DescriptionRU = "Биология" });
+            context.SubCategories.Add(new SubCategory { Category = repetitor.Entity, DescriptionAZ = "Mühasibat uçotu", DescriptionRU = "Бухгалтерский учёт" });
+            context.SubCategories.Add(new SubCategory { Category = repetitor.Entity, DescriptionAZ = "Dizayn", DescriptionRU = "Дизайн" });
 
-            context.SubCategories.Add(new SubCategory { Category = doctor.Entity, DescriptionAZ = "allerkologiya", DescriptionRU = "Аллергология" });
-            context.SubCategories.Add(new SubCategory { Category = doctor.Entity, DescriptionAZ = "akusher", DescriptionRU = "Акушерство" });
-            context.SubCategories.Add(new SubCategory { Category = doctor.Entity, DescriptionAZ = "andrologiya", DescriptionRU = "Андрология" });
-            context.SubCategories.Add(new SubCategory { Category = doctor.Entity, DescriptionAZ = "venerologiya", DescriptionRU = "Венерология" });
+            context.SubCategories.Add(new SubCategory { Category = doctor.Entity, DescriptionAZ = "Allergologiya", DescriptionRU = "Аллергология" });
+            context.SubCategories.Add(new SubCategory { Category = doctor.Entity, DescriptionAZ = "Mamalıq", DescriptionRU = "Акушерство" });
+            context.SubCategories.Add(new SubCategory { Category = doctor.Entity, DescriptionAZ = "Androloji", DescriptionRU = "Андрология" });
+            context.SubCategories.Add(new SubCategory { Category = doctor.Entity, DescriptionAZ = "Venereologiya", DescriptionRU = "Венерология" });
 
-            context.SubCategories.Add(new SubCategory { Category = repair.Entity, DescriptionAZ = "territoriya ve nese", DescriptionRU = "Благоустройство территории " });
-            context.SubCategories.Add(new SubCategory { Category = repair.Entity, DescriptionAZ = "skvajina drelliyen", DescriptionRU = "Бурение скважин " });
-            context.SubCategories.Add(new SubCategory { Category = repair.Entity, DescriptionAZ = "bitovaya texnika", DescriptionRU = "Бытовая техника " });
-            context.SubCategories.Add(new SubCategory { Category = repair.Entity, DescriptionAZ = "ventilyaciya", DescriptionRU = "Вентиляция и кондиционеры " });
+            context.SubCategories.Add(new SubCategory { Category = repair.Entity, DescriptionAZ = "Ətrafın abadlaşdırılması", DescriptionRU = "Благоустройство территории " });
+            context.SubCategories.Add(new SubCategory { Category = repair.Entity, DescriptionAZ = "Quyu qazma", DescriptionRU = "Бурение скважин " });
+            context.SubCategories.Add(new SubCategory { Category = repair.Entity, DescriptionAZ = "Məişət texnikası", DescriptionRU = "Бытовая техника " });
+            context.SubCategories.Add(new SubCategory { Category = repair.Entity, DescriptionAZ = "Havalandırma və kondisioner", DescriptionRU = "Вентиляция и кондиционеры " });
 
-            context.SubCategories.Add(new SubCategory { Category = coach.Entity, DescriptionAZ = "arenda sgorta", DescriptionRU = "Аренда спортзалов" });
-            context.SubCategories.Add(new SubCategory { Category = coach.Entity, DescriptionAZ = "restling", DescriptionRU = "Единоборства" });
-            context.SubCategories.Add(new SubCategory { Category = coach.Entity, DescriptionAZ = "oyun idmani", DescriptionRU = "Игровые виды спорта" });
-            context.SubCategories.Add(new SubCategory { Category = coach.Entity, DescriptionAZ = "individual idmanlar", DescriptionRU = "Индивидуальные виды спорта" });
+            context.SubCategories.Add(new SubCategory { Category = coach.Entity, DescriptionAZ = "İdman salonu icarəsi", DescriptionRU = "Аренда спортзалов" });
+            context.SubCategories.Add(new SubCategory { Category = coach.Entity, DescriptionAZ = "Döyüş sənəti", DescriptionRU = "Единоборства" });
+            context.SubCategories.Add(new SubCategory { Category = coach.Entity, DescriptionAZ = "Oyun idman növləri", DescriptionRU = "Игровые виды спорта" });
+            context.SubCategories.Add(new SubCategory { Category = coach.Entity, DescriptionAZ = "Fərdi idman növləri", DescriptionRU = "Индивидуальные виды спорта" });
 
-            context.SubCategories.Add(new SubCategory { Category = it.Entity, DescriptionAZ = "dizaynerler", DescriptionRU = "Дизайнеры" });
-            context.SubCategories.Add(new SubCategory { Category = it.Entity, DescriptionAZ = "is testnen", DescriptionRU = "Работа с текстами" });
-            context.SubCategories.Add(new SubCategory { Category = it.Entity, DescriptionAZ = "proqramci", DescriptionRU = "Программисты" });
-            context.SubCategories.Add(new SubCategory { Category = it.Entity, DescriptionAZ = "tercumeci", DescriptionRU = "Переводчики" });
+            context.SubCategories.Add(new SubCategory { Category = it.Entity, DescriptionAZ = "Dizaynerler", DescriptionRU = "Дизайнеры" });
+            context.SubCategories.Add(new SubCategory { Category = it.Entity, DescriptionAZ = "Mətnlərlə işləmək", DescriptionRU = "Работа с текстами" });
+            context.SubCategories.Add(new SubCategory { Category = it.Entity, DescriptionAZ = "Proqramçılar", DescriptionRU = "Программисты" });
+            context.SubCategories.Add(new SubCategory { Category = it.Entity, DescriptionAZ = "Tərcüməçilər", DescriptionRU = "Переводчики" });
             
             context.SaveChanges();
         }
@@ -94,22 +94,22 @@ namespace Careers.Services
         public void Services()
         {
             if (context.Services.Any()) return;
-            context.Services.Add(new Service { SubCategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU == "Переводчики"), DescriptionAZ = "sdfsdfsdf", DescriptionRU = "Перевод книг" });
-            context.Services.Add(new Service { SubCategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU == "Переводчики"), DescriptionAZ = "sfsdfsdg", DescriptionRU = "Перевод с английского" });
-            context.Services.Add(new Service { SubCategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU == "Переводчики"), DescriptionAZ = "ASasA", DescriptionRU = "Перевод с корейского" });
-            context.Services.Add(new Service { SubCategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU == "Переводчики"), DescriptionAZ = "ADFSHNG", DescriptionRU = "Перевод с французского" });
+            context.Services.Add(new Service { SubCategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU == "Переводчики"), DescriptionAZ = "Kitab tərcüməsi", DescriptionRU = "Перевод книг" });
+            context.Services.Add(new Service { SubCategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU == "Переводчики"), DescriptionAZ = "İngilis dilindən tərcümə", DescriptionRU = "Перевод с английского" });
+            context.Services.Add(new Service { SubCategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU == "Переводчики"), DescriptionAZ = "Koreya dilindən tərcümə", DescriptionRU = "Перевод с корейского" });
+            context.Services.Add(new Service { SubCategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU == "Переводчики"), DescriptionAZ = "Fransız dilindən tərcümə", DescriptionRU = "Перевод с французского" });
 
-            context.Services.Add(new Service { SubCategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU == "Программисты"), DescriptionAZ = "WEGRZHTJYHTFDGFGD", DescriptionRU = "Адаптивная вёрстка" });
-            context.Services.Add(new Service { SubCategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU == "Программисты"), DescriptionAZ = "ASDFDGFGNFF", DescriptionRU = "Доска объявлений" });
-            context.Services.Add(new Service { SubCategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU == "Программисты"), DescriptionAZ = "fsgdhfj", DescriptionRU = "Настройка 1С Розницы" });
-            context.Services.Add(new Service { SubCategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU == "Программисты"), DescriptionAZ = "adfsgdfd", DescriptionRU = "Создание сайта на PHP" });
-            context.Services.Add(new Service { SubCategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU == "Программисты"), DescriptionAZ = "asFSDzgdhf", DescriptionRU = "Создание сайта на uCoz" });
+            context.Services.Add(new Service { SubCategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU == "Программисты"), DescriptionAZ = "Uyğunlaşma ardıcıllığı", DescriptionRU = "Адаптивная вёрстка" });
+            context.Services.Add(new Service { SubCategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU == "Программисты"), DescriptionAZ = "Elan lövhəsi", DescriptionRU = "Доска объявлений" });
+            context.Services.Add(new Service { SubCategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU == "Программисты"), DescriptionAZ = "1C proqram təminatının dəyişdirilməsi", DescriptionRU = "Настройка 1С Розницы" });
+            context.Services.Add(new Service { SubCategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU == "Программисты"), DescriptionAZ = "Sayt yaradılması (PHP)", DescriptionRU = "Создание сайта на PHP" });
+            context.Services.Add(new Service { SubCategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU == "Программисты"), DescriptionAZ = "Sayt yaradılması (uCoz)", DescriptionRU = "Создание сайта на uCoz" });
 
-            context.Services.Add(new Service { SubCategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU == "Дизайнеры"), DescriptionAZ = "fxtdygchkj", DescriptionRU = "Дизайн каталогов" });
-            context.Services.Add(new Service { SubCategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU == "Дизайнеры"), DescriptionAZ = "dszsgsfgh", DescriptionRU = "Дизайн меню" });
-            context.Services.Add(new Service { SubCategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU == "Дизайнеры"), DescriptionAZ = "fghfchj", DescriptionRU = "Дизайн плакатов" });
-            context.Services.Add(new Service { SubCategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU == "Дизайнеры"), DescriptionAZ = "zdgxhfcjghkvjg", DescriptionRU = "Моделирование здания" });
-            context.Services.Add(new Service { SubCategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU == "Дизайнеры"), DescriptionAZ = "zgxhtcyjguk zxdheg", DescriptionRU = "Разработка мокапа" });
+            context.Services.Add(new Service { SubCategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU == "Дизайнеры"), DescriptionAZ = "Kataloqların dizaynı", DescriptionRU = "Дизайн каталогов" });
+            context.Services.Add(new Service { SubCategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU == "Дизайнеры"), DescriptionAZ = "Menyu dizaynı", DescriptionRU = "Дизайн меню" });
+            context.Services.Add(new Service { SubCategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU == "Дизайнеры"), DescriptionAZ = "Plakat dizaynı", DescriptionRU = "Дизайн плакатов" });
+            context.Services.Add(new Service { SubCategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU == "Дизайнеры"), DescriptionAZ = "Bina modelləşdirilməsi", DescriptionRU = "Моделирование здания" });
+            context.Services.Add(new Service { SubCategory = context.SubCategories.FirstOrDefault(x => x.DescriptionRU == "Дизайнеры"), DescriptionAZ = "Mokap tərtibi", DescriptionRU = "Разработка мокапа" });
 
             context.SaveChanges();
         }
@@ -137,12 +137,12 @@ namespace Careers.Services
 
             #region Программисты
             var prog = context.SubCategories.FirstOrDefault(x => x.DescriptionRU.ToLower() == "программисты");
-            var p1 = context.Questions.Add(new Question { Type = QuestionTypeEnum.Input, TextRU = "Что необходимо разработать?", TextAZ = "neynemek lazimdir?", SubCategory = prog });
-            var p2 = context.Questions.Add(new Question { Type = QuestionTypeEnum.Input, TextRU = "Для чего?", TextAZ = "Ne ucun?", SubCategory = prog });
-            var p3 = context.Questions.Add(new Question { Type = QuestionTypeEnum.Single, TextRU = "Язык программирования?", TextAZ = "Hansi dilinde?", SubCategory = prog });
-            var p4 = context.Questions.Add(new Question { Type = QuestionTypeEnum.Input, TextRU = "Детали и сроки задачи?", TextAZ = "deadline?", SubCategory = prog });
-            var p6 = context.Questions.Add(new Question { Type = QuestionTypeEnum.MyLocation, TextRU = "Ваш адрес", TextAZ = "Sizin adresiniz", SubCategory = prog });
-            var p7 = context.Questions.Add(new Question { Type = QuestionTypeEnum.MeetingPoints, TextRU = "Куда вам удобно приехать?", TextAZ = "Haraya gəlmək rahatdır?", SubCategory = prog });
+            var p1 = context.Questions.Add(new Question { Type = QuestionTypeEnum.Input, TextRU = "Что необходимо разработать?", TextAZ = "Nə proqramı yazılmalıdır ?", SubCategory = prog });
+            var p2 = context.Questions.Add(new Question { Type = QuestionTypeEnum.Input, TextRU = "Для чего?", TextAZ = "Nə üçün ?", SubCategory = prog });
+            var p3 = context.Questions.Add(new Question { Type = QuestionTypeEnum.Single, TextRU = "Язык программирования?", TextAZ = "Proqramlaşdırma dili ?", SubCategory = prog });
+            var p4 = context.Questions.Add(new Question { Type = QuestionTypeEnum.Input, TextRU = "Детали и сроки задачи?", TextAZ = "Son tarix ?", SubCategory = prog });
+            var p6 = context.Questions.Add(new Question { Type = QuestionTypeEnum.MyLocation, TextRU = "Ваш адрес", TextAZ = "Sizin ünvanınız", SubCategory = prog });
+            var p7 = context.Questions.Add(new Question { Type = QuestionTypeEnum.MeetingPoints, TextRU = "Куда вам удобно приехать?", TextAZ = "Sizə hara gəlmək rahatdı ?", SubCategory = prog });
 
             context.SaveChanges();
 
@@ -164,7 +164,7 @@ namespace Careers.Services
             context.SaveChanges();
 
             context.Answers.Add(new Answer { TextRU = "Интернет сайт", TextAZ = "Onlayn mağaza", QuestionId = phpq1.Entity.Id });
-            context.Answers.Add(new Answer { TextRU = "Сайт-визитка", TextAZ = "Iş haqqinda", QuestionId = phpq1.Entity.Id });
+            context.Answers.Add(new Answer { TextRU = "Сайт-визитка", TextAZ = "Vizit kart saytı", QuestionId = phpq1.Entity.Id });
             context.Answers.Add(new Answer { TextRU = "Корпоративный сайт", TextAZ = "Korporativ veb sayt", QuestionId = phpq1.Entity.Id });
 
             context.Answers.Add(new Answer { TextRU = "Адаптивная", TextAZ = "Uyğunlaşır", QuestionId = phpq2.Entity.Id });
@@ -177,13 +177,13 @@ namespace Careers.Services
             var t2 = context.Questions.Add(new Question { Type = QuestionTypeEnum.Multi, TextRU = "Язык, с которого нужно перевести:", TextAZ = "Mənbə dili:", SubCategory = translators });
             var t3 = context.Questions.Add(new Question { Type = QuestionTypeEnum.Multi, TextRU = "На какой язык перевести?", TextAZ = "Hansı dilə tərcümə edim?", SubCategory = translators });
             var t4 = context.Questions.Add(new Question { Type = QuestionTypeEnum.Single, TextRU = "Что перевести?", TextAZ = "Nə tərcümə etmək lazımdır?", SubCategory = translators });
-            var t5 = context.Questions.Add(new Question { Type = QuestionTypeEnum.Input, TextRU = "Объём работ", TextAZ = "İşin dairəsi", SubCategory = translators });
-            var t6 = context.Questions.Add(new Question { Type = QuestionTypeEnum.Input, TextRU = "Опишите детали задачи", TextAZ = "Vəzifə detallarını təsvir edin", SubCategory = translators });
+            var t5 = context.Questions.Add(new Question { Type = QuestionTypeEnum.Input, TextRU = "Объём работ", TextAZ = "İşin həcmi", SubCategory = translators });
+            var t6 = context.Questions.Add(new Question { Type = QuestionTypeEnum.Input, TextRU = "Опишите детали задачи", TextAZ = "Proekt haqqında incəlikləri qeyd edin", SubCategory = translators });
 
             context.SaveChanges();
 
             context.Answers.Add(new Answer { TextRU = "Устный", TextAZ = "Şifahi", QuestionId = t1.Entity.Id });
-            context.Answers.Add(new Answer { TextRU = "Письменный", TextAZ = "Yazılıb", QuestionId = t1.Entity.Id });
+            context.Answers.Add(new Answer { TextRU = "Письменный", TextAZ = "Yazılı", QuestionId = t1.Entity.Id });
             context.Answers.Add(new Answer { TextRU = "Английский", TextAZ = "İngilis", QuestionId = t2.Entity.Id });
             context.Answers.Add(new Answer { TextRU = "Русский", TextAZ = "Rus", QuestionId = t2.Entity.Id });
             context.Answers.Add(new Answer { TextRU = "Азербайджанский", TextAZ = "Azərbaycan", QuestionId = t2.Entity.Id });
@@ -233,11 +233,11 @@ namespace Careers.Services
         public void Measurements()
         {
             if (context.Measurements.Any()) return;
-            context.Measurements.Add(new Measurement { TextAZ = "dest", TextRU = "шт" });
-            context.Measurements.Add(new Measurement { TextAZ = "30 degige", TextRU = "30 мин" });
+            context.Measurements.Add(new Measurement { TextAZ = "dənə", TextRU = "шт" });
+            context.Measurements.Add(new Measurement { TextAZ = "30 dəqiqə", TextRU = "30 мин" });
             context.Measurements.Add(new Measurement { TextAZ = "1 saat", TextRU = "1 час" });
-            context.Measurements.Add(new Measurement { TextAZ = "Ders", TextRU = "урок" });
-            context.Measurements.Add(new Measurement { TextAZ = "service", TextRU = "услуга" });
+            context.Measurements.Add(new Measurement { TextAZ = "Dərs", TextRU = "урок" });
+            context.Measurements.Add(new Measurement { TextAZ = "Xidmət", TextRU = "услуга" });
             context.SaveChanges();
         }
     }

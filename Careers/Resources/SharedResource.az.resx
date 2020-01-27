@@ -121,104 +121,104 @@
     <value>Salam</value>
   </data>
   <data name="teachers" xml:space="preserve">
-    <value>Muellimler</value>
+    <value>Müəllimlər</value>
   </data>
   <data name="masters" xml:space="preserve">
     <value>Ustalar</value>
   </data>
   <data name="beauty" xml:space="preserve">
-    <value>Gozzelik ustalar</value>
+    <value>Gözəllik</value>
   </data>
   <data name="coach" xml:space="preserve">
-    <value>Idman muellimleri</value>
+    <value>İdman</value>
   </data>
   <data name="drivingTeacher" xml:space="preserve">
-    <value>Masin muellimi</value>
+    <value>Sürücülük</value>
   </data>
   <data name="artists" xml:space="preserve">
-    <value>Artistler</value>
+    <value>Rəsm</value>
   </data>
   <data name="it" xml:space="preserve">
-    <value>IT strukturasi</value>
+    <value>IT xidmətləri</value>
   </data>
   <data name="homeStaff" xml:space="preserve">
-    <value>Ev personali</value>
+    <value>Ev işləri üzrə</value>
   </data>
   <data name="veterinary" xml:space="preserve">
-    <value>veterinarlar</value>
+    <value>Baytarlıq</value>
   </data>
   <data name="accounting" xml:space="preserve">
-    <value>Muhasibat</value>
+    <value>Mühasibatlıq</value>
   </data>
   <data name="doctors" xml:space="preserve">
-    <value>Doktorlar</value>
+    <value>Həkimlər</value>
   </data>
   <data name="other" xml:space="preserve">
-    <value>Diger specialistler</value>
+    <value>Diger</value>
   </data>
   <data name="review" xml:space="preserve">
-    <value>Otziv saxlamaq</value>
+    <value>Rəy bildir</value>
   </data>
   <data name="createorder" xml:space="preserve">
-    <value>Sifarişinizi yaradın</value>
+    <value>Sifarişi yarat</value>
   </data>
   <data name="noorderstext" xml:space="preserve">
     <value>Sifarişiniz yoxdur</value>
   </data>
   <data name="save" xml:space="preserve">
-    <value>yadda saxla</value>
+    <value>Yadda saxla</value>
   </data>
   <data name="orderDetails" xml:space="preserve">
-    <value>Zakaz melumatlari</value>
+    <value>Sifariş məlumatları</value>
   </data>
   <data name="edit" xml:space="preserve">
-    <value>Duzelis et</value>
+    <value>Düzəliş et</value>
   </data>
   <data name="response" xml:space="preserve">
-    <value>Response</value>
+    <value>Sorğu nəticəsi</value>
     <comment>response</comment>
   </data>
   <data name="home" xml:space="preserve">
-    <value>home</value>
+    <value>Ana səhifə</value>
     <comment>home</comment>
   </data>
   <data name="specialists" xml:space="preserve">
-    <value>specialists</value>
+    <value>Mütəxəssislər</value>
   </data>
   <data name="contact" xml:space="preserve">
-    <value>contact</value>
+    <value>Əlaqə</value>
     <comment>contact</comment>
   </data>
   <data name="about" xml:space="preserve">
-    <value>about</value>
+    <value>Haqqında</value>
     <comment>about</comment>
   </data>
   <data name="popularCategories" xml:space="preserve">
-    <value>Popular categorialar</value>
+    <value>Çox seçilən bölmələr</value>
     <comment>popularCategories</comment>
   </data>
   <data name="iAmEmpolee" xml:space="preserve">
-    <value>iAmEmpolee</value>
+    <value>Mən işi görənəm</value>
     <comment>iAmEmpolee</comment>
   </data>
   <data name="iAmClient" xml:space="preserve">
-    <value>iAmClient</value>
+    <value>Mən müştəriyəm</value>
     <comment>iAmClient</comment>
   </data>
   <data name="orders" xml:space="preserve">
-    <value>orders</value>
+    <value>Sifarişlər</value>
     <comment>orders</comment>
   </data>
   <data name="myOrders" xml:space="preserve">
-    <value>myorders</value>
+    <value>Mənim sifarişlərim</value>
     <comment>myorders</comment>
   </data>
   <data name="profile" xml:space="preserve">
-    <value>profile</value>
+    <value>Şəxsi hesab</value>
     <comment>profile</comment>
   </data>
   <data name="settings" xml:space="preserve">
-    <value>settings</value>
+    <value>Ayarlar</value>
     <comment>settings</comment>
   </data>
 </root>
