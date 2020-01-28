@@ -71,7 +71,7 @@
         <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 mt-md-0 mt-3">
             <div id="orderContainer" class="jp_rightside_job_categories_wrapper jp_rightside_listing_single_wrapper">
                 <div class="jp_rightside_job_categories_heading">
-                    <h4>Job Overview</h4>
+                    <h4>@SharedLocalizer["overview"] </h4>
                 </div>
                 <div class="jp_jop_overview_img_wrapper text-center">
                     <div class="d-flex w-100 px-5">
@@ -117,7 +117,7 @@
                     @if (!string.IsNullOrWhiteSpace(Model.Description))
                     {
                         <div class="jp_job_des">
-                            <h2>Job Description</h2>
+                            <h2>@SharedLocalizer["description"]</h2>
                             <p>
                                 @Model.Description
                             </p>

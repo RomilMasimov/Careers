@@ -11,21 +11,25 @@
     <Compile Remove="Services\OrdersSerivce\**" />
     <Compile Remove="Services\QuestionsService\**" />
     <Compile Remove="Services\ServicesService\**" />
+    <Compile Remove="wwwroot\js\pages\**" />
     <Content Remove="Services\LocationsService\**" />
     <Content Remove="Services\MeetingPointsService\**" />
     <Content Remove="Services\OrdersSerivce\**" />
     <Content Remove="Services\QuestionsService\**" />
     <Content Remove="Services\ServicesService\**" />
+    <Content Remove="wwwroot\js\pages\**" />
     <EmbeddedResource Remove="Services\LocationsService\**" />
     <EmbeddedResource Remove="Services\MeetingPointsService\**" />
     <EmbeddedResource Remove="Services\OrdersSerivce\**" />
     <EmbeddedResource Remove="Services\QuestionsService\**" />
     <EmbeddedResource Remove="Services\ServicesService\**" />
+    <EmbeddedResource Remove="wwwroot\js\pages\**" />
     <None Remove="Services\LocationsService\**" />
     <None Remove="Services\MeetingPointsService\**" />
     <None Remove="Services\OrdersSerivce\**" />
     <None Remove="Services\QuestionsService\**" />
     <None Remove="Services\ServicesService\**" />
+    <None Remove="wwwroot\js\pages\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -56,7 +60,6 @@
   <ItemGroup>
     <Folder Include="Areas\AdminPanel\Data\" />
     <Folder Include="Areas\AdminPanel\Models\" />
-    <Folder Include="wwwroot\js\pages\" />
   </ItemGroup>
 
 </Project>

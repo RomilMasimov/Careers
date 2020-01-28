@@ -109,7 +109,7 @@
                                 </div>
                                 <div class="jp_listing_list_icon_cont_wrapper">
                                     <ul>
-                                        <li>@Localizer["salary"]:</li>
+                                        <li>@SharedLocalizer["salary"]:</li>
                                         <li>@Model.PriceMin @(Model.PriceMax.HasValue ? $" - {Model.PriceMax.Value}" : "") AZN / @(isRu ? Model.Measurement?.TextRU : Model.Measurement?.TextAZ)</li>
                                     </ul>
                                 </div>
@@ -149,7 +149,7 @@
                                                         @SharedLocalizer["response"]
                                                     </button>
 
-                                                    <partial name="_ReplenishBalanceModalPartial" />
+                                                    <partial name="_EditBalanceModalPartial" />
                                                 }
                                             }
                                         </li>

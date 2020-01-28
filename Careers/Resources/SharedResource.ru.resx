@@ -221,4 +221,15 @@
     <value>Настройки</value>
     <comment>settings</comment>
   </data>
+  <data name="description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="overview" xml:space="preserve">
+    <value>Содержание</value>
+    <comment>overview</comment>
+  </data>
+  <data name="salary" xml:space="preserve">
+    <value>Оплата</value>
+    <comment>salary</comment>
+  </data>
 </root>
