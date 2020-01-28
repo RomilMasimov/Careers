@@ -510,7 +510,7 @@
             });
 
             hubConnection.on('NewMsgCame', function (data) {
-                addNotification(data)
+                addNotification(data);
             });
 
             function addNotification(data) {
@@ -527,15 +527,6 @@
                 console.log(url);
                 $('#notifications .list-group').prepend(`<a href="${url}" class="list-group-item list-group-item-action"><i class="far fa-envelope"></i> <p>${data.text}</p></a>`);
             }
-
-            //при переходе по ссылке ту что кникнули сперва удаляем из контейнера
-
-            //$('#notifications').on('click',
-            //    'a',
-            //    function () {
-            //        let elem = $(this);
-            //        elem.remove();
-            //    });
 
 
             hubConnection.start().then(function () {

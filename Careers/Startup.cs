@@ -13,11 +13,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
 using System;
-using System.IO;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
 using Careers.SignalR;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.WebEncoders;
 
 namespace Careers
