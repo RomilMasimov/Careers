@@ -14,24 +14,20 @@
     {
         <h5>@spec.Name @spec.Surname</h5>
     }
-    <div class="navbar navbar-expand-sm drop">
+    <div id="buttons" class="navbar navbar-expand-sm drop m-0">
+        @if (Model.IsHaveSelectedSpeciaslit && Model.IsSelectedSpecialist)
+        {
+            @if (!Model.IsFinished)
+            {
+                <button type="button" id="complete" class="btn btn-sm btn-danger mr-2">Завершить выполнение</button>
+            }
+            <button type="button" id="refuse" class="btn btn-sm btn-danger mr-2">Отказаться</button>
+        }
+        else if (!Model.IsSelectedSpecialist && !Model.IsSelectedSpecialist)
+        {
+            <button type="button" id="select" class="btn btn-sm btn-danger mr-2">Выбрать этого мастера</button>
+        }
 
-        <!-- Links -->
-        <ul class="navbar-nav">
-
-            <!-- Dropdown -->
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbardrop1" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-ellipsis-h"></i>
-                </a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#"><i class="fa fa-link"></i>&nbsp;&nbsp;Copy this link</a>
-                    <a class="dropdown-item" href="#"><i class="fa fa-tag"></i>&nbsp;&nbsp;Report</a>
-                    <a class="dropdown-item" href="#"><i class="fa fa-flag"></i>&nbsp;&nbsp;Hide</a>
-
-                </div>
-            </li>
-        </ul>
     </div>
 </div>
 <div style="height: 75vh;">

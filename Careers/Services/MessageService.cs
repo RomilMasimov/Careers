@@ -147,6 +147,7 @@ namespace Careers.Services
             var userSpecialistMessage = await _context.UserSpecialistMessages
                     .Include(x => x.Specialist)
                     .Include(x => x.Client)
+                    .Include(x => x.Order)
                     .SingleOrDefaultAsync(x => x.Id == messageLogId);
 
             if (userSpecialistMessage == null) return null;

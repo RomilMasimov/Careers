@@ -1,0 +1,109 @@
+﻿@using System.Globalization
+@using System.Security.Claims
+@model OrderAndChatViewModel
+@{
+    var isRu = CultureInfo.CurrentCulture.Name == "ru-RU";
+}
+
+<div id="orderContainer" class="jp_rightside_job_categories_wrapper jp_rightside_listing_single_wrapper">
+    <div class="jp_rightside_job_categories_heading">
+        <h4>@SharedLocalizer["overview"] </h4>
+    </div>
+    <div class="jp_jop_overview_img_wrapper text-center">
+        <div class="d-flex w-100 px-5">
+            <div class="jp_job_des pt-5">
+                <h2 class="text-left">Service</h2>
+                <p class="text-left jp_job_des_large_font_size">
+                    @(isRu ? Model.Service.DescriptionRU : Model.Service.DescriptionAZ)
+                </p>
+            </div>
+            <div class="jp_jop_overview_img">
+                <img order-state="@Model.State" class="border">
+            </div>
+        </div>
+    </div>
+    <div class="jp_listing_overview_list_outside_main_wrapper">
+
+        <div class="row mb-5">
+            <div class="jp_listing_overview_list_main_wrapper col-md-6 col-12">
+                <div class="jp_listing_list_icon">
+                    <i class="fa fa-calendar"></i>
+                </div>
+                <div class="jp_listing_list_icon_cont_wrapper">
+                    <ul>
+                        <li>Date Posted:</li>
+                        <li>@Model.Created.ToString()</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="jp_listing_overview_list_main_wrapper col-md-6 col-12">
+                <div class="jp_listing_list_icon">
+                    <i class="fa fa-money"></i>
+                </div>
+                <div class="jp_listing_list_icon_cont_wrapper">
+                    <ul>
+                        <li>@SharedLocalizer["salary"]:</li>
+                        <li>@Model.PriceMin @(Model.PriceMax.HasValue ? $" - {Model.PriceMax.Value}" : "") AZN / @(isRu ? Model.Measurement?.TextRU : Model.Measurement?.TextAZ)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        @if (!string.IsNullOrWhiteSpace(Model.Description))
+        {
+            <div class="jp_job_des">
+                <h2>@SharedLocalizer["description"]</h2>
+                <p>
+                    @Model.Description
+                </p>
+            </div>
+        }
+        @if (Model.MeetingPoint.Any())
+        {
+            <div class="jp_job_res">
+                <h2>@(isRu ? "Места встречи" : "Görüş yerləri")</h2>
+                <p>
+                    <span>@Model.MeetingPoint?.First().Description</span>
+                    @foreach (var point in Model.MeetingPoint.Skip(1))
+                    {
+                        <span>, @point.Description</span>
+                    }
+                </p>
+            </div>
+        }
+        @foreach (var answerOrder in Model.AnswerOrders.Select(m => m.Answer).GroupBy(m => m.Question))
+        {
+            <div class="jp_job_res">
+                <h2>@(isRu ? answerOrder.Key.TextRU : answerOrder.Key.TextAZ)</h2>
+                <ul>
+                    @foreach (var answer in answerOrder)
+                    {
+                        <li><i class="fa fa-caret-right"></i>&nbsp;&nbsp; @(isRu ? answer.TextRU : answer.TextAZ)</li>
+                    }
+                </ul>
+            </div>
+        }
+        @foreach (var clientAnswer in Model.ClientAnswers)
+        {
+            <div class="jp_job_res">
+                <h2>@(isRu ? clientAnswer.Question.TextRU : clientAnswer.Question.TextAZ)</h2>
+                <p>@clientAnswer.Text</p>
+            </div>
+        }
+        <div class="jp_listing_right_bar_btn_wrapper mt-5">
+            <div class="jp_listing_right_bar_btn">
+                <ul class="mt-0">
+                    <li class="mt-0">
+                        <a asp-action="Edit"
+                           asp-controller="Order"
+                           asp-area=""
+                           asp-route-id="@Model.Id">
+                            <i class="fa fa-plus-circle"></i> &nbsp;@SharedLocalizer["edit"]
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

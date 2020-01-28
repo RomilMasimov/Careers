@@ -27,6 +27,7 @@ namespace Careers.Controllers
         private readonly IOrderService _orderService;
         private readonly IQuestionService _questionService;
         private readonly IClientService _clientService;
+        private readonly ISpecialistService _specialistService;
         private readonly ICategoryService _categoryService;
         private readonly IAnswerService _answerService;
         private readonly IReviewService _reviewService;
@@ -38,6 +39,7 @@ namespace Careers.Controllers
             IMessageService messageService,
             IHubContext<NotificationHub> hubContext,
             IClientService clientService,
+            ISpecialistService specialistService,
             ICategoryService categoryService,
             IAnswerService answerService,
             IReviewService reviewService)
@@ -47,6 +49,7 @@ namespace Careers.Controllers
             _messageService = messageService;
             _hubContext = hubContext;
             _clientService = clientService;
+            _specialistService = specialistService;
             _categoryService = categoryService;
             _answerService = answerService;
             _reviewService = reviewService;
@@ -96,14 +99,79 @@ namespace Careers.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> GetConversation(int id) //OrderId
+        public async Task<IActionResult> GetOrderOverview(int id) //OrderId
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var client = await _clientService.FindAsync(userId, true);
+            Order order = null;
+            if (client.Orders.Any(m => m.Id == id))
+                order = await _orderService.FindDetailedAsync(id);
+
+            if (order == null) return Json(false);
+            Request.Cookies.TryGetValue("profileImage", out string image);
+            return PartialView("_OrderOverviewPartial", new OrderAndChatViewModel(order, image ?? ""));
+        }
+
+        public async Task<IActionResult> GetConversation(int id) //MessageLogId
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var dialog = await _messageService.GetDialogAsync(id);
             if (dialog == null) return Content("NotFound");
             await _messageService.MarkAsRead(dialog.UserSpecialistMessage.Id, userId);
 
-            return PartialView("_ConversationPartial", new MessagesAndCurrentUser(userId, dialog));
+            var model = new MessagesAndCurrentUser(userId, dialog);
+            model.IsFinished = dialog.UserSpecialistMessage.Order.State == OrderStateTypeEnum.Finished;
+            model.IsHaveSelectedSpeciaslit = dialog.UserSpecialistMessage.Order.SpecialistId != null;
+            model.IsSelectedSpecialist = dialog.UserSpecialistMessage.SpecialistId == dialog.UserSpecialistMessage.Order.SpecialistId;
+
+            return PartialView("_ConversationPartial", model);
+        }
+
+        public async Task<IActionResult> SelectSpecialist(int orderId, string specialistId)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var client = await _clientService.FindAsync(userId, true);
+            var order = client.Orders.FirstOrDefault(m => m.Id == orderId);
+
+            if (order == null) return Json(false);
+
+            var specialist = await _specialistService.FindAsync(specialistId);
+
+            if (specialist == null) return Json(false);
+
+            order.SpecialistId = specialist.Id;
+            order.State = OrderStateTypeEnum.InProcess;
+            order.IsActive = false;
+            await _orderService.UpdateAsync(order);
+            return Json(true);
+        }
+
+        public async Task<IActionResult> CompleteOrder(int orderId)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var client = await _clientService.FindAsync(userId, true);
+            var order = client.Orders.FirstOrDefault(m => m.Id == orderId);
+
+            if (order == null) return Json(false);
+            order.State = OrderStateTypeEnum.Finished;
+            order.IsActive = false;
+            await _orderService.UpdateAsync(order);
+            return Json(true);
+        }
+
+        public async Task<IActionResult> RefuseSpecialist(int orderId)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var client = await _clientService.FindAsync(userId, true);
+            var order = client.Orders.FirstOrDefault(m => m.Id == orderId);
+
+            if (order == null) return Json(false);
+
+            order.SpecialistId = null;
+            order.State = OrderStateTypeEnum.InSearchOfSpec;
+            order.IsActive = true;
+            await _orderService.UpdateAsync(order);
+            return Json(true);
         }
 
         [HttpPost]
@@ -362,6 +430,7 @@ namespace Careers.Controllers
             }
             model.SpecialistId = order.Specialist.Id;
             model.SpecialistFullName = $"{order.Specialist.Name} {order.Specialist.Surname}";
+            model.SpecialistImage = order.Specialist.ImageUrl;
             model.SpecialistImage = order.Specialist.ImageUrl;
             return View(model);
 

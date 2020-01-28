@@ -8472,10 +8472,10 @@ button.jp_btn_default {
     display: flex;
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
- padding:22px;
- padding-bottom:2px;
- border-bottom:1px solid #eaeaea;
+	height: 63px;
+	border-bottom:1px solid #eaeaea;
     justify-content: space-between;
+	align-items: center;
 }
 .message-box .message-box-header h5 {
   font-size: 16px;

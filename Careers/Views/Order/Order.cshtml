@@ -35,12 +35,8 @@
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <div class="message-lists border">
                 <a href="#" id="orderButton" class="message-single border-bottom active">
-                    @*<div class="thumb">
-                            <img src="~/media/specialistProfile/1709f23f-4cdb-41cd-b747-d7d7328f40cd.jpg" class="img-fluid" alt="">
-                        </div>*@
                     <div class="body">
                         <h6 class="username">Order Overview</h6>
-                        @*<span class="send-time">12 min</span>*@
                     </div>
                 </a>
                 <div class="message-search border-bottom">
@@ -69,107 +65,8 @@
             </div>
         </div>
         <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 mt-md-0 mt-3">
-            <div id="orderContainer" class="jp_rightside_job_categories_wrapper jp_rightside_listing_single_wrapper">
-                <div class="jp_rightside_job_categories_heading">
-                    <h4>@SharedLocalizer["overview"] </h4>
-                </div>
-                <div class="jp_jop_overview_img_wrapper text-center">
-                    <div class="d-flex w-100 px-5">
-                        <div class="jp_job_des pt-5">
-                            <h2 class="text-left">Service</h2>
-                            <p class="text-left jp_job_des_large_font_size">
-                                @(isRu ? Model.Service.DescriptionRU : Model.Service.DescriptionAZ)
-                            </p>
-                        </div>
-                        <div class="jp_jop_overview_img">
-                            <img order-state="@Model.State" class="border">
-                        </div>
-                    </div>
-                </div>
-                <div class="jp_listing_overview_list_outside_main_wrapper">
-
-                    <div class="row mb-5">
-                        <div class="jp_listing_overview_list_main_wrapper col-md-6 col-12">
-                            <div class="jp_listing_list_icon">
-                                <i class="fa fa-calendar"></i>
-                            </div>
-                            <div class="jp_listing_list_icon_cont_wrapper">
-                                <ul>
-                                    <li>Date Posted:</li>
-                                    <li>@Model.Created.ToString()</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="jp_listing_overview_list_main_wrapper col-md-6 col-12">
-                            <div class="jp_listing_list_icon">
-                                <i class="fa fa-money"></i>
-                            </div>
-                            <div class="jp_listing_list_icon_cont_wrapper">
-                                <ul>
-                                    <li>@SharedLocalizer["salary"]:</li>
-                                    <li>@Model.PriceMin @(Model.PriceMax.HasValue ? $" - {Model.PriceMax.Value}" : "") AZN / @(isRu ? Model.Measurement?.TextRU : Model.Measurement?.TextAZ)</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    @if (!string.IsNullOrWhiteSpace(Model.Description))
-                    {
-                        <div class="jp_job_des">
-                            <h2>@SharedLocalizer["description"]</h2>
-                            <p>
-                                @Model.Description
-                            </p>
-                        </div>
-                    }
-                    @if (Model.MeetingPoint.Any())
-                    {
-                        <div class="jp_job_res">
-                            <h2>@(isRu ? "Места встречи" : "Görüş yerləri")</h2>
-                            <p>
-                                <span>@Model.MeetingPoint?.First().Description</span>
-                                @foreach (var point in Model.MeetingPoint.Skip(1))
-                                {
-                                    <span>, @point.Description</span>
-                                }
-                            </p>
-                        </div>
-                    }
-                    @foreach (var answerOrder in Model.AnswerOrders.Select(m => m.Answer).GroupBy(m => m.Question))
-                    {
-                        <div class="jp_job_res">
-                            <h2>@(isRu ? answerOrder.Key.TextRU : answerOrder.Key.TextAZ)</h2>
-                            <ul>
-                                @foreach (var answer in answerOrder)
-                                {
-                                    <li><i class="fa fa-caret-right"></i>&nbsp;&nbsp; @(isRu ? answer.TextRU : answer.TextAZ)</li>
-                                }
-                            </ul>
-                        </div>
-                    }
-                    @foreach (var clientAnswer in Model.ClientAnswers)
-                    {
-                        <div class="jp_job_res">
-                            <h2>@(isRu ? clientAnswer.Question.TextRU : clientAnswer.Question.TextAZ)</h2>
-                            <p>@clientAnswer.Text</p>
-                        </div>
-                    }
-                    <div class="jp_listing_right_bar_btn_wrapper mt-5">
-                        <div class="jp_listing_right_bar_btn">
-                            <ul class="mt-0">
-                                <li class="mt-0">
-                                    <a asp-action="Edit"
-                                       asp-controller="Order"
-                                       asp-area=""
-                                       asp-route-id="@Model.Id">
-                                        <i class="fa fa-plus-circle"></i> &nbsp;@SharedLocalizer["edit"]
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+            <div id="orderContainer">
+                <partial name="_OrderOverviewPartial" model="@Model" />
             </div>
 
             <div id="chatContainer" style="position: relative" class="message-box">
@@ -211,8 +108,10 @@
             }
         });
 
-        $('#orderButton').click(function(e) {
+        $('#orderButton').click(async function(e) {
             e.preventDefault();
+            let html = await(await fetch('@Url.Action("GetOrderOverview", new { id = Model.Id })')).text();
+            $('#orderContainer').html(html);
             $('#orderContainer').show();
             $('#chatContainer').hide();
         });
@@ -277,6 +176,31 @@
                 }
             });
 
+            $('#chatContainer').on('click', '#select', async function () {
+                let result = await(await fetch(`@Url.Action("SelectSpecialist", "Order", new { orderId = Model.Id })&specialistId=${specId}`)).json();
+                if (result) {
+                    $('#buttons').html(`<button type="button" id="refuse" class="btn btn-sm btn-danger mr-2">Отказаться</button>
+                                        <button type="button" id="complete" class="btn btn-sm btn-danger mr-2">Завершить выполнение</button>`);
+                    $('#isActive').attr("checked", false)
+                }
+            });
+
+            $('#chatContainer').on('click', '#complete', async function () {
+                let result = await(await fetch('@Url.Action("CompleteOrder", "Order", new { orderId = Model.Id })')).json();
+                if (result) {
+                    $(this).remove();
+                    $('#isActive').attr("checked", false)
+                }
+            });
+
+            $('#chatContainer').on('click', '#refuse', async function () {
+                let result = await(await fetch('@Url.Action("RefuseSpecialist", "Order", new { orderId = Model.Id })')).json();
+                if (result) {
+                    $('#buttons').html('<button type="button" id="select" class="btn btn-sm btn-danger mr-2">Выбрать этого мастера</button>');
+                    $('#isActive').attr("checked", true)
+                }
+            });
+
             //file selected
             $(function() {
                 $("input:file").change(function() {
@@ -318,8 +242,6 @@
                 let conversation = $(".dashboard-conversation");
                 conversation.scrollTop(conversation[0].scrollHeight - conversation[0].clientHeight);
             });
-
-
 
             async function sendMessage() {
                     let Message = $("#text").val();
@@ -374,9 +296,7 @@
                     conversation.scrollTop(conversation[0].scrollHeight - conversation[0].clientHeight);
             }
 
-
             //send message
-
             $('#text').keydown(async function (e) {
 
                 if (e.ctrlKey && e.keyCode == 13) {
@@ -385,7 +305,7 @@
                 }
             });
 
-            $("#btnSendMessage").on("click",sendMessage);
+            $("#btnSendMessage").on("click", sendMessage);
         });
 
     </script>
