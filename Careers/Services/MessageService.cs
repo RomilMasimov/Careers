@@ -167,11 +167,18 @@ namespace Careers.Services
                                            x.OrderId == orderId);
 
             if (userSpecialistMessage == null) return null;
-
+            var messages = await GetMessagesAsync(userSpecialistMessage.Id);
+            
+            foreach (var msg in messages)
+            {
+                msg.AuthorImagePath = userSpecialistMessage.Client.AppUserId == msg.Author
+                    ? userSpecialistMessage.Client.ImageUrl
+                    : userSpecialistMessage.Specialist.ImageUrl;
+            }
             return new Dialog
             {
                 UserSpecialistMessage = userSpecialistMessage,
-                Messages = await GetMessagesAsync(userSpecialistMessage.Id)
+                Messages = messages
             };
         }
 

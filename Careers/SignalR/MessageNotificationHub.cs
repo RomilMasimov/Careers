@@ -34,7 +34,7 @@ namespace Careers.SignalR
                         {
                             DialogId = m.Id,
                             Text = $"From {m.Specialist.Name} {m.Specialist.Surname}",
-                            Role = "client"
+                            Role = "specialist"
                         });
             }
             else if (Context.User.IsInRole("specialist"))

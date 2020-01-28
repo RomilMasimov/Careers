@@ -522,9 +522,9 @@
                     url = `@Url.Action("ReceiveDialogId","Order",new{area="SpecialistArea"})/${data.dialogId}`;
                 }
                 if (data.role == 'specialist') {
-                    url = `@Url.Action("ReceiveDialogId","Order",new{area=""})/${data.dialogId}`;
+                    url = `@Url.Action("ReceiveDialogId","Order")/${data.dialogId}`;
                 }
-
+                console.log(url);
                 $('#notifications .list-group').prepend(`<a href="${url}" class="list-group-item list-group-item-action"><i class="far fa-envelope"></i> <p>${data.text}</p></a>`);
             }
 

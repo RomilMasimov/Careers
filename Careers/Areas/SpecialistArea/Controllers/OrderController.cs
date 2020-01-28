@@ -103,7 +103,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
         public async Task<IActionResult> ReceiveDialogId(int id)
         {
             var dialog = await _messageService.GetDialogAsync(id);
-            return RedirectToAction("Conversation",new { orderid= dialog.UserSpecialistMessage.OrderId });
+            return RedirectToAction("Conversation", new { orderid = dialog.UserSpecialistMessage.OrderId });
         }
 
         public async Task<IActionResult> Conversation(int orderId)
@@ -115,7 +115,14 @@ namespace Careers.Areas.SpecialistArea.Controllers
             var dialog = await _messageService.GetDialogAsync(specialist.Id, orderId);
             if (dialog == null) return Content("NotFound");
             await _messageService.MarkAsRead(dialog.UserSpecialistMessage.Id, userId);
-            return View("Conversation", new MessagesAndCurrentUser(userId, dialog));
+            var viewModel = new MessagesAndCurrentUser
+            {
+                UserId = userId,
+                Dialog = dialog,
+                AuthorImageUrl = specialist.ImageUrl
+            };
+
+            return View(viewModel);
         }
 
         public async Task<IActionResult> GetImage(IFormFile file)
