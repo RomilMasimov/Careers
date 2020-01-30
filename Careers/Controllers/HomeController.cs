@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using Careers.Models;
 using Careers.Services;
@@ -20,7 +19,6 @@ namespace Careers.Controllers
         private readonly IReviewService _reviewService;
         private readonly IMeetingPointService _meetingPointService;
         private readonly ICategoryService _categoryService;
-        private readonly Initializer _initializer;
 
         public HomeController(ISpecialistService specialistService, IReviewService reviewService,
             IMeetingPointService meetingPointService, ICategoryService categoryService, Initializer initializer)
@@ -29,20 +27,11 @@ namespace Careers.Controllers
             _reviewService = reviewService;
             _meetingPointService = meetingPointService;
             _categoryService = categoryService;
-            _initializer = initializer;
 
         }
 
         public async Task<IActionResult> Index()
         {
-            //_initializer.CountryAndCity();
-            //_initializer.Languages();
-            //_initializer.Measurements();
-            //_initializer.MeetingPoints();
-            //_initializer.CategorySubCategory();
-            //_initializer.Services();
-            //_initializer.QuestionAndAnswers();
-            //await _initializer.ClientsAndSpecialistsAsync();
             var reviews = await _reviewService.GetBestLastReviewsAsync(5);
 
             var specialists = await _specialistService.GetBestByCategoryAsync(6);
