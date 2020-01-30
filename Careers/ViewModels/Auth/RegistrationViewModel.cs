@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Careers.Models;
-using Careers.Services;
 
 namespace Careers.ViewModels.Auth
 {
-
     public class ClientRegistrationVm
     {
         [Required]
@@ -32,6 +30,7 @@ namespace Careers.ViewModels.Auth
         [Display(Name = "Phone")]
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
+        public bool AgreedWithTerms { get; set; }
     }
 
 
@@ -74,7 +73,7 @@ namespace Careers.ViewModels.Auth
         [Required]
         [Display(Name = "City*")]
         public int CityId { get; set; }
-
+        public bool AgreedWithTerms { get; set; }
         public IEnumerable<City> Cities { get; set; }
     }
 
@@ -82,6 +81,6 @@ namespace Careers.ViewModels.Auth
     {
         public ClientRegistrationVm Client { get; set; }
         public SpecialistRegistrationVm Specialist { get; set; }
-        public bool AgreedWithTerms { get; set; }
+        public bool? IsClient { get; set; }
     }
 }

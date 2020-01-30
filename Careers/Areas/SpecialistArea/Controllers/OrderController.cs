@@ -138,7 +138,7 @@ namespace Careers.Areas.SpecialistArea.Controllers
             return PartialView("_MessagePartial", msg);
         }
 
-        public async Task<IActionResult> CheckNewOrderAsync(int id)
+        public async Task<IActionResult> CheckNewOrder(int id)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var answer = await _specialistService.IsOrderForMeAsync(id, userId);

@@ -40,7 +40,11 @@ namespace Careers
                 options.Cookie.IsEssential = true;
             });
 
-            services.AddIdentity<AppUser, IdentityRole>(options => options.User.RequireUniqueEmail = true)
+            services.AddIdentity<AppUser, IdentityRole>(options =>
+                {
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.User.RequireUniqueEmail = true;
+                })
                 .AddEntityFrameworkStores<CareersDbContext>()
                 .AddDefaultTokenProviders();
 
@@ -78,10 +82,11 @@ namespace Careers
                 .AddRazorRuntimeCompilation()
                 .AddViewLocalization()
                 .AddDataAnnotationsLocalization();
-            
-            services.AddSignalR(options=> {
+
+            services.AddSignalR(options =>
+            {
                 options.EnableDetailedErrors = true;
-                
+
             });
             services.Configure<WebEncoderOptions>(options =>
             {

@@ -118,34 +118,82 @@ namespace Careers.Controllers
                 Specialist = new SpecialistRegistrationVm
                 {
                     Cities = await _locationService.GetAllCitiesAsync()
-                }
+                },
+                IsClient = true
             };
-
             return View(viewModel);
         }
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SignUp(RegistrationViewModel regViewModel)
+        public async Task<IActionResult> SignUpClient(ClientRegistrationVm client)
         {
-            if (!regViewModel.AgreedWithTerms)
+            if (!client.AgreedWithTerms)
             {
                 ModelState.AddModelError(string.Empty, "Accept terms and conditions");
-                return View();
+                var viewModel = new RegistrationViewModel
+                {
+                    Specialist = new SpecialistRegistrationVm
+                    {
+                        Cities = await _locationService.GetAllCitiesAsync()
+                    },
+                    IsClient = true
+
+                };
+                return View("SignUp",viewModel);
             }
 
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError(string.Empty, "Model state is invalid");
-                return View();
+                var viewModel = new RegistrationViewModel
+                {
+                    Specialist = new SpecialistRegistrationVm
+                    {
+                        Cities = await _locationService.GetAllCitiesAsync()
+                    },
+                    IsClient = true
+                };
+                return View("SignUp",viewModel);
             }
+            
+            return await clientReg(client);
+        }
 
-            if (regViewModel.Specialist != null)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SignUpSpecialist(SpecialistRegistrationVm specialist)
+        {
+            if (!specialist.AgreedWithTerms)
             {
-                return await specReg(regViewModel.Specialist);
+                ModelState.AddModelError(string.Empty, "Accept terms and conditions");
+                var viewModel = new RegistrationViewModel
+                {
+                    Specialist = new SpecialistRegistrationVm
+                    {
+                        Cities = await _locationService.GetAllCitiesAsync()
+                    },
+                    IsClient = false
+                };
+                return View("SignUp", viewModel);
             }
 
-            return await clientReg(regViewModel.Client);
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError(string.Empty, "Model state is invalid");
+                var viewModel = new RegistrationViewModel
+                {
+                    Specialist = new SpecialistRegistrationVm
+                    {
+                        Cities = await _locationService.GetAllCitiesAsync()
+                    },
+                    IsClient = false
+                };
+                return View("SignUp", viewModel);
+            }
+
+            return await specReg(specialist);
         }
 
         private async Task<IActionResult> clientReg(ClientRegistrationVm clientViewModel)
@@ -184,7 +232,15 @@ namespace Careers.Controllers
                 ModelState.AddModelError(string.Empty, error.Description);
             }
 
-            return View("SignUp");
+            var viewModel = new RegistrationViewModel
+            {
+                Specialist = new SpecialistRegistrationVm
+                {
+                    Cities = await _locationService.GetAllCitiesAsync()
+                },
+                IsClient = true
+            };
+            return View("SignUp", viewModel);
         }
 
         private async Task<IActionResult> specReg(SpecialistRegistrationVm specialistViewModel)
@@ -228,14 +284,31 @@ namespace Careers.Controllers
             {
                 ModelState.AddModelError(string.Empty, error.Description);
             }
+
             var viewModel = new RegistrationViewModel
             {
                 Specialist = new SpecialistRegistrationVm
                 {
                     Cities = await _locationService.GetAllCitiesAsync()
-                }
+                },
+                IsClient = false
             };
-            return View("SignUp",viewModel);
+            return View("SignUp", viewModel);
+        }
+
+        public IActionResult ClientForm()
+        {
+            return PartialView("_ClientRegistrationPartial",new ClientRegistrationVm());
+        }
+
+        public async Task<IActionResult> SpecialistForm()
+        {
+
+            var specialist = new SpecialistRegistrationVm
+            {
+                Cities = await _locationService.GetAllCitiesAsync()
+            };
+            return PartialView("_SpecialistRegistrationPartial", specialist);
         }
 
         public IActionResult ForgotPassword()

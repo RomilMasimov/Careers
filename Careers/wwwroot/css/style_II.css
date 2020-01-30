@@ -7197,7 +7197,7 @@ input[type="checkbox"]:checked + label:after {
     display: block;
     width: 100%;
     background: #ffffff;
-	text-transform:capitalize;
+	/*text-transform:capitalize;*/
     font-size: 15px;
     line-height: 26px;
     color: #888888;
@@ -7423,7 +7423,7 @@ input[type="checkbox"]:checked + label:after {
     font-weight: 700;
     line-height: 30px;
     color: #FFF;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     display: block;
     text-align: center;
 	cursor:pointer;

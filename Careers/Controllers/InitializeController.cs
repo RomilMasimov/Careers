@@ -2,7 +2,7 @@
 using Careers.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Careers.Areas.SpecialistArea.Controllers
+namespace Careers.Controllers
 {
     public class InitializeController:Controller
     {
