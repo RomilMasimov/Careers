@@ -232,4 +232,7 @@
     <value>Mais</value>
     <comment>salary</comment>
   </data>
+  <data name="newOrder" xml:space="preserve">
+    <value>Təzə sifariş</value>
+  </data>
 </root>

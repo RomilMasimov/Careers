@@ -15,7 +15,7 @@
       asp-route-returnUrl="@Context.Request.GetEncodedPathAndQuery() "
       method="post" class="form-horizontal">
 
-    <select name="culture" onchange="this.form.submit();"
+    <select style="border-radius: 40%;" name="culture" onchange="this.form.submit();"
             asp-for="@requestCulture.RequestCulture.UICulture.Name"
             asp-items="cultureItems"></select>
 </form>

@@ -41,12 +41,12 @@ namespace Careers
             });
 
             services.AddIdentity<AppUser, IdentityRole>(options =>
-                {
-                    options.Password.RequireNonAlphanumeric = false;
-                    options.User.RequireUniqueEmail = true;
-                })
-                .AddEntityFrameworkStores<CareersDbContext>()
-                .AddDefaultTokenProviders();
+            {
+                options.Password.RequireNonAlphanumeric = false;
+                options.User.RequireUniqueEmail = true;
+
+            }).AddEntityFrameworkStores<CareersDbContext>()
+              .AddDefaultTokenProviders();
 
             services.ConfigureApplicationCookie(options =>
             {

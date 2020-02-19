@@ -221,6 +221,7 @@
                                                 {
                                                     <li class="parent"><a asp-controller="Client" asp-action="Index">@SharedLocalizer["profile"]</a></li>
                                                     <li class="parent"><a asp-controller="Order" asp-action="Index">@SharedLocalizer["orders"]</a></li>
+                                                    <li class="parent"><a asp-controller="Order" asp-action="Create">@SharedLocalizer["newOrder"]</a></li>
                                                 }
                                                 else if (User.IsInRole("specialist"))
                                                 {
@@ -234,7 +235,7 @@
                                         </li>
                                         <li>
                                             <div class="my-image">
-                                                <img src="@(Context.Request.Cookies.TryGetValue("profileImage", out string image)? image: "")" error-src="" alt="">
+                                                <img style="border-radius:50%" src="@(Context.Request.Cookies.TryGetValue("profileImage", out string image)? image: "")" error-src="" alt="">
                                                 @if (User.Identity.IsAuthenticated)
                                                 {
                                                     <partial name="_NotificationPartial" />
@@ -306,12 +307,11 @@
                         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                             <div class="jp_footer_candidate_wrapper jp_footer_candidate_wrapper2">
                                 <div class="jp_footer_candidate">
-                                    <h2>For candidate</h2>
+                                    <h2>For Employers</h2>
                                     <ul>
                                         <li>
-                                            <a href="#">
-                                                <i class="fa fa-caret-right" aria-hidden="true"></i> Add a
-                                                Resume
+                                            <a asp-area="SpecialistArea" asp-controller="Settings" asp-action="Index">
+                                                <i class="fa fa-caret-right" aria-hidden="true"></i> Settings
                                             </a>
                                         </li>
                                         <li>
@@ -327,9 +327,8 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
-                                                <i class="fa fa-caret-right" aria-hidden="true"></i> Job
-                                                Alerts
+                                            <a asp-area="SpecialistArea" asp-controller="Order" asp-action="Index">
+                                                <i class="fa fa-caret-right" aria-hidden="true"></i> New Orders
                                             </a>
                                         </li>
                                         <li>
@@ -339,15 +338,15 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a asp-area="SpecialistArea" asp-controller="Profile" asp-action="Index">
                                                 <i class="fa fa-caret-right" aria-hidden="true"></i> My
                                                 Account
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a asp-area="SpecialistArea" asp-controller="Order" asp-action="MyOrders">
                                                 <i class="fa fa-caret-right" aria-hidden="true"></i> Your
-                                                Jobs
+                                                Orders
                                             </a>
                                         </li>
                                     </ul>
@@ -357,22 +356,24 @@
                         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                             <div class="jp_footer_candidate_wrapper jp_footer_candidate_wrapper3">
                                 <div class="jp_footer_candidate">
-                                    <h2>For Employers</h2>
+                                    <h2>For Clients</h2>
                                     <ul>
                                         <li>
-                                            <a href="#">
+                                            <a asp-area="" asp-controller="Specialist" asp-action="ListOfSpecialists">
                                                 <i class="fa fa-caret-right" aria-hidden="true"></i> Browse
                                                 candidates
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a asp-area="" asp-controller="Specialist" asp-action="ListOfSpecialists">
                                                 <i class="fa fa-caret-right" aria-hidden="true"></i> Employer
                                                 Dashboard
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i> Add Job</a>
+                                            <a asp-area="" asp-controller="Order" asp-action="Create">
+                                                <i class="fa fa-caret-right" aria-hidden="true"></i> Add Order
+                                            </a>
                                         </li>
                                         <li>
                                             <a href="#">
@@ -381,9 +382,8 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
-                                                <i class="fa fa-caret-right" aria-hidden="true"></i> Job
-                                                Packages
+                                            <a asp-area="" asp-controller="Order" asp-action="Index">
+                                                <i class="fa fa-caret-right" aria-hidden="true"></i> Orders
                                             </a>
                                         </li>
                                         <li>
@@ -393,7 +393,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a asp-area="" asp-controller="Client" asp-action="Index">
                                                 <i class="fa fa-caret-right" aria-hidden="true"></i> My
                                                 Account
                                             </a>
@@ -453,7 +453,7 @@
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                     <div class="jp_bottom_footer_left_cont">
-                                        <p>© By Imran Veliyev. All Rights Reserved.</p>
+                                        <p>© All Rights Reserved.</p>
                                     </div>
                                     <div class="jp_bottom_top_scrollbar_wrapper">
                                         <a href="javascript:" id="return-to-top"><i class="fa fa-angle-up"></i></a>

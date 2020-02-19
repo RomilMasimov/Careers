@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Careers.Models;
 
@@ -45,6 +46,12 @@ namespace Careers.ViewModels.Auth
         [Display(Name = "Surname*")]
         public string Surname { get; set; }
 
+
+        [Required]
+        [Display(Name = "Date*")]
+        public DateTime DateOfBirth { get; set; }
+
+
         [Required]
         [Display(Name = "Login*")]
         public string UserName { get; set; }
@@ -66,7 +73,8 @@ namespace Careers.ViewModels.Auth
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
-        [Display(Name = "Phone")]
+        [Required]
+        [Display(Name = "Phone*")]
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
 

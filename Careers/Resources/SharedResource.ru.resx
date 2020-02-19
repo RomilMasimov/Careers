@@ -232,4 +232,7 @@
     <value>Оплата</value>
     <comment>salary</comment>
   </data>
+  <data name="newOrder" xml:space="preserve">
+    <value>Новый заказ</value>
+  </data>
 </root>

@@ -151,7 +151,7 @@
                                                                 <b>@item.StudyPlaceName</b>,
                                                                 <span>specialization - </span>
                                                                 <i>@item.Specialization,</i>
-                                                                <span>@item.StartDate.Year @(item.EndDate.HasValue ? $" - {item.EndDate.Value.Year} years" : "year").</span>
+                                                                <span>@item.StartDate.Year @(item.EndDate.HasValue ? $" - {item.EndDate.Value.Year}" : "").</span>
                                                             </p>
                                                         </li>
                                                     </ul>
@@ -179,7 +179,7 @@
                                                         <b>@item.CompanyName</b>,
                                                         <span>position - </span>
                                                         <i>@item.Position,</i>
-                                                        <span>@item.StartDate.Year @(item.EndDate.HasValue ? $" - {item.EndDate.Value.Year} years" : "year").</span>
+                                                        <span>@item.StartDate.Year @(item.EndDate.HasValue ? $" - {item.EndDate.Value.Year}" : "").</span>
                                                     </p>
                                                 }
                                             </div>

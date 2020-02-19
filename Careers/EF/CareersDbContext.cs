@@ -13,6 +13,11 @@ namespace Careers.EF
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<AppUser>(b =>
+            {
+                b.HasIndex(u => u.PhoneNumber).IsUnique();
+            });
+
             modelBuilder.ApplyConfiguration(new AnswerOrderConfigurator());
             modelBuilder.ApplyConfiguration(new ClientConfigurator());
             modelBuilder.ApplyConfiguration(new MeasurementConfigurator());
@@ -85,13 +90,13 @@ namespace Careers.EF
         public DbSet<WhereCanMeetSpecialist> WhereCanMeetSpecialists { get; set; }
         public DbSet<SpecialistSubCategory> SpecialistSubCategories { get; set; }
         public DbSet<SpecialistService> SpecialistServices { get; set; }
-        public DbSet<OrderSchedule> OrderSchedules { get; set; } 
+        public DbSet<OrderSchedule> OrderSchedules { get; set; }
         public DbSet<UserSpecialistMessage> UserSpecialistMessages { get; set; }
         public DbSet<LanguageSpecialist> LanguageSpecialists { get; set; }
         public DbSet<MyLanguage> Languages { get; set; }
         public DbSet<SpecialistWork> SpecialistWorks { get; set; }
         public DbSet<ReviewComment> ReviewComments { get; set; }
-      //  public DbSet<ServiceReview> ServiceReviews { get; set; }
+        //  public DbSet<ServiceReview> ServiceReviews { get; set; }
         public DbSet<OrderResponse> OrderResponses { get; set; }
         public DbSet<Measurement> Measurements { get; set; }
 

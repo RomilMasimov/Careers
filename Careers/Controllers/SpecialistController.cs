@@ -8,11 +8,13 @@ using Careers.Services;
 using Careers.Services.Interfaces;
 using Careers.ViewModels.Partial;
 using Careers.ViewModels.Spec;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Careers.Controllers
 {
+    [Authorize]
     public class SpecialistController : Controller
     {
         private readonly ISpecialistService _specialistService;

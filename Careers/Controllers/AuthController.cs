@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
@@ -86,7 +87,8 @@ namespace Careers.Controllers
 
         public async Task<IActionResult> SignOut()
         {
-            await _signInManager.SignOutAsync();
+            if (User.Identity.IsAuthenticated)
+                await _signInManager.SignOutAsync();
 
             return RedirectToAction("Index", "Home");
         }
@@ -141,7 +143,7 @@ namespace Careers.Controllers
                     IsClient = true
 
                 };
-                return View("SignUp",viewModel);
+                return View("SignUp", viewModel);
             }
 
             if (!ModelState.IsValid)
@@ -155,9 +157,24 @@ namespace Careers.Controllers
                     },
                     IsClient = true
                 };
-                return View("SignUp",viewModel);
+                return View("SignUp", viewModel);
             }
-            
+
+            var phoneCheck = _userManager.Users.Any(item => item.PhoneNumber == client.PhoneNumber);
+            if (phoneCheck)
+            {
+                ModelState.AddModelError(string.Empty, "This Phone is used");
+                var viewModel = new RegistrationViewModel
+                {
+                    Specialist = new SpecialistRegistrationVm
+                    {
+                        Cities = await _locationService.GetAllCitiesAsync()
+                    },
+                    IsClient = true
+                };
+                return View("SignUp", viewModel);
+            }
+
             return await clientReg(client);
         }
 
@@ -182,6 +199,21 @@ namespace Careers.Controllers
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError(string.Empty, "Model state is invalid");
+                var viewModel = new RegistrationViewModel
+                {
+                    Specialist = new SpecialistRegistrationVm
+                    {
+                        Cities = await _locationService.GetAllCitiesAsync()
+                    },
+                    IsClient = false
+                };
+                return View("SignUp", viewModel);
+            }
+
+            var phoneCheck = _userManager.Users.Any(item => item.PhoneNumber == specialist.PhoneNumber);
+            if (phoneCheck)
+            {
+                ModelState.AddModelError(string.Empty, "This Phone is used");
                 var viewModel = new RegistrationViewModel
                 {
                     Specialist = new SpecialistRegistrationVm
@@ -271,7 +303,8 @@ namespace Careers.Controllers
                     AppUser = user,
                     Name = specialistViewModel.Name,
                     Surname = specialistViewModel.Surname,
-                    CityId = specialistViewModel.CityId
+                    CityId = specialistViewModel.CityId,
+                    DateOfBirth = specialistViewModel.DateOfBirth
                 });
 
                 await _userManager.AddToRolesAsync(user, new[] { "specialist" });
@@ -298,7 +331,7 @@ namespace Careers.Controllers
 
         public IActionResult ClientForm()
         {
-            return PartialView("_ClientRegistrationPartial",new ClientRegistrationVm());
+            return PartialView("_ClientRegistrationPartial", new ClientRegistrationVm());
         }
 
         public async Task<IActionResult> SpecialistForm()
