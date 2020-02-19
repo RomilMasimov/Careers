@@ -40,13 +40,19 @@
                     <span asp-validation-for="Specialization" class="text-danger"></span>
                 </div>
                 <div class="form-row">
-                    <div class="jp_adp_form_wrapper col-md-6">
+                    <div class="jp_adp_form_wrapper col-md-5">
                         <input asp-for="StartDate" placeholder="Start date">
                         <span asp-validation-for="StartDate" class="text-danger"></span>
                     </div>
-                    <div class="jp_adp_form_wrapper col-md-6">
-                        <input asp-for="EndDate" placeholder="End date">
+                    <div class="jp_adp_form_wrapper col-md-5">
+                        <input id="endDate" asp-for="EndDate" placeholder="End date">
                         <span asp-validation-for="EndDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-2 ">
+                        <div  class="mt-4 ml-2">
+                            <input id="till-now-checkbox" type="checkbox"> &ensp;
+                            <span>Still working</span>
+                        </div>
                     </div>
                 </div>
                 <div class="jp_adp_form_wrapper">
@@ -60,4 +66,18 @@
 @section Scripts
 {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+
+        $('#till-now-checkbox').change(function () {
+            if (this.checked) {
+                $('#endDate').prop('disabled', true);
+            }
+            else {
+                $('#endDate').prop('disabled', false);
+            }
+
+        });
+
+    </script>
+
 }
