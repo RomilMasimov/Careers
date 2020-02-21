@@ -75,9 +75,9 @@ namespace Careers.Areas.SpecialistArea.Controllers
 
             if (!specialist.ImageUrl.IsNullOrWhiteSpace())
             {
-                TempData["Status"] = "Portrait did not upload";
+                TempData["Status"] = "Portrait sent successfully";
             }
-            else TempData["Status"] = "Portrait sent successfully";
+            else TempData["Status"] = "Portrait did not upload";
 
             return View(model: specialist.ImageUrl);
         }

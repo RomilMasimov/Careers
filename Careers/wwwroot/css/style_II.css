@@ -31,11 +31,11 @@ Purchase:
 
 /*--------- Body Strat -------*/
 body, html {
-	font-family: 'Lato', sans-serif;
+	font-family: 'Lato', monospace;
 	font-size: 16px;
 	line-height: 23px;
 	color: #797979;
-	overflow-x:hidden;
+	overflow-x: hidden;
 }
 /*---------- Custom Css Start -------*/
 /*-- Preloader css start --*/
@@ -74,11 +74,11 @@ a:hover, a:focus {
 	outline: none;
 }
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-	font-family: 'Montserrat', sans-serif;
+	font-family: 'Montserrat', monospace;
 	line-height: 1.1;
 	color: #222222;
-	margin:0;
-	padding:0;
+	margin: 0;
+	padding: 0;
 }
 input, select, button, textarea {
 	outline: none;

@@ -49,6 +49,12 @@
                         <input asp-for="EndDate" placeholder="End date">
                         <span asp-validation-for="EndDate" class="text-danger"></span>
                     </div>
+                    <div class="form-group col-md-2 ">
+                        <div class="mt-4 ml-2">
+                            <input id="till-now-checkbox" type="checkbox" @(Model.EndDate == null ? "":"checked")> &ensp;
+                            <span>Still studying</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="jp_adp_form_wrapper">
                     <button class="jp_btn_default" type="submit">@SharedLocalizer["save"]</button>
@@ -61,4 +67,17 @@
 @section Scripts
 {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+
+        $('#till-now-checkbox').change(function () {
+            if (this.checked) {
+                $('#endDate').prop('disabled', true);
+            }
+            else {
+                $('#endDate').prop('disabled', false);
+            }
+
+        });
+
+    </script>
 }

@@ -40,8 +40,9 @@ namespace Careers.Areas.SpecialistArea.Controllers
         {
             var specialist = await _specialistService.FindAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var orders = await _orderService.FindAllForSpecialistAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
-
+            if (!orders.Any()) orders = new List<Order>();
             var isRu = CultureInfo.CurrentCulture.Name == "ru-RU";
+
             var model = orders.Select(m => new OrderViewModel
             {
                 Id = m.Id,

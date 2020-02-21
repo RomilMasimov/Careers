@@ -48,7 +48,7 @@ namespace Careers.ViewModels.Auth
 
 
         [Required]
-        [Display(Name = "Date*")]
+        [Display(Name = "Birthday Date*")]
         public DateTime DateOfBirth { get; set; }
 
 
@@ -83,6 +83,11 @@ namespace Careers.ViewModels.Auth
         public int CityId { get; set; }
         public bool AgreedWithTerms { get; set; }
         public IEnumerable<City> Cities { get; set; }
+
+        public SpecialistRegistrationVm()
+        {
+            DateOfBirth = DateTime.Now;
+        }
     }
 
     public class RegistrationViewModel

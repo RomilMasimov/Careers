@@ -50,7 +50,11 @@
                 </div>
                 <div class="form-group">
                     <button class="jp_btn_default" type="submit">@Localizer["save"]</button>
-                    <a asp-area="SpecialistArea" asp-controller="Profile" asp-action="RemoveService" asp-route-id="@Model.ServiceId" class="jp_btn_default ml-3">@Localizer["remove"]</a>
+                    <a asp-area="SpecialistArea" 
+                       asp-controller="Profile" 
+                       asp-action="RemoveService" 
+                       asp-route-id="@Model.ServiceId" 
+                       class="jp_btn_default ml-3">@Localizer["remove"]</a>
                 </div>
             </form>
         </div>

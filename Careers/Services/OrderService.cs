@@ -197,7 +197,8 @@ namespace Careers.Services
                                                   .Any(y => y == o.MeetingPointId)));
             }
 
-            if (!specialist.SpecialistServices.Any()) return await query.ToListAsync();
+            if (!specialist.SpecialistServices.Any()) return await query.Include(m => m.Service)
+                 .Include(m => m.Client).ToListAsync();
 
             query = query.Where(m => specialist.SpecialistServices
                 .Select(x => x.ServiceId)
