@@ -10,13 +10,13 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="jp_tittle_heading_wrapper">
                     <div class="jp_tittle_heading">
-                        <h2>Edit contacts</h2>
+                        <h2>@SharedLocalizer["contacts"]</h2>
                     </div>
                     <div class="jp_tittle_breadcrumb_main_wrapper">
                         <div class="jp_tittle_breadcrumb_wrapper">
                             <ul>
-                                <li><a asp-area="SpecialistArea" asp-controller="Settings" asp-action="Index">Settings</a> <i class="fa fa-angle-right"></i></li>
-                                <li>Edit contacts</li>
+                                <li><a asp-area="SpecialistArea" asp-controller="Settings" asp-action="Index">@SharedLocalizer["settings"]</a> <i class="fa fa-angle-right"></i></li>
+                                <li>@SharedLocalizer["contacts"]</li>
                             </ul>
                         </div>
                     </div>
@@ -31,19 +31,19 @@
         <div class="row">
             <form asp-area="SpecialistArea" asp-controller="Settings" asp-action="EditContacts" method="post" class="col-12">
                 <div class="jp_adp_form_wrapper">
-                    <input asp-for="Name" placeholder="Name">
+                    <input asp-for="Name" placeholder="@SharedLocalizer["name"]">
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
                 <div class="jp_adp_form_wrapper">
-                    <input asp-for="Surname" placeholder="Surname">
+                    <input asp-for="Surname" placeholder="@SharedLocalizer["surname"]">
                     <span asp-validation-for="Surname" class="text-danger"></span>
                 </div>
                 <div class="jp_adp_form_wrapper">
-                    <input asp-for="Fathername" placeholder="Fathername">
+                    <input asp-for="Fathername" placeholder="@SharedLocalizer["fathername"]">
                     <span asp-validation-for="Fathername" class="text-danger"></span>
                 </div>
                 <div class="jp_adp_form_wrapper">
-                    <input asp-for="PhoneNumber" placeholder="Phone number">
+                    <input asp-for="PhoneNumber" placeholder="@SharedLocalizer["phoneNumber"]">
                     <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                 </div>
                 <div class="jp_adp_form_wrapper">
@@ -51,7 +51,7 @@
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div class="jp_adp_form_wrapper">
-                    <button class="jp_btn_default" type="submit">Save</button>
+                    <button class="jp_btn_default" type="submit">@SharedLocalizer["save"]</button>
                 </div>
             </form>
         </div>

@@ -309,6 +309,16 @@
   <data name="addExperience" xml:space="preserve">
     <value>Добавить опыт работы</value>
   </data>
+  <data name="additionally" xml:space="preserve">
+    <value>Дополнительно</value>
+  </data>
+  <data name="additionallyDescription" xml:space="preserve">
+    <value>Эта информация используется для более точного выбора заказов. Клиенты ее не видят.</value>
+    <comment>This information is used to more accurately select orders. Clients do not see her.</comment>
+  </data>
+  <data name="birthday" xml:space="preserve">
+    <value>День рождения</value>
+  </data>
   <data name="chooseMeetingPoints" xml:space="preserve">
     <value>Выберите места встречи</value>
   </data>
@@ -323,6 +333,13 @@
   </data>
   <data name="companyName" xml:space="preserve">
     <value>Компания</value>
+  </data>
+  <data name="contacts" xml:space="preserve">
+    <value>Контакты</value>
+  </data>
+  <data name="contactsDescription" xml:space="preserve">
+    <value>Способы связаться с вами.</value>
+    <comment>Ways to contact you.</comment>
   </data>
   <data name="conversation" xml:space="preserve">
     <value>Беседа</value>
@@ -345,6 +362,19 @@
   <data name="editWork" xml:space="preserve">
     <value>Исправить работу</value>
   </data>
+  <data name="enterEmail" xml:space="preserve">
+    <value>Введите ваш email.</value>
+    <comment>Enter your email.</comment>
+  </data>
+  <data name="fathername" xml:space="preserve">
+    <value>Отчество</value>
+  </data>
+  <data name="forgotPassword" xml:space="preserve">
+    <value>Забыл(а) пароль</value>
+  </data>
+  <data name="fullName" xml:space="preserve">
+    <value>ФИО</value>
+  </data>
   <data name="image" xml:space="preserve">
     <value>изображение</value>
   </data>
@@ -362,6 +392,9 @@
   <data name="myResponses" xml:space="preserve">
     <value>Мои отклики</value>
   </data>
+  <data name="name" xml:space="preserve">
+    <value>Имя</value>
+  </data>
   <data name="newOrders" xml:space="preserve">
     <value>Новые заказы</value>
   </data>
@@ -372,6 +405,9 @@
   <data name="noOrders" xml:space="preserve">
     <value>Заказы для вас не найдены.</value>
     <comment>No orders for you found.</comment>
+  </data>
+  <data name="phoneNumber" xml:space="preserve">
+    <value>Номер телефона</value>
   </data>
   <data name="portrait" xml:space="preserve">
     <value>Портрет</value>
@@ -385,8 +421,17 @@
   <data name="priceMin" xml:space="preserve">
     <value>Мин. цена</value>
   </data>
+  <data name="profileSettings" xml:space="preserve">
+    <value>Настройки профиля</value>
+  </data>
   <data name="responses" xml:space="preserve">
     <value>Отклики</value>
+  </data>
+  <data name="security" xml:space="preserve">
+    <value>Безопасность</value>
+  </data>
+  <data name="send" xml:space="preserve">
+    <value>Отправить</value>
   </data>
   <data name="specialization" xml:space="preserve">
     <value>Cпециализация</value>
@@ -399,6 +444,9 @@
   </data>
   <data name="studyPlaceName" xml:space="preserve">
     <value>Место учебы</value>
+  </data>
+  <data name="surname" xml:space="preserve">
+    <value>Фамилия</value>
   </data>
   <data name="typeMessage" xml:space="preserve">
     <value>Написать сообщение</value>

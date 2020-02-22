@@ -310,6 +310,16 @@
   <data name="addExperience" xml:space="preserve">
     <value />
   </data>
+  <data name="additionally" xml:space="preserve">
+    <value />
+  </data>
+  <data name="additionallyDescription" xml:space="preserve">
+    <value />
+    <comment>This information is used to more accurately select orders. Clients do not see her.</comment>
+  </data>
+  <data name="birthday" xml:space="preserve">
+    <value />
+  </data>
   <data name="chooseMeetingPoints" xml:space="preserve">
     <value />
   </data>
@@ -324,6 +334,13 @@
   </data>
   <data name="companyName" xml:space="preserve">
     <value />
+  </data>
+  <data name="contacts" xml:space="preserve">
+    <value />
+  </data>
+  <data name="contactsDescription" xml:space="preserve">
+    <value />
+    <comment>Ways to contact you.</comment>
   </data>
   <data name="conversation" xml:space="preserve">
     <value />
@@ -343,6 +360,16 @@
   <data name="editWork" xml:space="preserve">
     <value />
   </data>
+  <data name="fathername" xml:space="preserve">
+    <value />
+    <comment>Enter your email.</comment>
+  </data>
+  <data name="forgotPassword" xml:space="preserve">
+    <value />
+  </data>
+  <data name="fullName" xml:space="preserve">
+    <value />
+  </data>
   <data name="image" xml:space="preserve">
     <value />
   </data>
@@ -356,6 +383,9 @@
   <data name="myResponses" xml:space="preserve">
     <value />
   </data>
+  <data name="name" xml:space="preserve">
+    <value />
+  </data>
   <data name="newOrders" xml:space="preserve">
     <value />
   </data>
@@ -366,6 +396,9 @@
   <data name="noOrders" xml:space="preserve">
     <value />
     <comment>No orders for you found.</comment>
+  </data>
+  <data name="phoneNumber" xml:space="preserve">
+    <value />
   </data>
   <data name="portrait" xml:space="preserve">
     <value />
@@ -379,7 +412,16 @@
   <data name="priceMin" xml:space="preserve">
     <value />
   </data>
+  <data name="profileSettings" xml:space="preserve">
+    <value />
+  </data>
   <data name="responses" xml:space="preserve">
+    <value />
+  </data>
+  <data name="security" xml:space="preserve">
+    <value />
+  </data>
+  <data name="send" xml:space="preserve">
     <value />
   </data>
   <data name="specialization" xml:space="preserve">
@@ -392,6 +434,9 @@
     <value />
   </data>
   <data name="studyPlaceName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="surname" xml:space="preserve">
     <value />
   </data>
   <data name="typeMessage" xml:space="preserve">

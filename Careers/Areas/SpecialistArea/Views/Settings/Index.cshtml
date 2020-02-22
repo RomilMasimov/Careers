@@ -10,7 +10,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="jp_tittle_heading_wrapper">
                     <div class="jp_tittle_heading">
-                        <h2>Profile settings</h2>
+                        <h2>@SharedLocalizer["profileSettings"]</h2>
                     </div>
                 </div>
             </div>
@@ -37,19 +37,19 @@
                     <div class="w-100">
                         <div class="row">
                             <div class="col-2">
-                                <h5 class="header">Contacts</h5>
+                                <h5 class="header">@SharedLocalizer["contacts"]</h5>
                             </div>
                             <div class="col-10">
                                 <p>
-                                    <a asp-area="SpecialistArea" asp-controller="Settings" asp-action="EditContacts"class="btn btn-sm btn-primary my-1"><i class="fa fa-edit"></i> Edit</a>
+                                    <a asp-area="SpecialistArea" asp-controller="Settings" asp-action="EditContacts" class="btn btn-sm btn-primary my-1"><i class="fa fa-edit"></i> @SharedLocalizer["edit"]</a>
                                 </p>
                             </div>
                         </div>
-                        <p>Ways to contact you.<p>
+                        <p>@SharedLocalizer["contactsDescription"]<p>
                     </div>
                     <div class="row">
                         <div class="col-2">
-                            <h5 class="header">Full name</h5>
+                            <h5 class="header">@SharedLocalizer["fullName"]</h5>
                         </div>
                         <div class="col-10">
                             <p>@Model?.Name @Model?.Surname @Model?.Fathername</p>
@@ -59,7 +59,7 @@
                 <div class="list-group-item">
                     <div class="row">
                         <div class="col-2">
-                            <h5 class="header">Phone number</h5>
+                            <h5 class="header">@SharedLocalizer["phoneNumbet"]</h5>
                         </div>
                         <div class="col-10">
                             <p>@Model?.AppUser?.PhoneNumber</p>
@@ -83,19 +83,19 @@
                     <div class="w-100">
                         <div class="row">
                             <div class="col-2">
-                                <h5 class="header">Additionally</h5>
+                                <h5 class="header">@SharedLocalizer["additionally"]</h5>
                             </div>
                             <div class="col-10">
                                 <p>
-                                    <a asp-area="SpecialistArea" asp-controller="Settings" asp-action="EditAdditionally"class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                                    <a asp-area="SpecialistArea" asp-controller="Settings" asp-action="EditAdditionally" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> @SharedLocalizer["edit"]</a>
                                 </p> 
                             </div>
                         </div>
-                        <p>This information is used to more accurately select orders. Clients do not see her.<p>
+                        <p>@SharedLocalizer["additionallyDescription"]<p>
                     </div>
                     <div class="row">
                         <div class="col-2">
-                            <h5 class="header">Birthday</h5>
+                            <h5 class="header">@SharedLocalizer["birthday"]</h5>
                         </div>
                         <div class="col-10">
                             <p>@Model.DateOfBirth.ToShortDateString()</p>
@@ -109,11 +109,11 @@
                     <div class="w-100">
                         <div class="row">
                             <div class="col-2">
-                                <h5 class="header">Security</h5>
+                                <h5 class="header">@SharedLocalizer["security"]</h5>
                             </div>
                             <div class="col-10">
                                 <p>
-                                    <a asp-area="" asp-controller="Auth" asp-action="ForgotPassword" class="btn btn-sm btn-primary">Forgot password</a>
+                                    <a asp-area="" asp-controller="Auth" asp-action="ForgotPassword" class="btn btn-sm btn-primary">@SharedLocalizer["forgotPassword"]</a>
                                 </p>
                             </div>
                         </div>
