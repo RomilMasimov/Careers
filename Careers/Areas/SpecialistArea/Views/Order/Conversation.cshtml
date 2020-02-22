@@ -13,7 +13,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="jp_tittle_heading_wrapper">
                     <div class="jp_tittle_heading">
-                        <h2>Conversation</h2>
+                        <h2>@SharedLocalizer["conversation"]</h2>
                     </div>
                     <div class="jp_tittle_breadcrumb_main_wrapper">
                         <div class="jp_tittle_breadcrumb_wrapper">
@@ -22,10 +22,10 @@
                                     <a asp-area="SpecialistArea"
                                        asp-controller="Order"
                                        asp-action="MyOrders">
-                                        My orders <i class="fa fa-angle-right"></i>
+                                       @SharedLocalizer["myOrders"] <i class="fa fa-angle-right"></i>
                                     </a>
                                 </li>
-                                <li>Conversation</li>
+                                <li>@SharedLocalizer["conversation"]</li>
                             </ul>
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                 {
                     <h5>@spec.Name @spec.Surname</h5>
                 }
-                <div class="navbar navbar-expand-sm drop">
+                @*<div class="navbar navbar-expand-sm drop">
 
                     <!-- Links -->
                     <ul class="navbar-nav">
@@ -63,11 +63,10 @@
                                 <a class="dropdown-item" href="#"><i class="fa fa-link"></i>&nbsp;&nbsp;Copy this link</a>
                                 <a class="dropdown-item" href="#"><i class="fa fa-tag"></i>&nbsp;&nbsp;Report</a>
                                 <a class="dropdown-item" href="#"><i class="fa fa-flag"></i>&nbsp;&nbsp;Hide</a>
-
                             </div>
                         </li>
                     </ul>
-                </div>
+                </div>*@
             </div>
 
             <div style="height: 75vh;">

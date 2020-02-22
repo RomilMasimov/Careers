@@ -3,7 +3,7 @@
 <div class="jp_adp_main_section_wrapper">
     <div class="container">
         <div class="d-flex justify-content-center w-100">
-            <a id="newOrderBtn" asp-area="SpecialistArea" asp-controller="Order" asp-action="Index" class="jp_btn_default" style="display: none;">New orders</a>
+            <a id="newOrderBtn" asp-area="SpecialistArea" asp-controller="Order" asp-action="Index" class="jp_btn_default" style="display: none;">@SharedLocalizer["newOrders"]</a>
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -12,7 +12,7 @@
                         <div class="row">
                             @if (!Model.Any())
                             {
-                                <h1 class="no-orders">No orders for you found</h1>
+                                <h1 class="no-orders">@SharedLocalizer["noOrders"]</h1>
                             }
                             else
                             {

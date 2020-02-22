@@ -169,7 +169,7 @@
     <value>Создать заказ</value>
   </data>
   <data name="noorderstext" xml:space="preserve">
-    <value>Вы не откликнулись ни на один заказ</value>
+    <value>Вы не откликнулись ни на один заказ.</value>
   </data>
   <data name="save" xml:space="preserve">
     <value>Сохранить</value>
@@ -206,7 +206,7 @@
     <comment>iAmClient</comment>
   </data>
   <data name="orders" xml:space="preserve">
-    <value>заказы</value>
+    <value>Заказы</value>
     <comment>orders</comment>
   </data>
   <data name="myOrders" xml:space="preserve">
@@ -315,8 +315,20 @@
   <data name="chooseSpecialties" xml:space="preserve">
     <value>Выбрать специальности</value>
   </data>
+  <data name="client" xml:space="preserve">
+    <value>Клиент</value>
+  </data>
+  <data name="close" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
   <data name="companyName" xml:space="preserve">
     <value>Компания</value>
+  </data>
+  <data name="conversation" xml:space="preserve">
+    <value>Беседа</value>
+  </data>
+  <data name="datePosted" xml:space="preserve">
+    <value>Дата создания</value>
   </data>
   <data name="delete" xml:space="preserve">
     <value>Удалить</value>
@@ -340,6 +352,27 @@
     <value>Фотографии (их видят клиенты)</value>
     <comment>Photos (clients see them)</comment>
   </data>
+  <data name="jobDescription" xml:space="preserve">
+    <value>Описание работы</value>
+  </data>
+  <data name="jobOverview" xml:space="preserve">
+    <value>Обзор работы</value>
+    <comment>Job overview</comment>
+  </data>
+  <data name="myResponses" xml:space="preserve">
+    <value>Мои отклики</value>
+  </data>
+  <data name="newOrders" xml:space="preserve">
+    <value>Новые заказы</value>
+  </data>
+  <data name="noMoney" xml:space="preserve">
+    <value>Вам не хватает денег на балансе.</value>
+    <comment>You do not have enough money on the balance sheet.</comment>
+  </data>
+  <data name="noOrders" xml:space="preserve">
+    <value>Заказы для вас не найдены.</value>
+    <comment>No orders for you found.</comment>
+  </data>
   <data name="portrait" xml:space="preserve">
     <value>Портрет</value>
   </data>
@@ -351,6 +384,9 @@
   </data>
   <data name="priceMin" xml:space="preserve">
     <value>Мин. цена</value>
+  </data>
+  <data name="responses" xml:space="preserve">
+    <value>Отклики</value>
   </data>
   <data name="specialization" xml:space="preserve">
     <value>Cпециализация</value>
@@ -364,11 +400,18 @@
   <data name="studyPlaceName" xml:space="preserve">
     <value>Место учебы</value>
   </data>
+  <data name="typeMessage" xml:space="preserve">
+    <value>Написать сообщение</value>
+    <comment>Type a message</comment>
+  </data>
   <data name="uploadPortrait" xml:space="preserve">
     <value>Загрузить портрет</value>
   </data>
   <data name="uploadWork" xml:space="preserve">
     <value>Загрузить работу</value>
+  </data>
+  <data name="warning" xml:space="preserve">
+    <value>Предупреждение</value>
   </data>
   <data name="works" xml:space="preserve">
     <value>Работы</value>

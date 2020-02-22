@@ -316,7 +316,19 @@
   <data name="chooseSpecialties" xml:space="preserve">
     <value />
   </data>
+  <data name="client" xml:space="preserve">
+    <value />
+  </data>
+  <data name="close" xml:space="preserve">
+    <value />
+  </data>
   <data name="companyName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="conversation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="datePosted" xml:space="preserve">
     <value />
   </data>
   <data name="delete" xml:space="preserve">
@@ -338,6 +350,23 @@
     <value />
     <comment>Photos (clients see them)</comment>
   </data>
+  <data name="jobDescription" xml:space="preserve">
+    <value />
+  </data>
+  <data name="myResponses" xml:space="preserve">
+    <value />
+  </data>
+  <data name="newOrders" xml:space="preserve">
+    <value />
+  </data>
+  <data name="noMoney" xml:space="preserve">
+    <value />
+    <comment>You do not have enough money on the balance sheet.</comment>
+  </data>
+  <data name="noOrders" xml:space="preserve">
+    <value />
+    <comment>No orders for you found.</comment>
+  </data>
   <data name="portrait" xml:space="preserve">
     <value />
   </data>
@@ -348,6 +377,9 @@
     <value />
   </data>
   <data name="priceMin" xml:space="preserve">
+    <value />
+  </data>
+  <data name="responses" xml:space="preserve">
     <value />
   </data>
   <data name="specialization" xml:space="preserve">
@@ -362,10 +394,16 @@
   <data name="studyPlaceName" xml:space="preserve">
     <value />
   </data>
+  <data name="typeMessage" xml:space="preserve">
+    <value />
+  </data>
   <data name="uploadPortrait" xml:space="preserve">
     <value />
   </data>
   <data name="uploadWork" xml:space="preserve">
+    <value />
+  </data>
+  <data name="warning" xml:space="preserve">
     <value />
   </data>
   <data name="works" xml:space="preserve">

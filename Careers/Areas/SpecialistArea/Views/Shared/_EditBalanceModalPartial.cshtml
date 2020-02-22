@@ -2,14 +2,14 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
+                <h5 class="modal-title">@SharedLocalizer["warning"]</h5>
             </div>
             <div class="modal-body">
-                <p class="header">You do not have enough money on the balance sheet</p>
+                <p class="header">@SharedLocalizer["noMoney"]</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="jp_btn_default" data-dismiss="modal">Close</button>
-                <a asp-area="SpecialistArea" asp-controller="Profile" asp-action="Balance" class="jp_btn_default">Balance</a>
+                <button type="button" class="jp_btn_default" data-dismiss="modal">@SharedLocalizer["close"]</button>
+                <a asp-area="SpecialistArea" asp-controller="Profile" asp-action="Balance" class="jp_btn_default">@SharedLocalizer["balance"]</a>
             </div>
         </div>
     </div>

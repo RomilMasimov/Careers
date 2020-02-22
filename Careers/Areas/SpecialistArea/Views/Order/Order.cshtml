@@ -11,14 +11,14 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="jp_tittle_heading_wrapper">
                     <div class="jp_tittle_heading">
-                        <h2>Order</h2>
+                        <h2>@SharedLocalizer["order"]</h2>
                     </div>
                     <div class="jp_tittle_breadcrumb_main_wrapper">
                         <div class="jp_tittle_breadcrumb_wrapper">
                             <ul>
-                                <li>Home <i class="fa fa-angle-right"></i></li>
-                                <li><a asp-area="SpecialistArea" asp-controller="Order" asp-action="Index">Orders <i class="fa fa-angle-right"></i></a></li>
-                                <li>Order details</li>
+                                <li>@SharedLocalizer["home"] <i class="fa fa-angle-right"></i></li>
+                                <li><a asp-area="SpecialistArea" asp-controller="Order" asp-action="Index">@SharedLocalizer["orders"] <i class="fa fa-angle-right"></i></a></li>
+                                <li>@SharedLocalizer["orderDetails"]</li>
                             </ul>
                         </div>
                     </div>
@@ -33,7 +33,7 @@
         <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
             <div class="jp_listing_left_sidebar_wrapper">
                 <div class="jp_job_des">
-                    <h2>Job Description</h2>
+                    <h2>@SharedLocalizer["jobDescription"]</h2>
                     <p>
                         @Model.Description
                     </p>
@@ -65,7 +65,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="jp_rightside_job_categories_wrapper jp_rightside_listing_single_wrapper">
                         <div class="jp_rightside_job_categories_heading">
-                            <h4>Job Overview</h4>
+                            <h4>@SharedLocalizer["jobOverview"]</h4>
                         </div>
                         <div class="jp_jop_overview_img_wrapper">
                             <div class="jp_jop_overview_img">
@@ -85,7 +85,7 @@
                                 </div>
                                 <div class="jp_listing_list_icon_cont_wrapper">
                                     <ul>
-                                        <li>Client:</li>
+                                        <li>@SharedLocalizer["client"]:</li>
                                         <li>@Model.ClientFullName</li>
                                     </ul>
                                 </div>
@@ -97,7 +97,7 @@
                                 </div>
                                 <div class="jp_listing_list_icon_cont_wrapper">
                                     <ul>
-                                        <li>Date Posted:</li>
+                                        <li>@SharedLocalizer["datePosted"]:</li>
                                         <li>@Model.Created.ToShortDateString()</li>
                                     </ul>
                                 </div>
@@ -125,7 +125,7 @@
                                                    asp-action="Conversation"
                                                    asp-route-orderId="@Model.Id"
                                                    class="jp_btn_default">
-                                                    Chat
+                                                    @SharedLocalizer["conversation"]
                                                 </a>
                                             }
                                             else
