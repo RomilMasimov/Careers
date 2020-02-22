@@ -10,14 +10,14 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="jp_tittle_heading_wrapper">
                     <div class="jp_tittle_heading">
-                        <h2>Portarit</h2>
-                        <p>Photos (clients see them)</p>
+                        <h2>@SharedLocalizer["portrait"]</h2>
+                        <p>@SharedLocalizer["imagesDescription"]</p>
                     </div>
                     <div class="jp_tittle_breadcrumb_main_wrapper">
                         <div class="jp_tittle_breadcrumb_wrapper">
                             <ul>
-                                <li><a asp-area="SpecialistArea" asp-controller="Profile" asp-action="Index">Profile</a> <i class="fa fa-angle-right"></i></li>
-                                <li>Upload portrait</li>
+                                <li><a asp-area="SpecialistArea" asp-controller="Profile" asp-action="Index">@SharedLocalizer["profile"]</a> <i class="fa fa-angle-right"></i></li>
+                                <li>@SharedLocalizer["uploadPortrait"]</li>
                             </ul>
                         </div>
                     </div>
@@ -34,15 +34,15 @@
 
             @if (TempData.ContainsKey("Status"))
             {
-        <div class="alert alert-info col-12" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <div class="alert alert-info col-12" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 
-            @TempData["Status"]
-        </div>
+                    @TempData["Status"]
+                </div>
             }
             <div class="jp_adp_choose_resume">
                 <form asp-area="SpecialistArea" asp-controller="Profile" asp-action="UploadPortrait" method="post" enctype="multipart/form-data" class="custom-input">
-                    <span><i class="fa fa-upload"></i> &nbsp;Upload Image</span>
+                    <span><i class="fa fa-upload"></i> &nbsp;@SharedLocalizer["upload"] @SharedLocalizer["image"]</span>
                     <input name="Image" type="file" onchange="form.submit()" />
                 </form>
             </div>
@@ -52,7 +52,7 @@
                 <div class="w-100">
                     <img class="img-fluid img-rounded my-2" width="250" height="200" src="@Model" />
                     <form asp-area="SpecialistArea" asp-controller="Profile" asp-action="DeletePortrait" method="post" class="mt-1">
-                        <button class="jp_btn_default" width="250">Delete</button>
+                        <button class="jp_btn_default" width="250">@SharedLocalizer["delete"]</button>
                     </form>
                 </div>
             }

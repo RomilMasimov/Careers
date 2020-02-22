@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -574,18 +575,19 @@ namespace Careers.Areas.SpecialistArea.Controllers
             var service = await _categoryService.FindServiceAsync(serviceId);
             if (service != null && specialist.SpecialistSubCategories.Any(m => m.SubCategoryId == service.SubCategoryId))
             {
+                bool isRu = CultureInfo.CurrentCulture.Name == "ru-RU";
                 var specialistService = specialist.SpecialistServices.FirstOrDefault(m => m.ServiceId == service.Id);
                 var viewModel = new EditSpecialistServiceViewModel
                 {
                     SubCategoryId = service.SubCategoryId,
-                    ServiceDescription = service.DescriptionRU,
+                    ServiceDescription = isRu ? service.DescriptionRU : service.DescriptionAZ,
                     SpecialistId = specialist.Id,
                     ServiceId = service.Id,
                     PriceMin = specialistService == null ? 0 : specialistService.PriceMin,
                     PriceMax = specialistService?.PriceMax,
                     MeasurementId = specialistService == null ? 0 : specialistService.MeasurementId
                 };
-                ViewBag.Measurements = new SelectList(await _categoryService.FindAllMeasurements(), "Id", "TextRU");
+                ViewBag.Measurements = new SelectList(await _categoryService.FindAllMeasurements(), "Id", isRu ? "TextRU" : "TextAZ");
                 return View(viewModel);
             }
             return RedirectToAction("Index");

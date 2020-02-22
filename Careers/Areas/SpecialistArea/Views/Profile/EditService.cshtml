@@ -16,8 +16,8 @@
                     <div class="jp_tittle_breadcrumb_main_wrapper">
                         <div class="jp_tittle_breadcrumb_wrapper">
                             <ul>
-                                <li><a asp-area="SpecialistArea" asp-controller="Profile" asp-action="Index">Profile</a> <i class="fa fa-angle-right"></i></li>
-                                <li><a asp-area="SpecialistArea" asp-controller="Profile" asp-action="EditServices" asp-route-subCategoryId="@Model.SubCategoryId">Edit services </a><i class="fa fa-angle-right"></i></li>
+                                <li><a asp-area="SpecialistArea" asp-controller="Profile" asp-action="Index">@SharedLocalizer["profile"]</a> <i class="fa fa-angle-right"></i></li>
+                                <li><a asp-area="SpecialistArea" asp-controller="Profile" asp-action="EditServices" asp-route-subCategoryId="@Model.SubCategoryId">@SharedLocalizer["editServices"] </a><i class="fa fa-angle-right"></i></li>
                                 <li>@Model.ServiceDescription</li>
                             </ul>
                         </div>
@@ -36,11 +36,11 @@
                 <input asp-for="SpecialistId" hidden />
                 <div class="form-group form-row">
                     <div class="jp_adp_form_wrapper col-lg-4 col-12">
-                        <input asp-for="PriceMin" placeholder="Price min">
+                        <input asp-for="PriceMin" placeholder="@SharedLocalizer["priceMin"]">
                         <span asp-validation-for="PriceMin" class="text-danger"></span>
                     </div>
                     <div class="jp_adp_form_wrapper col-lg-4  col-12">
-                        <input asp-for="PriceMax" placeholder="Price max">
+                        <input asp-for="PriceMax" placeholder="@SharedLocalizer["priceMax"]">
                         <span asp-validation-for="PriceMax" class="text-danger"></span>
                     </div>
                     <div class="jp_adp_form_wrapper col-lg-4  col-12">
@@ -49,12 +49,12 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <button class="jp_btn_default" type="submit">@Localizer["save"]</button>
+                    <button class="jp_btn_default" type="submit">@SharedLocalizer["save"]</button>
                     <a asp-area="SpecialistArea" 
                        asp-controller="Profile" 
                        asp-action="RemoveService" 
                        asp-route-id="@Model.ServiceId" 
-                       class="jp_btn_default ml-3">@Localizer["remove"]</a>
+                       class="jp_btn_default ml-3">@SharedLocalizer["delete"]</a>
                 </div>
             </form>
         </div>

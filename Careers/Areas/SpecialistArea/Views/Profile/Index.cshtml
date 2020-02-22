@@ -10,7 +10,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="jp_tittle_heading_wrapper">
                     <div class="jp_tittle_heading">
-                        <h2>Profile</h2>
+                        <h2>@SharedLocalizer["profile"]</h2>
                     </div>
                 </div>
             </div>
@@ -28,7 +28,7 @@
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         @TempData["Status"]
                     </div>
-                   
+
                 }
             </div>
 
@@ -42,21 +42,21 @@
                                 <div class="d-flex flex-column">
                                     <img src="@Model.ImageUrl" error-src="" alt="image"
                                          class="img-fluid img-rounded w-100" />
-                                    <a asp-area="SpecialistArea" 
-                                       asp-controller="Profile" 
-                                       asp-action="UploadPortrait" 
+                                    <a asp-area="SpecialistArea"
+                                       asp-controller="Profile"
+                                       asp-action="UploadPortrait"
                                        class="btn btn-sm btn-primary my-1">
-                                        Upload...
+                                        @SharedLocalizer["upload"]...
                                     </a>
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-10">
                                 <h4 class="header w-100">@Model.Name @Model.Surname</h4>
-                                    <p class="my-1">Rating 3,8 <a href="#">detail</a></p>
-                                    <p class="my-1">Balance @Model.Balance <a asp-area="SpecialistArea" asp-controller="Profile" asp-action="Balance">detail</a></p>
-                                    <p class="my-1">Reviews <small class="text-muted">no reviews yet</small></p> 
-                                    @*<a href="#" class="btn btn-sm btn-primary my-1">Upload passport photo</a>*@
-                                
+                                <p class="my-1">@SharedLocalizer["rating"] 3,8 <a href="#">@SharedLocalizer["details"]</a></p>
+                                <p class="my-1">@SharedLocalizer["balance"] @Model.Balance <a asp-area="SpecialistArea" asp-controller="Profile" asp-action="Balance">@SharedLocalizer["details"]</a></p>
+                                <p class="my-1">@SharedLocalizer["reviews"] <small class="text-muted">no reviews yet</small></p>
+                                @*<a href="#" class="btn btn-sm btn-primary my-1">Upload passport photo</a>*@
+
                             </div>
                         </div>
                         <!-- Specialist card end -->
@@ -69,30 +69,26 @@
                         <div class="list-group my-5">
                             <div class="list-group-item">
                                 <div class="w-100">
-                                    <h5 class="header mb-1">About myself</h5>
-                                    <p>Education and experience, briefly and in detail about yourself</p>
+                                    <h5 class="header mb-1">@SharedLocalizer["aboutMyself"]</h5>
+                                    <p>@SharedLocalizer["aboutMyselfDescription"]</p>
                                 </div>
                                 <div class="row">
                                     <div class="col-2">
-                                        <h5 class="header">Education and work experience</h5>
+                                        <h5 class="header">@SharedLocalizer["educationAndExperience"]</h5>
                                     </div>
                                     <div class="col-10">
                                         <p>
                                             @if ((Model.Educations == null && Model.Experiences == null) ||
-                                  (Model.Educations?.Count() == 0 && Model.Experiences?.Count() == 0))
+                                                 (Model.Educations?.Count() == 0 && Model.Experiences?.Count() == 0))
                                             {
                                                 <a asp-area="SpecialistArea"
                                                    asp-controller="Profile"
                                                    asp-action="EducationsAndExperience"
                                                    class="btn btn-sm btn-primary">
-                                                    <i class="fa fa-plus"></i> Add
+                                                    <i class="fa fa-plus"></i> @SharedLocalizer["add"]
                                                 </a>
                                                 <br>
-                                                <span class="text-muted">
-                                                    Tell us about your education, experience and
-                                                    achievements. Confirm them with documents. This will ensure that
-                                                    customers are a true specialist.
-                                                </span>
+                                                <span class="text-muted">@SharedLocalizer["educationAndExperienceDescription"]</span>
                                             }
                                             else
                                             {
@@ -100,12 +96,12 @@
                                                    asp-controller="Profile"
                                                    asp-action="EducationsAndExperience"
                                                    class="btn btn-sm btn-primary">
-                                                    <i class="fa fa-edit"></i> Edit
+                                                    <i class="fa fa-edit"></i> @SharedLocalizer["edit"]
                                                 </a>
                                                 <br>
                                                 @if (Model.Educations?.Count() > 0)
                                                 {
-                                                    <h5 class="header">Educations</h5>
+                                                    <h5 class="header">@SharedLocalizer["educations"]</h5>
                                                     @foreach (var item in Model.Educations)
                                                     {
                                                         <span>
@@ -117,11 +113,11 @@
                                                 @if (Model.Experiences?.Count() > 0)
                                                 {
                                                     <br>
-                                                    <h5 class="header">Experiences</h5>
+                                                    <h5 class="header">@SharedLocalizer["experiences"]</h5>
                                                     @foreach (var item in Model.Experiences)
                                                     {
                                                         <span>
-                                                            @item.CompanyName  (@item.StartDate.ToShortDateString()@(item.EndDate.HasValue ? $"- {item.EndDate?.ToShortDateString()}" : ""))
+                                                            @item.CompanyName  (@item.StartDate.ToShortDateString()@(item.EndDate.HasValue ? $" - {item.EndDate?.ToShortDateString()}" : ""))
                                                         </span>
                                                         <br>
                                                     }
@@ -134,7 +130,7 @@
                             <div class="list-group-item">
                                 <div class="row">
                                     <div class="col-2">
-                                        <h5 class="header">About</h5>
+                                        <h5 class="header">@SharedLocalizer["about"]</h5>
                                     </div>
                                     <div class="col-10">
                                         <p>
@@ -144,15 +140,10 @@
                                                    asp-controller="Profile"
                                                    asp-action="EditAbout"
                                                    class="btn btn-sm btn-primary">
-                                                    <i class="fa fa-plus"></i> Add
+                                                    <i class="fa fa-plus"></i> @SharedLocalizer["add"]
                                                 </a>
                                                 <br>
-                                                <span class="text-muted">
-                                                    Tell us more about yourself so that customers know
-                                                    you better. What orders are you interested in? What is the peculiarity
-                                                    of your approach to work? This information will help the customer make a
-                                                    choice.
-                                                </span>
+                                                <span class="text-muted">@SharedLocalizer["aboutDescription"]</span>
                                             }
                                             else
                                             {
@@ -160,7 +151,7 @@
                                                    asp-controller="Profile"
                                                    asp-action="EditAbout"
                                                    class="btn btn-sm btn-primary">
-                                                    <i class="fa fa-edit"></i> Edit
+                                                    <i class="fa fa-edit"></i> @SharedLocalizer["edit"]
                                                 </a>
                                                 <br>
                                                 <span>
@@ -177,12 +168,12 @@
                         <div class="list-group my-5">
                             <div class="list-group-item">
                                 <div class="w-100">
-                                    <h5 class="header mb-1">Region and addresses</h5>
-                                    <p>Where is it easy for you to work<p>
+                                    <h5 class="header mb-1">@SharedLocalizer["addresses"]</h5>
+                                    <p>@SharedLocalizer["addressesDescription"]<p>
                                 </div>
                                 <div class="row">
                                     <div class="col-2">
-                                        <h5 class="header">Whete can meet</h5>
+                                        <h5 class="header">@SharedLocalizer["whereCanMeet"]</h5>
                                     </div>
                                     <div class="col-10">
                                         <p>
@@ -190,7 +181,7 @@
                                                asp-controller="Profile"
                                                asp-action="EditWhereCanMeet"
                                                class="btn btn-sm btn-primary">
-                                                <i class="fa fa-edit"></i> Edit
+                                                <i class="fa fa-edit"></i> @SharedLocalizer["edit"]
                                             </a>
                                             @foreach (var point in Model.WhereCanMeetList)
                                             {
@@ -204,7 +195,7 @@
                             <div class="list-group-item">
                                 <div class="row">
                                     <div class="col-2">
-                                        <h5 class="header">Where can go</h5>
+                                        <h5 class="header">@SharedLocalizer["whereCanGo"]</h5>
                                     </div>
                                     <div class="col-10">
                                         <p>
@@ -212,7 +203,7 @@
                                                asp-controller="Profile"
                                                asp-action="EditWhereCanGo"
                                                class="btn btn-sm btn-primary">
-                                                <i class="fa fa-edit"></i> Edit
+                                                <i class="fa fa-edit"></i> @SharedLocalizer["edit"]
                                             </a>
                                             @foreach (var point in Model.WhereCanGoList)
                                             {
@@ -226,7 +217,7 @@
                             <div class="list-group-item">
                                 <div class="row">
                                     <div class="col-2">
-                                        <h5 class="header">City</h5>
+                                        <h5 class="header">@SharedLocalizer["city"]</h5>
                                     </div>
                                     <div class="col-10">
                                         <p>
@@ -234,7 +225,7 @@
                                                asp-controller="Profile"
                                                asp-action="EditCity"
                                                class="btn btn-sm btn-primary">
-                                                <i class="fa fa-edit"></i> Edit
+                                                <i class="fa fa-edit"></i> @SharedLocalizer["edit"]
                                             </a>
                                             <br>
                                             <span>@Model.City.Name</span>
@@ -249,14 +240,14 @@
                             <div class="list-group-item">
                                 <div class="row">
                                     <div class="col-2">
-                                        <h5 class="header">Specialties</h5>
+                                        <h5 class="header">@SharedLocalizer["specialties"]</h5>
                                     </div>
                                     <div class="col-10">
                                         <a asp-area="SpecialistArea"
                                            asp-controller="Profile"
                                            asp-action="EditSubCategories"
                                            class="btn btn-sm btn-primary">
-                                            <i class="fa fa-edit"></i> Add or remove
+                                            <i class="fa fa-edit"></i> @SharedLocalizer["addOrRemove"]
                                         </a>
                                         <br>
                                         @foreach (var category in Model.SpecialistSubCategories.GroupBy(m => m.SubCategory.Category))
@@ -265,14 +256,16 @@
                                             <h5 class="header">@category.Key.DescriptionRU</h5>
                                             @foreach (var subCategory in category)
                                             {
-                                                <p class="service-name">@subCategory.SubCategory.DescriptionRU 
+                                                <p class="service-name">
+                                                    @subCategory.SubCategory.DescriptionRU
                                                     <a asp-area="SpecialistArea"
                                                        asp-controller="Profile"
                                                        asp-action="EditServices"
                                                        asp-route-subCategoryId="@subCategory.SubCategoryId"
                                                        class="btn btn-light">
-                                                        Services and prices</a>
-                                                    </p>
+                                                        @SharedLocalizer["servicesAndPrices"]
+                                                    </a>
+                                                </p>
                                             }
                                         }
                                     </div>

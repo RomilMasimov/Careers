@@ -235,4 +235,143 @@
   <data name="newOrder" xml:space="preserve">
     <value>Təzə sifariş</value>
   </data>
+  <data name="add" xml:space="preserve">
+    <value />
+  </data>
+  <data name="upload" xml:space="preserve">
+    <value />
+  </data>
+  <data name="aboutDescription" xml:space="preserve">
+    <value />
+    <comment>Tell us more about yourself so that customers know you better. What orders are you interested in? What is the peculiarity of your approach to work? This information will help the customer make a choice.</comment>
+  </data>
+  <data name="aboutMyself" xml:space="preserve">
+    <value />
+    <comment>About myself</comment>
+  </data>
+  <data name="aboutMyselfDescription" xml:space="preserve">
+    <value />
+    <comment>Education and experience, as well as about yourself</comment>
+  </data>
+  <data name="addOrRemove" xml:space="preserve">
+    <value />
+  </data>
+  <data name="addresses" xml:space="preserve">
+    <value />
+  </data>
+  <data name="addressesDescription" xml:space="preserve">
+    <value />
+    <comment>Where is it easy for you to work</comment>
+  </data>
+  <data name="balance" xml:space="preserve">
+    <value />
+  </data>
+  <data name="city" xml:space="preserve">
+    <value />
+  </data>
+  <data name="details" xml:space="preserve">
+    <value />
+  </data>
+  <data name="educationAndExperience" xml:space="preserve">
+    <value />
+    <comment>Education and work experience</comment>
+  </data>
+  <data name="educationAndExperienceDescription" xml:space="preserve">
+    <value />
+    <comment>Tell us about your education, experience and achievements. Confirm them with documents. This ensures that you are a true specialist.</comment>
+  </data>
+  <data name="educations" xml:space="preserve">
+    <value />
+  </data>
+  <data name="experiences" xml:space="preserve">
+    <value />
+  </data>
+  <data name="rating" xml:space="preserve">
+    <value />
+  </data>
+  <data name="reviews" xml:space="preserve">
+    <value />
+  </data>
+  <data name="servicesAndPrices" xml:space="preserve">
+    <value />
+  </data>
+  <data name="specialties" xml:space="preserve">
+    <value />
+  </data>
+  <data name="whereCanGo" xml:space="preserve">
+    <value />
+  </data>
+  <data name="whereCanMeet" xml:space="preserve">
+    <value />
+  </data>
+  <data name="addEducation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="addExperience" xml:space="preserve">
+    <value />
+  </data>
+  <data name="chooseMeetingPoints" xml:space="preserve">
+    <value />
+  </data>
+  <data name="chooseSpecialties" xml:space="preserve">
+    <value />
+  </data>
+  <data name="companyName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="delete" xml:space="preserve">
+    <value />
+  </data>
+  <data name="editEducation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="editServices" xml:space="preserve">
+    <value />
+  </data>
+  <data name="editWork" xml:space="preserve">
+    <value />
+  </data>
+  <data name="image" xml:space="preserve">
+    <value />
+  </data>
+  <data name="imagesDescription" xml:space="preserve">
+    <value />
+    <comment>Photos (clients see them)</comment>
+  </data>
+  <data name="portrait" xml:space="preserve">
+    <value />
+  </data>
+  <data name="position" xml:space="preserve">
+    <value />
+  </data>
+  <data name="priceMax" xml:space="preserve">
+    <value />
+  </data>
+  <data name="priceMin" xml:space="preserve">
+    <value />
+  </data>
+  <data name="specialization" xml:space="preserve">
+    <value />
+  </data>
+  <data name="stillStudy" xml:space="preserve">
+    <value />
+  </data>
+  <data name="stillWorking" xml:space="preserve">
+    <value />
+  </data>
+  <data name="studyPlaceName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="uploadPortrait" xml:space="preserve">
+    <value />
+  </data>
+  <data name="uploadWork" xml:space="preserve">
+    <value />
+  </data>
+  <data name="works" xml:space="preserve">
+    <value />
+  </data>
+  <data name="your" xml:space="preserve">
+    <value />
+  </data>
 </root>

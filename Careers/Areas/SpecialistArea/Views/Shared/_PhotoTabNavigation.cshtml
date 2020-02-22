@@ -1,8 +1,8 @@
 ﻿<ul class="nav nav-tabs nav-fill mt-5 w-100">
     <li is-active-route asp-controller="Profile" asp-action="UploadPortrait" class="nav-item">
-        <a asp-area="SpecialistArea" asp-controller="Profile" asp-action="UploadPortrait" class="nav-link">Your portrait</a>
+        <a asp-area="SpecialistArea" asp-controller="Profile" asp-action="UploadPortrait" class="nav-link">@SharedLocalizer["your"] @SharedLocalizer["portrait"]</a>
     </li>
     <li is-active-route asp-controller="Profile" asp-action="Works" class="nav-item">
-        <a asp-area="SpecialistArea" asp-controller="Profile" asp-action="Works" class="nav-link">Works</a>
+        <a asp-area="SpecialistArea" asp-controller="Profile" asp-action="Works" class="nav-link">@SharedLocalizer["works"]</a>
     </li>
 </ul>

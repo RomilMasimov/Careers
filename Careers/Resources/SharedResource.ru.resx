@@ -235,4 +235,145 @@
   <data name="newOrder" xml:space="preserve">
     <value>Новый заказ</value>
   </data>
+  <data name="add" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="upload" xml:space="preserve">
+    <value>Загрузить</value>
+  </data>
+  <data name="aboutDescription" xml:space="preserve">
+    <value>Расскажите нам больше о себе, чтобы клиенты знали вас лучше. Какие заказы вас интересуют? В чем особенность вашего подхода к работе? Эта информация поможет клиенту сделать выбор.</value>
+    <comment>Tell us more about yourself so that customers know you better. What orders are you interested in? What is the peculiarity of your approach to work? This information will help the customer make a choice.</comment>
+  </data>
+  <data name="aboutMyself" xml:space="preserve">
+    <value>Обо мне</value>
+  </data>
+  <data name="aboutMyselfDescription" xml:space="preserve">
+    <value>Образование и опыт, а также о себе</value>
+    <comment>Education and experience, as well as about yourself</comment>
+  </data>
+  <data name="addOrRemove" xml:space="preserve">
+    <value>Добавить или удалить</value>
+  </data>
+  <data name="addresses" xml:space="preserve">
+    <value>Адреса</value>
+  </data>
+  <data name="addressesDescription" xml:space="preserve">
+    <value>Где вам легко работать</value>
+    <comment>Where is it easy for you to work</comment>
+  </data>
+  <data name="balance" xml:space="preserve">
+    <value>Баланс</value>
+  </data>
+  <data name="city" xml:space="preserve">
+    <value>Город</value>
+  </data>
+  <data name="details" xml:space="preserve">
+    <value>детали</value>
+  </data>
+  <data name="educationAndExperience" xml:space="preserve">
+    <value>Образование и опыт работы</value>
+    <comment>Education and work experience</comment>
+  </data>
+  <data name="educationAndExperienceDescription" xml:space="preserve">
+    <value>Расскажите нам о своем образовании, опыте и достижениях. Подтвердите их документами. Это гарантирует, что вы настоящий специалист.</value>
+    <comment>Tell us about your education, experience and achievements. Confirm them with documents. This ensures that you are a true specialist.</comment>
+  </data>
+  <data name="educations" xml:space="preserve">
+    <value>Образования</value>
+  </data>
+  <data name="experiences" xml:space="preserve">
+    <value>Опыт работы</value>
+  </data>
+  <data name="rating" xml:space="preserve">
+    <value>Рейтинг</value>
+  </data>
+  <data name="reviews" xml:space="preserve">
+    <value>Отзывы</value>
+  </data>
+  <data name="servicesAndPrices" xml:space="preserve">
+    <value>Услуги и цены</value>
+  </data>
+  <data name="specialties" xml:space="preserve">
+    <value>Специальности</value>
+  </data>
+  <data name="whereCanGo" xml:space="preserve">
+    <value>Куда можно поехать</value>
+  </data>
+  <data name="whereCanMeet" xml:space="preserve">
+    <value>Где можно встретиться</value>
+  </data>
+  <data name="addEducation" xml:space="preserve">
+    <value>Добавить образование</value>
+  </data>
+  <data name="addExperience" xml:space="preserve">
+    <value>Добавить опыт работы</value>
+  </data>
+  <data name="chooseMeetingPoints" xml:space="preserve">
+    <value>Выберите места встречи</value>
+  </data>
+  <data name="chooseSpecialties" xml:space="preserve">
+    <value>Выбрать специальности</value>
+  </data>
+  <data name="companyName" xml:space="preserve">
+    <value>Компания</value>
+  </data>
+  <data name="delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="editEducation" xml:space="preserve">
+    <value>Редактировать образование</value>
+  </data>
+  <data name="editExperience" xml:space="preserve">
+    <value>Редактировать опыт работы</value>
+  </data>
+  <data name="editServices" xml:space="preserve">
+    <value>Редактировать услуги</value>
+  </data>
+  <data name="editWork" xml:space="preserve">
+    <value>Исправить работу</value>
+  </data>
+  <data name="image" xml:space="preserve">
+    <value>изображение</value>
+  </data>
+  <data name="imagesDescription" xml:space="preserve">
+    <value>Фотографии (их видят клиенты)</value>
+    <comment>Photos (clients see them)</comment>
+  </data>
+  <data name="portrait" xml:space="preserve">
+    <value>Портрет</value>
+  </data>
+  <data name="position" xml:space="preserve">
+    <value>Должность</value>
+  </data>
+  <data name="priceMax" xml:space="preserve">
+    <value>Макс. цена</value>
+  </data>
+  <data name="priceMin" xml:space="preserve">
+    <value>Мин. цена</value>
+  </data>
+  <data name="specialization" xml:space="preserve">
+    <value>Cпециализация</value>
+  </data>
+  <data name="stillStudy" xml:space="preserve">
+    <value>Все еще учусь</value>
+  </data>
+  <data name="stillWorking" xml:space="preserve">
+    <value>Все еще работаю</value>
+  </data>
+  <data name="studyPlaceName" xml:space="preserve">
+    <value>Место учебы</value>
+  </data>
+  <data name="uploadPortrait" xml:space="preserve">
+    <value>Загрузить портрет</value>
+  </data>
+  <data name="uploadWork" xml:space="preserve">
+    <value>Загрузить работу</value>
+  </data>
+  <data name="works" xml:space="preserve">
+    <value>Работы</value>
+  </data>
+  <data name="your" xml:space="preserve">
+    <value>Ваш</value>
+  </data>
 </root>

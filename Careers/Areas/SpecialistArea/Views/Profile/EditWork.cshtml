@@ -7,14 +7,14 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="jp_tittle_heading_wrapper">
                     <div class="jp_tittle_heading">
-                        <h2>Edit work</h2>
+                        <h2>@SharedLocalizer["editWork"]</h2>
                     </div>
                     <div class="jp_tittle_breadcrumb_main_wrapper">
                         <div class="jp_tittle_breadcrumb_wrapper">
                             <ul>
-                                <li><a asp-area="SpecialistArea" asp-controller="Profile" asp-action="Index">Profile</a> <i class="fa fa-angle-right"></i></li>
-                                <li><a asp-area="SpecialistArea" asp-controller="Profile" asp-action="Works">Works</a> <i class="fa fa-angle-right"></i></li>
-                                <li>Edit work</li>
+                                <li><a asp-area="SpecialistArea" asp-controller="Profile" asp-action="Index">@SharedLocalizer["profile"]</a> <i class="fa fa-angle-right"></i></li>
+                                <li><a asp-area="SpecialistArea" asp-controller="Profile" asp-action="Works">@SharedLocalizer["works"]</a> <i class="fa fa-angle-right"></i></li>
+                                <li>@SharedLocalizer["editWork"]</li>
                             </ul>
                         </div>
                     </div>
@@ -28,21 +28,21 @@
     <div class="container">
         <div class="row m-2">
             <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                <img class="img-rounded w-100" src="~/@Model.ImagePath" />
+                <img class="img-rounded w-100" src="@Model.ImagePath" />
             </div>
             <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mt-3 mt-lg-0">
                 <form asp-area="SpecialistArea" asp-controller="Profile" asp-action="EditWork" method="post">
                     <input hidden asp-for="Id" />
                     <input hidden asp-for="ImagePath" />
                     <div class="form-group">
-                        <textarea asp-for="Description" class="jp_textarea_default" rows="7" placeholder="Description"></textarea>
+                        <textarea asp-for="Description" class="jp_textarea_default" rows="7" placeholder="@SharedLocalizer["description"]"></textarea>
                         <span asp-validation-for="Description" class="text-danger"></span>
                     </div>
                     <button class="jp_btn_default" type="submit">@SharedLocalizer["save"]</button>
                 </form>
                 <form asp-area="SpecialistArea" asp-controller="Profile" asp-action="DeleteWork" method="post">
                     <input hidden asp-for="Id" />
-                    <button class="jp_btn_default ml-3" type="submit">Delete</button>
+                    <button class="jp_btn_default ml-3" type="submit">@SharedLocalizer["delete"]</button>
                 </form>
             </div>
         </div>
