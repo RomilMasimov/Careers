@@ -788,4 +788,63 @@ Proin akshay handge vel velit auctor aliquet. Aenean sollicitudin,</value>
   <data name="whyWeDoDescription" xml:space="preserve">
     <value> </value>
   </data>
+  <data name="trendingKeywords" xml:space="preserve">
+    <value />
+  </data>
+  <data name="bestDeals" xml:space="preserve">
+    <value />
+    <comment>OFFERING THE BEST DEALS</comment>
+  </data>
+  <data name="chooseOrder" xml:space="preserve">
+    <value> </value>
+  </data>
+  <data name="chooseOrderDescription" xml:space="preserve">
+    <value> </value>
+    <comment>Choose what order you want to contact a specialist.</comment>
+  </data>
+  <data name="clientsSay" xml:space="preserve">
+    <value> </value>
+    <comment>WHAT CLIENTS SAY?</comment>
+  </data>
+  <data name="company" xml:space="preserve">
+    <value> </value>
+  </data>
+  <data name="editExperience" xml:space="preserve">
+    <value />
+  </data>
+  <data name="enterEmail" xml:space="preserve">
+    <value> </value>
+    <comment>Enter your email.</comment>
+  </data>
+  <data name="error" xml:space="preserve">
+    <value> </value>
+  </data>
+  <data name="haveOrder" xml:space="preserve">
+    <value> </value>
+    <comment>You have an order for this specialist.</comment>
+  </data>
+  <data name="jobOverview" xml:space="preserve">
+    <value> </value>
+    <comment>Job overview</comment>
+  </data>
+  <data name="jobsAvailable" xml:space="preserve">
+    <value> </value>
+  </data>
+  <data name="members" xml:space="preserve">
+    <value> </value>
+  </data>
+  <data name="noOrder" xml:space="preserve">
+    <value> </value>
+    <comment>Create an order to discuss it with this specialist.</comment>
+  </data>
+  <data name="pageIsNotAvailable" xml:space="preserve">
+    <value> </value>
+    <comment>Sorry, This Page Isn't available</comment>
+  </data>
+  <data name="redirect" xml:space="preserve">
+    <value> </value>
+  </data>
+  <data name="resumes" xml:space="preserve">
+    <value> </value>
+  </data>
 </root>
