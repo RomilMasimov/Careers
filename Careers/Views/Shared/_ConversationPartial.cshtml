@@ -19,13 +19,13 @@
         {
             @if (!Model.IsFinished)
             {
-                <button type="button" id="complete" class="btn btn-sm btn-danger mr-2">Завершить выполнение</button>
+                <button type="button" id="complete" class="btn btn-sm btn-danger mr-2">@SharedLocalizer["completeOrder"]</button>
             }
-            <button type="button" id="refuse" class="btn btn-sm btn-danger mr-2">Отказаться</button>
+            <button type="button" id="refuse" class="btn btn-sm btn-danger mr-2">@SharedLocalizer["refuse"]</button>
         }
         else if (!Model.IsSelectedSpecialist && !Model.IsSelectedSpecialist)
         {
-            <button type="button" id="select" class="btn btn-sm btn-danger mr-2">Выбрать этого мастера</button>
+            <button type="button" id="select" class="btn btn-sm btn-danger mr-2">@SharedLocalizer["selectSpecialist"]</button>
         }
 
     </div>

@@ -10,7 +10,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="jp_tittle_heading_wrapper">
                     <div class="jp_tittle_heading">
-                        <h2>@Model.Code.ToString() error</h2>
+                        <h2>@Model.Code.ToString() @SharedLocalizer["error"]</h2>
                     </div>
                 </div>
             </div>
@@ -29,8 +29,8 @@
                             <span>@num.ToString()</span>
                         }
                     </h2>
-                    <h3>Sorry, This Page Isn't available :(</h3>
-                    <p>@Model.Message <a asp-area="@Model.ReturnArea" asp-controller="@Model.ReturnController" asp-action="@Model.ReturnAction">Redirect.</a></p>
+                    <h3>@SharedLocalizer["pageIsNotAvailable"] :(</h3>
+                    <p>@Model.Message <a asp-area="@Model.ReturnArea" asp-controller="@Model.ReturnController" asp-action="@Model.ReturnAction">@SharedLocalizer["redirect"].</a></p>
                 </div>
             </div>
         </div>

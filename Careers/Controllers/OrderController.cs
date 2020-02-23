@@ -116,6 +116,7 @@ namespace Careers.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var dialog = await _messageService.GetDialogAsync(id);
+            if (dialog.UserSpecialistMessage.Client.AppUserId != userId) return BadRequest();
             if (dialog == null) return Content("NotFound");
             await _messageService.MarkAsRead(dialog.UserSpecialistMessage.Id, userId);
 
@@ -251,7 +252,7 @@ namespace Careers.Controllers
             ViewBag.Categories = new SelectList(categories, "Id", isRu ? "DescriptionRU" : "DescriptionAZ");
             ViewBag.SubCategories = new SelectList(new[] { new { Id = 0, Text = isRu ? "Выберите подкатегорию" : "Alt kateqoriyanı seçin" } }, "Id", "Text");
             ViewBag.Services = new SelectList(new[] { new { Id = 0, Text = isRu ? "Выберите услугу" : "Xidməti seçin" } }, "Id", "Text");
-            ViewBag.Measurments = new SelectList(measurments, "Id", isRu ? "TextAZ" : "TextRU");
+            ViewBag.Measurments = new SelectList(measurments, "Id", isRu ? "TextRU" : "TextAZ");
 
             return View();
         }

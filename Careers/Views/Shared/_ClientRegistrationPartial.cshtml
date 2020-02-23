@@ -5,7 +5,7 @@
     <div asp-validation-summary="All" class="text-danger"></div>
 
     <div class="jp_regiter_top_heading">
-        <p>Fields with * are mandetory </p>
+        <p>@SharedLocalizer["fieldsMandatory"] </p>
     </div>
 
     <div class="row">
@@ -23,19 +23,19 @@
         </div>
         <!--Form Group-->
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
-            <label asp-for="Password"></label>
+            <label asp-for="Password">@SharedLocalizer["password"]*</label>
             <input asp-for="Password" class="form-control">
             <span asp-validation-for="Password" class="text-danger"></span>
         </div>
         <!--Form Group-->
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
-            <label asp-for="ConfirmPassword"></label>
+            <label asp-for="ConfirmPassword">@SharedLocalizer["confirmPassword"]*</label>
             <input asp-for="ConfirmPassword" class="form-control">
             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
         </div>
         <!--Form Group-->
         <div class="form-group col-md-6 col-sm-6 col-xs-12">
-            <label asp-for="PhoneNumber"></label>
+            <label asp-for="PhoneNumber">@SharedLocalizer["phoneNumber"]</label>
             <input asp-for="PhoneNumber" class="form-control">
             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
         </div>
@@ -43,15 +43,15 @@
         <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="check-box text-center">
                 <input type="checkbox" asp-for="AgreedWithTerms"> &ensp;
-                <label asp-for="AgreedWithTerms">I agreed to the <a target="_blank" asp-controller="Home" asp-action="Privacy" class="check_box_anchr">Terms and Conditions</a> governing the use of jobportal</label>
+                <label asp-for="AgreedWithTerms">@SharedLocalizer["iAgreed"] <a target="_blank" asp-controller="Home" asp-action="Privacy" class="check_box_anchr">@SharedLocalizer["termsAndCondition"]</a> @SharedLocalizer["jobPortal"]</label>
             </div>
         </div>
     </div>
 
     <div class="login_btn_wrapper register_btn_wrapper login_wrapper ">
-        <button type="submit" class="btn btn-primary login_btn"> register </button>
+        <button type="submit" class="btn btn-primary login_btn"> @SharedLocalizer["signUp"] </button>
     </div>
     <div class="login_message">
-        <p>Already a member? <a asp-controller="Auth" asp-action="LogIn"> Login Here </a> </p>
+        <p>@SharedLocalizer["alreadyRegistered"] <a asp-controller="Auth" asp-action="LogIn"> @SharedLocalizer["login"] </a> </p>
     </div>
 </form>

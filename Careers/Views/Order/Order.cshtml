@@ -13,14 +13,14 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="jp_tittle_heading_wrapper">
                     <div class="jp_tittle_heading">
-                        <h2>Order</h2>
+                        <h2>@SharedLocalizer["orderDetails"]</h2>
                     </div>
                     <div class="jp_tittle_breadcrumb_main_wrapper">
                         <div class="jp_tittle_breadcrumb_wrapper">
                             <ul>
-                                <li>Home <i class="fa fa-angle-right"></i></li>
-                                <li><a asp-area="" asp-controller="Order" asp-action="Index">Orders <i class="fa fa-angle-right"></i></a></li>
-                                <li>Order details</li>
+                                <li>@SharedLocalizer["home"] <i class="fa fa-angle-right"></i></li>
+                                <li><a asp-area="" asp-controller="Order" asp-action="Index">@SharedLocalizer["orders"] <i class="fa fa-angle-right"></i></a></li>
+                                <li>@SharedLocalizer["orderDetails"]</li>
                             </ul>
                         </div>
                     </div>
@@ -36,12 +36,12 @@
             <div class="message-lists border">
                 <a href="#" id="orderButton" class="message-single border-bottom active">
                     <div class="body">
-                        <h6 class="username">Order Overview</h6>
+                        <h6 class="username">@SharedLocalizer["jobOverview"]</h6>
                     </div>
                 </a>
                 <div class="message-search border-bottom">
                     <div class="p-2 d-flex align-items-center justify-content-between">
-                        <strong>Получать отклики</strong>
+                        <strong>@SharedLocalizer["receiveResponses"]</strong>
                         <label class="switch m-0">
                             <input id="isActive" type="checkbox" @(Model.IsActive ? "checked" : "")>
                             <span class="slider round"></span>

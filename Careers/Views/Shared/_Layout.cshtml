@@ -255,10 +255,10 @@
                                 <ul>
 
                                     <li>
-                                        <a asp-controller="Auth" asp-action="SignUp" asp-area=""><i class="fa fa-user"></i>&nbsp; SIGN UP</a>
+                                        <a asp-controller="Auth" asp-action="SignUp" asp-area=""><i class="fa fa-user"></i>&nbsp; @SharedLocalizer["signUp"]</a>
                                     </li>
                                     <li>
-                                        <a asp-controller="Auth" asp-action="LogIn" asp-area=""><i class="fa fa-sign-in"></i>&nbsp; LOGIN</a>
+                                        <a asp-controller="Auth" asp-action="LogIn" asp-area=""><i class="fa fa-sign-in"></i>&nbsp; @SharedLocalizer["login"]</a>
                                     </li>
                                 </ul>
 
@@ -292,14 +292,10 @@
                         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                             <div class="jp_footer_first_cont_wrapper">
                                 <div class="jp_footer_first_cont">
-                                    <h2>Who We Are</h2>
-                                    <p>
-                                        This is Photoshop's version of Lom Ipsum. Proin gravida nibh vel velit auctor
-                                        aliquet. Aenean sollicitudin, lorem quis bibendum.<br><br> Proin akshay handge
-                                        vel velit auctor aliquet. Aenean sollicitudin,
-                                    </p>
+                                    <h2>@SharedLocalizer["whoWeAre"]</h2>
+                                    @SharedLocalizer["whoWeAreFooteriDescription"]
                                     <ul>
-                                        <li><i class="fa fa-plus-circle"></i> <a href="#">READ MORE</a></li>
+                                        <li><i class="fa fa-plus-circle"></i> <a href="#">@SharedLocalizer["readMore"]</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -307,46 +303,26 @@
                         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                             <div class="jp_footer_candidate_wrapper jp_footer_candidate_wrapper2">
                                 <div class="jp_footer_candidate">
-                                    <h2>For Employers</h2>
+                                    <h2>@SharedLocalizer["forSpecialists"]</h2>
                                     <ul>
                                         <li>
                                             <a asp-area="SpecialistArea" asp-controller="Settings" asp-action="Index">
-                                                <i class="fa fa-caret-right" aria-hidden="true"></i> Settings
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-caret-right" aria-hidden="true"></i> candidate
-                                                Dashboard
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-caret-right" aria-hidden="true"></i> Past
-                                                Applications
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a asp-area="SpecialistArea" asp-controller="Order" asp-action="Index">
-                                                <i class="fa fa-caret-right" aria-hidden="true"></i> New Orders
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-caret-right" aria-hidden="true"></i>
-                                                Bookmarks
+                                                <i class="fa fa-caret-right" aria-hidden="true"></i> @SharedLocalizer["settings"]
                                             </a>
                                         </li>
                                         <li>
                                             <a asp-area="SpecialistArea" asp-controller="Profile" asp-action="Index">
-                                                <i class="fa fa-caret-right" aria-hidden="true"></i> My
-                                                Account
+                                                <i class="fa fa-caret-right" aria-hidden="true"></i> @SharedLocalizer["profile"]
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a asp-area="SpecialistArea" asp-controller="Response" asp-action="Responses">
+                                                <i class="fa fa-caret-right" aria-hidden="true"></i> @SharedLocalizer["responses"]
                                             </a>
                                         </li>
                                         <li>
                                             <a asp-area="SpecialistArea" asp-controller="Order" asp-action="MyOrders">
-                                                <i class="fa fa-caret-right" aria-hidden="true"></i> Your
-                                                Orders
+                                                <i class="fa fa-caret-right" aria-hidden="true"></i> @SharedLocalizer["myOrders"]
                                             </a>
                                         </li>
                                     </ul>
@@ -356,46 +332,31 @@
                         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                             <div class="jp_footer_candidate_wrapper jp_footer_candidate_wrapper3">
                                 <div class="jp_footer_candidate">
-                                    <h2>For Clients</h2>
+                                    <h2>@SharedLocalizer["forClients"]</h2>
                                     <ul>
                                         <li>
                                             <a asp-area="" asp-controller="Specialist" asp-action="ListOfSpecialists">
-                                                <i class="fa fa-caret-right" aria-hidden="true"></i> Browse
-                                                candidates
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a asp-area="" asp-controller="Specialist" asp-action="ListOfSpecialists">
-                                                <i class="fa fa-caret-right" aria-hidden="true"></i> Employer
-                                                Dashboard
+                                                <i class="fa fa-caret-right" aria-hidden="true"></i> @SharedLocalizer["specialists"]
                                             </a>
                                         </li>
                                         <li>
                                             <a asp-area="" asp-controller="Order" asp-action="Create">
-                                                <i class="fa fa-caret-right" aria-hidden="true"></i> Add Order
+                                                <i class="fa fa-caret-right" aria-hidden="true"></i> @SharedLocalizer["newOrder"]
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <i class="fa fa-caret-right" aria-hidden="true"></i> Job
-                                                Page
+                                                <i class="fa fa-caret-right" aria-hidden="true"></i> @SharedLocalizer["jobPage"]
                                             </a>
                                         </li>
                                         <li>
                                             <a asp-area="" asp-controller="Order" asp-action="Index">
-                                                <i class="fa fa-caret-right" aria-hidden="true"></i> Orders
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-caret-right" aria-hidden="true"></i> Work
-                                                Process
+                                                <i class="fa fa-caret-right" aria-hidden="true"></i> @SharedLocalizer["orders"]
                                             </a>
                                         </li>
                                         <li>
                                             <a asp-area="" asp-controller="Client" asp-action="Index">
-                                                <i class="fa fa-caret-right" aria-hidden="true"></i> My
-                                                Account
+                                                <i class="fa fa-caret-right" aria-hidden="true"></i> @SharedLocalizer["profile"]
                                             </a>
                                         </li>
                                     </ul>
@@ -405,39 +366,36 @@
                         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                             <div class="jp_footer_candidate_wrapper jp_footer_candidate_wrapper4">
                                 <div class="jp_footer_candidate">
-                                    <h2>Information</h2>
+                                    <h2>@SharedLocalizer["information"]</h2>
                                     <ul>
                                         <li>
-                                            <a href="#">
-                                                <i class="fa fa-caret-right" aria-hidden="true"></i> About
-                                                Us
+                                            <a asp-area="" asp-controller="Home" asp-action="About">
+                                                <i class="fa fa-caret-right" aria-hidden="true"></i> @SharedLocalizer["about"]
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <i class="fa fa-caret-right" aria-hidden="true"></i> Terms &
-                                                Conditions
+                                                <i class="fa fa-caret-right" aria-hidden="true"></i> @SharedLocalizer["termsAndCondition"]
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a asp-area="" asp-controller="Home" asp-action="Privacy">
+                                                <i class="fa fa-caret-right" aria-hidden="true"></i> @SharedLocalizer["privacyPolicy"]
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <i class="fa fa-caret-right" aria-hidden="true"></i> Privacy
-                                                Policy
+                                                <i class="fa fa-caret-right" aria-hidden="true"></i> @SharedLocalizer["careersWithUs"]
                                             </a>
                                         </li>
                                         <li>
                                             <a href="#">
-                                                <i class="fa fa-caret-right" aria-hidden="true"></i> Careers
-                                                with Us
+                                                <i class="fa fa-caret-right" aria-hidden="true"></i> @SharedLocalizer["sitemap"]
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i> Sitemap</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-caret-right" aria-hidden="true"></i> Contact
-                                                Us
+                                            <a asp-area="" asp-controller="Home" asp-action="Contact">
+                                                <i class="fa fa-caret-right" aria-hidden="true"></i> @SharedLocalizer["contacts"]
                                             </a>
                                         </li>
                                         <li>

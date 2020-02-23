@@ -22,8 +22,8 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="jp_job_heading_wrapper">
                         <div class="jp_job_heading">
-                            <h1><span>3,000+</span> Browse Jobs</h1>
-                            <p>Find Jobs, Employment & Career Opportunities</p>
+                            <h1><span>3,000+</span> @SharedLocalizer["browseJobs"]</h1>
+                            <p>@SharedLocalizer["browseJobsDescription"]</p>
                         </div>
                     </div>
                 </div>
@@ -33,13 +33,13 @@
                         <input id="serviceId" name="ServiceId" hidden />
                         <input id="meetingPointId" name="MettingPointId" hidden />
                         <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
-                            <input name="ServicesInputText" id="services" type="text" placeholder="Keyword e.g. (Job Title, Description, Tags)">
+                            <input name="ServicesInputText" id="services" type="text" placeholder="@SharedLocalizer["subCategoryOrService"]">
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 mt-lg-0 mt-md-0 mt-sm-2 mt-xs-2 mt-2">
-                            <input name="LocationsInputText" id="locations" type="text" placeholder="Locations">
+                            <input name="LocationsInputText" id="locations" type="text" placeholder="@SharedLocalizer["locations"]">
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 mt-lg-0 mt-md-0 mt-sm-2 mt-xs-2 mt-2">
-                            <button class="index_btn_search"><i class="fa fa-search"></i> Search</button>
+                            <button class="index_btn_search"><i class="fa fa-search"></i> @SharedLocalizer["search"]</button>
                         </div>
                     </form>
                 </div>
@@ -47,7 +47,7 @@
                     <div class="jp_banner_main_jobs_wrapper">
                         <div class="jp_banner_main_jobs">
                             <ul>
-                                <li><i class="fa fa-tags"></i> Trending Keywords :</li>
+                                <li><i class="fa fa-tags"></i> @SharedLocalizer["trendingKeywords"]:</li>
                                 <li class="keyword">ui designer,
                                 <li class="keyword">developer,</li>
                                 <li class="keyword">senior</li>
@@ -204,7 +204,7 @@
             <h4>@SharedLocalizer["iAmEmpolee"]</h4>
             <p>Signed in companies are able to post new<br> job offers, searching for candidate...</p>
             <ul>
-                <li><a asp-controller="Auth" asp-action="SignUp"><i class="fa fa-plus-circle"></i> &nbsp;REGISTER AS EMPLOYEE</a></li>
+                <li><a asp-controller="Auth" asp-action="SignUp"><i class="fa fa-plus-circle"></i> &nbsp;@SharedLocalizer["signUp"]</a></li>
             </ul>
         </div>
     </div>
@@ -215,7 +215,7 @@
             <h4>@SharedLocalizer["iAmClient"]</h4>
             <p>Signed in companies are able to post new<br> job offers, searching for candidate...</p>
             <ul>
-                <li><a asp-controller="Auth" asp-action="SignUp"><i class="fa fa-plus-circle"></i> &nbsp;REGISTER AS CLIENT</a></li>
+                <li><a asp-controller="Auth" asp-action="SignUp"><i class="fa fa-plus-circle"></i> &nbsp;@SharedLocalizer["signUp"]</a></li>
             </ul>
         </div>
         <div class="jp_regis_center_tag_wrapper">
@@ -230,25 +230,25 @@
     <div class="gc_counter_cont_wrapper">
         <div class="count-description">
             <span class="timer">2540</span><i class="fa fa-plus"></i>
-            <h5 class="con1">Jobs Available</h5>
+            <h5 class="con1">@SharedLocalizer["jobsAvailable"]</h5>
         </div>
     </div>
     <div class="gc_counter_cont_wrapper2">
         <div class="count-description">
             <span class="timer">7325</span><i class="fa fa-plus"></i>
-            <h5 class="con2">Members</h5>
+            <h5 class="con2">@SharedLocalizer["members"]</h5>
         </div>
     </div>
     <div class="gc_counter_cont_wrapper3">
         <div class="count-description">
             <span class="timer">1924</span><i class="fa fa-plus"></i>
-            <h5 class="con3">Resumes</h5>
+            <h5 class="con3">@SharedLocalizer["resumes"]</h5>
         </div>
     </div>
     <div class="gc_counter_cont_wrapper4">
         <div class="count-description">
             <span class="timer">4275</span><i class="fa fa-plus"></i>
-            <h5 class="con4">Company</h5>
+            <h5 class="con4">@SharedLocalizer["company"]</h5>
         </div>
     </div>
 </div>
@@ -260,7 +260,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="jp_recent_resume_heading_wrapper">
                     <div class="jp_recent_resume_heading">
-                        <h4>Offering the best Deals</h4>
+                        <h4>@SharedLocalizer["bestDeals"]</h4>
                     </div>
                 </div>
             </div>
@@ -364,7 +364,7 @@
                 <div class="jp_recent_resume_view_btn_wrapper">
                     <div class="jp_recent_resume_view_btn">
                         <ul>
-                            <li><a href="#"><i class="fa fa-plus-circle"></i> &nbsp;VIEW ALL</a></li>
+                            <li><a href="#"><i class="fa fa-plus-circle"></i> &nbsp;@SharedLocalizer["viewAll"]</a></li>
                         </ul>
                     </div>
                 </div>
@@ -381,7 +381,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="jp_testi_slider_heading_wrapper">
                     <div class="jp_testi_slider_heading">
-                        <h4>What Clients Say?</h4>
+                        <h4>@SharedLocalizer["clientsSay"]</h4>
                     </div>
                 </div>
             </div>
@@ -489,7 +489,7 @@
             source: '/Home/MeetingPointsAutocomplete',
             minLength: 2,
             select: function (event, ui) {
-                if (ui.item.type == "meetingpoint") $("#meetingPointId").val(ui.item.id); 
+                if (ui.item.type == "meetingpoint") $("#meetingPointId").val(ui.item.id);
             }
         });
     </script>

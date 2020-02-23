@@ -12,7 +12,7 @@
     <div class="jp_jop_overview_img_wrapper text-center">
         <div class="d-flex w-100 px-5">
             <div class="jp_job_des pt-5">
-                <h2 class="text-left">Service</h2>
+                <h2 class="text-left">@SharedLocalizer["service"]</h2>
                 <p class="text-left jp_job_des_large_font_size">
                     @(isRu ? Model.Service.DescriptionRU : Model.Service.DescriptionAZ)
                 </p>
@@ -31,7 +31,7 @@
                 </div>
                 <div class="jp_listing_list_icon_cont_wrapper">
                     <ul>
-                        <li>Date Posted:</li>
+                        <li>@SharedLocalizer["datePosted"]:</li>
                         <li>@Model.Created.ToString()</li>
                     </ul>
                 </div>
@@ -53,7 +53,7 @@
         @if (!string.IsNullOrWhiteSpace(Model.Description))
         {
             <div class="jp_job_des">
-                <h2>@SharedLocalizer["description"]</h2>
+                <h2>@SharedLocalizer["jobDescription"]</h2>
                 <p>
                     @Model.Description
                 </p>

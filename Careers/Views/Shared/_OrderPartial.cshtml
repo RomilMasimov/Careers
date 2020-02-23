@@ -11,7 +11,7 @@
                         </div>
                         <div class="col-8 jp_job_post_right_cont">
                             <h4>@Model.ServiceDescription</h4>
-                            <a asp-area="" asp-controller="Order" asp-action="Order" asp-route-id="@Model.Id">Детали заказа</a>
+                            <a asp-area="" asp-controller="Order" asp-action="Order" asp-route-id="@Model.Id">@SharedLocalizer["orderDetails"]</a>
                             <p>@Model.Created.ToShortDateString()</p>
                         </div>
                     </div>
@@ -25,7 +25,7 @@
                             </div>
                             <div class="col-8 jp_job_post_right_cont">
                                 <h4>@Model.SpecialistFullName</h4>
-                                <a asp-area="" asp-controller="Specialist" asp-action="Specialist" asp-route-id="@Model.SpecialistId">Профиль</a>
+                                <a asp-area="" asp-controller="Specialist" asp-action="Specialist" asp-route-id="@Model.SpecialistId">@SharedLocalizer["profile"]</a>
                             </div>
                         </div>
                     }

@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="jp_listing_heading_wrapper">
-                    <h2>We found <span>@(Model.Specialists == null ? 0 : Model.Specialists.Count)</span> Matches for you.</h2>
+                    <h2>@SharedLocalizer["weFound"] <span>@(Model.Specialists == null ? 0 : Model.Specialists.Count)</span> @SharedLocalizer["matches"]</h2>
                 </div>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 hidden-sm hidden-xs">
@@ -19,7 +19,7 @@
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="jp_rightside_job_categories_wrapper">
                                 <div class="jp_rightside_job_categories_heading">
-                                    <h4>Location</h4>
+                                    <h4>@SharedLocalizer["cities"]</h4>
                                 </div>
                                 <div class="jp_rightside_job_categories_content">
                                     <div class="handyman_sec1_wrapper">
@@ -37,7 +37,7 @@
                                             </div>
                                         </div>
                                         <ul>
-                                            <li><i class="fa fa-plus-circle"></i> <a href="#">SHOW MORE</a></li>
+                                            <li><i class="fa fa-plus-circle"></i> <a href="#">@SharedLocalizer["showMore"]</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -46,7 +46,7 @@
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="jp_rightside_job_categories_wrapper jp_job_location_wrapper">
                                 <div class="jp_rightside_job_categories_heading">
-                                    <h4>Category &amp; Sub category</h4>
+                                    <h4>@SharedLocalizer["category"]</h4>
                                 </div>
                                 <div class="jp_rightside_job_categories_content">
                                     <div class="handyman_sec1_wrapper">
@@ -75,7 +75,7 @@
                                             </div>
                                         </div>
                                         <ul>
-                                            <li><i class="fa fa-plus-circle"></i> <a href="#">SHOW MORE</a></li>
+                                            <li><i class="fa fa-plus-circle"></i> <a href="#">@SharedLocalizer["showMore"]</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -84,7 +84,7 @@
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="jp_rightside_job_categories_wrapper jp_job_location_wrapper">
                                 <div class="jp_rightside_job_categories_heading">
-                                    <h4>Services</h4>
+                                    <h4>@SharedLocalizer["services"]</h4>
                                 </div>
                                 <div class="jp_rightside_job_categories_content">
                                     <div class="handyman_sec1_wrapper">
@@ -102,7 +102,7 @@
                                             </div>
                                         </div>
                                         <ul>
-                                            <li><i class="fa fa-plus-circle"></i> <a href="#">SHOW MORE</a></li>
+                                            <li><i class="fa fa-plus-circle"></i> <a href="#">@SharedLocalizer["showMore"]</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -111,7 +111,7 @@
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="jp_rightside_job_categories_wrapper jp_job_location_wrapper">
                                 <div class="jp_rightside_job_categories_heading">
-                                    <h4>Experience</h4>
+                                    <h4>@SharedLocalizer["experiences"]</h4>
                                 </div>
                                 <div class="jp_rightside_job_categories_content">
                                     <div class="handyman_sec1_wrapper">
@@ -135,7 +135,7 @@
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="jp_rightside_job_categories_wrapper jp_job_location_wrapper">
                                 <div class="jp_rightside_job_categories_heading">
-                                    <h4>Rating</h4>
+                                    <h4>@SharedLocalizer["rating"]</h4>
                                 </div>
                                 <div class="jp_rightside_job_categories_content">
                                     <div class="handyman_sec1_wrapper">
@@ -206,10 +206,10 @@
                         <div class="jp_listing_tabs_wrapper my-head-in-specialist">
 
                             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                                <h4>Fill more detailed order here</h4>
+                                <h4>@SharedLocalizer["fillDetailedOrder"]</h4>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                <a asp-controller="Order" asp-action="Create" class="btn btn-danger">Create Order</a>
+                                <a asp-controller="Order" asp-action="Create" class="btn btn-danger">@SharedLocalizer["createorder"]</a>
                             </div>
                         </div>
                     </div>

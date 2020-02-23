@@ -1,7 +1,6 @@
 ﻿@model Careers.ViewModels.Client.ClientViewModel
 
 @{
-    Layout = "_Layout";
     ViewData["Title"] = "Profile";
 }
 
@@ -18,10 +17,10 @@
         <form method="post" asp-controller="Client" asp-action="Index" enctype="multipart/form-data">
             <div class="col-lg-4 order-lg-1 text-center">
                 <img src="@Model.ImageUrl" error-src="" class="mx-auto w-75 img-circle d-block" id="image-id" alt="avatar">
-                <h6 id="file-name" class="mt-2">Upload a different photo</h6>
+                <h6 id="file-name" class="mt-2">@SharedLocalizer["uploadPhoto"]</h6>
                 <label class="custom-file">
                     <input type="file" name="Image" id="Image" class="custom-file-input">
-                    <span class="custom-file-control btn btn-primary">Choose file</span>
+                    <span class="custom-file-control btn btn-primary">@SharedLocalizer["upload"]</span>
                 </label>
             </div>
 
@@ -31,13 +30,13 @@
                 <input type="hidden" asp-for="OldPhoneNumber" />
                 <input type="hidden" asp-for="OldEmail" />
                 <div class="form-group row">
-                    <label class="col-lg-3 col-form-label form-control-label" asp-for="Name"></label>
+                    <label class="col-lg-3 col-form-label form-control-label" asp-for="Name">@SharedLocalizer["name"]</label>
                     <div class="col-lg-9">
                         <input class="form-control" type="text" asp-for="Name">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-lg-3 col-form-label form-control-label" asp-for="Surname"></label>
+                    <label class="col-lg-3 col-form-label form-control-label" asp-for="Surname">@SharedLocalizer["surname"]</label>
                     <div class="col-lg-9">
                         <input class="form-control" type="text" asp-for="Surname">
                     </div>
@@ -49,68 +48,62 @@
                         <input type="hidden" asp-for="EmailConfirmed">
                         @if (!Model.EmailConfirmed)
                         {
-                            <span class="text-danger">Your email is not confirmed</span>
+                            <span class="text-danger">@SharedLocalizer["emailConfirm"]</span>
                         }
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-lg-3 col-form-label form-control-label" asp-for="PhoneNumber"></label>
+                    <label class="col-lg-3 col-form-label form-control-label" asp-for="PhoneNumber">@SharedLocalizer["phoneNumber"]</label>
                     <div class="col-lg-9">
                         <input class="form-control" type="text" asp-for="PhoneNumber">
                         <input type="hidden" asp-for="PhoneConfirmed">
                         @if (!Model.PhoneConfirmed)
                         {
-                            <span class="text-danger">Your phone number is not confirmed</span>
+                            <span class="text-danger">@SharedLocalizer["phoneConfirm"]</span>
                         }
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-lg-3 col-form-label form-control-label" asp-for="Gender"></label>
+                    <label class="col-lg-3 col-form-label form-control-label" asp-for="Gender">@SharedLocalizer["gender"]</label>
                     <div class="col-lg-9">
                         <select asp-for="Gender" class="form-control">
-                            <option value="@null">Select...</option>
-                            <option value="@true">Male</option>
-                            <option value="@false">Female</option>
+                            <option value="@null">@SharedLocalizer["select"]...</option>
+                            <option value="@true">@SharedLocalizer["male"]</option>
+                            <option value="@false">@SharedLocalizer["female"]</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-lg-3 col-form-label form-control-label my-notification-label">Notifications</label>
+                    <label class="col-lg-3 col-form-label form-control-label my-notification-label">@SharedLocalizer["notifications"]</label>
                     <div class="col-lg-9 my-notification-radibuttons">
                         <div class="login_remember_box">
                             <label class="control control--checkbox">
                                 <input asp-for="EmailNotifications" type="checkbox" class="form-check-input">
-                                <label asp-for="EmailNotifications" class="form-check-label"></label>
+                                <label asp-for="EmailNotifications" class="form-check-label">Email @SharedLocalizer["notifications"]</label>
                             </label>
                         </div>
                         <div class="login_remember_box">
                             <label class="control control--checkbox">
                                 <input asp-for="SmsNotifications" type="checkbox" class="form-check-input">
-                                <label asp-for="SmsNotifications" class="form-check-label"></label>
+                                <label asp-for="SmsNotifications" class="form-check-label">SMS @SharedLocalizer["notifications"]</label>
                             </label>
                         </div>
                     </div>
                 </div>
-                @*<div class="form-group row">
-                        <label class="col-lg-3 col-form-label form-control-label" asp-for="UserName"></label>
-                        <div class="col-lg-9">
-                            <input class="form-control" type="text" asp-for="UserName">
-                        </div>
-                    </div>*@
                 <div class="form-group row">
-                    <label class="col-lg-3 col-form-label form-control-label" asp-for="OldPassword"></label>
+                    <label class="col-lg-3 col-form-label form-control-label" asp-for="OldPassword">@SharedLocalizer["oldPassword"]</label>
                     <div class="col-lg-9">
                         <input class="form-control cleaner" asp-for="OldPassword" type="password" value="P@ssword123">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-lg-3 col-form-label form-control-label" asp-for="Password"></label>
+                    <label class="col-lg-3 col-form-label form-control-label" asp-for="Password">@SharedLocalizer["newPassword"]</label>
                     <div class="col-lg-9">
                         <input class="form-control cleaner" type="password" asp-for="Password" value="P@ssword123">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-lg-3 col-form-label form-control-label" asp-for="ConfirmPassword"></label>
+                    <label class="col-lg-3 col-form-label form-control-label" asp-for="ConfirmPassword">@SharedLocalizer["confirmPassword"]</label>
                     <div class="col-lg-9">
                         <input class="form-control cleaner" type="password" asp-for="ConfirmPassword" value="P@ssword123">
                     </div>
@@ -118,8 +111,8 @@
                 <div class="form-group row">
                     <label class="col-lg-3 col-form-label form-control-label"></label>
                     <div class="col-lg-9">
-                        <input type="reset" class="btn btn-secondary" value="Reset">
-                        <input type="submit" class="btn btn-primary" value="Save Changes">
+                        <input type="reset" class="btn btn-secondary" value="@SharedLocalizer["reset"]">
+                        <input type="submit" class="btn btn-primary" value="@SharedLocalizer["save"]">
                     </div>
                 </div>
             </div>

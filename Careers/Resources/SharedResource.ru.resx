@@ -316,8 +316,29 @@
     <value>Эта информация используется для более точного выбора заказов. Клиенты ее не видят.</value>
     <comment>This information is used to more accurately select orders. Clients do not see her.</comment>
   </data>
+  <data name="addReview" xml:space="preserve">
+    <value>Оставить отзыв</value>
+  </data>
+  <data name="alreadyRegistered" xml:space="preserve">
+    <value>Уже зарегистрированы?</value>
+    <comment>Already registered?</comment>
+  </data>
+  <data name="bestDeals" xml:space="preserve">
+    <value>ПРЕДЛАГАЕМ ЛУЧШИЕ СДЕЛКИ</value>
+    <comment>OFFERING THE BEST DEALS</comment>
+  </data>
   <data name="birthday" xml:space="preserve">
     <value>День рождения</value>
+  </data>
+  <data name="browseJobs" xml:space="preserve">
+    <value>Просмотр вакансий</value>
+  </data>
+  <data name="browseJobsDescription" xml:space="preserve">
+    <value>Найти работу, трудоустройство и карьерные возможности</value>
+    <comment>Find Jobs, Employment &amp; Career Opportunities</comment>
+  </data>
+  <data name="category" xml:space="preserve">
+    <value>Категория</value>
   </data>
   <data name="chooseMeetingPoints" xml:space="preserve">
     <value>Выберите места встречи</value>
@@ -325,14 +346,34 @@
   <data name="chooseSpecialties" xml:space="preserve">
     <value>Выбрать специальности</value>
   </data>
+  <data name="cities" xml:space="preserve">
+    <value>Города</value>
+  </data>
   <data name="client" xml:space="preserve">
     <value>Клиент</value>
+  </data>
+  <data name="clientAccountDescription" xml:space="preserve">
+    <value>Я ищу специалиста</value>
+    <comment>I am looking for a specialist</comment>
+  </data>
+  <data name="clientsSay" xml:space="preserve">
+    <value>ЧТО ГОВОРЯТ КЛИЕНТЫ?</value>
+    <comment>WHAT CLIENTS SAY?</comment>
   </data>
   <data name="close" xml:space="preserve">
     <value>Закрыть</value>
   </data>
+  <data name="company" xml:space="preserve">
+    <value>Компаний</value>
+  </data>
   <data name="companyName" xml:space="preserve">
     <value>Компания</value>
+  </data>
+  <data name="completeOrder" xml:space="preserve">
+    <value>Завершить заказ</value>
+  </data>
+  <data name="confirmPassword" xml:space="preserve">
+    <value>Подтверидте пароль</value>
   </data>
   <data name="contacts" xml:space="preserve">
     <value>Контакты</value>
@@ -341,8 +382,15 @@
     <value>Способы связаться с вами.</value>
     <comment>Ways to contact you.</comment>
   </data>
+  <data name="contactSpecialist" xml:space="preserve">
+    <value>Связаться со специалистом</value>
+    <comment>Contact a specialist</comment>
+  </data>
   <data name="conversation" xml:space="preserve">
     <value>Беседа</value>
+  </data>
+  <data name="data" xml:space="preserve">
+    <value>Данные</value>
   </data>
   <data name="datePosted" xml:space="preserve">
     <value>Дата создания</value>
@@ -362,6 +410,10 @@
   <data name="editWork" xml:space="preserve">
     <value>Исправить работу</value>
   </data>
+  <data name="emailConfirm" xml:space="preserve">
+    <value>Ваш email не подтвержден</value>
+    <comment>Your email is not confirmed.</comment>
+  </data>
   <data name="enterEmail" xml:space="preserve">
     <value>Введите ваш email.</value>
     <comment>Enter your email.</comment>
@@ -369,11 +421,29 @@
   <data name="fathername" xml:space="preserve">
     <value>Отчество</value>
   </data>
+  <data name="female" xml:space="preserve">
+    <value>Женский</value>
+  </data>
+  <data name="fieldsMandatory" xml:space="preserve">
+    <value>Поля со * обязательны для заполнения</value>
+    <comment>Fields with * are mandatory</comment>
+  </data>
+  <data name="fillDetailedOrder" xml:space="preserve">
+    <value>Заполните более подробный заказ здесь</value>
+    <comment>Fill more detailed order here</comment>
+  </data>
   <data name="forgotPassword" xml:space="preserve">
     <value>Забыл(а) пароль</value>
   </data>
   <data name="fullName" xml:space="preserve">
     <value>ФИО</value>
+  </data>
+  <data name="gender" xml:space="preserve">
+    <value>Пол</value>
+  </data>
+  <data name="iAgreed" xml:space="preserve">
+    <value>Я согласен с</value>
+    <comment>I agreed to the</comment>
   </data>
   <data name="image" xml:space="preserve">
     <value>изображение</value>
@@ -389,6 +459,44 @@
     <value>Обзор работы</value>
     <comment>Job overview</comment>
   </data>
+  <data name="jobPortal" xml:space="preserve">
+    <value>портала вакансий</value>
+    <comment>governing the use of job portal</comment>
+  </data>
+  <data name="jobsAvailable" xml:space="preserve">
+    <value>Доступные вакансии</value>
+  </data>
+  <data name="languages" xml:space="preserve">
+    <value>Языки</value>
+  </data>
+  <data name="locations" xml:space="preserve">
+    <value>Метро, район или город</value>
+    <comment>Subway, district or city</comment>
+  </data>
+  <data name="login" xml:space="preserve">
+    <value>Войти</value>
+  </data>
+  <data name="loginDescription" xml:space="preserve">
+    <value>ВХОД В СВОЙ АККАУНТ</value>
+    <comment>LOGIN TO YOUR ACCOUNT</comment>
+  </data>
+  <data name="loginWarning" xml:space="preserve">
+    <value>Если вы используете общедоступный / общедоступный компьютер, мы рекомендуем вам выйти из системы, чтобы предотвратить несанкционированный доступ к вашей учетной записи.</value>
+    <comment>In case you are using a public/shared computer we recommend that you logout to prevent any un-authorized access to your account</comment>
+  </data>
+  <data name="male" xml:space="preserve">
+    <value>Мужской</value>
+  </data>
+  <data name="mark" xml:space="preserve">
+    <value>Оценка</value>
+  </data>
+  <data name="matches" xml:space="preserve">
+    <value>совпадения для вас.</value>
+    <comment>matches for you.</comment>
+  </data>
+  <data name="members" xml:space="preserve">
+    <value>Пользователей</value>
+  </data>
   <data name="myResponses" xml:space="preserve">
     <value>Мои отклики</value>
   </data>
@@ -398,6 +506,9 @@
   <data name="newOrders" xml:space="preserve">
     <value>Новые заказы</value>
   </data>
+  <data name="newPassword" xml:space="preserve">
+    <value>Новый пароль</value>
+  </data>
   <data name="noMoney" xml:space="preserve">
     <value>Вам не хватает денег на балансе.</value>
     <comment>You do not have enough money on the balance sheet.</comment>
@@ -405,6 +516,26 @@
   <data name="noOrders" xml:space="preserve">
     <value>Заказы для вас не найдены.</value>
     <comment>No orders for you found.</comment>
+  </data>
+  <data name="notifications" xml:space="preserve">
+    <value>Уведомления</value>
+  </data>
+  <data name="notRegistered" xml:space="preserve">
+    <value>У вас нет аккаунта?</value>
+    <comment>Don't have an account?</comment>
+  </data>
+  <data name="oldPassword" xml:space="preserve">
+    <value>Старый пароль</value>
+  </data>
+  <data name="order" xml:space="preserve">
+    <value>Заказ</value>
+  </data>
+  <data name="password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="phoneConfirm" xml:space="preserve">
+    <value>Ваш номер телефона не подтвержден.</value>
+    <comment>Your phone number is not confirmed.</comment>
   </data>
   <data name="phoneNumber" xml:space="preserve">
     <value>Номер телефона</value>
@@ -424,14 +555,69 @@
   <data name="profileSettings" xml:space="preserve">
     <value>Настройки профиля</value>
   </data>
+  <data name="receiveResponses" xml:space="preserve">
+    <value>Получать отклики</value>
+  </data>
+  <data name="refuse" xml:space="preserve">
+    <value>Отказаться</value>
+  </data>
+  <data name="rememberMe" xml:space="preserve">
+    <value>Запомнить меня</value>
+  </data>
+  <data name="reset" xml:space="preserve">
+    <value>Сбросить</value>
+  </data>
+  <data name="resetPassword" xml:space="preserve">
+    <value>Сбросить пароль.</value>
+    <comment>Reset your password.</comment>
+  </data>
   <data name="responses" xml:space="preserve">
     <value>Отклики</value>
+  </data>
+  <data name="resumes" xml:space="preserve">
+    <value>Резюме</value>
+  </data>
+  <data name="reviewQuestion" xml:space="preserve">
+    <value>Как вам работа специалиста?</value>
+    <comment>How do you like the job of a specialist?</comment>
+  </data>
+  <data name="search" xml:space="preserve">
+    <value>Поиск</value>
   </data>
   <data name="security" xml:space="preserve">
     <value>Безопасность</value>
   </data>
+  <data name="select" xml:space="preserve">
+    <value>Выберите</value>
+  </data>
+  <data name="selectSpecialist" xml:space="preserve">
+    <value>Выбрать этого специалиста</value>
+    <comment>Choose this specialist</comment>
+  </data>
   <data name="send" xml:space="preserve">
     <value>Отправить</value>
+  </data>
+  <data name="service" xml:space="preserve">
+    <value>Услуга</value>
+  </data>
+  <data name="services" xml:space="preserve">
+    <value>Услуги</value>
+  </data>
+  <data name="showMore" xml:space="preserve">
+    <value>Показать больше</value>
+  </data>
+  <data name="signUp" xml:space="preserve">
+    <value>Регистрация</value>
+  </data>
+  <data name="specialist" xml:space="preserve">
+    <value>Специалист</value>
+  </data>
+  <data name="specialistAccountDescription" xml:space="preserve">
+    <value>Я ищу  работу</value>
+    <comment>I am looking for a job</comment>
+  </data>
+  <data name="specialistProfile" xml:space="preserve">
+    <value>Профиль специалиста</value>
   </data>
   <data name="specialization" xml:space="preserve">
     <value>Cпециализация</value>
@@ -445,12 +631,31 @@
   <data name="studyPlaceName" xml:space="preserve">
     <value>Место учебы</value>
   </data>
+  <data name="subCategoryOrService" xml:space="preserve">
+    <value>Подкатегория или услуга</value>
+    <comment>Subcategory or service</comment>
+  </data>
   <data name="surname" xml:space="preserve">
     <value>Фамилия</value>
+  </data>
+  <data name="termsAndCondition" xml:space="preserve">
+    <value>Условиями использования</value>
+    <comment>Terms and Conditions</comment>
+  </data>
+  <data name="trendingKeywords" xml:space="preserve">
+    <value>Ключевые слова</value>
+  </data>
+  <data name="typeComment" xml:space="preserve">
+    <value>Введите свой комментарий</value>
+    <comment>Type your comment</comment>
   </data>
   <data name="typeMessage" xml:space="preserve">
     <value>Написать сообщение</value>
     <comment>Type a message</comment>
+  </data>
+  <data name="uploadPhoto" xml:space="preserve">
+    <value>Загрузить другое фото.</value>
+    <comment>Upload a different photo.</comment>
   </data>
   <data name="uploadPortrait" xml:space="preserve">
     <value>Загрузить портрет</value>
@@ -461,10 +666,198 @@
   <data name="warning" xml:space="preserve">
     <value>Предупреждение</value>
   </data>
+  <data name="weFound" xml:space="preserve">
+    <value>Мы нашли</value>
+    <comment>We found</comment>
+  </data>
   <data name="works" xml:space="preserve">
     <value>Работы</value>
   </data>
   <data name="your" xml:space="preserve">
     <value>Ваш</value>
+  </data>
+  <data name="callUs" xml:space="preserve">
+    <value>Позвоните нам по</value>
+    <comment>Call us at</comment>
+  </data>
+  <data name="careersAdvice" xml:space="preserve">
+    <value>СОВЕТЫ ПО КАРЬЕРЕ</value>
+    <comment>CAREERS ADVICE</comment>
+  </data>
+  <data name="careersWithUs" xml:space="preserve">
+    <value>Карьера с нами</value>
+  </data>
+  <data name="chooseOrder" xml:space="preserve">
+    <value>Выберите заказ</value>
+  </data>
+  <data name="chooseOrderDescription" xml:space="preserve">
+    <value>Выберите, какой заказ вы хотите предложить специалисту.</value>
+    <comment>Choose what order you want to contact a specialist.</comment>
+  </data>
+  <data name="contactUsDescription" xml:space="preserve">
+    <value>НАША ПОМОЩЬ ДОСТУПНА 24X7</value>
+    <comment>OUR HELPLINE 24X7 AVAILABLE</comment>
+  </data>
+  <data name="easyPay" xml:space="preserve">
+    <value>Легко заплатить</value>
+    <comment>Easy pay money</comment>
+  </data>
+  <data name="easyPayDescription" xml:space="preserve">
+    <value>Proin gravida nibh Aenean sollicitudin...</value>
+  </data>
+  <data name="emailUs" xml:space="preserve">
+    <value>или напишите нам по адресу</value>
+    <comment>or Email us at</comment>
+  </data>
+  <data name="error" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="findUs" xml:space="preserve">
+    <value>Вы можете найти нас</value>
+    <comment>You can Find us</comment>
+  </data>
+  <data name="forClients" xml:space="preserve">
+    <value>Клиентам</value>
+    <comment>FOR CLIENTS</comment>
+  </data>
+  <data name="forSpecialists" xml:space="preserve">
+    <value>Специалистам</value>
+    <comment>FOR EMPLOYERS</comment>
+  </data>
+  <data name="happySupport" xml:space="preserve">
+    <value>Веселая поддержка</value>
+  </data>
+  <data name="happySupportDescription" xml:space="preserve">
+    <value>Proin gravida nibh Aenean sollicitudin...</value>
+  </data>
+  <data name="haveOrder" xml:space="preserve">
+    <value>У вас есть заказ для этого специалиста.</value>
+    <comment>You have an order for this specialist.</comment>
+  </data>
+  <data name="howWeDo" xml:space="preserve">
+    <value>КАК МЫ ЭТО ДЛЕАЕМ?</value>
+    <comment>HOW WE DO IT ?</comment>
+  </data>
+  <data name="howWeDoDescription" xml:space="preserve">
+    <value>&lt;p&gt;Proin gravida nibh vel velit auctor aliquet. aks Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem.consequat ipsum, nec sagittis sem nibh id elit.Donec vestibulum justo a diam ultricies. pel lentesque. Quisque mattis diam vel.&lt;/p&gt;
+                    &lt;p&gt;Lorem Ipsum has been the industry's standard dummy text ever sincer they 1500s, when an unknown printer took and galley of type and scrambled. nisi elit consequat ipsum, nec sagittis sem nibh id elit.&lt;/p&gt;
+                    &lt;ul&gt;
+                        &lt;li&gt;
+                            &lt;i class="fa fa-check-square" aria-hidden="true"&gt;&lt;/i&gt;&lt;a href="#"&gt;We sell all over the world.&lt;/a&gt;
+                        &lt;/li&gt;
+                        &lt;li&gt;
+                            &lt;i class="fa fa-check-square" aria-hidden="true"&gt;&lt;/i&gt;&lt;a href="#"&gt;Satisfaction or money refund guaranteed.&lt;/a&gt;
+                        &lt;/li&gt;
+                        &lt;li&gt;
+                            &lt;i class="fa fa-check-square" aria-hidden="true"&gt;&lt;/i&gt;&lt;a href="#"&gt;Lifetime updates &amp;amp; support.&lt;/a&gt;
+                        &lt;/li&gt;
+                    &lt;/ul&gt;</value>
+  </data>
+  <data name="information" xml:space="preserve">
+    <value>Информация</value>
+    <comment>INFORMATION</comment>
+  </data>
+  <data name="jobPage" xml:space="preserve">
+    <value>Страница работы</value>
+  </data>
+  <data name="jobSecurity" xml:space="preserve">
+    <value>Безопасность работы</value>
+  </data>
+  <data name="jobSecurityDescription" xml:space="preserve">
+    <value>Proin gravida nibh Aenean sollicitudin...</value>
+  </data>
+  <data name="leaveMessage" xml:space="preserve">
+    <value>ОСТАВИТЬ СООБЩЕНИЕ</value>
+    <comment>LEAVE A MESSAGE</comment>
+  </data>
+  <data name="newOrderDescription" xml:space="preserve">
+    <value>Proin gravida nibh Aenean sollicitudin...</value>
+  </data>
+  <data name="noOrder" xml:space="preserve">
+    <value>Создайте заказ, чтобы обсудить это с этим специалистом.</value>
+    <comment>Create an order to discuss it with this specialist.</comment>
+  </data>
+  <data name="notificationsDescription" xml:space="preserve">
+    <value>Proin gravida nibh Aenean sollicitudin...</value>
+  </data>
+  <data name="ourCorporateResponsibility" xml:space="preserve">
+    <value>Наша Корпоративная Ответственность</value>
+    <comment>Our Corporate Responsibility</comment>
+  </data>
+  <data name="ourCorporateResponsibilityDescription" xml:space="preserve">
+    <value>Praesent in nisl egestas mauris aliquam luctus. Ut auctor faucibus orci, nec semper purus ultrices idorbi nec lorem risus orbi vitae felis gravida Pellentesque id eros quis massa convallis feugiat eu quis urna.</value>
+  </data>
+  <data name="ourVisions" xml:space="preserve">
+    <value>Наши Видения и Миссии</value>
+    <comment>Our Visions and Missions</comment>
+  </data>
+  <data name="ourVisionsDescription" xml:space="preserve">
+    <value>Praesent in nisl egestas mauris aliquam luctus. Ut auctor faucibus orci, nec semper purus ultrices idorbi nec lorem risus orbi vitae felis gravida Pellentesque id eros quis massa convallis feugiat eu quis urna.</value>
+  </data>
+  <data name="pageIsNotAvailable" xml:space="preserve">
+    <value>Извините, эта страница недоступна</value>
+    <comment>Sorry, This Page Isn't available</comment>
+  </data>
+  <data name="privacyPolicy" xml:space="preserve">
+    <value>Политика конфиденциальности</value>
+    <comment>Privacy Policy</comment>
+  </data>
+  <data name="readMore" xml:space="preserve">
+    <value>Подробнее</value>
+  </data>
+  <data name="redirect" xml:space="preserve">
+    <value>Перенаправление</value>
+  </data>
+  <data name="searchJobs" xml:space="preserve">
+    <value>Поиск работы</value>
+  </data>
+  <data name="searchJobsDescription" xml:space="preserve">
+    <value>Proin gravida nibh Aenean sollicitudin...</value>
+  </data>
+  <data name="sitemap" xml:space="preserve">
+    <value>Карта сайта</value>
+  </data>
+  <data name="subject" xml:space="preserve">
+    <value>Тема</value>
+  </data>
+  <data name="viewAll" xml:space="preserve">
+    <value>Просмотреть все</value>
+  </data>
+  <data name="whoWeAre" xml:space="preserve">
+    <value>КТО МЫ</value>
+    <comment>WHO WE ARE</comment>
+  </data>
+  <data name="whoWeAreDescription" xml:space="preserve">
+    <value>&lt;p&gt;Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. iat nulla pariatur. Excepteur sint occaecat cupidatat non proluptate velit esse cillum dolore euur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
+                    &lt;div class="row"&gt;
+                        &lt;div class="col-md-6"&gt;
+                            &lt;ul&gt;
+                                &lt;li&gt;&lt;i class="fa fa-arrow-circle-o-right" aria-hidden="true"&gt;&lt;/i&gt;&amp;nbsp;&amp;nbsp;Audit &amp;amp; Assurance&lt;/li&gt;
+                                &lt;li&gt;&lt;i class="fa fa-arrow-circle-o-right" aria-hidden="true"&gt;&lt;/i&gt;&amp;nbsp;&amp;nbsp;Business Services&lt;/li&gt;
+                                &lt;li&gt;&lt;i class="fa fa-arrow-circle-o-right" aria-hidden="true"&gt;&lt;/i&gt;&amp;nbsp;&amp;nbsp;IT Control Solutions&lt;/li&gt;
+                            &lt;/ul&gt;
+                        &lt;/div&gt;
+                        &lt;div class="col-md-6"&gt;
+                            &lt;ul&gt;
+                                &lt;li&gt;&lt;i class="fa fa-arrow-circle-o-right" aria-hidden="true"&gt;&lt;/i&gt;&amp;nbsp;&amp;nbsp;Audit &amp;amp; Assurance&lt;/li&gt;
+                                &lt;li&gt;&lt;i class="fa fa-arrow-circle-o-right" aria-hidden="true"&gt;&lt;/i&gt;&amp;nbsp;&amp;nbsp;Business Services&lt;/li&gt;
+                                &lt;li&gt;&lt;i class="fa fa-arrow-circle-o-right" aria-hidden="true"&gt;&lt;/i&gt;&amp;nbsp;&amp;nbsp;IT Control Solutions&lt;/li&gt;
+                            &lt;/ul&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;</value>
+  </data>
+  <data name="whoWeAreFooterDescription" xml:space="preserve">
+    <value>This is Photoshop's version of Lom Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum.
+
+Proin akshay handge vel velit auctor aliquet. Aenean sollicitudin,</value>
+  </data>
+  <data name="whyWeDo" xml:space="preserve">
+    <value>ПОЧЕМУ МЫ ЭТО ДЕЛАЕМ?</value>
+    <comment>WHY WE DO IT ?</comment>
+  </data>
+  <data name="whyWeDoDescription" xml:space="preserve">
+    <value>&lt;p&gt;Proin gravida nibh vel velit auctor aliquet. aks Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem.consequat ipsum,rmentum nunc. Etiam pharetra, erat sed fermentum feugiat, velit sum, nec sagittis sem.consequat ipsum,rmentum nunc. Etiam pharetra, mauris egestas quam, ut aliquam massa nisl quis neque. Suspendissenec sagittis sem.conse nec sagittis sem nibh id elit.Donec vesquat ipsum, nec sa tibulum justo a diam ultricies. pel lentesque. Quisque mattis diam vel.&lt;/p&gt;
+
+&lt;p&gt;Lorem Ipsum has been the industry's standard dummy text ever sincer they 1500s, when an unknown printer took and galley onsequat ipsum, orbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non mauris vitae erat consequat auctor eu in elit. Class aptent taciti sociosqu ad a diam ultricie of type and scrambled. nisi elit consequat ipsum, nec sagittis sem nibh id elit.&lt;/p&gt;</value>
   </data>
 </root>

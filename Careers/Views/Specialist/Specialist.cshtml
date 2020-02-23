@@ -1,4 +1,8 @@
-﻿@model Careers.ViewModels.Spec.SpecialistViewModel
+﻿@using System.Globalization
+@model Careers.ViewModels.Spec.SpecialistViewModel
+@{
+    bool isRu = CultureInfo.CurrentCulture.Name == "ru-RU";
+}
 
 <div class="jp_tittle_main_wrapper">
     <div class="jp_tittle_img_overlay"></div>
@@ -7,14 +11,14 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="jp_tittle_heading_wrapper">
                     <div class="jp_tittle_heading">
-                        <h2>Candidate profile</h2>
+                        <h2>@SharedLocalizer["specialistProfile"]</h2>
                     </div>
                     <div class="jp_tittle_breadcrumb_main_wrapper">
                         <div class="jp_tittle_breadcrumb_wrapper">
                             <ul>
-                                <li>Home <i class="fa fa-angle-right"></i></li>
-                                <li>Specialists <i class="fa fa-angle-right"></i></li>
-                                <li>Candidate</li>
+                                <li>@SharedLocalizer["home"] <i class="fa fa-angle-right"></i></li>
+                                <li>@SharedLocalizer["specialists"] <i class="fa fa-angle-right"></i></li>
+                                <li>@SharedLocalizer["specialist"]</li>
                             </ul>
                         </div>
                     </div>
@@ -32,32 +36,27 @@
                     <div class="jp_cp_left_pro_wallpaper">
                         <img src="@Model.ImagePath" error-src="" alt="profile">
                     </div>
-                    <button id="contactbtn" type="button" class="jp_btn_default w-100 mt-5"> &nbsp;Contact candidate</button>
-                    @*<div class="jp_cp_rd_wrapper">
-                            <ul>
-                                <li><a id="" href="#"><i class="fa fa-mail-forward"></i> &nbsp;Contact candidate</a></li>
-                            </ul>
-                        </div>*@
+                    <button id="contactbtn" type="button" class="jp_btn_default w-100 mt-5"> &nbsp;@SharedLocalizer["contactSpecialist"]</button>
                 </div>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 mt-md-0 mt-5">
                 <div class="jp_cp_right_side_wrapper">
                     <div class="jp_cp_right_side_inner_wrapper">
-                        <h2>PERSONAL DETAILS</h2>
+                        <h2>@SharedLocalizer["data"]</h2>
                         <table>
                             <tbody>
                                 <tr>
-                                    <td class="td-w25">Full Name</td>
+                                    <td class="td-w25">@SharedLocalizer["fullName"]</td>
                                     <td class="td-w10">:</td>
                                     <td class="td-w65">@Model.Name @Model.Surname @Model.FatherName</td>
                                 </tr>
                                 <tr>
-                                    <td class="td-w25">City</td>
+                                    <td class="td-w25">@SharedLocalizer["city"]</td>
                                     <td class="td-w10">:</td>
                                     <td class="td-w65">@Model.CityName</td>
                                 </tr>
                                 <tr>
-                                    <td class="td-w25">Phone</td>
+                                    <td class="td-w25">@SharedLocalizer["phoneNumber"]</td>
                                     <td class="td-w10">:</td>
                                     <td class="td-w65">@Model.Phone</td>
                                 </tr>
@@ -76,7 +75,7 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
                             <div class="jp_cp_accor_heading_wrapper">
-                                <h2>Languages</h2>
+                                <h2>@SharedLocalizer["languages"]</h2>
                                 <p>
                                     @foreach (var lang in Model.Languages)
                                     {
@@ -91,7 +90,7 @@
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
                         <div class="jp_cp_accor_heading_wrapper">
-                            <h2>About</h2>
+                            <h2>@SharedLocalizer["about"]</h2>
                             <p class="specialist-description">@Model.About</p>
                         </div>
                     </div>
@@ -100,7 +99,7 @@
                     {
                         <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
                             <div class="jp_cp_accor_heading_wrapper mt-0">
-                                <h2>Where can meet</h2>
+                                <h2>@SharedLocalizer["whereCanMeet"]</h2>
                                 <p>
                                     <span>@Model.WhereCanMeetList.First().WhereCanMeet.Description</span>
                                     @foreach (var point in Model.WhereCanMeetList.Skip(1))
@@ -116,7 +115,7 @@
                     {
                         <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
                             <div class="jp_cp_accor_heading_wrapper mt-0">
-                                <h2>Where can go</h2>
+                                <h2>@SharedLocalizer["whereCanGo"]</h2>
                                 <p>
                                     <span>@Model.WhereCanGoList.First().WhereCanGo.Description</span>
                                     @foreach (var point in Model.WhereCanGoList.Skip(1))
@@ -137,7 +136,7 @@
                                         <div class="panel-heading bell">
                                             <h4 class="panel-title">
                                                 <a class="collapsed" data-toggle="collapse" data-parent="#accordion_threeLeft" href="#collapseTwentyLeftThree" aria-expanded="false">
-                                                    EDUCATION
+                                                    @SharedLocalizer["educations"]
                                                 </a>
                                             </h4>
                                         </div>
@@ -149,7 +148,7 @@
                                                         <li>
                                                             <p>
                                                                 <b>@item.StudyPlaceName</b>,
-                                                                <span>specialization - </span>
+                                                                <span>@SharedLocalizer["specialization"] - </span>
                                                                 <i>@item.Specialization,</i>
                                                                 <span>@item.StartDate.Year @(item.EndDate.HasValue ? $" - {item.EndDate.Value.Year}" : "").</span>
                                                             </p>
@@ -167,7 +166,7 @@
                                         <div class="panel-heading bell">
                                             <h4 class="panel-title">
                                                 <a class="collapsed" data-toggle="collapse" data-parent="#accordion_threeLeft" href="#collapseTwentyLeftThree2" aria-expanded="false">
-                                                    EXPERIENCE
+                                                    @SharedLocalizer["experiences"]
                                                 </a>
                                             </h4>
                                         </div>
@@ -177,7 +176,7 @@
                                                 {
                                                     <p>
                                                         <b>@item.CompanyName</b>,
-                                                        <span>position - </span>
+                                                        <span>@SharedLocalizer["position"] - </span>
                                                         <i>@item.Position,</i>
                                                         <span>@item.StartDate.Year @(item.EndDate.HasValue ? $" - {item.EndDate.Value.Year}" : "").</span>
                                                     </p>
@@ -198,7 +197,7 @@
                         <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
                             <div class="jp_cp_accor_heading_wrapper">
                                 <h2>
-                                    Works
+                                    @SharedLocalizer["works"]
                                 </h2>
                                 <div class="mt-5">
                                     <ul id="works">
@@ -206,7 +205,7 @@
                                         {
                                             <li>
                                                 <a title="@item.Description" href="@item.ImagePath">
-                                                    <img src="@item.ImagePath" height="150" alt="img"/>
+                                                    <img src="@item.ImagePath" height="150" alt="img" />
                                                 </a>
                                             </li>
                                         }
@@ -222,17 +221,17 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
                             <div class="jp_cp_accor_heading_wrapper">
-                                <h2>Services</h2>
+                                <h2>@SharedLocalizer["services"]</h2>
 
                                 @foreach (var item in Model.SpecialistServices.GroupBy(m => m.Service.SubCategory))
                                 {
                                     <div class="w-100 d-flex flex-column">
-                                        <p class="header pb-0 w-100">@item.Key.DescriptionRU</p>
+                                        <p class="header pb-0 w-100">@(isRu ? item.Key.DescriptionRU : item.Key.DescriptionAZ)</p>
                                         @foreach (var service in item)
                                         {
                                             <div class="w-100 d-flex align-items-center justify-content-between">
-                                                <p class="mt-0 pb-0">@service.Service.DescriptionRU</p>
-                                                <p class="mt-0 pb-0">@service.PriceMin @(service.PriceMax.HasValue ? $" - {service.PriceMax.Value}" : "") AZN / @service.Measurement.TextRU</p>
+                                                <p class="mt-0 pb-0">@(isRu ? service.Service.DescriptionRU : service.Service.DescriptionAZ)</p>
+                                                <p class="mt-0 pb-0">@service.PriceMin @(service.PriceMax.HasValue ? $" - {service.PriceMax.Value}" : "") AZN / @(isRu ? service.Measurement.TextRU : service.Measurement.TextAZ)</p>
                                             </div>
                                         }
                                     </div>
@@ -251,113 +250,102 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-12 col-sm-12 main-section">
-
-                <div class="section_heading3">
-                    <h2>feedback</h2>
-                </div>
-
-                @if (Model.Reviews.Count == 0)
-                {
-                    <p>У специалиста нет отзывов.</p>
-                }
-                else
-                {
-                    int markCount = Model.Reviews.Count();
-                    int avgMark = (int)(Model.Reviews.Average(m => m.Mark));
-                    int m5 = (Model.Reviews.Count(m => m.Mark == 5) * 100) / markCount;
-                    int m4 = (Model.Reviews.Count(m => m.Mark == 4) * 100) / markCount;
-                    int m3 = (Model.Reviews.Count(m => m.Mark == 3) * 100) / markCount;
-                    int m2 = (Model.Reviews.Count(m => m.Mark == 2) * 100) / markCount;
-                    int m1 = (Model.Reviews.Count(m => m.Mark == 1) * 100) / markCount;
-
-                    <div class="progress_box_Wrapper">
-                        <div class="row">
-                            <div class="col-md-3 col-sm-12 col-xs-12 rating-part-left text-center">
-                                <h1>@avgMark</h1>
-                                @for (int i = 0; i < avgMark; i++)
-                                {
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                }
-                                @for (int i = 0; i < 5 - avgMark; i++)
-                                {
-                                    <i class="fa fa-star-o" aria-hidden="true"></i>
-                                }
-                                <p>Average Rating</p>
-                            </div>
-                            <div class="col-md-6 col-sm-12 col-xs-12">
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="@m5" aria-valuemin="0" aria-valuemax="100" style="width:@m5%"></div>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="@m4" aria-valuemin="0" aria-valuemax="100" style="width:@m4%"></div>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="@m3" aria-valuemin="0" aria-valuemax="100" style="width:@m3%"></div>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="@m2" aria-valuemin="0" aria-valuemax="100" style="width:@m2%"></div>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="@m1" aria-valuemin="0" aria-valuemax="100" style="width:@m1%"></div>
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-sm-12 col-xs-12 rating-part-right">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <span>@m5%</span>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                                        <span>@m4%</span>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                                        <span>@m3%</span>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                                        <span>@m2%</span>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                                        <span>@m1%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
-            </div>
-
             @if (Model.Reviews.Any())
             {
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="review-section">
                         <div class="section_heading3">
-                            <h2>Reviews</h2>
+                            <h2>@SharedLocalizer["reviews"]</h2>
                         </div>
+
+                        @{
+                            int markCount = Model.Reviews.Count();
+                            int avgMark = (int)(Model.Reviews.Average(m => m.Mark));
+                            int m5 = (Model.Reviews.Count(m => m.Mark == 5) * 100) / markCount;
+                            int m4 = (Model.Reviews.Count(m => m.Mark == 4) * 100) / markCount;
+                            int m3 = (Model.Reviews.Count(m => m.Mark == 3) * 100) / markCount;
+                            int m2 = (Model.Reviews.Count(m => m.Mark == 2) * 100) / markCount;
+                            int m1 = (Model.Reviews.Count(m => m.Mark == 1) * 100) / markCount;
+                        }
+
+                        <div class="progress_box_Wrapper mb-5">
+                            <div class="row">
+                                <div class="col-md-3 col-sm-12 col-xs-12 rating-part-left text-center">
+                                    <h1>@avgMark</h1>
+                                    @for (int i = 0; i < avgMark; i++)
+                                    {
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                    }
+                                    @for (int i = 0; i < 5 - avgMark; i++)
+                                    {
+                                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    }
+                                    <p>@SharedLocalizer["rating"]</p>
+                                </div>
+                                <div class="col-md-6 col-sm-12 col-xs-12">
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="@m5" aria-valuemin="0" aria-valuemax="100" style="width:@m5%"></div>
+                                    </div>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="@m4" aria-valuemin="0" aria-valuemax="100" style="width:@m4%"></div>
+                                    </div>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="@m3" aria-valuemin="0" aria-valuemax="100" style="width:@m3%"></div>
+                                    </div>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="@m2" aria-valuemin="0" aria-valuemax="100" style="width:@m2%"></div>
+                                    </div>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="@m1" aria-valuemin="0" aria-valuemax="100" style="width:@m1%"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-12 col-xs-12 rating-part-right">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <span>@m5%</span>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            <span>@m4%</span>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            <span>@m3%</span>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            <span>@m2%</span>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            <span>@m1%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         @foreach (var item in Model.Reviews)
                         {
                             <div class="row my-4">
@@ -412,6 +400,10 @@
                     </div>
                 </div>
             }
+            else
+            {
+                <p>У специалиста нет отзывов.</p>
+            }
         </div>
     </div>
 </div>
@@ -421,7 +413,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
+                <h5 class="modal-title">@SharedLocalizer["warning"]</h5>
             </div>
             <div id="modalBody">
                 <div class="modal-body">
@@ -432,8 +424,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="jp_btn_default" data-dismiss="modal">Close</button>
-                    <button id="selectBtn" type="button" class="jp_btn_default">Select</button>
+                    <button type="button" class="jp_btn_default" data-dismiss="modal">@SharedLocalizer["close"]</button>
+                    <button id="selectBtn" type="button" class="jp_btn_default">@SharedLocalizer["select"]</button>
                 </div>
             </div>
         </div>
