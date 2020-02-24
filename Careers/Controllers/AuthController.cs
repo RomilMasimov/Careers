@@ -109,7 +109,7 @@ namespace Careers.Controllers
             code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
             var result = await _userManager.ConfirmEmailAsync(user, code);
 
-            TempData["Email"] = "Thank you for confirming your email.";
+            TempData["Notification"] = "Thank you for confirming your email.";
             return RedirectToAction("Index", "Home");
         }
 
@@ -255,7 +255,7 @@ namespace Careers.Controllers
                 await _userManager.AddToRolesAsync(user, new[] { "client" });
                 await _signInManager.SignInAsync(user, isPersistent: false);
 
-                TempData["Email"] = "Please check your Email on new message";
+                TempData["Notification"] = "Please check your Email on new message";
                 return RedirectToAction("Index", "Home");
             }
 
@@ -355,7 +355,7 @@ namespace Careers.Controllers
         {
             if (ModelState.IsValid)
             {
-                TempData["Email"] = "Please check your email to reset your password.";
+                TempData["Notification"] = "Please check your email to reset your password.";
 
                 var user = await _userManager.FindByEmailAsync(Input.Email);
                 if (user == null || !await _userManager.IsEmailConfirmedAsync(user))
@@ -400,7 +400,7 @@ namespace Careers.Controllers
                 return View();
             }
 
-            TempData["Email"] = "Your password has been reset. Please log in.";
+            TempData["Notification"] = "Your password has been reset. Please log in.";
 
             var user = await _userManager.FindByEmailAsync(Input.Email);
             if (user == null)

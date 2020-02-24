@@ -5,8 +5,10 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Careers.Areas.SpecialistArea.ViewModels.Order;
 using Careers.Models;
+using Careers.Models.Identity;
 using Careers.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Careers.Areas.SpecialistArea.Controllers
@@ -18,16 +20,19 @@ namespace Careers.Areas.SpecialistArea.Controllers
         private readonly ISpecialistService _specialistService;
         private readonly IMessageService _messageService;
         private readonly IClientService _clientService;
+        private readonly UserManager<AppUser> _userManager;
         private readonly IOrderService _orderService;
 
         public ResponseController(ISpecialistService specialistService,
             IMessageService messageService,
             IClientService clientService,
+            UserManager<AppUser> userManager,
             IOrderService orderService)
         {
             _specialistService = specialistService;
             _messageService = messageService;
             _clientService = clientService;
+            _userManager = userManager;
             _orderService = orderService;
         }
         public IActionResult Index()
@@ -42,8 +47,15 @@ namespace Careers.Areas.SpecialistArea.Controllers
 
         public async Task<ActionResult> CreateResponse(int orderId)
         {
-
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (!user.EmailConfirmed)
+            {
+                TempData["Notification"] = "Confirm your email !";
+                return RedirectToAction("Index", "Home");
+            }
+
             var myOrder = await _specialistService.HaveIThisOrder(userId, orderId);
             if (myOrder) return RedirectToAction("MyOrders", "Order", new { area = "SpecialistArea" });
 

@@ -9,11 +9,13 @@ using Careers.Helpers;
 using Careers.Models;
 using Careers.Models.Enums;
 using Careers.Models.Extra;
+using Careers.Models.Identity;
 using Careers.Services.Interfaces;
 using Careers.SignalR;
 using Careers.ViewModels.Order;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.SignalR;
@@ -30,6 +32,7 @@ namespace Careers.Controllers
         private readonly ISpecialistService _specialistService;
         private readonly ICategoryService _categoryService;
         private readonly IAnswerService _answerService;
+        private readonly UserManager<AppUser> _userManager;
         private readonly IReviewService _reviewService;
         private readonly IMessageService _messageService;
         private readonly IHubContext<NotificationHub> _hubContext;
@@ -42,6 +45,7 @@ namespace Careers.Controllers
             ISpecialistService specialistService,
             ICategoryService categoryService,
             IAnswerService answerService,
+            UserManager<AppUser> userManager,
             IReviewService reviewService)
         {
             _orderService = orderService;
@@ -52,6 +56,7 @@ namespace Careers.Controllers
             _specialistService = specialistService;
             _categoryService = categoryService;
             _answerService = answerService;
+            _userManager = userManager;
             _reviewService = reviewService;
         }
 
@@ -244,6 +249,15 @@ namespace Careers.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (!user.EmailConfirmed)
+            {
+                TempData["Notification"] = "Confirm your email !";
+                return RedirectToAction("Index", "Home");
+            }
+
             var isRu = CultureInfo.CurrentCulture.Name == "ru-RU";
             var categories = new List<Category>();
             var measurments = await _categoryService.FindAllMeasurements();

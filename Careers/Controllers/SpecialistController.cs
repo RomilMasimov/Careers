@@ -4,17 +4,19 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Careers.Models;
+using Careers.Models.Identity;
 using Careers.Services;
 using Careers.Services.Interfaces;
 using Careers.ViewModels.Partial;
 using Careers.ViewModels.Spec;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Careers.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "admin,client")]
     public class SpecialistController : Controller
     {
         private readonly ISpecialistService _specialistService;
@@ -24,9 +26,10 @@ namespace Careers.Controllers
         private readonly LocationService _locationService;
         private readonly ICategoryService _categoryService;
         private readonly IMessageService _messageService;
+        private readonly UserManager<AppUser> _userManager;
 
         public SpecialistController(ISpecialistService specialistService, IClientService clientService, IOrderService orderService, LanguageService languageService,
-            LocationService locationService, ICategoryService categoryService, IMessageService messageService)
+            LocationService locationService, ICategoryService categoryService, IMessageService messageService, UserManager<AppUser> userManager)
         {
             _specialistService = specialistService;
             _clientService = clientService;
@@ -35,6 +38,7 @@ namespace Careers.Controllers
             _locationService = locationService;
             _categoryService = categoryService;
             _messageService = messageService;
+            _userManager = userManager;
         }
 
 
@@ -240,7 +244,15 @@ namespace Careers.Controllers
         public async Task<ActionResult> ContactWithSpecialist(int id) // specialistId
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user =await _userManager.FindByIdAsync(userId);
+            
+            if (!user.EmailConfirmed)
+            {
+                return Content("Confirm email");
+            }
+
             var client = await _clientService.FindAsync(userId, true);
+           
             var ordersForSpecialist = await _orderService.FindAllForSpecialistByClientAsync(id, client.Id);
 
             switch (ordersForSpecialist.Count())

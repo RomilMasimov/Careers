@@ -4,6 +4,8 @@
     bool isRu = CultureInfo.CurrentCulture.Name == "ru-RU";
 }
 
+
+
 <div class="jp_tittle_main_wrapper">
     <div class="jp_tittle_img_overlay"></div>
     <div class="container">
@@ -26,6 +28,13 @@
             </div>
         </div>
     </div>
+</div>
+
+<div id="email-confirm" class="alert alert-success alert-dismissible my-3 info-message" role="alert">
+    <button id="button-close" type="button" class="close"><span aria-hidden="true">&times;</span></button>
+    <p style="text-align:start">
+        Please confirm your email!
+    </p>
 </div>
 
 <div class="jp_cp_profile_main_wrapper">
@@ -474,15 +483,26 @@
             });
 
             $("#contactbtn").click(async function () {
-                 $("#modal").modal("show");
-                let result = await(await fetch('@Url.Action("ContactWithSpecialist")/@Model.Id')).text();
-                $("#modalBody").html(result);
+                let result = await (await fetch('@Url.Action("ContactWithSpecialist")/@Model.Id')).text();
 
-                $("#modalBody").on("change", "#orderid", function () {
-                    let orderId = $(this).val();
-                    console.log(orderId);
-                    $("#selectBtn").attr("href", `@Url.Action("CreateDialog")?orderId=${orderId}&specialistId=@Model.Id`);
-                });
+                if (result == 'Confirm email') {
+                    $("#email-confirm").attr('hidden', false);
+                    return;
+                }
+                $("#modalBody").html(result);
+                $("#modal").modal("show");
+
+            });
+
+            $("#button-close").on("click",function () {
+                $("#email-confirm").attr('hidden', true);
+            })
+
+
+            $("#modalBody").on("change", "#orderid", function () {
+                let orderId = $(this).val();
+                console.log(orderId);
+                $("#selectBtn").attr("href", `@Url.Action("CreateDialog")?orderId=${orderId}&specialistId=@Model.Id`);
             });
         });
     </script>

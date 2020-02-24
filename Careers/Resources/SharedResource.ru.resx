@@ -828,23 +828,8 @@
     <comment>WHO WE ARE</comment>
   </data>
   <data name="whoWeAreDescription" xml:space="preserve">
-    <value>&lt;p&gt;Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. iat nulla pariatur. Excepteur sint occaecat cupidatat non proluptate velit esse cillum dolore euur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
-                    &lt;div class="row"&gt;
-                        &lt;div class="col-md-6"&gt;
-                            &lt;ul&gt;
-                                &lt;li&gt;&lt;i class="fa fa-arrow-circle-o-right" aria-hidden="true"&gt;&lt;/i&gt;&amp;nbsp;&amp;nbsp;Audit &amp;amp; Assurance&lt;/li&gt;
-                                &lt;li&gt;&lt;i class="fa fa-arrow-circle-o-right" aria-hidden="true"&gt;&lt;/i&gt;&amp;nbsp;&amp;nbsp;Business Services&lt;/li&gt;
-                                &lt;li&gt;&lt;i class="fa fa-arrow-circle-o-right" aria-hidden="true"&gt;&lt;/i&gt;&amp;nbsp;&amp;nbsp;IT Control Solutions&lt;/li&gt;
-                            &lt;/ul&gt;
-                        &lt;/div&gt;
-                        &lt;div class="col-md-6"&gt;
-                            &lt;ul&gt;
-                                &lt;li&gt;&lt;i class="fa fa-arrow-circle-o-right" aria-hidden="true"&gt;&lt;/i&gt;&amp;nbsp;&amp;nbsp;Audit &amp;amp; Assurance&lt;/li&gt;
-                                &lt;li&gt;&lt;i class="fa fa-arrow-circle-o-right" aria-hidden="true"&gt;&lt;/i&gt;&amp;nbsp;&amp;nbsp;Business Services&lt;/li&gt;
-                                &lt;li&gt;&lt;i class="fa fa-arrow-circle-o-right" aria-hidden="true"&gt;&lt;/i&gt;&amp;nbsp;&amp;nbsp;IT Control Solutions&lt;/li&gt;
-                            &lt;/ul&gt;
-                        &lt;/div&gt;
-                    &lt;/div&gt;</value>
+    <value>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. iat nulla pariatur. Excepteur sint occaecat cupidatat non proluptate velit esse cillum dolore euur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+     </value>
   </data>
   <data name="whoWeAreFooterDescription" xml:space="preserve">
     <value>This is Photoshop's version of Lom Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum.
@@ -856,8 +841,8 @@ Proin akshay handge vel velit auctor aliquet. Aenean sollicitudin,</value>
     <comment>WHY WE DO IT ?</comment>
   </data>
   <data name="whyWeDoDescription" xml:space="preserve">
-    <value>&lt;p&gt;Proin gravida nibh vel velit auctor aliquet. aks Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem.consequat ipsum,rmentum nunc. Etiam pharetra, erat sed fermentum feugiat, velit sum, nec sagittis sem.consequat ipsum,rmentum nunc. Etiam pharetra, mauris egestas quam, ut aliquam massa nisl quis neque. Suspendissenec sagittis sem.conse nec sagittis sem nibh id elit.Donec vesquat ipsum, nec sa tibulum justo a diam ultricies. pel lentesque. Quisque mattis diam vel.&lt;/p&gt;
+    <value>Proin gravida nibh vel velit auctor aliquet. aks Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem.consequat ipsum,rmentum nunc. Etiam pharetra, erat sed fermentum feugiat, velit sum, nec sagittis sem.consequat ipsum,rmentum nunc. Etiam pharetra, mauris egestas quam, ut aliquam massa nisl quis neque. Suspendissenec sagittis sem.conse nec sagittis sem nibh id elit.Donec vesquat ipsum, nec sa tibulum justo a diam ultricies. pel lentesque. Quisque mattis diam vel
 
-&lt;p&gt;Lorem Ipsum has been the industry's standard dummy text ever sincer they 1500s, when an unknown printer took and galley onsequat ipsum, orbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non mauris vitae erat consequat auctor eu in elit. Class aptent taciti sociosqu ad a diam ultricie of type and scrambled. nisi elit consequat ipsum, nec sagittis sem nibh id elit.&lt;/p&gt;</value>
+</value>
   </data>
 </root>
