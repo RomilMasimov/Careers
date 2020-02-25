@@ -222,539 +222,539 @@
     <comment>settings</comment>
   </data>
   <data name="description" xml:space="preserve">
-    <value>Description</value>
+    <value>Təsvir</value>
   </data>
   <data name="overview" xml:space="preserve">
-    <value>overview</value>
+    <value>İlkin baxış</value>
     <comment>overview</comment>
   </data>
   <data name="salary" xml:space="preserve">
-    <value>Mais</value>
+    <value>Maaş</value>
     <comment>salary</comment>
   </data>
   <data name="newOrder" xml:space="preserve">
     <value>Təzə sifariş</value>
   </data>
   <data name="add" xml:space="preserve">
-    <value />
+    <value>Əlavə et</value>
   </data>
   <data name="upload" xml:space="preserve">
-    <value />
+   <value>Yüklə</value>
   </data>
   <data name="aboutDescription" xml:space="preserve">
-    <value />
+     <value>Müştərilərin sizi daha yaxşı tanıması üçün özünüz haqqında daha çox məlumat verin. Hansı sifarişlərlə maraqlanırsınız? İşə yanaşmağınızın xüsusiyyəti nədir? Bu məlumat müştərinin seçim etməsinə kömək edəcəkdir.</value>
     <comment>Tell us more about yourself so that customers know you better. What orders are you interested in? What is the peculiarity of your approach to work? This information will help the customer make a choice.</comment>
   </data>
   <data name="aboutMyself" xml:space="preserve">
-    <value />
+   <value>Özüm haqqında</value>
     <comment>About myself</comment>
   </data>
   <data name="aboutMyselfDescription" xml:space="preserve">
-    <value />
+<value>Təhsil və təcrübə, həmçinin özünüz haqqında</value>
     <comment>Education and experience, as well as about yourself</comment>
   </data>
   <data name="addOrRemove" xml:space="preserve">
-    <value />
+    <value>Əlavə et ya sil</value>
   </data>
   <data name="addresses" xml:space="preserve">
-    <value />
+    <value>Ünvanlar</value>
   </data>
   <data name="addressesDescription" xml:space="preserve">
-    <value />
+    <value>Ünvanlar ətraflı</value>
     <comment>Where is it easy for you to work</comment>
   </data>
   <data name="balance" xml:space="preserve">
-    <value />
+    <value>Balans</value>
   </data>
   <data name="city" xml:space="preserve">
-    <value />
+    <value>Şəhər</value>
   </data>
   <data name="details" xml:space="preserve">
-    <value />
+    <value>Təfərrüatlar</value>
   </data>
   <data name="educationAndExperience" xml:space="preserve">
-    <value />
+    <value>Təhsil və iş təcrübəsi</value>
     <comment>Education and work experience</comment>
   </data>
   <data name="educationAndExperienceDescription" xml:space="preserve">
-    <value />
+    <value>Təhsiliniz, təcrübəniz və qazandığınız uğurlar barədə bizə məlumat verin. Bu, əsl mütəxəssis olduğunuzu təsdiq edir.</value>
     <comment>Tell us about your education, experience and achievements. Confirm them with documents. This ensures that you are a true specialist.</comment>
   </data>
   <data name="educations" xml:space="preserve">
-    <value />
+    <value>Təhsil</value>
   </data>
   <data name="experiences" xml:space="preserve">
-    <value />
+    <value>İş təcrübəsi</value>
   </data>
   <data name="rating" xml:space="preserve">
-    <value />
+    <value>Reytinq</value>
   </data>
   <data name="reviews" xml:space="preserve">
-    <value />
+    <value>Rəylər</value>
   </data>
   <data name="servicesAndPrices" xml:space="preserve">
-    <value />
+    <value>Xidmətlər və qiymətlər</value>
   </data>
   <data name="specialties" xml:space="preserve">
-    <value />
+    <value>İxtisas</value>
   </data>
   <data name="whereCanGo" xml:space="preserve">
-    <value />
+    <value>Hara gedə bilərəm</value>
   </data>
   <data name="whereCanMeet" xml:space="preserve">
-    <value />
+    <value>Harda görüşə bilərəm</value>
   </data>
   <data name="addEducation" xml:space="preserve">
-    <value />
+    <value>Təhsil əlavə et</value>
   </data>
   <data name="addExperience" xml:space="preserve">
-    <value />
+    <value>İş təcrübəsi əlavə et</value>
   </data>
   <data name="additionally" xml:space="preserve">
-    <value />
+    <value>Əlavə olaraq</value>
   </data>
   <data name="additionallyDescription" xml:space="preserve">
-    <value />
+    <value>Bu məlumat sifarişləri daha dəqiq seçmək üçün istifadə olunur. Müştərilər onu görmürlər.</value>
     <comment>This information is used to more accurately select orders. Clients do not see her.</comment>
   </data>
   <data name="addReview" xml:space="preserve">
-    <value />
+    <value>Fikir bildir</value>
   </data>
   <data name="alreadyRegistered" xml:space="preserve">
-    <value> </value>
+    <value>Qeydiyyatdan keçmisiniz?</value>
     <comment>Already registered?</comment>
   </data>
   <data name="birthday" xml:space="preserve">
-    <value />
+    <value>Doğum günü</value>
   </data>
   <data name="browseJobs" xml:space="preserve">
-    <value> </value>
+    <value>İşləri gözdən keçir</value>
   </data>
   <data name="browseJobsDescription" xml:space="preserve">
-    <value> </value>
-    <comment>Find Jobs, Employment &amp; Career Opportunities</comment>
+    <value>İş təsvirlərini gözdən keçir</value>
+    <comment>İş axtar, İşlə  &amp; Karyera imkanları</comment>
   </data>
   <data name="category" xml:space="preserve">
-    <value> </value>
+    <value>Kateqoriya</value>
   </data>
   <data name="chooseMeetingPoints" xml:space="preserve">
-    <value />
+    <value>Görüş yerini seçin</value>
   </data>
   <data name="chooseSpecialties" xml:space="preserve">
-    <value />
+    <value>İxtisası seçin</value>
   </data>
   <data name="cities" xml:space="preserve">
-    <value> </value>
+    <value>Şəhərlər</value>
   </data>
   <data name="client" xml:space="preserve">
-    <value />
+    <value>Müştəri</value>
   </data>
   <data name="clientAccountDescription" xml:space="preserve">
-    <value> </value>
+    <value>Mən mütəxəssis axtarıram</value>
     <comment>I am looking for a specialist</comment>
   </data>
   <data name="close" xml:space="preserve">
-    <value />
+    <value>Bağla</value>
   </data>
   <data name="companyName" xml:space="preserve">
-    <value />
+    <value>Şirkət adı</value>
   </data>
   <data name="completeOrder" xml:space="preserve">
-    <value> </value>
+    <value>Sifarişi tamamla</value>
   </data>
   <data name="confirmPassword" xml:space="preserve">
-    <value />
+    <value>Şifrəni təsdiq et</value>
   </data>
   <data name="contacts" xml:space="preserve">
-    <value />
+    <value>Əlaqə</value>
   </data>
   <data name="contactsDescription" xml:space="preserve">
-    <value />
+    <value>Sizinlə əlaqə yolları.</value>
     <comment>Ways to contact you.</comment>
   </data>
   <data name="contactSpecialist" xml:space="preserve">
-    <value> </value>
+    <value>Mütəxəssis ilə əlaqə saxla</value>
     <comment>Contact a specialist</comment>
   </data>
   <data name="conversation" xml:space="preserve">
-    <value />
+    <value>Danışıq</value>
   </data>
   <data name="data" xml:space="preserve">
-    <value> </value>
+    <value>Məlumat</value>
   </data>
   <data name="datePosted" xml:space="preserve">
-    <value />
+    <value>Paylaşma tarixi</value>
   </data>
   <data name="delete" xml:space="preserve">
-    <value />
+    <value>Sil</value>
   </data>
   <data name="editEducation" xml:space="preserve">
-    <value />
+    <value>Təhsil məlumatlarını redaktə et</value>
   </data>
   <data name="editServices" xml:space="preserve">
-    <value />
+    <value>Xidmətləri redaktə et</value>
   </data>
   <data name="editWork" xml:space="preserve">
-    <value />
+    <value>İş məlumatlarını redaktə et</value>
   </data>
   <data name="emailConfirm" xml:space="preserve">
-    <value> </value>
+    <value>Sizin email təsdiqlənməyib.</value>
     <comment>Your email is not confirmed.</comment>
   </data>
   <data name="fathername" xml:space="preserve">
-    <value />
+    <value>Email ünvanınızı daxil edin.</value>
     <comment>Enter your email.</comment>
   </data>
   <data name="female" xml:space="preserve">
-    <value />
+    <value>Qadın</value>
   </data>
   <data name="fieldsMandatory" xml:space="preserve">
-    <value> </value>
+    <value>Məcburi xanalar * ilə qeyd olunub</value>
     <comment>Fields with * are mandatory</comment>
   </data>
   <data name="fillDetailedOrder" xml:space="preserve">
-    <value> </value>
+    <value>Sifariş haqqında daha ətraflı bura qeyd edin</value>
     <comment>Fill more detailed order here</comment>
   </data>
   <data name="forgotPassword" xml:space="preserve">
-    <value />
+    <value>Şifrəni unutdum</value>
   </data>
   <data name="fullName" xml:space="preserve">
-    <value />
+    <value>SAA</value>
   </data>
   <data name="gender" xml:space="preserve">
-    <value />
+    <value>Cins</value>
   </data>
   <data name="iAgreed" xml:space="preserve">
-    <value> </value>
+    <value>Qeyd olunanlar ilə razıyam</value>
     <comment>I agreed to the</comment>
   </data>
   <data name="image" xml:space="preserve">
-    <value />
+    <value>Şəkil</value>
   </data>
   <data name="imagesDescription" xml:space="preserve">
-    <value />
+    <value>Şəkillər (müştərilər onları görür)</value>
     <comment>Photos (clients see them)</comment>
   </data>
   <data name="jobDescription" xml:space="preserve">
-    <value />
+    <value>İşin təsviri</value>
   </data>
   <data name="jobPortal" xml:space="preserve">
-    <value> </value>
+    <value>iş portalının istifadəsini tənzimləyir</value>
     <comment>governing the use of job portal</comment>
   </data>
   <data name="languages" xml:space="preserve">
-    <value> </value>
+    <value>Dil</value>
   </data>
   <data name="locations" xml:space="preserve">
-    <value> </value>
+    <value>Metro, rayon və ya şəhər</value>
     <comment>Subway, district or city</comment>
   </data>
   <data name="login" xml:space="preserve">
-    <value> </value>
+    <value>Giriş</value>
   </data>
   <data name="loginDescription" xml:space="preserve">
-    <value> </value>
+    <value>HESABINIZA DAXİL OLUN</value>
     <comment>LOGIN TO YOUR ACCOUNT</comment>
   </data>
   <data name="loginWarning" xml:space="preserve">
-    <value> </value>
+    <value>Ümumi / ortaq bir kompüter istifadə edirsinizsə, hesabınıza hər hansı bir icazəsiz girişin qarşısını almaq üçün hesabdan çıxmağı məsləhət görürük</value>
     <comment>In case you are using a public/shared computer we recommend that you logout to prevent any un-authorized access to your account</comment>
   </data>
   <data name="male" xml:space="preserve">
-    <value />
+    <value>Kişi</value>
   </data>
   <data name="mark" xml:space="preserve">
-    <value />
+    <value>İşarə</value>
   </data>
   <data name="matches" xml:space="preserve">
-    <value> </value>
+    <value>sizin üçün uyğun.</value>
     <comment>matches for you.</comment>
   </data>
   <data name="myResponses" xml:space="preserve">
-    <value />
+    <value>Mənim cavablarım</value>
   </data>
   <data name="name" xml:space="preserve">
-    <value />
+    <value>Ad</value>
   </data>
   <data name="newOrders" xml:space="preserve">
-    <value />
+    <value>Yeni sifarişlər</value>
   </data>
   <data name="newPassword" xml:space="preserve">
-    <value />
+    <value>Yeni şifrə</value>
   </data>
   <data name="noMoney" xml:space="preserve">
-    <value />
+    <value>Balansda kifayət qədər pulunuz yoxdur.</value>
     <comment>You do not have enough money on the balance sheet.</comment>
   </data>
   <data name="noOrders" xml:space="preserve">
-    <value />
+    <value>Sizə uyğun sifariş tapılmadı.</value>
     <comment>No orders for you found.</comment>
   </data>
   <data name="notifications" xml:space="preserve">
-    <value />
+    <value>Bildirişlər</value>
   </data>
   <data name="notRegistered" xml:space="preserve">
-    <value> </value>
+    <value>Hələ də hesabınız yoxdur?</value>
     <comment>Don't have an account?</comment>
   </data>
   <data name="oldPassword" xml:space="preserve">
-    <value />
+    <value>Köhnə şifrə</value>
   </data>
   <data name="order" xml:space="preserve">
-    <value />
+    <value>Sifariş</value>
   </data>
   <data name="password" xml:space="preserve">
-    <value> </value>
+    <value>Şifrə</value>
   </data>
   <data name="phoneConfirm" xml:space="preserve">
-    <value> </value>
+    <value>Mobil nömrəniz təsdiqlənməyib.</value>
     <comment>Your phone number is not confirmed.</comment>
   </data>
   <data name="phoneNumber" xml:space="preserve">
-    <value />
+    <value>Mobil nömrə</value>
   </data>
   <data name="portrait" xml:space="preserve">
-    <value />
+    <value>Şəkil</value>
   </data>
   <data name="position" xml:space="preserve">
-    <value />
+    <value>Vəzifə</value>
   </data>
   <data name="priceMax" xml:space="preserve">
-    <value />
+    <value>Maks. qiymət</value>
   </data>
   <data name="priceMin" xml:space="preserve">
-    <value />
+    <value>Min. qiymət</value>
   </data>
   <data name="profileSettings" xml:space="preserve">
-    <value />
+    <value>Hesab ayarları</value>
   </data>
   <data name="receiveResponses" xml:space="preserve">
-    <value> </value>
+    <value>Cavabları almaq</value>
   </data>
   <data name="refuse" xml:space="preserve">
-    <value> </value>
+    <value>İmtina etmək</value>
   </data>
   <data name="rememberMe" xml:space="preserve">
-    <value> </value>
+    <value>Məni yadda saxla</value>
   </data>
   <data name="reset" xml:space="preserve">
-    <value />
+    <value>Sıfırla</value>
   </data>
   <data name="resetPassword" xml:space="preserve">
     <value> </value>
-    <comment>Reset your password.</comment>
+    <comment>Şifrəni sıfırla.</comment>
   </data>
   <data name="responses" xml:space="preserve">
-    <value />
+    <value>Cavablar</value>
   </data>
   <data name="reviewQuestion" xml:space="preserve">
-    <value> </value>
+    <value>Bir mütəxəssisin işinə hansı kriteriyalar əsasında qiymət verirsiniz?</value>
     <comment>How do you like the job of a specialist?</comment>
   </data>
   <data name="search" xml:space="preserve">
-    <value> </value>
+    <value>Axtar</value>
   </data>
   <data name="security" xml:space="preserve">
-    <value />
+    <value>Təhlükəsizlik</value>
   </data>
   <data name="select" xml:space="preserve">
-    <value />
+    <value>Seç</value>
   </data>
   <data name="selectSpecialist" xml:space="preserve">
-    <value> </value>
+    <value>Bu mütəxəssisi seçin</value>
     <comment>Choose this specialist</comment>
   </data>
   <data name="send" xml:space="preserve">
-    <value />
+    <value>Göndər</value>
   </data>
   <data name="service" xml:space="preserve">
-    <value> </value>
+    <value>Xidmət</value>
   </data>
   <data name="services" xml:space="preserve">
-    <value> </value>
+    <value>Xidmətlər</value>
   </data>
   <data name="showMore" xml:space="preserve">
-    <value> </value>
+    <value>Ətraflı göstər</value>
   </data>
   <data name="signUp" xml:space="preserve">
-    <value> </value>
+    <value>Qeydiyyatdan keç</value>
   </data>
   <data name="specialist" xml:space="preserve">
-    <value> </value>
+    <value>Mütəxəssis</value>
   </data>
   <data name="specialistAccountDescription" xml:space="preserve">
-    <value> </value>
+    <value>Xidmət axtarıram</value>
     <comment>I am looking for a job</comment>
   </data>
   <data name="specialistProfile" xml:space="preserve">
-    <value> </value>
+    <value>Mütəxəssisin hesabı</value>
   </data>
   <data name="specialization" xml:space="preserve">
-    <value />
+    <value>İxtisaslaşma</value>
   </data>
   <data name="stillStudy" xml:space="preserve">
-    <value />
+    <value>Hələ oxuyuram</value>
   </data>
   <data name="stillWorking" xml:space="preserve">
-    <value />
+    <value>Hələ işləyirəm</value>
   </data>
   <data name="studyPlaceName" xml:space="preserve">
-    <value />
+    <value>Təhsil müəssisəsinin adı</value>
   </data>
   <data name="subCategoryOrService" xml:space="preserve">
-    <value> </value>
+    <value>Alt kateqoriya və ya xidmət</value>
     <comment>Subcategory or service</comment>
   </data>
   <data name="surname" xml:space="preserve">
-    <value />
+    <value>Soyad</value>
   </data>
   <data name="termsAndCondition" xml:space="preserve">
-    <value> </value>
+    <value>Şərtlər və Qaydalar</value>
     <comment>Terms and Conditions</comment>
   </data>
   <data name="typeComment" xml:space="preserve">
-    <value> </value>
+    <value>Şərhinizi yazın</value>
     <comment>Type your comment</comment>
   </data>
   <data name="typeMessage" xml:space="preserve">
-    <value />
+    <value>Mesaj yazın</value>
   </data>
   <data name="uploadPhoto" xml:space="preserve">
-    <value />
+    <value>Fərqli bir şəkil yükləyin.</value>
     <comment>Upload a different photo.</comment>
   </data>
   <data name="uploadPortrait" xml:space="preserve">
-    <value />
+    <value>Portret yüklə</value>
   </data>
   <data name="uploadWork" xml:space="preserve">
-    <value />
+    <value>Görülmüş işinizin təsvirini yükləyin</value>
   </data>
   <data name="warning" xml:space="preserve">
-    <value />
+    <value>Təhlükə</value>
   </data>
   <data name="weFound" xml:space="preserve">
-    <value> </value>
+    <value>Tapıldı</value>
     <comment>We found</comment>
   </data>
   <data name="works" xml:space="preserve">
-    <value />
+    <value>İşlər</value>
   </data>
   <data name="your" xml:space="preserve">
-    <value />
+    <value>Sənin</value>
   </data>
   <data name="callUs" xml:space="preserve">
-    <value> </value>
+    <value>Bizə zəng edin</value>
     <comment>Call us at</comment>
   </data>
   <data name="careersAdvice" xml:space="preserve">
-    <value> </value>
+    <value>CAREERS TƏLİMATI</value>
     <comment>CAREERS ADVICE</comment>
   </data>
   <data name="careersWithUs" xml:space="preserve">
-    <value> </value>
+    <value>Bizimlə karyera</value>
   </data>
   <data name="contactUsDescription" xml:space="preserve">
-    <value> </value>
+    <value>24/7 qaynar xəttimiz mövcuddur</value>
     <comment>OUR HELPLINE 24X7 AVAILABLE</comment>
   </data>
   <data name="easyPay" xml:space="preserve">
-    <value> </value>
-    <comment>Easy pay money</comment>
+    <value>Easy pay</value>
+    <comment>Easy pay</comment>
   </data>
   <data name="easyPayDescription" xml:space="preserve">
-    <value> </value>
+    <value>Easy pay təsvir</value>
   </data>
   <data name="emailUs" xml:space="preserve">
-    <value> </value>
+    <value>və ya bizə email göndərin</value>
     <comment>or Email us at</comment>
   </data>
   <data name="findUs" xml:space="preserve">
-    <value> </value>
+    <value>Bizi bu ünvanda tapa bilərsiniz</value>
     <comment>You can Find us</comment>
   </data>
   <data name="forClients" xml:space="preserve">
-    <value> </value>
+    <value>MÜŞTƏRİLƏR ÜÇÜN</value>
     <comment>FOR CLIENTS</comment>
   </data>
   <data name="forSpecialists" xml:space="preserve">
-    <value> </value>
+    <value>MÜTƏXƏSSİSLƏR ÜÇÜN</value>
     <comment>FOR EMPLOYERS</comment>
   </data>
   <data name="happySupport" xml:space="preserve">
-    <value> </value>
+    <value>Texniki Dəstək</value>
   </data>
   <data name="happySupportDescription" xml:space="preserve">
-    <value> </value>
+    <value>Texniki Dəstək Təsvir</value>
   </data>
   <data name="howWeDo" xml:space="preserve">
-    <value> </value>
+    <value>BİZ BUNU NECƏ EDİRİK ?</value>
     <comment>HOW WE DO IT ?</comment>
   </data>
   <data name="howWeDoDescription" xml:space="preserve">
-    <value> </value>
+    <value>BİZ BUNU NECƏ EDİRİK ? TƏSVİR</value>
   </data>
   <data name="information" xml:space="preserve">
-    <value> </value>
+    <value>MƏLUMAT</value>
     <comment>INFORMATION</comment>
   </data>
   <data name="jobPage" xml:space="preserve">
-    <value> </value>
+    <value>İş səhifəsi</value>
   </data>
   <data name="jobSecurity" xml:space="preserve">
-    <value> </value>
+    <value>İş təhlükəsizliyi</value>
   </data>
   <data name="jobSecurityDescription" xml:space="preserve">
-    <value> </value>
+    <value>İş təhlükəsizliyi təsvir</value>
   </data>
   <data name="leaveMessage" xml:space="preserve">
-    <value> </value>
+    <value>MESAJ BURAX</value>
     <comment>LEAVE A MESSAGE</comment>
   </data>
   <data name="newOrderDescription" xml:space="preserve">
-    <value> </value>
+    <value>Yeni sifarişin təsviri</value>
   </data>
   <data name="notificationsDescription" xml:space="preserve">
-    <value> </value>
+    <value>Bildirişlərin təsviri</value>
   </data>
   <data name="ourCorporateResponsibility" xml:space="preserve">
-    <value> </value>
+    <value>Korporativ Məsuliyyətimiz</value>
     <comment>Our Corporate Responsibility</comment>
   </data>
   <data name="ourCorporateResponsibilityDescription" xml:space="preserve">
-    <value>Praesent in nisl egestas mauris aliquam luctus. Ut auctor faucibus orci, nec semper purus ultrices idorbi nec lorem risus orbi vitae felis gravida Pellentesque id eros quis massa convallis feugiat eu quis urna.</value>
+    <value>ARTO MMC</value>
   </data>
   <data name="ourVisions" xml:space="preserve">
-    <value> </value>
+    <value>Görüş və Missiyalarımız</value>
     <comment>Our Visions and Missions</comment>
   </data>
   <data name="ourVisionsDescription" xml:space="preserve">
-    <value>Praesent in nisl egestas mauris aliquam luctus. Ut auctor faucibus orci, nec semper purus ultrices idorbi nec lorem risus orbi vitae felis gravida Pellentesque id eros quis massa convallis feugiat eu quis urna.</value>
+    <value>2020</value>
   </data>
   <data name="privacyPolicy" xml:space="preserve">
-    <value> </value>
+    <value>Gizlilik Siyasəti</value>
     <comment>Privacy Policy</comment>
   </data>
   <data name="readMore" xml:space="preserve">
-    <value> </value>
+    <value>Ətraflı</value>
   </data>
   <data name="searchJobs" xml:space="preserve">
-    <value> </value>
+    <value>İş axtar</value>
   </data>
   <data name="searchJobsDescription" xml:space="preserve">
-    <value> </value>
+    <value>Axtarış İş Təsviri</value>
   </data>
   <data name="sitemap" xml:space="preserve">
-    <value> </value>
+    <value>Sayt xəritəsi</value>
   </data>
   <data name="subject" xml:space="preserve">
-    <value> </value>
+    <value>Mövzu</value>
   </data>
   <data name="viewAll" xml:space="preserve">
-    <value> </value>
+    <value>Hamısını göstər</value>
   </data>
   <data name="whoWeAre" xml:space="preserve">
-    <value> </value>
+    <value>BİZ KİMİK</value>
     <comment>WHO WE ARE</comment>
   </data>
   <data name="whoWeAreDescription" xml:space="preserve">
@@ -777,74 +777,72 @@
                     &lt;/div&gt;</value>
   </data>
   <data name="whoWeAreFooterDescription" xml:space="preserve">
-    <value>This is Photoshop's version of Lom Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum.
-
-Proin akshay handge vel velit auctor aliquet. Aenean sollicitudin,</value>
+    <value>ARTO</value>
   </data>
   <data name="whyWeDo" xml:space="preserve">
-    <value> </value>
+    <value>BUNU NİYƏ EDİRİK?</value>
     <comment>WHY WE DO IT ?</comment>
   </data>
   <data name="whyWeDoDescription" xml:space="preserve">
-    <value> </value>
+    <value>Niyə Təsvir edirik</value>
   </data>
   <data name="trendingKeywords" xml:space="preserve">
-    <value />
+    <value>Açar sözlər</value>
   </data>
   <data name="bestDeals" xml:space="preserve">
-    <value />
+    <value>ƏN ƏHƏMİYYƏTLƏRİ TƏKLİF</value>
     <comment>OFFERING THE BEST DEALS</comment>
   </data>
   <data name="chooseOrder" xml:space="preserve">
-    <value> </value>
+    <value>Sifarişi seçin</value>
   </data>
   <data name="chooseOrderDescription" xml:space="preserve">
-    <value> </value>
+    <value>Mütəxəssislə əlaqə qurmaq üçün sifarişi seçin.</value>
     <comment>Choose what order you want to contact a specialist.</comment>
   </data>
   <data name="clientsSay" xml:space="preserve">
-    <value> </value>
+    <value>MÜŞTƏRİLƏRİMİZ NƏ DEYİR?</value>
     <comment>WHAT CLIENTS SAY?</comment>
   </data>
   <data name="company" xml:space="preserve">
-    <value> </value>
+    <value>Şirkət</value>
   </data>
   <data name="editExperience" xml:space="preserve">
-    <value />
+    <value>Təcrübəni redaktə edin</value>
   </data>
   <data name="enterEmail" xml:space="preserve">
-    <value> </value>
+    <value>Email ünvanınızı daxil edin.</value>
     <comment>Enter your email.</comment>
   </data>
   <data name="error" xml:space="preserve">
-    <value> </value>
+    <value>Səhv</value>
   </data>
   <data name="haveOrder" xml:space="preserve">
-    <value> </value>
+    <value>Bu mütəxəssis üçün sifariş var.</value>
     <comment>You have an order for this specialist.</comment>
   </data>
   <data name="jobOverview" xml:space="preserve">
-    <value> </value>
+    <value>İşə baxış</value>
     <comment>Job overview</comment>
   </data>
   <data name="jobsAvailable" xml:space="preserve">
-    <value> </value>
+    <value>Mövcud işlər</value>
   </data>
   <data name="members" xml:space="preserve">
-    <value> </value>
+    <value>Üzvlər</value>
   </data>
   <data name="noOrder" xml:space="preserve">
-    <value> </value>
+    <value>Bu mütəxəssislə müzakirə etmək üçün bir sifariş yaradın.</value>
     <comment>Create an order to discuss it with this specialist.</comment>
   </data>
   <data name="pageIsNotAvailable" xml:space="preserve">
-    <value> </value>
+    <value>Üzr istəyirik, bu səhifə mövcud deyildir</value>
     <comment>Sorry, This Page Isn't available</comment>
   </data>
   <data name="redirect" xml:space="preserve">
-    <value> </value>
+    <value>Yönəltmək</value>
   </data>
   <data name="resumes" xml:space="preserve">
-    <value> </value>
+    <value>Xülasə</value>
   </data>
 </root>
