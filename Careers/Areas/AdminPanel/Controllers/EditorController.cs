@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Careers.Areas.AdminPanel.Models.ViewModels;
@@ -54,7 +55,7 @@ namespace Careers.Areas.AdminPanel.Controllers
             var categories = await categoryService.GetAllCategories();
             var model = new SubCategoryViewModel
             {
-                Categories = categories.Select(x => 
+                Categories = categories.Select(x =>
                 new SelectListItem(x.DescriptionAZ + " - " + x.DescriptionRU, x.Id.ToString()))
                 .ToList()
             };
@@ -75,11 +76,29 @@ namespace Careers.Areas.AdminPanel.Controllers
             return RedirectToAction("SubCategories");
         }
 
-        public IActionResult Services()
+        public async Task<IActionResult> Services()
         {
-            var model = new ServiceViewModel();
+            var isRu = CultureInfo.CurrentCulture.Name == "ru-RU";
+            var categories = new List<Category>();
+            categories.Add(new Category { Id = 0, DescriptionRU = "Выберите категорию", DescriptionAZ = "Kateqoriya seçin" });
+            categories.AddRange(await categoryService.GetAllCategories());
+            var model = new ServiceViewModel
+            {
+                Categories = new SelectList(categories, "Id", isRu ? "DescriptionRU" : "DescriptionAZ"),
+                SubCategories = new SelectList(new[] { new { Id = 0, Text = isRu ? "Выберите подкатегорию" : "Alt kateqoriyanı seçin" } }, "Id", "Text")
+            };
 
             return View(model);
+        }
+
+        public async Task<IActionResult> SubCategoryOptions(int categoryId)
+        {
+            var isRu = CultureInfo.CurrentCulture.Name == "ru-RU";
+            var subCategories = await categoryService.GetAllSubCategories(categoryId);
+            var selectItems = new List<SelectListItem>();
+            selectItems.Add(new SelectListItem(isRu ? "Выберите подкатегорию" : "Alt kateqoriyanı seçin", 0.ToString()));
+            selectItems.AddRange(subCategories.Select(m => new SelectListItem(isRu ? m.DescriptionRU : m.DescriptionAZ, m.Id.ToString())));
+            return PartialView("_SelectOptionsPartial", selectItems);
         }
 
         [HttpPost]

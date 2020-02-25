@@ -1,8 +1,8 @@
 ﻿@model SubCategoryViewModel
 
-<div class=" container mt-5">
+<div class="container mt-5">
 
-    <form  asp-action="SubCategories" asp-controller="Editor" asp-area="AdminPanel">
+    <form asp-action="SubCategories" asp-controller="Editor" asp-area="AdminPanel">
 
         <select asp-for="CategoryId" asp-items="@Model.Categories">
             <option>Please select one</option>
