@@ -19,7 +19,7 @@ namespace Careers.Models
         public IEnumerable<Answer> Answers { get; set; }
         public IEnumerable<ClientAnswer> ClientAnswers { get; set; }
 
-       // public IEnumerable<QuestionAnswer> QuestionAnswers { get; set; }
+        //public IEnumerable<QuestionAnswer> QuestionAnswers { get; set; }
         //public IEnumerable<Answer> FromAnswers { get; set; }
         //public IEnumerable<DefaultQuestion> DefaultQuestions { get; set; }
     }

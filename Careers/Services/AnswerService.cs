@@ -98,5 +98,12 @@ namespace Careers.Services
            var result= await _context.ClientAnswers.AddAsync(answer);
             return result.Entity;
         }
+
+        public async Task<Answer> InsertAsync(Answer answer)
+        {
+            var ans=_context.Answers.Add(answer);
+            await _context.SaveChangesAsync();
+            return ans.Entity;
+        }
     }
 }

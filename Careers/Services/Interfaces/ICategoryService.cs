@@ -13,6 +13,7 @@ namespace Careers.Services.Interfaces
         
         Task<Category> InsertAsync(Category category);
         Task<SubCategory> InsertAsync(SubCategory subCategory);
+        Task<Service> InsertAsync(Service service);
         Task<Category> UpdateAsync(Category category);
         Task<SubCategory> UpdateAsync(SubCategory subCategory);
         Task<bool> DeleteAsync(Category category);
@@ -35,6 +36,7 @@ namespace Careers.Services.Interfaces
         Task<Models.SpecialistService> UpdateSpecialistServiceAsync(Models.SpecialistService specialistService);
         Task<bool> RemoveFromSpecialistAsync(int specialistId, int id);
         Task<IEnumerable<Measurement>> FindAllMeasurements();
+        Task<bool> AddMeasurementAsync(Measurement measurement);
         Task<SubCategory> GetSubCategoryAsync(int subCategoryId);
     }
 }

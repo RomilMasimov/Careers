@@ -1,0 +1,22 @@
+﻿@model CategoryViewModel
+
+
+<div class="container mt-5">
+    <form asp-action="Categories" asp-controller="Editor" asp-area="AdminPanel" method="post">
+        <input asp-for="DescriptionAZ" class="form-control" placeholder="Aze">
+        <span asp-validation-for="DescriptionRU" class="text-danger"></span>
+
+        <input asp-for="DescriptionRU" class="form-control" placeholder="Rus">
+        <span asp-validation-for="DescriptionRU" class="text-danger"></span>
+
+        <button> Save</button>
+    </form>
+
+    <div >
+        @foreach (var item in Model.Categories)
+        {
+            <p>@item.DescriptionAZ - @item.DescriptionRU </p> 
+        }
+    </div>
+
+</div>

@@ -1,0 +1,21 @@
+﻿@model MeasurmentViewModel
+
+<div class="container mt-5">
+    <form asp-action="Measurments" asp-controller="Editor" asp-area="AdminPanel" method="post">
+        <input asp-for="TextAZ" class="form-control" placeholder="Aze">
+        <span asp-validation-for="TextAZ" class="text-danger"></span>
+
+        <input asp-for="TextRU" class="form-control" placeholder="Rus">
+        <span asp-validation-for="TextRU" class="text-danger"></span>
+
+        <button> Save</button>
+    </form>
+
+    <div>
+        @foreach (var item in Model.Measurements)
+        {
+            <p>@item.TextAZ - @item.TextRU </p>
+        }
+    </div>
+
+</div>

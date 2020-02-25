@@ -204,5 +204,19 @@ namespace Careers.Services
             }
             return false;
         }
+
+        public async Task<bool> AddMeasurementAsync(Measurement measurement)
+        {
+            context.Measurements.Add(measurement);
+            var res = await context.SaveChangesAsync();
+            return res > 0;
+        }
+
+        public async Task<Service> InsertAsync(Service service)
+        {
+            var res = context.Services.Add(service);
+            await context.SaveChangesAsync();
+            return res.Entity;
+        }
     }
 }
