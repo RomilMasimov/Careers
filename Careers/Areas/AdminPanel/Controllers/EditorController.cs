@@ -7,6 +7,7 @@ using Careers.Models;
 using Careers.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Careers.Areas.AdminPanel.Controllers
 {
@@ -52,9 +53,15 @@ namespace Careers.Areas.AdminPanel.Controllers
             return RedirectToAction("Categories");
         }
 
-        public IActionResult SubCategories()
+        public async Task<IActionResult> SubCategoriesAsync()
         {
-            var model = new CategoryViewModel();
+            var categories = await categoryService.GetAllCategories();
+            var model = new SubCategoryViewModel
+            {
+                Categories = categories.Select(x => 
+                new SelectListItem(x.DescriptionAZ + " - " + x.DescriptionRU, x.Id.ToString()))
+                .ToList()
+            };
 
             return View(model);
         }
@@ -75,7 +82,7 @@ namespace Careers.Areas.AdminPanel.Controllers
         public IActionResult Services()
         {
             var model = new ServiceViewModel();
-            
+
             return View(model);
         }
 
