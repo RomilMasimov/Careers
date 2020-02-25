@@ -5,21 +5,21 @@
     <form asp-area="AdminPanel" asp-controller="Editor" asp-action="Services" method="post">
         <div class="form-group">
             <label for="categories">Category</label>
-            <select asp-items="@Model.Categories" class="form-control" id="categories"></select>
+            <select asp-items="@Model.Categories" class="form-control" id="categories" required></select>
         </div>
         <div class="form-group">
             <label for="subCategories">SubCategory</label>
-            <select asp-for="@Model.SubCateoryId" asp-items="@Model.SubCategories" class="form-control" id="subCategories"></select>
+            <select asp-for="@Model.SubCateoryId" asp-items="@Model.SubCategories" class="form-control" id="subCategories" required></select>
         </div>
         <div class="form-group">
             <label for="desctiprionAz">Description AZ</label>
-            <input asp-for="DescriptionAZ" class="form-control" data-input id="desctiprionAz" readonly>
+            <input asp-for="DescriptionAZ" class="form-control" data-input id="desctiprionAz" readonly required>
         </div>
         <div class="form-group">
             <label for="desctiprionRu">Description RU</label>
-            <input asp-for="DescriptionRU" class="form-control" data-input id="desctiprionRu" readonly>
+            <input asp-for="DescriptionRU" class="form-control" data-input id="desctiprionRu" readonly required>
         </div>
-        <button type="submit" class="btn btn-primary">Add</button>
+        <button type="submit" id="submitForm" class="btn btn-primary" disabled>Add</button>
     </form>
 </div>
 
@@ -44,9 +44,11 @@
             let subCategoryId = $('#subCategories option:selected').first().val();
             if (subCategoryId == 0) {
                 $('[data-input]').attr('readonly', 'readonly');
+                $('#submitForm').attr('disabled', 'disabled');
                 $('#services').children().slice(1).remove();
             } else {
                 $('[data-input]').removeAttr('readonly');
+                $('#submitForm').removeAttr('readonly');
             }
         };
     </script>

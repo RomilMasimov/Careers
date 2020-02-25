@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Careers.Areas.AdminPanel.Models.ViewModels;
 using Careers.Models;
+using Careers.Models.Enums;
 using Careers.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -114,11 +115,30 @@ namespace Careers.Areas.AdminPanel.Controllers
             return RedirectToAction("Services");
         }
 
-        public IActionResult Questions()
+        public async Task<IActionResult> Questions()
         {
-            var model = new QuestionViewModel();
+            var isRu = CultureInfo.CurrentCulture.Name == "ru-RU";
+            var categories = new List<Category>();
+            categories.Add(new Category { Id = 0, DescriptionRU = "Выберите категорию", DescriptionAZ = "Kateqoriya seçin" });
+            categories.AddRange(await categoryService.GetAllCategories());
+            var model = new QuestionViewModel
+            {
+                Categories = new SelectList(categories, "Id", isRu ? "DescriptionRU" : "DescriptionAZ"),
+                SubCategories = new SelectList(new[] { new { Id = 0, Text = isRu ? "Выберите подкатегорию" : "Alt kateqoriyanı seçin" } }, "Id", "Text"),
+                Services = new SelectList(new[] { new { Id = 0, Text = isRu ? "Выберите услугу" : "Xidməti seçin" } }, "Id", "Text")
+            };
 
             return View(model);
+        }
+
+        public async Task<IActionResult> ServicesOptions(int subCategoryId)
+        {
+            var isRu = CultureInfo.CurrentCulture.Name == "ru-RU";
+            var services = await categoryService.GetServicesAsync(subCategoryId);
+            var selectItems = new List<SelectListItem>();
+            selectItems.Add(new SelectListItem(isRu ? "Выберите услугу" : "Xidməti seçin", 0.ToString())); //TODO add localization
+            selectItems.AddRange(services.Select(m => new SelectListItem(isRu ? m.DescriptionRU : m.DescriptionAZ, m.Id.ToString())));
+            return PartialView("_SelectOptionsPartial", selectItems);
         }
 
         [HttpPost]
