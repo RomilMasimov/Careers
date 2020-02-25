@@ -1,16 +1,27 @@
-﻿
-@{
-    Layout ="_Layout";
-}
+﻿<div class="container mt-5">
 
-<!DOCTYPE html>
+    <a class="btn btn-primary" role="button" asp-controller="Editor" asp-action="Answers" asp-area="AdminPanel">
+        Answers
+    </a>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-    <h1>hello from admin area</h1>
-</body>
-</html>
+    <a class="btn btn-primary" role="button" asp-controller="Editor" asp-action="Categories" asp-area="AdminPanel">
+        Categories
+    </a>
+
+    <a class="btn btn-primary" role="button" asp-controller="Editor" asp-action="Measurments" asp-area="AdminPanel">
+        Measurments
+    </a>
+
+    <a class="btn btn-primary" role="button" asp-controller="Editor" asp-action="Questions" asp-area="AdminPanel">
+        Questions
+    </a>
+
+    <a class="btn btn-primary" role="button" asp-controller="Editor" asp-action="Services" asp-area="AdminPanel">
+        Services
+    </a>
+
+    <a class="btn btn-primary" role="button" asp-controller="Editor" asp-action="SubCategories" asp-area="AdminPanel">
+        SubCategories
+    </a>
+
+</div>

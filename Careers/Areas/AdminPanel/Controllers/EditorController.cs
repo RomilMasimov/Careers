@@ -26,10 +26,6 @@ namespace Careers.Areas.AdminPanel.Controllers
             this.answerService = answerService;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
 
         public async Task<IActionResult> Categories()
         {
