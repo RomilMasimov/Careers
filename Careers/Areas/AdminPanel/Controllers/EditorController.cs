@@ -147,6 +147,7 @@ namespace Careers.Areas.AdminPanel.Controllers
             return View(model);
         }
 
+        [HttpPost]
         public IActionResult Measurments(MeasurmentViewModel model)
         {
             categoryService.AddMeasurementAsync(new Measurement
