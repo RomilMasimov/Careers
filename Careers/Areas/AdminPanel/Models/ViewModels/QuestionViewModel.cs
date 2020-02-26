@@ -15,7 +15,7 @@ namespace Careers.Areas.AdminPanel.Models.ViewModels
         public int SubCategoryId { get;  set; }
         public int? ServiceId { get;  set; }
 
-        public SelectList Categories { get; set; }
+        public List<SelectListItem> Categories { get; set; }
         public SelectList SubCategories { get; set; }
         public SelectList Services { get; set; }
     }

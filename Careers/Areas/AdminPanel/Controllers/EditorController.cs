@@ -79,26 +79,24 @@ namespace Careers.Areas.AdminPanel.Controllers
 
         public async Task<IActionResult> Services()
         {
-            var isRu = CultureInfo.CurrentCulture.Name == "ru-RU";
             var categories = new List<Category>();
             categories.Add(new Category { Id = 0, DescriptionRU = "Выберите категорию", DescriptionAZ = "Kateqoriya seçin" });
             categories.AddRange(await categoryService.GetAllCategories());
             var model = new ServiceViewModel
             {
-                Categories = new SelectList(categories, "Id", isRu ? "DescriptionRU" : "DescriptionAZ"),
-                SubCategories = new SelectList(new[] { new { Id = 0, Text = isRu ? "Выберите подкатегорию" : "Alt kateqoriyanı seçin" } }, "Id", "Text")
+                Categories = categories.Select(x =>
+               new SelectListItem(x.DescriptionAZ + " - " + x.DescriptionRU, x.Id.ToString())).ToList(),
+                SubCategories = new SelectList(new[] { new { Id = 0, Text = "Выберите подкатегорию" } }, "Id", "Text")
             };
-
             return View(model);
         }
 
         public async Task<IActionResult> SubCategoryOptions(int categoryId)
         {
-            var isRu = CultureInfo.CurrentCulture.Name == "ru-RU";
             var subCategories = await categoryService.GetAllSubCategories(categoryId);
             var selectItems = new List<SelectListItem>();
-            selectItems.Add(new SelectListItem(isRu ? "Выберите подкатегорию" : "Alt kateqoriyanı seçin", 0.ToString()));
-            selectItems.AddRange(subCategories.Select(m => new SelectListItem(isRu ? m.DescriptionRU : m.DescriptionAZ, m.Id.ToString())));
+            selectItems.Add(new SelectListItem("Выберите подкатегорию", "0"));
+            selectItems.AddRange(subCategories.Select(m => new SelectListItem(m.DescriptionAZ + " - " + m.DescriptionRU, m.Id.ToString())));
             return PartialView("_SelectOptionsPartial", selectItems);
         }
 
@@ -117,15 +115,16 @@ namespace Careers.Areas.AdminPanel.Controllers
 
         public async Task<IActionResult> Questions()
         {
-            var isRu = CultureInfo.CurrentCulture.Name == "ru-RU";
             var categories = new List<Category>();
             categories.Add(new Category { Id = 0, DescriptionRU = "Выберите категорию", DescriptionAZ = "Kateqoriya seçin" });
             categories.AddRange(await categoryService.GetAllCategories());
+
             var model = new QuestionViewModel
             {
-                Categories = new SelectList(categories, "Id", isRu ? "DescriptionRU" : "DescriptionAZ"),
-                SubCategories = new SelectList(new[] { new { Id = 0, Text = isRu ? "Выберите подкатегорию" : "Alt kateqoriyanı seçin" } }, "Id", "Text"),
-                Services = new SelectList(new[] { new { Id = 0, Text = isRu ? "Выберите услугу" : "Xidməti seçin" } }, "Id", "Text")
+                Categories = categories.Select(x =>
+               new SelectListItem(x.DescriptionAZ + " - " + x.DescriptionRU, x.Id.ToString())).ToList(),
+                SubCategories = new SelectList(new[] { new { Id = 0, Text = "Выберите подкатегорию" } }, "Id", "Text"),
+                Services = new SelectList(new[] { new { Id = 0, Text = "Выберите услугу" } }, "Id", "Text")
             };
 
             return View(model);
@@ -136,8 +135,8 @@ namespace Careers.Areas.AdminPanel.Controllers
             var isRu = CultureInfo.CurrentCulture.Name == "ru-RU";
             var services = await categoryService.GetServicesAsync(subCategoryId);
             var selectItems = new List<SelectListItem>();
-            selectItems.Add(new SelectListItem(isRu ? "Выберите услугу" : "Xidməti seçin", 0.ToString())); //TODO add localization
-            selectItems.AddRange(services.Select(m => new SelectListItem(isRu ? m.DescriptionRU : m.DescriptionAZ, m.Id.ToString())));
+            selectItems.Add(new SelectListItem(isRu ? "Выберите услугу" : "Xidməti seçin", "0"));
+            selectItems.AddRange(services.Select(m => new SelectListItem(m.DescriptionAZ + " - " + m.DescriptionRU, m.Id.ToString())));
             return PartialView("_SelectOptionsPartial", selectItems);
         }
 
