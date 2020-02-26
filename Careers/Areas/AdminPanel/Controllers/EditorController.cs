@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -50,7 +49,7 @@ namespace Careers.Areas.AdminPanel.Controllers
             return RedirectToAction("Categories");
         }
 
-        public async Task<IActionResult> SubCategoriesAsync()
+        public async Task<IActionResult> SubCategories()
         {
             var categories = await categoryService.GetAllCategories();
             var model = new SubCategoryViewModel
@@ -78,28 +77,19 @@ namespace Careers.Areas.AdminPanel.Controllers
 
         public async Task<IActionResult> Services()
         {
-            var isRu = CultureInfo.CurrentCulture.Name == "ru-RU";
             var categories = new List<Category>();
             categories.Add(new Category { Id = 0, DescriptionRU = "Выберите категорию", DescriptionAZ = "Kateqoriya seçin" });
             categories.AddRange(await categoryService.GetAllCategories());
             var model = new ServiceViewModel
             {
-                Categories = new SelectList(categories, "Id", isRu ? "DescriptionRU" : "DescriptionAZ"),
-                SubCategories = new SelectList(new[] { new { Id = 0, Text = isRu ? "Выберите подкатегорию" : "Alt kateqoriyanı seçin" } }, "Id", "Text")
+                Categories = categories.Select(x =>
+               new SelectListItem(x.DescriptionAZ + " - " + x.DescriptionRU, x.Id.ToString())).ToList(),
+                SubCategories = new SelectList(new[] { new { Id = 0, Text = "Выберите подкатегорию" } }, "Id", "Text")
             };
-
             return View(model);
         }
 
-        public async Task<IActionResult> SubCategoryOptions(int categoryId)
-        {
-            var isRu = CultureInfo.CurrentCulture.Name == "ru-RU";
-            var subCategories = await categoryService.GetAllSubCategories(categoryId);
-            var selectItems = new List<SelectListItem>();
-            selectItems.Add(new SelectListItem(isRu ? "Выберите подкатегорию" : "Alt kateqoriyanı seçin", 0.ToString()));
-            selectItems.AddRange(subCategories.Select(m => new SelectListItem(isRu ? m.DescriptionRU : m.DescriptionAZ, m.Id.ToString())));
-            return PartialView("_SelectOptionsPartial", selectItems);
-        }
+
 
         [HttpPost]
         public async Task<IActionResult> Services(ServiceViewModel model)
@@ -114,9 +104,19 @@ namespace Careers.Areas.AdminPanel.Controllers
             return RedirectToAction("Services");
         }
 
-        public IActionResult Questions()
+        public async Task<IActionResult> Questions()
         {
-            var model = new QuestionViewModel();
+            var categories = new List<Category>();
+            categories.Add(new Category { Id = 0, DescriptionRU = "Выберите категорию", DescriptionAZ = "Kateqoriya seçin" });
+            categories.AddRange(await categoryService.GetAllCategories());
+
+            var model = new QuestionViewModel
+            {
+                Categories = categories.Select(x =>
+               new SelectListItem(x.DescriptionAZ + " - " + x.DescriptionRU, x.Id.ToString())).ToList(),
+                SubCategories = new SelectList(new[] { new { Id = 0, Text = "Выберите подкатегорию" } }, "Id", "Text"),
+                Services = new SelectList(new[] { new { Id = 0, Text = "Выберите услугу" } }, "Id", "Text")
+            };
 
             return View(model);
         }
@@ -136,9 +136,22 @@ namespace Careers.Areas.AdminPanel.Controllers
             return RedirectToAction("Questions");
         }
 
-        public IActionResult Answers()
+        public async Task<IActionResult> Answers()
         {
-            var model = new AnswerViewModel();
+
+            var categories = new List<Category>();
+            categories.Add(new Category { Id = 0, DescriptionRU = "Выберите категорию", DescriptionAZ = "Kateqoriya seçin" });
+            categories.AddRange(await categoryService.GetAllCategories());
+
+            var model = new AnswerViewModel
+            {
+                Categories = categories.Select(x =>
+               new SelectListItem(x.DescriptionAZ + " - " + x.DescriptionRU, x.Id.ToString())).ToList(),
+                SubCategories = new SelectList(new[] { new { Id = 0, Text = "Выберите подкатегорию" } }, "Id", "Text"),
+                Services = new SelectList(new[] { new { Id = 0, Text = "Выберите услугу" } }, "Id", "Text"),
+                Questions = new SelectList(new[] { new { Id = 0, Text = "Выберите вопрос" } }, "Id", "Text")
+            };
+
 
             return View(model);
         }
@@ -177,5 +190,37 @@ namespace Careers.Areas.AdminPanel.Controllers
 
             return RedirectToAction("Measurments");
         }
+
+
+        public async Task<IActionResult> SubCategoryOptions(int categoryId)
+        {
+            var subCategories = await categoryService.GetAllSubCategories(categoryId);
+            var selectItems = new List<SelectListItem>();
+            selectItems.Add(new SelectListItem("Выберите подкатегорию", "0"));
+            selectItems.AddRange(subCategories.Select(m => new SelectListItem(m.DescriptionAZ + " - " + m.DescriptionRU, m.Id.ToString())));
+            return PartialView("_SelectOptionsPartial", selectItems);
+        }
+
+        public async Task<IActionResult> ServicesOptions(int subCategoryId)
+        {
+            var services = await categoryService.GetServicesAsync(subCategoryId);
+            var selectItems = new List<SelectListItem>();
+            selectItems.Add(new SelectListItem("Выберите услугу", "0"));
+            selectItems.AddRange(services.Select(m => new SelectListItem(m.DescriptionAZ + " - " + m.DescriptionRU, m.Id.ToString())));
+            return PartialView("_SelectOptionsPartial", selectItems);
+        }
+
+        public async Task<IActionResult> QuestionOptions(int subCategoryId, int serviceId)
+        {
+            var questions = serviceId > 0 ?
+                await questionService.FindAllAsync(subCategoryId, serviceId) :
+                await questionService.FindAllAsync(subCategoryId);
+
+            var selectItems = new List<SelectListItem>();
+            selectItems.Add(new SelectListItem("Выберите вопрос", "0"));
+            selectItems.AddRange(questions.Select(m => new SelectListItem(m.TextAZ + " - " + m.TextRU, m.Id.ToString())));
+            return PartialView("_SelectOptionsPartial", selectItems);
+        }
+
     }
 }

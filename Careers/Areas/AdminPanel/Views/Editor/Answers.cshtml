@@ -1,1 +1,82 @@
 ﻿@model AnswerViewModel
+
+
+<div class="container">
+    <h1 class="my-3">Add question</h1>
+    <form asp-area="AdminPanel" asp-controller="Editor" asp-action="Questions" method="post">
+        <div class="form-group">
+            <label for="categories">Category</label>
+            <select asp-items="@Model.Categories" class="form-control" id="categories" required></select>
+        </div>
+        <div class="form-group">
+            <label for="subCategories">SubCategory</label>
+            <select asp-items="@Model.SubCategories" class="form-control" id="subCategories" required></select>
+        </div>
+        <div class="form-group">
+            <label for="subCategories">Service</label>
+            <select asp-items="@Model.Services" class="form-control" id="services" required></select>
+        </div>
+        <div class="form-group">
+            <label for="subCategories">Questions</label>
+            <select asp-for="@Model.QuestionId" asp-items="@Model.Questions" class="form-control" id="questions" required></select>
+        </div>
+        <div class="form-group">
+            <label for="textAz">Text AZ</label>
+            <input asp-for="TextAZ" class="form-control" data-input id="textAz" readonly required>
+        </div>
+        <div class="form-group">
+            <label for="textRu">Text RU</label>
+            <input asp-for="TextRU" class="form-control" data-input id="textRu" readonly required>
+        </div>
+        <button type="submit" id="submitForm" class="btn btn-primary">Add</button>
+    </form>
+</div>
+
+
+@section Scripts {
+    <script>
+        $('#categories').change(categoriesLoaded);
+        $('#subCategories').change(subCategoriesLoaded);
+        $('#services').change(servicesLoaded);
+      
+
+
+        async function categoriesLoaded() {
+            let categoryId = $('#categories option:selected').first().val();
+            if (categoryId == 0) {
+                $('#subCategories').children().slice(1).remove();
+            } else {
+                let url ='@Url.Action("SubCategoryOptions", "Editor", new { categoryId = 719 })';
+                url = url.replace("719", categoryId);
+                let subCategories = await (await fetch(url)).text();
+                $('#subCategories').html(subCategories);
+            }
+        };
+
+        async function subCategoriesLoaded() {
+            let subCategoryId = $('#subCategories option:selected').first().val();
+            if (subCategoryId == 0) {
+                $('[data-input]').attr('readonly', 'readonly');
+                $('#submitForm').attr('disabled', 'disabled');
+                $('#services').children().slice(1).remove();
+            } else {
+                let url ='@Url.Action("ServicesOptions", "Editor", new { subCategoryId = 719 })';
+                url = url.replace("719", subCategoryId);
+                let services = await (await fetch(url)).text();
+                $('#services').html(services);
+                $('[data-input]').removeAttr('readonly');
+            }
+        };
+
+        async function servicesLoaded() {
+            let serviceId = $('#services option:selected').first().val();
+            let subCategoryId = $('#subCategories option:selected').first().val();
+
+            let url = '@Url.Action("QuestionOptions", "Editor")?' +`subCategoryId=${subCategoryId}&serviceId=${serviceId}`;
+            let questions = await (await fetch(url)).text();
+            $('#questions').html(questions);
+            $('#submitForm').removeAttr('readonly');
+        };
+
+    </script>
+}
