@@ -1,21 +1,23 @@
 ﻿@model MeasurmentViewModel
 
 <div class="container mt-5">
+    <h1>Add measurment</h1>
     <form asp-action="Measurments" asp-controller="Editor" asp-area="AdminPanel" method="post">
-        <input asp-for="TextAZ" class="form-control" placeholder="Aze">
-        <span asp-validation-for="TextAZ" class="text-danger"></span>
-
-        <input asp-for="TextRU" class="form-control" placeholder="Rus">
-        <span asp-validation-for="TextRU" class="text-danger"></span>
-
-        <button> Save</button>
+        <div class="form-group">
+            <label for="textAz">Text AZ</label>
+            <input asp-for="TextAZ" class="form-control" data-input id="textAz" required>
+        </div>
+        <div class="form-group">
+            <label for="textRu">Text RU</label>
+            <input asp-for="TextRU" class="form-control" data-input id="textRu" required>
+        </div>
+        <button type="submit" id="submitForm" class="btn btn-primary">Add</button>
     </form>
 
-    <div>
+    <ul class="mt-3 list-group">
         @foreach (var item in Model.Measurements)
         {
-            <p>@item.TextAZ - @item.TextRU </p>
+            <li class="list-group-item">@item.TextAZ - @item.TextRU</li>
         }
-    </div>
-
+    </ul>
 </div>
