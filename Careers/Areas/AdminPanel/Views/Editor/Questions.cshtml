@@ -28,7 +28,7 @@
             <label for="textRu">Text RU</label>
             <input asp-for="TextRU" class="form-control" data-input id="textRu" readonly required>
         </div>
-        <button type="submit" id="submitForm" class="btn btn-primary" >Add</button>
+        <button type="submit" id="submitForm" class="btn btn-primary">Add</button>
     </form>
 </div>
 
@@ -36,7 +36,7 @@
     <script>
         $('#categories').change(categoriesLoaded);
         $('#subCategories').change(subCategoriesLoaded);
-        $('#services').change(servicesLoaded);
+        //$('#services').change(servicesLoaded);
 
         async function categoriesLoaded() {
             let categoryId = $('#categories option:selected').first().val();
@@ -66,7 +66,7 @@
             }
         };
 
-        async function servicesLoaded() {
+        @*async function servicesLoaded() {
             let serviceId = $('#services option:selected').first().val();
             let subCategoryId = $('#subCategories option:selected').first().val();
             if (serviceId == 0) {
@@ -74,6 +74,7 @@
                 url = url.replace("719", subCategoryId);
                 let questions = await (await fetch(url)).text();
             }
-        };
+        };*@
+
     </script>
 }
